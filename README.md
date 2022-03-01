@@ -5,4 +5,6 @@
 ```bash
 git submodule update --init --recursive
 hugo server -w
+
+# CNAME file shall put in dir: static/
 ```
