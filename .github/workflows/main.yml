@@ -45,6 +45,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3.8.0
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          EXTERNAL_REPOSITORY: redisread/redisread.github.io
+          EXTERNAL_REPOSITORY: xwi88/xwi88.github.io
           PUBLISH_BRANCH: main
           PUBLISH_DIR: ./public
