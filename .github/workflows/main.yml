@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 1   # Fetch latest history for .GitInfo and .Lastmod
+          fetch-depth: 0   # Fetch all history for .GitInfo and .Lastmod
       
       - name: Hugo setup
         # You may pin to the exact commit or the version.
@@ -43,8 +43,9 @@ jobs:
       # push the generated content into the `main` branch.
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3.8.0
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          EXTERNAL_REPOSITORY: xwi88/xwi88.github.io
-          PUBLISH_BRANCH: main
-          PUBLISH_DIR: ./public
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: xwi88/xwi88.github.io
+          publish_branch: main
+          publish_dir: ./public
+          commit_message: ${{ github.event.head_commit.message }}
