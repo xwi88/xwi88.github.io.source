@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # checkout to the commit that has been pushed
+      - uses: actions/checkout@v2
+        with:
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 1   # Fetch latest history for .GitInfo and .Lastmod
+      
+      - name: Hugo setup
+        # You may pin to the exact commit or the version.
+        # uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
+        uses: peaceiris/actions-hugo@v2.4.13
+        with:
+          # The Hugo version to download (if necessary) and use. Example: 0.58.2
+          hugo-version: '0.93.0' # optional, default is latest
+          # Download (if necessary) and use Hugo extended version. Example: true
+          extended: true # optional, default is false
+      
+      # build website
+      - name: Build
+        run: hugo -D
+      
+      # push the generated content into the `main` branch.
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3.8.0
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          EXTERNAL_REPOSITORY: redisread/redisread.github.io
+          PUBLISH_BRANCH: main
+          PUBLISH_DIR: ./public
