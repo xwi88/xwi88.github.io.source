@@ -676,7 +676,7 @@ enableEmoji = true
       # Valine comment config (https://github.com/xCss/Valine)
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
-        enable = true
+        enable = false
         appId = "DPCHoH6wcVVuj1oDKc0YbbKE-MdYXbMMI"
         appKey = "SeriSQWEfQtASuwdOicQdK0h"
         placeholder = "your commend ..."
@@ -729,11 +729,11 @@ enableEmoji = true
       # Utterances comment config (https://utteranc.es/)
       # Utterances comment 评论系统设置 (https://utteranc.es/)
       [params.page.comment.utterances]
-        enable = false
+        enable = true
         # owner/repo
-        repo = ""
+        repo = "xwi88/hugo-comment"
         issueTerm = "pathname"
-        label = ""
+        label = "" # default Comment
         lightTheme = "github-light"
         darkTheme = "github-dark"
     # Third-party library config
