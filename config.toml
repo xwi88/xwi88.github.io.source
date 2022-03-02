@@ -94,6 +94,14 @@ enableEmoji = true
         url = "https://github.com/xwi88/xwi88.github.io"
         title = "GitHub"
         weight = 6
+      [[languages.en.menu.main]]
+        identifier = "xtab"
+        pre = ""
+        post = ""
+        name = "XTab"
+        url = "/xtab/"
+        title = ""
+        weight = 5
     [languages.en.params]
       # site description
       description = "Tech Blog Share"

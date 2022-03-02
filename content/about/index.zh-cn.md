@@ -7,6 +7,8 @@ lightgallery: true
 
 math:
   enable: true
+
+comment: false
 ---
 
 ## TODO
