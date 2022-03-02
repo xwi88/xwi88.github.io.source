@@ -38,7 +38,7 @@ enableEmoji = true
     # default amount of posts in each pages
     paginate = 12
     # [UA-XXXXXXXX-X] google analytics code
-    googleAnalytics = ""
+    googleAnalytics = "G-78W9SMKZVE"
     # copyright description used only for seo schema
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
@@ -240,7 +240,7 @@ enableEmoji = true
     # 默认每页列表显示的文章数目
     paginate = 12
     # [UA-XXXXXXXX-X] 谷歌分析代号
-    googleAnalytics = ""
+    googleAnalytics = "G-78W9SMKZVE"
     # 版权描述，仅仅用于 SEO
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # 菜单配置
@@ -436,10 +436,11 @@ enableEmoji = true
   defaultTheme = "auto"
   # public git repo url only then enableGitInfo is true
   # 公共 git 仓库路径，仅在 enableGitInfo 设为 true 时有效
-  gitRepo = "https://github.com/xwi88/LoveIt.git"
+  # blog source code, not .git suffix
+  gitRepo = "https://github.com/xwi88/xwi88.github.io.source"
   # which hash function used for SRI, when empty, no SRI is used ("sha256", "sha384", "sha512", "md5")
   # 哪种哈希函数用来 SRI, 为空时表示不使用 SRI ("sha256", "sha384", "sha512", "md5")
-  fingerprint = ""
+  fingerprint = "sha256"
   # date format
   # 日期格式
   dateFormat = "2006-01-02"
@@ -678,16 +679,19 @@ enableEmoji = true
         enable = true
         appId = "DPCHoH6wcVVuj1oDKc0YbbKE-MdYXbMMI"
         appKey = "SeriSQWEfQtASuwdOicQdK0h"
-        placeholder = ""
+        placeholder = "your commend ..."
         avatar = "mp"
-        meta= ""
+        # meta= ""
+        meta = ['nick','mail','link']
         pageSize = 10
-        lang = ""
+        lang = "en"
         visitor = true
         recordIP = true
         highlight = true
-        enableQQ = false
-        serverURLs = "https://leancloud.hugoloveit.com"
+        enableQQ = true
+        serverURLs = "https://dpchoh6w.api.lncldglobal.com"
+        # internal version can auto detect, no need set serverURLs
+        # serverURLs = "https://leancloud.hugoloveit.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
         # located in "themes/LoveIt/assets/data/emoji/" directory
@@ -795,10 +799,10 @@ enableEmoji = true
   # Analytics config
   # 网站分析配置
   [params.analytics]
-    enable = false
+    enable = true
     # Google Analytics
     [params.analytics.google]
-      id = ""
+      id = "G-78W9SMKZVE"
       # whether to anonymize IP
       # 是否匿名化用户 IP
       anonymizeIP = true
