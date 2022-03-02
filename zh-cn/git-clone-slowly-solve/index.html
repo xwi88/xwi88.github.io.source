@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.xwi88.com/zh-cn/git-clone-slowly-solve/" /><meta property="og:image" content="https://blog.xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-26T23:51:01+08:00" />
-<meta property="article:modified_time" content="2022-03-01T22:26:40+08:00" />
+<meta property="article:modified_time" content="2022-03-02T13:48:48+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.xwi88.com\/zh-cn\/git-clone-slowly-solve\/"
-        },"genre": "posts","keywords": "git, dev_ops","wordcount":  1360 ,
-        "url": "https:\/\/blog.xwi88.com\/zh-cn\/git-clone-slowly-solve\/","datePublished": "2022-02-26T23:51:01+08:00","dateModified": "2022-03-01T22:26:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "git, dev_ops","wordcount":  1362 ,
+        "url": "https:\/\/blog.xwi88.com\/zh-cn\/git-clone-slowly-solve\/","datePublished": "2022-02-26T23:51:01+08:00","dateModified": "2022-03-02T13:48:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git 克隆非常慢问题的解决</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-26">2022-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1360 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-26">2022-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1362 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id="/zh-cn/git-clone-slowly-solve/" class="leancloud_visitors" data-flag-title="Git 克隆非常慢问题的解决">
                         <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
                     </span>&nbsp;</div>
@@ -165,7 +165,7 @@
 </ul>
 <h3 id="代理加速">代理加速</h3>
 <ul>
-<li><strong>vpn</strong> <em>不太推荐</em></li>
+<li><strong>proxy</strong> <em>不太推荐</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer">gh-proxy</a> (<strong>推荐方案</strong>)</li>
 <li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
 </ul>
@@ -234,7 +234,7 @@
 <p>以下内容摘录自 <a href="https://github.com/dotnetcore/FastGithub.README.md" target="_blank" rel="noopener noreffer">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
-<p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于VPN的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
+<p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
 <h3 id="hosts-修改">Hosts 修改</h3>
 <blockquote>
 <p>主要是借助 <code>nslookup</code> or <code>dig</code> 获取域名对应的可访问 ip, 然后在 hosts 文件中加上 <code>ip–&gt;domain</code> 的映射，刷新 DNS 缓存便可。</p>
@@ -282,8 +282,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-01&nbsp;<a class="git-hash" href="https://github.com/xwi88/LoveIt.git/commit/fdcb0d3666963270a553a9b6aed590c517e7f647" target="_blank" title="commit by xwi88(278810732@qq.com) fdcb0d3666963270a553a9b6aed590c517e7f647: init blog with hugo and theme">
-                                    <i class="fas fa-hashtag fa-fw"></i>fdcb0d3</a></span>
+                <span>更新于 2022-03-02&nbsp;<a class="git-hash" href="https://github.com/xwi88/LoveIt.git/commit/0b8ae0ab2820129adecc007af6803d6d17885139" target="_blank" title="commit by xwi88(278810732@qq.com) 0b8ae0ab2820129adecc007af6803d6d17885139: replace key word">
+                                    <i class="fas fa-hashtag fa-fw"></i>0b8ae0a</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
