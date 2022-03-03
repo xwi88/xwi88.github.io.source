@@ -29,7 +29,7 @@
                     hreflang="zh-cn"
                     href="https://blog.xwi88.com/zh-cn/categories/"
                     /></url><url>
-            <loc>https://blog.xwi88.com/zh-cn/</loc><lastmod>2022-03-02T19:28:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://blog.xwi88.com/zh-cn/</loc><lastmod>2022-03-03T19:01:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://blog.xwi88.com/"
@@ -85,15 +85,6 @@
                     /></url><url>
             <loc>https://blog.xwi88.com/zh-cn/tags/content/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://blog.xwi88.com/zh-cn/tags/installation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.xwi88.com/zh-cn/xtab/</loc><lastmod>2022-03-03T03:10:08&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="en"
-                        href="https://blog.xwi88.com/xtab/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="zh-cn"
-                    href="https://blog.xwi88.com/zh-cn/xtab/"
-                    /></url><url>
             <loc>https://blog.xwi88.com/zh-cn/categories/documentation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -102,5 +93,14 @@
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://blog.xwi88.com/zh-cn/categories/documentation/"
+                    /></url><url>
+            <loc>https://blog.xwi88.com/zh-cn/favorite/</loc><lastmod>2022-03-03T19:01:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://blog.xwi88.com/favorite/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://blog.xwi88.com/zh-cn/favorite/"
                     /></url><url>
             <loc>https://blog.xwi88.com/zh-cn/tags/configuration/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
