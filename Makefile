@@ -22,17 +22,27 @@ gitCommit = $(shell git rev-parse HEAD)
 gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo dirty; fi)
 
 .PHONY: default submodule submodule-status submodule-update submodule-update-remote submodule-sync submodule-init log \
-	publish dev prod run
+	publish dev prod run \
+	posts post-en posts-zh-cn posts-clean
 
-default: run
+default: dev
 
 publish:
 	@hugo -D
 dev:
-	@hugo server -w
+	@hugo server -w -e production -D
 prod:
 	@hugo server -w -e production
 run: prod
+
+# dev & test use
+posts: posts-en posts-zh-cn
+posts-en:
+	@hugo new ${BASEDIR}/content/posts/local-test/auto-posts-$(shell date +'%s').en.md
+posts-zh-cn:
+	@hugo new ${BASEDIR}/content/posts/local-test/自动生成文档-$(shell date +'%s').zh-cn.md
+posts-clean:
+	@rm ${BASEDIR}/content/posts/local-test/*
 
 log:
 	@git lg

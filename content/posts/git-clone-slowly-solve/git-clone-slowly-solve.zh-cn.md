@@ -1,5 +1,4 @@
 ---
-weight: 1
 title: "Git 克隆非常慢问题的解决"
 date: 2022-02-26T23:51:01+08:00
 lastmod: 2022-03-01T01:29:41+08:00
@@ -7,11 +6,6 @@ draft: false
 author: "xwi88"
 authorLink: "https://github.com/xwi88"
 description: "Git 克隆非常慢问题的解决"
-# resources:
-# - name: "featured-image"
-#   src: "featured-image.jpg"
-# - name: "featured-image-preview"
-#   src: "featured-image-preview.jpg"
 
 tags: ["git", "dev_ops"]
 categories: ["git"]

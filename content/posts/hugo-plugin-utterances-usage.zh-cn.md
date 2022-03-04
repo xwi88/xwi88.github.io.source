@@ -1,4 +1,5 @@
 ---
+slug: "hugo-plugin-utterances-usage"
 title: "Hugo 插件 Utterances 用法"
 date: 2022-03-04T07:38:57+08:00
 draft: false

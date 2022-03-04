@@ -37,3 +37,6 @@ bak_**/
 hugo.exe
 hugo.darwin
 hugo.linux
+
+# local dev test
+/content/posts/local-test/
