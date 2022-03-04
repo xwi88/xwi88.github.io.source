@@ -7,11 +7,6 @@ draft: false
 author: "xwi88"
 authorLink: "https://github.com/xwi88"
 description: "Git Clone Slowly Solve"
-resources:
-- name: "featured-image"
-  src: "featured-image.jpg"
-- name: "featured-image-preview"
-  src: "featured-image-preview.jpg"
 
 tags: ["git", "dev_ops"]
 categories: ["git"]
