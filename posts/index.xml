@@ -4,7 +4,14 @@
         <link>https://blog.xwi88.com/posts/</link>
         <description>All Posts | Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</lastBuildDate><atom:link href="https://blog.xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</lastBuildDate><atom:link href="https://blog.xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Hugo Plugin Busuanzi</title>
+    <link>https://blog.xwi88.com/hugo-plugin-busuanzi/</link>
+    <pubDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</pubDate>
+    <author>Author</author>
+    <guid>https://blog.xwi88.com/hugo-plugin-busuanzi/</guid>
+    <description><![CDATA[<p>Hugo 网站访问量、文章阅读次数统计插件 <strong>busuanzi</strong> 集成配置使用，基于个人实验验证，旨在为需要的人提供方便，效果见 <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer">我的博客</a> 或访问 <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer">xwi88.github.io</a>。</p>]]></description>
+</item><item>
     <title>Hugo Plugin Utterances Usage</title>
     <link>https://blog.xwi88.com/hugo-plugin-utterances-usage/</link>
     <pubDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</pubDate>
