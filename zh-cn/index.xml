@@ -4,7 +4,7 @@
         <link>https://blog.xwi88.com/zh-cn/</link>
         <description>技术 博客 分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Feb 2022 23:51:01 &#43;0800</lastBuildDate>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.xwi88.com/zh-cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Git 克隆非常慢问题的解决</title>
@@ -13,5 +13,12 @@
     <author>作者</author>
     <guid>https://blog.xwi88.com/zh-cn/git-clone-slowly-solve/</guid>
     <description><![CDATA[<p>对于经常使用 github 的人来说，当我们进行 clone, fetch, pull, push 等等操作时，如果总是出现莫名的超时或者非常慢这是很让人捉急的，会严重影响效率，为此本文给出了几种解决方案。</p>]]></description>
+</item><item>
+    <title>Hugo 插件 Utterances 用法</title>
+    <link>https://blog.xwi88.com/zh-cn/hugo-plugin-utterances-usage/</link>
+    <pubDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.xwi88.com/zh-cn/hugo-plugin-utterances-usage/</guid>
+    <description><![CDATA[<p>Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
 </item></channel>
 </rss>
