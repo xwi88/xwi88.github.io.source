@@ -1,6 +1,7 @@
 ---
 title: "Hugo Plugin Utterances Usage"
 date: 2022-03-04T07:38:57+08:00
+lastmod: 2022-03-05T00:15:00+08:00
 draft: false
 
 description: "Hugo Plugin Utterances Usage"
@@ -19,7 +20,9 @@ Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为�
 
 >*blog theme*: [LoveIt](https://github.com/xwi88/LoveIt.git)
 
-## [utteranc](https://utteranc.es/)
+## **utteranc**
+
+>[utteranc](https://utteranc.es/)
 
 ### introduction
 

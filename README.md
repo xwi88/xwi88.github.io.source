@@ -31,3 +31,7 @@ make publish
 - `blog.xwi88.com`
 - `xwi88.github.io`
 - `xwi88.gitee.io`, only sync use
+
+## Warn
+
+- H2 in *posts* shall not use link, as if u click sidebar maybe forward the link.
