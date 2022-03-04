@@ -7,7 +7,9 @@ Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为�
 
 >*blog theme*: [LoveIt](https://github.com/xwi88/LoveIt.git)
 
-## [utteranc](https://utteranc.es/)
+## **utteranc**
+
+>[utteranc](https://utteranc.es/)
 
 ### introduction
 

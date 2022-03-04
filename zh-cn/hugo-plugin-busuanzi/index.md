@@ -5,7 +5,9 @@ Hugo 网站访问量、文章阅读次数统计插件 **busuanzi** 集成配置�
 
 <!--more-->
 
-## [busuanzi](http://busuanzi.ibruce.info/)
+## **busuanzi**
+
+>[busuanzi](http://busuanzi.ibruce.info/)
 
 静态网站建站现在有很多快速的技术和平台，但静态是优点也有缺点，由于是静态的，一些动态的内容如评论、计数等等模块就需要借助外来平台，计数可采用 “不蒜子”，由 Bruce 开发的一款轻量级的网页计数器。使用非常简单：**两行代码可搞定**， *一行脚本*，*一行标签*。
 
