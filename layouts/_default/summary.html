@@ -37,10 +37,13 @@
             </span>
         {{- end -}}
 
-        {{- with .Site.Params.dateFormat | default "2006-01-02" | .Lastmod.Format -}}
-        &nbsp;<span class="post-publish">
-            {{- printf `<time datetime="%v">%v</time>` . . | dict "Date" | T "updatedOnDateLower" | safeHTML -}}
-        </span>
+        {{- /* xwi88 config */ -}}
+        {{- if .Site.Params.xwi88Cfg.summary.update -}}
+            {{- with .Site.Params.dateFormat | default "2006-01-02" | .Lastmod.Format -}}
+            &nbsp;<span class="post-publish">
+                {{- printf `<time datetime="%v">%v</time>` . . | dict "Date" | T "updatedOnDateLower" | safeHTML -}}
+            </span>
+            {{- end -}}
         {{- end -}}
 
         {{- $categories := slice -}}

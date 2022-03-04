@@ -1,0 +1,45 @@
+{{ if .params.enable }}
+    {{ if eq .bsz_type "footer" }}
+        {{/* 只有 footer 才刷新，防止页面进行多次调用，计数重复; 只要启用就计数，显示与否看具体设置 */}}
+        <script async src=" //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js "></script>
+    {{ end }}
+
+    {{ if or (eq .params.site_pv true) (eq .params.site_uv true) (eq .params.page_pv true) }}
+        {{ if eq .bsz_type "footer" }}
+            <section>
+                {{ if eq .params.site_pv true }}
+                    <span id="busuanzi_container_value_site_pv">
+                        {{- with .params.page_pv_pre -}}
+                            {{ . | safeHTML }}
+                        {{ end }}
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                {{ end }}
+
+                {{ if and (eq .params.site_pv true) (eq .params.site_uv true) }}
+                    &nbsp;|&nbsp;              
+                {{ end }}
+
+                {{ if eq .params.site_uv true }}
+                    <span id="busuanzi_container_value_site_uv">
+                        {{- with .params.site_uv_pre -}}
+                            {{ . | safeHTML }}
+                        {{ end }}
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                {{ end }}
+            </section>
+        {{ end }}
+
+        {{/*  page pv 只在 page 显示  */}}
+        {{ if and (eq .params.page_pv true) (eq .bsz_type "page-reading") }}
+            <span id="busuanzi_container_value_page_pv">
+                {{- with .params.page_pv_pre -}}
+                    {{ . | safeHTML }}
+                {{ end }}
+                <span id="busuanzi_value_page_pv"></span>&nbsp;
+                {{- T "views" -}}
+            </span>
+        {{ end }}
+    {{ end }}
+{{ end }}
