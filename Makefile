@@ -23,14 +23,14 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 
 .PHONY: default submodule submodule-status submodule-update submodule-update-remote submodule-sync submodule-init log \
 	publish dev prod run \
-	posts post-en posts-zh-cn posts-clean public-clean
+	posts post-en posts-zh-cn clean clean-posts clean-public
 
 default: dev
 
-publish: public-clean
+publish: clean-public
 	@hugo -D
-dev:
-	@hugo server -w -e production -D
+dev: clean-public
+	@hugo server -w -e production -D -F
 prod:
 	@hugo server -w -e production
 run: prod
@@ -41,10 +41,11 @@ posts-en:
 	@hugo new ${BASEDIR}/content/posts/local-test/auto-posts-$(shell date +'%s').en.md
 posts-zh-cn:
 	@hugo new ${BASEDIR}/content/posts/local-test/自动生成文档-$(shell date +'%s').zh-cn.md
-posts-clean:
-	@rm ${BASEDIR}/content/posts/local-test/*
-public-clean:
-	@rm -r ${BASEDIR}/public/*
+clean-posts:
+	@rm -rf ${BASEDIR}/content/posts/local-test/*
+clean-public:
+	@rm -rf ${BASEDIR}/public/*
+clean: clean-public clean-posts
 
 log:
 	@git lg
