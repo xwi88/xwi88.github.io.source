@@ -498,13 +498,13 @@ enableEmoji = true
   # Footer config
   # 页面底部信息配置
   [params.footer]
-    enable = true
+    enable = true # must enable, to activate busuanzi
     # Custom content (HTML format is supported)
     # 自定义内容 (支持 HTML 格式)
     custom = ''
     # whether to show Hugo and theme info
     # 是否显示 Hugo 和主题信息
-    hugo = true
+    hugo = false
     # whether to show copyright info
     # 是否显示版权信息
     copyright = true
