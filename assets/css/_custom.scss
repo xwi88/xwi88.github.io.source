@@ -3,27 +3,46 @@
 // 自定义样式
 // ==============================
 
-.gsc-comments > .gsc-comment-box {
-    order: 2;
-    margin-bottom: 1rem;
+
+.giscus, .giscus-frame {
+    width: 100%;
+  }
+
+  .giscus-frame {
+    border: none;
+    color-scheme: normal;
+  }
+
+  .gsc-comment-box-tabs {
+    align-items: center;
+    border-bottom-width: 1px;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    display: flex;
+    justify-content: space-between;
 }
 
-.gsc-comments > .gsc-timeline {
-    order: 3;
-}
-
-.gsc-timeline {
-    flex-direction: column-reverse;
-}
-
-.gsc-header {
-    padding-bottom: 1rem;
-}
-
-/*! Custom CSS */
-// .gsc-reactions-count{
-//     display:none
+// .gsc-comments > .gsc-comment-box {
+//     order: 2;
+//     margin-bottom: 1rem;
 // }
+
+// .gsc-comments > .gsc-timeline {
+//     order: 3;
+// }
+
+// .gsc-timeline {
+//     flex-direction: column-reverse;
+// }
+
+// .gsc-header {
+//     padding-bottom: 1rem;
+// }
+
+// /*! Custom CSS */
+.gsc-reactions-count{
+    display:none
+}
 
 .gsc-comments>.gsc-header{
     order:1

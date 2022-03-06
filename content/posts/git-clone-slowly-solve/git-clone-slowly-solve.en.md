@@ -1,4 +1,5 @@
 ---
+url: "git-clone-slowly-solve"
 title: "Git Clone Slowly Solve"
 date: 2022-02-26T23:51:01+08:00
 lastmod: 2022-03-01T01:29:41+08:00

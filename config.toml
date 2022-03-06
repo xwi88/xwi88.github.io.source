@@ -1,7 +1,8 @@
 baseURL = "https://blog.xwi88.com"
 # [en, zh-cn, fr, pl, ...] determines default content language
 # [en, zh-cn, fr, pl, ...] 设置默认的语言
-defaultContentLanguage = "en"
+# defaultContentLanguage = "en"
+defaultContentLanguage = "zh-cn" # .md 如果没有语言前缀则分类到默认语言显示
 # theme
 # 主题
 theme = "LoveIt"
@@ -758,17 +759,23 @@ enableEmoji = true
         # needed to populate the below information.
         # https://www.joelnitta.com/posts/2021-11-24_using-giscus/
         enable = true
-        repo = "xwi88/hugo-comment" # Entering repo will enable giscus
-        repo_id = "R_kgDOG7xEcg" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
         category = "Announcements" # Announcements, Comments
-        category_id = "DIC_kwDOG7xEcs4CN-KB" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        lang = "en" # 保持 en, 只需要控制每篇文章的 url 不一样即可
+
+        # repo = "xwi88/hugo-comment" # Entering repo will enable giscus
+        # repo_id = "R_kgDOG7xEcg" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        # category_id = "DIC_kwDOG7xEcs4CN-KB" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+
+        repo = "xwi88/xwi88.github.io.source" # Entering repo will enable giscus
+        repo_id = "R_kgDOG7Yfng" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        category_id = "DIC_kwDOG7Yfns4CN-ez" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        
         mapping = "pathname"
-        reactions_enabled = "1"
-        emit_metadata = "1"
-        input_position = "bottom"
+        reactions_enabled = "0"
+        emit_metadata = "0"
+        input_position = "top"
         lightTheme = "light" # github theme
         darkTheme = "dark" # github theme
-        lang = "en"
         crossorigin = "anonymous"
         label = "Comment" # Label applied to issue by utteranc.es bot
       

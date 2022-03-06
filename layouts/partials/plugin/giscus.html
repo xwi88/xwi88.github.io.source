@@ -1,9 +1,8 @@
 {{- /* Comment Plugin Giscus */ -}}
 
-{{- with .params -}}
-    <div class="container giscus my-4">
-        <div id="giscus" class="comment"></div>
-        <script src="https://giscus.app/client.js"
+{{- if .params -}}
+        <div id="giscus" class="comment giscus"></div>
+            <script src="https://giscus.app/client.js"
             data-repo={{ .params.repo }}
             data-repo-id={{ .params.repo_id }}
             data-category={{ .params.category }}
@@ -12,10 +11,13 @@
             data-reactions-enabled={{ .params.reactions_enabled | default 0}}
             data-emit-metadata={{ .params.emit_metadata | default 0 }}
             data-input-position={{ .params.input_position | default "bottom" }}
-            data-lang={{ .params.lang }}
+            data-theme={{ .params.lightTheme | default "light" }}
+            data-lang={{ .params.lang | default "en"}}
             crossorigin={{ .params.crossorigin | default "anonymous" }}
             async>
-        </script>
-        <noscript>Please enable JavaScript to view the comments powered by giscus.</noscript>
+            </script>
+        <noscript>
+            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+        </noscript> 
     </div>
 {{- end -}}

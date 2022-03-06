@@ -23,13 +23,15 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 
 .PHONY: default submodule submodule-status submodule-update submodule-update-remote submodule-sync submodule-init log \
 	publish dev prod run \
-	debug uglifyjs \
+	debug uglifyjs local \
 	posts post-en posts-zh-cn clean clean-posts clean-public
 
 default: dev
 
 publish: clean-public
 	@hugo -D
+local:
+	@hugo server -w  -DF
 debug: uglifyjs dev
 dev: clean-public
 	@hugo server -w -e production -DF

@@ -1,5 +1,11 @@
 # Blog Source Code
 
+## Feature
+
+- [x] busuanzi `pv` `uv` `reading count`
+- [x] comment plugin: `utterances`, `giscus`(recommend)
+- [ ] search plugin replace
+
 ## Init and Run
 
 ```bash

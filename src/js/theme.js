@@ -33,6 +33,7 @@ class Theme {
         this.config = window.config;
         this.data = this.config.data;
         this.isDark = document.body.getAttribute('theme') === 'dark';
+        this.HTMLlang = document.documentElement.lang;
         this.util = new Util();
         this.newScrollTop = this.util.getScrollTop();
         this.oldScrollTop = this.newScrollTop;
@@ -85,6 +86,7 @@ class Theme {
             $themeSwitch.addEventListener('click', () => {
                 if (document.body.getAttribute('theme') === 'dark') document.body.setAttribute('theme', 'light');
                 else document.body.setAttribute('theme', 'dark');
+
                 this.isDark = !this.isDark;
                 window.localStorage && localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
                 for (let event of this.switchThemeEventSet) event();
@@ -635,14 +637,14 @@ class Theme {
                 script.setAttribute('data-input-position', giscusConfig.input_position);
                 script.setAttribute('data-lang', giscusConfig.lang);
                 if (giscusConfig.label) script.setAttribute('label', giscusConfig.label);
-                script.setAttribute('theme', this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme);
+                script.setAttribute('data-theme', this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme);
                 script.crossOrigin = 'anonymous';
                 script.async = true;
                 document.getElementById('giscus').appendChild(script);
                 this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || (() => {
                     const message = {
                         type: 'set-theme',
-                        theme: this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme,
+                        'data-theme': this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme,
                     };
                     const iframe = document.querySelector('.giscus-frame');
                     iframe.contentWindow.postMessage(message, 'https://giscus.app');
