@@ -1,4 +1,4 @@
-# Hugo Plugin Utterances Usage
+# Hugo 插件 Utterances 用法
 
 
 Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。

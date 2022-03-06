@@ -1,7 +1,5 @@
-# About xwi88
+# 关于 xwi88
 
-
-**todo...**
 
 ## TODO
 

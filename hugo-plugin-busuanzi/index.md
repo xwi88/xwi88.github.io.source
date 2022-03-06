@@ -1,4 +1,4 @@
-# Hugo Plugin Busuanzi
+# Hugo 网站访问计数插件不蒜子集成
 
 
 Hugo 网站访问量、文章阅读次数统计插件 **busuanzi** 集成配置使用，基于个人实验验证，旨在为需要的人提供方便，效果见 [我的博客](https://blog.xwi88.com) 或访问 [xwi88.github.io](https://xwi88.github.io)。

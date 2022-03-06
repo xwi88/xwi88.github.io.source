@@ -1,4 +1,4 @@
-# Git Clone Slowly Solve
+# Git 克隆非常慢问题的解决
 
 
 对于经常使用 github 的人来说，当我们进行 clone, fetch, pull, push 等等操作时，如果总是出现莫名的超时或者非常慢这是很让人捉急的，会严重影响效率，为此本文给出了几种解决方案。
