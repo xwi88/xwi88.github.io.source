@@ -23,17 +23,24 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 
 .PHONY: default submodule submodule-status submodule-update submodule-update-remote submodule-sync submodule-init log \
 	publish dev prod run \
+	debug uglifyjs \
 	posts post-en posts-zh-cn clean clean-posts clean-public
 
 default: dev
 
 publish: clean-public
 	@hugo -D
+debug: uglifyjs dev
 dev: clean-public
-	@hugo server -w -e production -D -F
+	@hugo server -w -e production -DF
 prod:
 	@hugo server -w -e production
 run: prod
+
+# uglifyjs 3.15.2, shall not use npx babel will import npm module...
+uglifyjs: 
+	@uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.min.js -c -m --source-map "url=theme.min.js.map,names=false,filename=theme.js,base='${BASEDIR}/assets/js'"
+	# @npx babel ${BASEDIR}/src/js/theme.js --out-file ${BASEDIR}/assets/js/theme.min.js --source-maps
 
 # dev & test use
 posts: posts-en posts-zh-cn

@@ -1,7 +1,7 @@
 {{ if .params.enable }}
     {{ if eq .bsz_type "footer" }}
         {{/* 只有 footer 才刷新，防止页面进行多次调用，计数重复; 只要启用就计数，显示与否看具体设置 */}}
-        <script async src=" //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js "></script>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     {{ end }}
 
     {{ if or (eq .params.site_pv true) (eq .params.site_uv true) (eq .params.page_pv true) }}
