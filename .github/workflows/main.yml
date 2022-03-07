@@ -57,6 +57,23 @@ jobs:
           publish_dir: ./public
           publish_branch: gh-pages # default
           full_commit_message: ${{ github.event.head_commit.message }}
+
+      - name: Rsync Deployments
+        uses: burnett01/rsync-deployments@5.2
+        with:
+          # The switches
+          switches: -avzh
+          # The remote shell argument
+          # rsh: # optional, default is
+          path: ./public  # The local path
+          remote_path: /home/app/public/ # optional, default is
+          remote_host: xwi88.com
+          remote_port: 65432 # optional, default is 22
+          remote_user: app
+          remote_key: ${{ secrets.SITE_RSA_PRIVATE_KEY }} # shall not use root
+          # The remote key passphrase
+          # remote_key_pass: # optional, default is
+
   sync:
     needs: deploy
     runs-on: ubuntu-latest
@@ -81,24 +98,4 @@ jobs:
           gitee-repo: xwi88/xwi88
           branch: gh-pages
 
-  rsync_deployments:
-    needs: deploy
-    runs-on: ubuntu-latest
-    # You may pin to the exact commit or the version.
-    # uses: Burnett01/rsync-deployments@0dc935cdecc5f5e571865e60d2a6cdc673704823
-    steps:
-      - name: rsync_deployments
-        uses: burnett01/rsync-deployments@5.2
-        with:
-          # The switches
-          switches: -avzh
-          # The remote shell argument
-          # rsh: # optional, default is 
-          path: public/  # The local path
-          remote_path: /home/app/public/ # optional, default is 
-          remote_host: 81.68.166.182
-          remote_port: 65432 # optional, default is 22
-          remote_user: app
-          remote_key: ${{ secrets.SITE_RSA_PRIVATE_KEY }}
-          # The remote key passphrase
-          # remote_key_pass: # optional, default is 
+  
