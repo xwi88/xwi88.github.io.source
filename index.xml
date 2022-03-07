@@ -4,9 +4,16 @@
         <link>https://blog.xwi88.com/</link>
         <description>技术 博客 分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</lastBuildDate>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.xwi88.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Hugo Plugin Giscus Support</title>
+    <link>https://blog.xwi88.com/hugo-plugin-giscus-support/</link>
+    <pubDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://blog.xwi88.com/hugo-plugin-giscus-support/</guid>
+    <description><![CDATA[<p>Hugo 评论插件用了几个感觉好用的还是 <strong>utterances</strong> 与 <strong>giscus</strong>，前者功能太过单，最新的基于 <em>github discussion</em> 的 <strong>giscus</strong> 使用体验非常不错。本文基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
+</item><item>
     <title>Hugo 网站访问计数插件不蒜子集成</title>
     <link>https://blog.xwi88.com/hugo-plugin-busuanzi/</link>
     <pubDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</pubDate>
