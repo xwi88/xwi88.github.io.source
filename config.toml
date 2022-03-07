@@ -762,14 +762,10 @@ enableEmoji = true
         category = "Announcements" # Announcements, Comments
         lang = "en" # 保持 en, 只需要控制每篇文章的 url 不一样即可
 
-        # repo = "xwi88/hugo-comment" # Entering repo will enable giscus
-        # repo_id = "R_kgDOG7xEcg" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
-        # category_id = "DIC_kwDOG7xEcs4CN-KB" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        repo = "xwi88/hugo-comment" # Entering repo will enable giscus
+        repo_id = "R_kgDOG7xEcg" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
+        category_id = "DIC_kwDOG7xEcs4CN-KB" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
 
-        repo = "xwi88/xwi88.github.io.source" # Entering repo will enable giscus
-        repo_id = "R_kgDOG7Yfng" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
-        category_id = "DIC_kwDOG7Yfns4CN-ez" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
-        
         mapping = "pathname"
         reactions_enabled = "0"
         emit_metadata = "0"
