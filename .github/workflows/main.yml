@@ -65,7 +65,7 @@ jobs:
           switches: -avzh
           # The remote shell argument
           # rsh: # optional, default is
-          path: ./public  # The local path
+          path: ./public/*  # The local path
           remote_path: /home/app/public/ # optional, default is
           remote_host: xwi88.com
           remote_port: 65432 # optional, default is 22
@@ -97,5 +97,3 @@ jobs:
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           gitee-repo: xwi88/xwi88
           branch: gh-pages
-
-  
