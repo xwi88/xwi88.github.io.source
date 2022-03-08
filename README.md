@@ -36,7 +36,7 @@ make uglifyjs
 
 |domain|source from|server|
 |:---|:---|:---|
-|[xwi88.com](https://www.xwi88.com/)|[xwi88.github.io.source](https://github.com/xwi88/xwi88.github.io.source)|tencent|
+|[xwi88.com](https://xwi88.com/)|[xwi88.github.io.source](https://github.com/xwi88/xwi88.github.io.source)|tencent|
 |[blog.xwi88.com](https://blog.xwi88.com/)|[xwi88.github.io](https://github.com/xwi88/xwi88.github.io)|github|
 |[xwi88.github.io](https://xwi88.github.io/)|[xwi88.github.io](https://github.com/xwi88/xwi88.github.io)|github|
 |[xwi88.gitee.io](https://xwi88.gitee.io/)|[xwi88](https://gitee.com/xwi88/xwi88)|gitee|
