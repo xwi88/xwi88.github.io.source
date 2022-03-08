@@ -4,7 +4,8 @@
 
 - [x] busuanzi `pv` `uv` `reading count`
 - [x] comment plugin: `utterances`, `giscus`(recommend)
-- [ ] search plugin replace
+- [x] search plugin: `algolia`
+- [ ] images tool: `PicGo`
 
 ## Init and Run
 

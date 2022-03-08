@@ -133,17 +133,17 @@ enableEmoji = true
         # placeholder of the search bar
         placeholder = ""
         # max number of results length
-        maxResultLength = 10
+        maxResultLength = 15
         # snippet length of the result
-        snippetLength = 30
+        snippetLength = 55
         # HTML tag name of the highlight part in results
         highlightTag = "em"
         # whether to use the absolute URL based on the baseURL in search index
         absoluteURL = false
         [languages.en.params.search.algolia]
-          index = "index.en"
-          appID = "5VUFYXOU2F"
-          searchKey = "2c2f83d0a306673ce438f5b818a59f9f"
+          index = "blog_index"
+          appID = "7QU1O7DMR5"
+          searchKey = "520c25090bf786368d0c1d0eaa14e57c"
       # Home page config
       [languages.en.params.home]
         # amount of RSS pages
@@ -341,17 +341,17 @@ enableEmoji = true
         # 搜索框的占位提示语
         placeholder = ""
         # 最大结果数目
-        maxResultLength = 10
+        maxResultLength = 15
         # 结果内容片段长度
-        snippetLength = 50
+        snippetLength = 55
         # 搜索结果中高亮部分的 HTML 标签
         highlightTag = "em"
         # 是否在搜索索引中使用基于 baseURL 的绝对路径
         absoluteURL = false
         [languages.zh-cn.params.search.algolia]
-          index = "index.zh-cn"
-          appID = "5VUFYXOU2F"
-          searchKey = "2c2f83d0a306673ce438f5b818a59f9f"
+          index = "blog_index"
+          appID = "7QU1O7DMR5"
+          searchKey = "520c25090bf786368d0c1d0eaa14e57c"
       # 主页信息设置
       [languages.zh-cn.params.home]
         # RSS 文章数目

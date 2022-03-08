@@ -73,6 +73,16 @@ jobs:
           remote_key: ${{ secrets.SITE_RSA_PRIVATE_KEY }} # shall not use root
           # The remote key passphrase
           # remote_key_pass: # optional, default is
+      - name: Create or Update Algolia Index Record
+        uses: rxrw/algolia-index-uploader@v1
+        with:
+          # ID of this application in your Algolia account
+          algolia_index_id: 7QU1O7DMR5
+          algolia_index_name: blog_index
+          # API key with write permissions to the index in your Algolia account
+          algolia_index_admin_key: ${{ secrets.ALGOLIA_API_KEY }}
+          # JSON record to write to this index (see https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/#algolia-records for details)
+          index_path: ./public/index.json
 
   sync:
     needs: deploy
