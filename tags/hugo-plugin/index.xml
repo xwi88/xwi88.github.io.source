@@ -1,29 +1,29 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>hugo-plugin - 标签 - Coding Life Share</title>
-        <link>https://blog.xwi88.com/tags/hugo-plugin/</link>
+        <link>https://xwi88.com/tags/hugo-plugin/</link>
         <description>hugo-plugin - 标签 - Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</lastBuildDate><atom:link href="https://blog.xwi88.com/tags/hugo-plugin/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/hugo-plugin/" rel="self" type="application/rss+xml" /><item>
     <title>Hugo Plugin Giscus Support</title>
-    <link>https://blog.xwi88.com/hugo-plugin-giscus-support/</link>
+    <link>https://xwi88.com/hugo-plugin-giscus-support/</link>
     <pubDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.xwi88.com/hugo-plugin-giscus-support/</guid>
+    <guid>https://xwi88.com/hugo-plugin-giscus-support/</guid>
     <description><![CDATA[<p>Hugo 评论插件用了几个感觉好用的还是 <strong>utterances</strong> 与 <strong>giscus</strong>，前者功能太过单，最新的基于 <em>github discussion</em> 的 <strong>giscus</strong> 使用体验非常不错。本文基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
 </item><item>
     <title>Hugo 网站访问计数插件不蒜子集成</title>
-    <link>https://blog.xwi88.com/hugo-plugin-busuanzi/</link>
+    <link>https://xwi88.com/hugo-plugin-busuanzi/</link>
     <pubDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.xwi88.com/hugo-plugin-busuanzi/</guid>
+    <guid>https://xwi88.com/hugo-plugin-busuanzi/</guid>
     <description><![CDATA[<p>Hugo 网站访问量、文章阅读次数统计插件 <strong>busuanzi</strong> 集成配置使用，基于个人实验验证，旨在为需要的人提供方便，效果见 <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer">我的博客</a> 或访问 <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer">xwi88.github.io</a>。</p>]]></description>
 </item><item>
     <title>Hugo 插件 Utterances 用法</title>
-    <link>https://blog.xwi88.com/hugo-plugin-utterances-usage/</link>
+    <link>https://xwi88.com/hugo-plugin-utterances-usage/</link>
     <pubDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://blog.xwi88.com/hugo-plugin-utterances-usage/</guid>
+    <guid>https://xwi88.com/hugo-plugin-utterances-usage/</guid>
     <description><![CDATA[<p>Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
 </item></channel>
 </rss>

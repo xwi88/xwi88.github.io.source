@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://blog.xwi88.com/sitemap.xml
+Sitemap: https://xwi88.com/sitemap.xml
