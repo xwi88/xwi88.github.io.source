@@ -124,9 +124,9 @@
                     hreflang="zh-cn"
                     href="https://blog.xwi88.com/git-clone-slowly-solve/"
                     /></url><url>
-            <loc>https://blog.xwi88.com/tags/content/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.xwi88.com/tags/installation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://blog.xwi88.com/categories/documentation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://blog.xwi88.com/tags/content/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.xwi88.com/tags/installation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://blog.xwi88.com/categories/documentation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://blog.xwi88.com/en/categories/documentation/"
@@ -144,4 +144,4 @@
                     hreflang="zh-cn"
                     href="https://blog.xwi88.com/favorite/"
                     /></url><url>
-            <loc>https://blog.xwi88.com/tags/configuration/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
+            <loc>https://blog.xwi88.com/tags/configuration/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url></urlset>
