@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Git 使用 GPG 对提交进行签名认证 - Coding Life Share</title><meta name="Description" content="Git sign tags or commits with gpg"><meta property="og:title" content="Git 使用 GPG 对提交进行签名认证" />
-<meta property="og:description" content="Git sign tags or commits with gpg" />
+        <title>Git 使用 GPG 对提交进行签名认证 - Coding Life Share</title><meta name="Description" content="使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理"><meta property="og:title" content="Git 使用 GPG 对提交进行签名认证" />
+<meta property="og:description" content="使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-09T12:31:34+08:00" />
-<meta property="article:modified_time" content="2022-03-09T17:06:41+08:00" />
+<meta property="article:modified_time" content="2022-03-09T22:31:31+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
 
 <meta name="twitter:title" content="Git 使用 GPG 对提交进行签名认证"/>
-<meta name="twitter:description" content="Git sign tags or commits with gpg"/>
+<meta name="twitter:description" content="使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理"/>
 <meta name="application-name" content="XIN WANG blog">
 <meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/"
-        },"genre": "posts","keywords": "git, gpg","wordcount":  1031 ,
-        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-09T17:06:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "git, gpg","wordcount":  1593 ,
+        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-09T22:31:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -40,7 +40,7 @@
                 }},"author": {
                 "@type": "Person",
                 "name": "xwi88"
-            },"description": "Git sign tags or commits with gpg"
+            },"description": "使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理"
     }
     </script></head>
     <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -115,8 +115,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git 使用 GPG 对提交进行签名认证</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1031 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1593 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
     
 
     
@@ -156,6 +156,9 @@
         <li><a href="#提交签名查看">提交签名查看</a></li>
       </ul>
     </li>
+    <li><a href="#gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></a></li>
+    <li><a href="#gpg-key-重新绑定">GPG key 重新绑定</a></li>
+    <li><a href="#gpg-keys-删除"><em>GPG keys 删除</em></a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav></div>
@@ -164,7 +167,7 @@
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
 </blockquote>
 <h2 id="开启-vigilant-模式">开启 vigilant 模式</h2>
-<p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推动一个声称是你的承诺，但实际上不是。</p>
+<p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推送一个声明是你的提交，但实际上不是。</p>
 <blockquote>
 <p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
@@ -238,7 +241,7 @@
 <li>Real name: <code>tmp_gpg</code></li>
 <li>Email address: <code>278810732@qq.com</code></li>
 </ul>
-<p>You selected this USER-ID:
+<p>You selected this <strong>USER-ID</strong>:
 &ldquo;tmp_gpg <a href="mailto:278810732@qq.com" rel="">278810732@qq.com</a>&rdquo;</p>
 <ul>
 <li>Change (N)ame, (E)mail, or (O)kay/(Q)uit? <code>O</code></li>
@@ -320,7 +323,7 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
 <h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
 <blockquote>
-<p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <del>&ndash;global</del></p>
+<p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <strong>local</strong> 替换 <del>&ndash;global</del></p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -377,6 +380,12 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="提交签名查看">提交签名查看</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer">git log usage</a></li>
+<li><em>git version</em> <strong>2.34.1</strong></li>
+</ul>
+</blockquote>
 <p><code>git log --show-signature</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -408,16 +417,266 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>G: for a good (valid) signature</li>
+<li><strong>G</strong>: for a good (valid) signature</li>
 <li>B: for a bad signature</li>
 <li>U: for a good signature with unknown validity</li>
 <li>X: for a good signature that has expired</li>
 <li>Y: for a good signature made by an expired key</li>
 <li>R: for a good signature made by a revoked key</li>
-<li>E: if the signature cannot be checked (e.g. missing key)</li>
-<li>N: for no signature</li>
+<li><strong>E</strong>: if the signature cannot be checked (e.g. missing key)</li>
+<li><em>N</em>: for no signature</li>
 </ul>
 </div>
+        </div>
+    </div>
+<h2 id="gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></h2>
+<p><code>gpg --edit-key [GPG key ID]</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">uid           [ultimate] tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><em>此处 GPG key 为重新生成的，仅供演示使用</em></p>
+</blockquote>
+<p><code>gpg --edit-key CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</code></p>
+<blockquote>
+<p>关键输出如下</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/73758EF02856F877
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2024-03-08  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入 <code>expire</code> 进行过期日期更新</p>
+<blockquote>
+<p>gpg&gt; <code>expire</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Changing expiration time for the primary key.
+</span></span><span class="line"><span class="cl">Please specify how long the key should be valid.
+</span></span><span class="line"><span class="cl">         0 = key does not expire
+</span></span><span class="line"><span class="cl">      &lt;n&gt;  = key expires in n days
+</span></span><span class="line"><span class="cl">      &lt;n&gt;w = key expires in n weeks
+</span></span><span class="line"><span class="cl">      &lt;n&gt;m = key expires in n months
+</span></span><span class="line"><span class="cl">      &lt;n&gt;y = key expires in n years
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Key is valid for? (0) <code>180d</code></p>
+</blockquote>
+<p>Key expires at Mon Sep  5 21:48:04 2022 CST</p>
+<blockquote>
+<p>Is this correct? (y/N) <code>y</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>gpg&gt; <code>trust</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please decide how far you trust this user to correctly verify other users&#39; keys
+</span></span><span class="line"><span class="cl">(by looking at passports, checking fingerprints from different sources, etc.)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  1 = I don&#39;t know or won&#39;t say
+</span></span><span class="line"><span class="cl">  2 = I do NOT trust
+</span></span><span class="line"><span class="cl">  3 = I trust marginally
+</span></span><span class="line"><span class="cl">  4 = I trust fully
+</span></span><span class="line"><span class="cl">  5 = I trust ultimately
+</span></span><span class="line"><span class="cl">  m = back to the main menu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Your decision? <code>5</code></p>
+<p>Do you really want to set this key to ultimate trust? (y/N) <code>y</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>gpg&gt; <code>save</code></p>
+<p><code>gpg --list-secret-keys --keyid-format=long</code> 验证过期时间是否更新</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sec   rsa4096/13431F2AC47C4AE0 2022-03-09 [SC] [expires: 2022-09-05]
+</span></span><span class="line"><span class="cl">      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="gpg-key-重新绑定">GPG key 重新绑定</h2>
+<blockquote>
+<p><strong>以下设置如无需要，请勿更新</strong></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<ul>
+<li>
+<p><strong>以下设置如无需要请勿更新</strong></p>
+</li>
+<li>
+<p><em>单项目</em>更新可选 <strong>local</strong> 替换 <del>&ndash;global</del></p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>git config --global commit.gpgSign true</code></li>
+<li><code>git config --global user.signingKey 13431F2AC47C4AE0</code></li>
+</ul>
+<p>如有变动，请同步更新你的 <strong>git</strong> 仓库 <strong>GPG key</strong></p>
+</div>
+        </div>
+    </div>
+<h2 id="gpg-keys-删除"><em>GPG keys 删除</em></h2>
+<ul>
+<li><code>gpg --delete-secret-key [uid]</code></li>
+<li><code>gpg --delete-secret-key [uid1] [uid2]</code></li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><strong>非必要不删除</strong>，如果是因为过期则直接选择进行<strong>续期操作</strong>即可</p>
+<p><em>tmp_gpg 对应的 uid</em> 输入， 可以是以下任一一个，请尽量使用 GPG key ID:</p>
+<ul>
+<li><em>tmp_gpg</em></li>
+<li><strong>13431F2AC47C4AE0</strong></li>
+<li><em>CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</em></li>
+</ul>
+</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --delete-secret-key 13431F2AC47C4AE0</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0 2022-03-09 tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Delete this key from the keyring? (y/N) <code>y</code></p>
+<p>This is a secret key! - really delete? (y/N) <code>y</code></p>
+</blockquote>
+<p>验证删除是否成功：<code>gpg --list-secret-keys</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid           [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
         </div>
     </div>
 <h2 id="参考">参考</h2>
@@ -427,8 +686,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-09&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9c6e54d6c1bd671f8a935fecccd35893bc6dfeb4" target="_blank" title="commit by xwi88(278810732@qq.com) 9c6e54d6c1bd671f8a935fecccd35893bc6dfeb4: posts git sign with gpg">
-                                    <i class="fas fa-hashtag fa-fw"></i>9c6e54d</a></span>
+                <span>更新于 2022-03-09&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9b548b6b773fc94da232e6309c0257ff6a2de8d8" target="_blank" title="commit by xwi88(278810732@qq.com) 9b548b6b773fc94da232e6309c0257ff6a2de8d8: update posts git sign with gpg">
+                                    <i class="fas fa-hashtag fa-fw"></i>9b548b6</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>

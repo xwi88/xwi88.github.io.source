@@ -9,7 +9,7 @@
 
 ## 开启 vigilant 模式
 
-开启 **[vigilant](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode)** *警惕*模式后，属于你的未签名提交将被标记为 **Unverified** 标记。这可以**提醒你和其他人关于真实性的潜在问题**。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推动一个声称是你的承诺，但实际上不是。
+开启 **[vigilant](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode)** *警惕*模式后，属于你的未签名提交将被标记为 **Unverified** 标记。这可以**提醒你和其他人关于真实性的潜在问题**。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推送一个声明是你的提交，但实际上不是。
 
 >设置路径: **Settings**->**[SSH and GPG keys](https://github.com/settings/keys)**>**Vigilant mode**->select **Flag unsigned commits as unverified**
 
@@ -60,7 +60,7 @@ uid                 [ultimate] xwi88 <278810732@qq.com>
 - Real name: `tmp_gpg`
 - Email address: `278810732@qq.com`
 
-You selected this USER-ID:
+You selected this **USER-ID**:
     "tmp_gpg <278810732@qq.com>"
 
 - Change (N)ame, (E)mail, or (O)kay/(Q)uit? `O`
@@ -118,7 +118,7 @@ xxxxxxxxxxxxxxx
 
 ### 配置 sign 使用的 *GPG key*
 
->注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! ~~--global~~
+>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! **local** 替换 ~~--global~~
 
 ```bash
 # global config
@@ -159,6 +159,9 @@ git tag -v my_tag
 
 ### 提交签名查看
 
+>- [git log usage](https://www.git-scm.com/docs/git-log)
+>- *git version* **2.34.1**
+
 `git log --show-signature`
 
 {{< admonition tip>}}
@@ -177,14 +180,166 @@ git tag -v my_tag
 * E 5fa8d41 - replace utterances by giscus (3 days ago) <xwi88> | [EEA29F407613E698 trust:]
 ```
 
-- G: for a good (valid) signature
+- **G**: for a good (valid) signature
 - B: for a bad signature
 - U: for a good signature with unknown validity
 - X: for a good signature that has expired
 - Y: for a good signature made by an expired key
 - R: for a good signature made by a revoked key
-- E: if the signature cannot be checked (e.g. missing key)
-- N: for no signature
+- **E**: if the signature cannot be checked (e.g. missing key)
+- *N*: for no signature
+
+{{< /admonition >}}
+
+## **GPG keys 更新续期处理**
+
+`gpg --edit-key [GPG key ID]`
+
+{{< admonition example >}}
+
+```tex
+sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+uid           [ultimate] tmp_gpg_local <278810732@qq.com>
+```
+
+>*此处 GPG key 为重新生成的，仅供演示使用*
+
+`gpg --edit-key CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0`
+
+>关键输出如下
+
+```tex
+sec  rsa4096/73758EF02856F877
+     created: 2022-03-09  expires: 2024-03-08  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+输入 `expire` 进行过期日期更新
+
+>gpg> `expire`
+
+```tex
+Changing expiration time for the primary key.
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+```
+
+>Key is valid for? (0) `180d`
+
+Key expires at Mon Sep  5 21:48:04 2022 CST
+
+>Is this correct? (y/N) `y`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+>gpg> `trust`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+
+Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+```
+
+>Your decision? `5`
+>
+>Do you really want to set this key to ultimate trust? (y/N) `y`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+>gpg> `save`
+>
+>`gpg --list-secret-keys --keyid-format=long` 验证过期时间是否更新
+
+```tex
+sec   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+uid                 [ultimate] xwi88 <278810732@qq.com>
+
+sec   rsa4096/13431F2AC47C4AE0 2022-03-09 [SC] [expires: 2022-09-05]
+      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+uid                 [ultimate] tmp_gpg_local <278810732@qq.com>
+```
+
+{{< /admonition >}}
+
+## GPG key 重新绑定
+
+>**以下设置如无需要，请勿更新**
+
+{{< admonition warning >}}
+
+>- **以下设置如无需要请勿更新**
+>
+>- *单项目*更新可选 **local** 替换 ~~--global~~
+
+- `git config --global commit.gpgSign true`
+- `git config --global user.signingKey 13431F2AC47C4AE0`
+
+如有变动，请同步更新你的 **git** 仓库 **GPG key**
+
+{{< /admonition >}}
+
+## *GPG keys 删除*
+
+- `gpg --delete-secret-key [uid]`
+- `gpg --delete-secret-key [uid1] [uid2]`
+
+{{< admonition warning >}}
+**非必要不删除**，如果是因为过期则直接选择进行**续期操作**即可
+
+*tmp_gpg 对应的 uid* 输入， 可以是以下任一一个，请尽量使用 GPG key ID:
+
+- *tmp_gpg*
+- **13431F2AC47C4AE0**
+- *CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0*
+{{< /admonition >}}
+
+{{< admonition example >}}
+>`gpg --delete-secret-key 13431F2AC47C4AE0`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0 2022-03-09 tmp_gpg_local <278810732@qq.com>
+```
+
+>Delete this key from the keyring? (y/N) `y`
+>
+>This is a secret key! - really delete? (y/N) `y`
+
+验证删除是否成功：`gpg --list-secret-keys`
+
+```tex
+sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+uid           [ultimate] xwi88 <278810732@qq.com>
+```
+
 {{< /admonition >}}
 
 ## 参考
