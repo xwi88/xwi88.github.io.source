@@ -1,7 +1,7 @@
 # Git 使用 GPG 对提交进行签名认证
 
 
-使用 *GPG* 或 *S/MIME*，可以在本地对 *tag* 或 *commit* 进行签名。这些 *tag* 或 *commit* 在 *GitHub* 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。
+使用 *[GPG](https://gnupg.org/)* 或 *[S/MIME](https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo)*，可以在本地对 *tag* 或 *commit* 进行签名。这些 *tag* 或 *commit* 在 *GitHub* 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。
 
 <!--more-->
 
@@ -314,7 +314,7 @@ uid                 [ultimate] tmp_gpg_local <278810732@qq.com>
 {{< admonition warning >}}
 **非必要不删除**，如果是因为过期则直接选择进行**续期操作**即可
 
-*tmp_gpg 对应的 uid* 输入， 可以是以下任一一个，请尽量使用 GPG key ID:
+*tmp_gpg 对应的 uid* 输入， 可以是以下任一个，请尽量使用 GPG key ID:
 
 - *tmp_gpg*
 - **13431F2AC47C4AE0**
@@ -345,4 +345,6 @@ uid           [ultimate] xwi88 <278810732@qq.com>
 ## 参考
 
 - [managing-commit-signature-verification](https://docs.github.com/en/authentication/managing-commit-signature-verification)
+- [S/MIME commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification)
+- [smime-signing-git-commits](https://www.hifis.net/tutorial/2020/04/15/smime-signing-git-commits.html)
 
