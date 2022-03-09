@@ -5,7 +5,8 @@
 - [x] busuanzi `pv` `uv` `reading count`
 - [x] comment plugin: `utterances`, `giscus`(recommend)
 - [x] search plugin: `algolia`
-- [ ] images tool: `PicGo`
+- [x] images tool: `PicGo`
+- [x] [live2D](https://github.com/xiazeyu/live2d-widget-models)
 
 ## Init and Run
 
