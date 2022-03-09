@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git 使用 GPG 对提交进行签名认证 - Coding Life Share</title><meta name="Description" content="Git sign tags or commits with gpg"><meta property="og:title" content="Git 使用 GPG 对提交进行签名认证" />
+<meta property="og:description" content="Git sign tags or commits with gpg" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-09T12:31:34+08:00" />
+<meta property="article:modified_time" content="2022-03-09T17:06:41+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Git 使用 GPG 对提交进行签名认证"/>
+<meta name="twitter:description" content="Git sign tags or commits with gpg"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><link rel="prev" href="https://xwi88.com/go-vcs-gvm/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.0d6caebf00b5c7d28f7cfa342125779c1121e6d1be32817cad67fca28d148a7c.css" integrity="sha256-DWyuvwC1x9KPfPo0ISV3nBEh5tG&#43;MoF8rWf8oo0Uinw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git 使用 GPG 对提交进行签名认证",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/"
+        },"genre": "posts","keywords": "git, gpg","wordcount":  1031 ,
+        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-09T17:06:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "Git sign tags or commits with gpg"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/git-sign-tags-commits-with-gpg/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/git-sign-tags-commits-with-gpg/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git 使用 GPG 对提交进行签名认证</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1031 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#开启-vigilant-模式">开启 vigilant 模式</a></li>
+    <li><a href="#gpg-key-生成与配置">GPG Key 生成与配置</a>
+      <ul>
+        <li><a href="#已存在-gpg-keys"><em>已存在 GPG keys</em></a></li>
+        <li><a href="#新生成-gpg-key">新生成 <em>GPG key</em></a></li>
+        <li><a href="#最新-gpg-keys">最新 <em>GPG keys</em></a></li>
+        <li><a href="#导出-gpg-key">导出 <em>GPG key</em></a></li>
+        <li><a href="#设置-gpg-key">设置 <strong>GPG key</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#git-配置使用-gpg">Git 配置使用 GPG</a>
+      <ul>
+        <li><a href="#配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></a></li>
+        <li><a href="#提交带签名的-commit">提交带签名的 commit</a></li>
+        <li><a href="#sign-tag">sign tag</a></li>
+        <li><a href="#提交签名查看">提交签名查看</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>使用 <em>GPG</em> 或 <em>S/MIME</em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="开启-vigilant-模式">开启 vigilant 模式</h2>
+<p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推动一个声称是你的承诺，但实际上不是。</p>
+<blockquote>
+<p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
+</blockquote>
+<h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href="https://www.gnupg.org/download/" target="_blank" rel="noopener noreffer">GnuPG&rsquo;s Download page</a>.</div>
+        </div>
+    </div>
+<h3 id="已存在-gpg-keys"><em>已存在 GPG keys</em></h3>
+<p><code>gpg --list-secret-keys --keyid-format=long</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">~/.gnupg/pubring.kbx
+</span></span><span class="line"><span class="cl">-----------------------------------
+</span></span><span class="line"><span class="cl">sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class="line"><span class="cl">      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><em>the GPG key ID</em>: <strong>325ACD1FD3B6AA80</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="新生成-gpg-key">新生成 <em>GPG key</em></h3>
+<blockquote>
+<p>如果当前已存在旧的 GPG key 可不必重新生成!</p>
+</blockquote>
+<p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>github</em> 支持的用于生成 <em>gpg key</em> 的算法</p>
+<ul>
+<li><strong>RSA</strong></li>
+<li>ElGamal</li>
+<li>DSA</li>
+<li>ECDH</li>
+<li>ECDSA</li>
+<li>EdDSA</li>
+</ul>
+</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p>
+<ul>
+<li>Real name: <code>tmp_gpg</code></li>
+<li>Email address: <code>278810732@qq.com</code></li>
+</ul>
+<p>You selected this USER-ID:
+&ldquo;tmp_gpg <a href="mailto:278810732@qq.com" rel="">278810732@qq.com</a>&rdquo;</p>
+<ul>
+<li>Change (N)ame, (E)mail, or (O)kay/(Q)uit? <code>O</code></li>
+</ul>
+<p>We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.</p>
+<p>Note that this key cannot be used for encryption.  You may want to use
+the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pub   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class="line"><span class="cl">uid                      tmp_gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="最新-gpg-keys">最新 <em>GPG keys</em></h3>
+<p><code>gpg --list-secret-keys --keyid-format=long</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">-----------------------------------
+</span></span><span class="line"><span class="cl">sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class="line"><span class="cl">      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sec   rsa4096/FE47519758053257 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="导出-gpg-key">导出 <em>GPG key</em></h3>
+<p><code>gpg --armor --export FE47519758053257</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">-----BEGIN PGP PUBLIC KEY BLOCK-----
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----END PGP PUBLIC KEY BLOCK-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
+<blockquote>
+<ul>
+<li>
+<p>复制你要使用的 <strong>GPG key</strong>, <em>beginning with</em> <strong>&mdash;&ndash;BEGIN PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong> and <em>ending with</em> <strong>&mdash;&ndash;END PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong></p>
+</li>
+<li>
+<p>粘贴到 <em>github</em> 相应位置: <strong>Settings</strong>-&gt;<strong>SSH and GPG keys</strong>-&gt;<strong>GPG keys</strong>，如已经存在相应 <em>key</em> 可忽略，不存在新建后粘贴即可!</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
+<h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
+<blockquote>
+<p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <del>&ndash;global</del></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># global config</span>
+</span></span><span class="line"><span class="cl">git config --global user.signingkey 325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</span>
+</span></span><span class="line"><span class="cl">git config --global commit.gpgsign <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提交带签名的-commit">提交带签名的 commit</h3>
+<p><code>git commit -S -m &quot;your commit message&quot;</code></p>
+<blockquote>
+<p>如果你设置了默认对提交进行签名，也可以如下操作</p>
+<p><code>git commit -m &quot;your commit message&quot;</code></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果你使用的 <strong>GPG key</strong> 使用了 <em>GPG key passphrase</em>, 则你进行提交的时候需要输入你的 <em>passphrase</em>.</p>
+<p>你可以选择存储 <strong>GPG key passphrase</strong> 来避免每次的签名 <em>passphrase</em> 输入:</p>
+<ul>
+<li>Mac users, <strong><a href="https://gpgtools.org/" target="_blank" rel="noopener noreffer">GPG Suite</a></strong> 可以将你的 <em>GPG key passphrase</em> 存储在 <strong>Mac OS Keychain</strong></li>
+<li>Windows users, <strong><a href="https://www.gpg4win.org/" target="_blank" rel="noopener noreffer">Gpg4win</a></strong></li>
+<li>Manually 配置 <strong><a href="http://linux.die.net/man/1/gpg-agent" target="_blank" rel="noopener noreffer">gpg-agent</a></strong> 来存储</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="sign-tag">sign tag</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># sign a tag</span>
+</span></span><span class="line"><span class="cl">git tag -s my_tag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># verify your signed tag </span>
+</span></span><span class="line"><span class="cl">git tag -v my_tag
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提交签名查看">提交签名查看</h3>
+<p><code>git log --show-signature</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>格式化日志查看签名，可自定义配置查看 log</p>
+</blockquote>
+<p><code>git log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G fb56816 - fixed rsync dir <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>325ACD1FD3B6AA80 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 63d6ec2 - fixed rsync deploy <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>325ACD1FD3B6AA80 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* N 1ac5368 - workflow add remote deploy <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span> trust:undefined<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E 289ae51 - add domain ICP info <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E f0e44bd - switch comment store repo:x <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E fbd5778 - fixed giscus issue <span class="o">(</span><span class="m">3</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E 5fa8d41 - replace utterances by giscus <span class="o">(</span><span class="m">3</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>G: for a good (valid) signature</li>
+<li>B: for a bad signature</li>
+<li>U: for a good signature with unknown validity</li>
+<li>X: for a good signature that has expired</li>
+<li>Y: for a good signature made by an expired key</li>
+<li>R: for a good signature made by a revoked key</li>
+<li>E: if the signature cannot be checked (e.g. missing key)</li>
+<li>N: for no signature</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification" target="_blank" rel="noopener noreffer">managing-commit-signature-verification</a></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-09&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9c6e54d6c1bd671f8a935fecccd35893bc6dfeb4" target="_blank" title="commit by xwi88(278810732@qq.com) 9c6e54d6c1bd671f8a935fecccd35893bc6dfeb4: posts git sign with gpg">
+                                    <i class="fas fa-hashtag fa-fw"></i>9c6e54d</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git-sign-tags-commits-with-gpg/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/" data-title="Git 使用 GPG 对提交进行签名认证" data-via="xwi88" data-hashtags="git,gpg"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/" data-hashtag="git"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/" data-title="Git 使用 GPG 对提交进行签名认证"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/git-sign-tags-commits-with-gpg/" data-title="Git 使用 GPG 对提交进行签名认证"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/git/">git</a>,&nbsp;<a href="/tags/gpg/">gpg</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-vcs-gvm/" class="prev" rel="prev" title="Go 版本管理工具 gvm"><i class="fas fa-angle-left fa-fw"></i>Go 版本管理工具 gvm</a></div>
+</div>
+<div id="comments">
+
+            <div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div>
+
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b75f7823ed815277b8be8f7b2c230cffa1f67c62aae6f5fdde56fd43eb6ddce0.js" integrity="sha256-t194I&#43;2BUne4vo97LCMM/6H2fGKq5vX93lb9Q&#43;tt3OA="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>
