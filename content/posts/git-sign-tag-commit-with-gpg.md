@@ -2,7 +2,6 @@
 url: "git-sign-tags-commits-with-gpg"
 title: "Git 使用 GPG 对提交进行签名认证"
 date: 2022-03-09T12:31:34+08:00
-lastmod: 2022-03-09T12:50:34+08:00
 draft: false
 
 description: "Git sign tags or commits with gpg"
@@ -144,7 +143,22 @@ git config --global commit.gpgsign true
 
 ### 提交带签名的 commit
 
-`git commit -S -m "your commit message`
+`git commit -S -m "your commit message"`
+
+>如果你设置了默认对提交进行签名，也可以如下操作
+>
+>`git commit -m "your commit message"`
+
+{{< admonition warning >}}
+如果你使用的 **GPG key** 使用了 *GPG key passphrase*, 则你进行提交的时候需要输入你的 *passphrase*.
+
+你可以选择存储 **GPG key passphrase** 来避免每次的签名 *passphrase* 输入:
+
+- Mac users, **[GPG Suite](https://gpgtools.org/)** 可以将你的 *GPG key passphrase* 存储在 **Mac OS Keychain**
+- Windows users, **[Gpg4win](https://www.gpg4win.org/)**
+- Manually 配置 **[gpg-agent](http://linux.die.net/man/1/gpg-agent)** 来存储
+
+{{< /admonition >}}
 
 ### sign tag
 
@@ -152,6 +166,40 @@ git config --global commit.gpgsign true
 # sign a tag
 git tag -s my_tag
 
-# Verify your signed tag 
+# verify your signed tag 
 git tag -v my_tag
 ```
+
+### 提交签名查看
+
+`git log --show-signature`
+
+{{< admonition tip>}}
+
+> 格式化日志查看签名，可自定义配置查看 log
+
+`git log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset | [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit`
+
+```bash
+* G fb56816 - fixed rsync dir (2 days ago) <xwi88> | [325ACD1FD3B6AA80 trust:ultimate] xwi88 <278810732@qq.com>
+* G 63d6ec2 - fixed rsync deploy (2 days ago) <xwi88> | [325ACD1FD3B6AA80 trust:ultimate] xwi88 <278810732@qq.com>
+* N 1ac5368 - workflow add remote deploy (2 days ago) <xwi88> | [ trust:undefined]
+* E 289ae51 - add domain ICP info (2 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E f0e44bd - switch comment store repo:x (2 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E fbd5778 - fixed giscus issue (3 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E 5fa8d41 - replace utterances by giscus (3 days ago) <xwi88> | [EEA29F407613E698 trust:]
+```
+
+- G: for a good (valid) signature
+- B: for a bad signature
+- U: for a good signature with unknown validity
+- X: for a good signature that has expired
+- Y: for a good signature made by an expired key
+- R: for a good signature made by a revoked key
+- E: if the signature cannot be checked (e.g. missing key)
+- N: for no signature
+{{< /admonition >}}
+
+## 参考
+
+- [managing-commit-signature-verification](https://docs.github.com/en/authentication/managing-commit-signature-verification)
