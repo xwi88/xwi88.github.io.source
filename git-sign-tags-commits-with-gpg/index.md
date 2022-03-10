@@ -13,6 +13,41 @@
 
 >设置路径: **Settings**->**[SSH and GPG keys](https://github.com/settings/keys)**>**Vigilant mode**->select **Flag unsigned commits as unverified**
 
+## GPG Command
+
+```bash
+gpg> help
+quit        quit this menu
+save        save and quit
+help        show this help
+fpr         show key fingerprint
+grip        show the keygrip
+list        list key and user IDs
+uid         select user ID N
+key         select subkey N
+check       check signatures
+sign        sign selected user IDs [* see below for related commands]
+lsign       sign selected user IDs locally
+tsign       sign selected user IDs with a trust signature
+nrsign      sign selected user IDs with a non-revocable signature
+deluid      delete selected user IDs
+delkey      delete selected subkeys
+delsig      delete signatures from the selected user IDs
+pref        list preferences (expert)
+showpref    list preferences (verbose)
+trust       change the ownertrust
+revsig      revoke signatures on the selected user IDs
+enable      enable key
+disable     disable key
+showphoto   show selected photo IDs
+clean       compact unusable user IDs and remove unusable signatures from key
+minimize    compact unusable user IDs and remove all signatures from key
+
+* The 'sign' command may be prefixed with an 'l' for local signatures (lsign),
+  a 't' for trust signatures (tsign), an 'nr' for non-revocable signatures
+  (nrsign), or any combination thereof (ltsign, tnrsign, etc.).
+```
+
 ## GPG Key 生成与配置
 
 {{< admonition note >}} GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see [GnuPG's Download page](https://www.gnupg.org/download/).{{< /admonition >}}

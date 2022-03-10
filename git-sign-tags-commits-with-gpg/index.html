@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-09T12:31:34+08:00" />
-<meta property="article:modified_time" content="2022-03-09T23:13:02+08:00" />
+<meta property="article:modified_time" content="2022-03-10T13:43:07+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/"
-        },"genre": "posts","keywords": "git, gpg","wordcount":  1597 ,
-        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-09T23:13:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "git, gpg","wordcount":  1807 ,
+        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-10T13:43:07+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git 使用 GPG 对提交进行签名认证</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1597 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1807 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
     
 
@@ -139,6 +139,7 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#开启-vigilant-模式">开启 vigilant 模式</a></li>
+    <li><a href="#gpg-command">GPG Command</a></li>
     <li><a href="#gpg-key-生成与配置">GPG Key 生成与配置</a>
       <ul>
         <li><a href="#已存在-gpg-keys"><em>已存在 GPG keys</em></a></li>
@@ -171,7 +172,74 @@
 <blockquote>
 <p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
-<h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
+<h2 id="gpg-command">GPG Command</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg&gt; <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">quit        quit this menu
+</span></span><span class="line"><span class="cl">save        save and quit
+</span></span><span class="line"><span class="cl"><span class="nb">help</span>        show this <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">fpr         show key fingerprint
+</span></span><span class="line"><span class="cl">grip        show the keygrip
+</span></span><span class="line"><span class="cl">list        list key and user IDs
+</span></span><span class="line"><span class="cl">uid         <span class="k">select</span> user ID N
+</span></span><span class="line"><span class="cl">key         <span class="k">select</span> subkey N
+</span></span><span class="line"><span class="cl">check       check signatures
+</span></span><span class="line"><span class="cl">sign        sign selected user IDs <span class="o">[</span>* see below <span class="k">for</span> related commands<span class="o">]</span>
+</span></span><span class="line"><span class="cl">lsign       sign selected user IDs locally
+</span></span><span class="line"><span class="cl">tsign       sign selected user IDs with a trust signature
+</span></span><span class="line"><span class="cl">nrsign      sign selected user IDs with a non-revocable signature
+</span></span><span class="line"><span class="cl">deluid      delete selected user IDs
+</span></span><span class="line"><span class="cl">delkey      delete selected subkeys
+</span></span><span class="line"><span class="cl">delsig      delete signatures from the selected user IDs
+</span></span><span class="line"><span class="cl">pref        list preferences <span class="o">(</span>expert<span class="o">)</span>
+</span></span><span class="line"><span class="cl">showpref    list preferences <span class="o">(</span>verbose<span class="o">)</span>
+</span></span><span class="line"><span class="cl">trust       change the ownertrust
+</span></span><span class="line"><span class="cl">revsig      revoke signatures on the selected user IDs
+</span></span><span class="line"><span class="cl"><span class="nb">enable</span>      <span class="nb">enable</span> key
+</span></span><span class="line"><span class="cl">disable     disable key
+</span></span><span class="line"><span class="cl">showphoto   show selected photo IDs
+</span></span><span class="line"><span class="cl">clean       compact unusable user IDs and remove unusable signatures from key
+</span></span><span class="line"><span class="cl">minimize    compact unusable user IDs and remove all signatures from key
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* The <span class="s1">&#39;sign&#39;</span> <span class="nb">command</span> may be prefixed with an <span class="s1">&#39;l&#39;</span> <span class="k">for</span> <span class="nb">local</span> signatures <span class="o">(</span>lsign<span class="o">)</span>,
+</span></span><span class="line"><span class="cl">  a <span class="s1">&#39;t&#39;</span> <span class="k">for</span> trust signatures <span class="o">(</span>tsign<span class="o">)</span>, an <span class="s1">&#39;nr&#39;</span> <span class="k">for</span> non-revocable signatures
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>nrsign<span class="o">)</span>, or any combination thereof <span class="o">(</span>ltsign, tnrsign, etc.<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -688,8 +756,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-09&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/11605afb77a0abd91df53929742085193078b181" target="_blank" title="commit by xwi88(278810732@qq.com) 11605afb77a0abd91df53929742085193078b181: close cookie tip and update posts">
-                                    <i class="fas fa-hashtag fa-fw"></i>11605af</a></span>
+                <span>更新于 2022-03-10&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9c42c5ab4564beade47a4acebca9f2000743529f" target="_blank" title="commit by xwi88(278810732@qq.com) 9c42c5ab4564beade47a4acebca9f2000743529f: update posts git-sign-tag-commit-with-gpg">
+                                    <i class="fas fa-hashtag fa-fw"></i>9c42c5a</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
