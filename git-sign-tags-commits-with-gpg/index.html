@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-09T12:31:34+08:00" />
-<meta property="article:modified_time" content="2022-03-10T13:43:07+08:00" />
+<meta property="article:modified_time" content="2022-03-10T18:21:21+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/"
-        },"genre": "posts","keywords": "git, gpg","wordcount":  1807 ,
-        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-10T13:43:07+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "git, gpg","wordcount":  3622 ,
+        "url": "https:\/\/xwi88.com\/git-sign-tags-commits-with-gpg\/","datePublished": "2022-03-09T12:31:34+08:00","dateModified": "2022-03-10T18:21:21+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,8 +115,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git 使用 GPG 对提交进行签名认证</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1807 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-09">2022-03-09</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3622 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;
     
 
     
@@ -139,26 +139,44 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#开启-vigilant-模式">开启 vigilant 模式</a></li>
-    <li><a href="#gpg-command">GPG Command</a></li>
+    <li><a href="#gpg-command">GPG Command</a>
+      <ul>
+        <li><a href="#man-gpg"><strong>man gpg</strong></a></li>
+        <li><a href="#gpg-shell-command"><strong>gpg shell command</strong></a></li>
+      </ul>
+    </li>
     <li><a href="#gpg-key-生成与配置">GPG Key 生成与配置</a>
       <ul>
         <li><a href="#已存在-gpg-keys"><em>已存在 GPG keys</em></a></li>
         <li><a href="#新生成-gpg-key">新生成 <em>GPG key</em></a></li>
         <li><a href="#最新-gpg-keys">最新 <em>GPG keys</em></a></li>
         <li><a href="#导出-gpg-key">导出 <em>GPG key</em></a></li>
-        <li><a href="#设置-gpg-key">设置 <strong>GPG key</strong></a></li>
+        <li><a href="#查找-gpg-key">查找 <em>GPG key</em></a></li>
+        <li><a href="#导入-gpg-key">导入 <em>GPG key</em></a></li>
+        <li><a href="#私钥备份导出与导入">私钥备份导出与导入</a>
+          <ul>
+            <li><a href="#私钥导出">私钥导出</a></li>
+            <li><a href="#私钥导入">私钥导入</a></li>
+          </ul>
+        </li>
+        <li><a href="#秘钥回收"><strong>秘钥回收</strong></a></li>
+        <li><a href="#秘钥删除">秘钥删除</a></li>
       </ul>
     </li>
+    <li><a href="#重启-gpg-agent">重启 GPG Agent</a></li>
     <li><a href="#git-配置使用-gpg">Git 配置使用 GPG</a>
       <ul>
+        <li><a href="#设置-gpg-key">设置 <strong>GPG key</strong></a></li>
         <li><a href="#配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></a></li>
         <li><a href="#提交带签名的-commit">提交带签名的 commit</a></li>
         <li><a href="#sign-tag">sign tag</a></li>
         <li><a href="#提交签名查看">提交签名查看</a></li>
+        <li><a href="#本地签名校验问题"><strong>本地签名校验问题</strong></a></li>
+        <li><a href="#缺失-gpg-keys-导入认证"><strong>缺失 gpg keys</strong> 导入认证</a></li>
       </ul>
     </li>
     <li><a href="#gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></a></li>
-    <li><a href="#gpg-key-重新绑定">GPG key 重新绑定</a></li>
+    <li><a href="#gpg-sign-key-重新绑定">GPG sign key 重新绑定</a></li>
     <li><a href="#gpg-keys-删除"><em>GPG keys 删除</em></a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
@@ -173,6 +191,218 @@
 <p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
 <h2 id="gpg-command">GPG Command</h2>
+<h3 id="man-gpg"><strong>man gpg</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.34
+</span></span><span class="line"><span class="cl">libgcrypt 1.9.4
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2022</span> g10 Code GmbH
+</span></span><span class="line"><span class="cl">License GNU GPL-3.0-or-later &lt;https://gnu.org/licenses/gpl.html&gt;
+</span></span><span class="line"><span class="cl">This is free software: you are free to change and redistribute it.
+</span></span><span class="line"><span class="cl">There is NO WARRANTY, to the extent permitted by law.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Home: ~/.gnupg
+</span></span><span class="line"><span class="cl">Supported algorithms:
+</span></span><span class="line"><span class="cl">Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+</span></span><span class="line"><span class="cl">Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+</span></span><span class="line"><span class="cl">        CAMELLIA128, CAMELLIA192, CAMELLIA256
+</span></span><span class="line"><span class="cl">Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+</span></span><span class="line"><span class="cl">Compression: Uncompressed, ZIP, ZLIB, BZIP2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Syntax: gpg <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>files<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Sign, check, encrypt or decrypt
+</span></span><span class="line"><span class="cl">Default operation depends on the input data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> -s, --sign                         make a signature
+</span></span><span class="line"><span class="cl">     --clear-sign                   make a clear text signature
+</span></span><span class="line"><span class="cl"> -b, --detach-sign                  make a detached signature
+</span></span><span class="line"><span class="cl"> -e, --encrypt                      encrypt data
+</span></span><span class="line"><span class="cl"> -c, --symmetric                    encryption only with symmetric cipher
+</span></span><span class="line"><span class="cl"> -d, --decrypt                      decrypt data <span class="o">(</span>default<span class="o">)</span>
+</span></span><span class="line"><span class="cl">     --verify                       verify a signature
+</span></span><span class="line"><span class="cl"> -k, --list-keys                    list keys
+</span></span><span class="line"><span class="cl">     --list-signatures              list keys and signatures
+</span></span><span class="line"><span class="cl">     --check-signatures             list and check key signatures
+</span></span><span class="line"><span class="cl">     --fingerprint                  list keys and fingerprints
+</span></span><span class="line"><span class="cl"> -K, --list-secret-keys             list secret keys
+</span></span><span class="line"><span class="cl">     --generate-key                 generate a new key pair
+</span></span><span class="line"><span class="cl">     --quick-generate-key           quickly generate a new key pair
+</span></span><span class="line"><span class="cl">     --quick-add-uid                quickly add a new user-id
+</span></span><span class="line"><span class="cl">     --quick-revoke-uid             quickly revoke a user-id
+</span></span><span class="line"><span class="cl">     --quick-set-expire             quickly <span class="nb">set</span> a new expiration date
+</span></span><span class="line"><span class="cl">     --full-generate-key            full featured key pair generation
+</span></span><span class="line"><span class="cl">     --generate-revocation          generate a revocation certificate
+</span></span><span class="line"><span class="cl">     --delete-keys                  remove keys from the public keyring
+</span></span><span class="line"><span class="cl">     --delete-secret-keys           remove keys from the secret keyring
+</span></span><span class="line"><span class="cl">     --quick-sign-key               quickly sign a key
+</span></span><span class="line"><span class="cl">     --quick-lsign-key              quickly sign a key locally
+</span></span><span class="line"><span class="cl">     --quick-revoke-sig             quickly revoke a key signature
+</span></span><span class="line"><span class="cl">     --sign-key                     sign a key
+</span></span><span class="line"><span class="cl">     --lsign-key                    sign a key locally
+</span></span><span class="line"><span class="cl">     --edit-key                     sign or edit a key
+</span></span><span class="line"><span class="cl">     --change-passphrase            change a passphrase
+</span></span><span class="line"><span class="cl">     --export                       <span class="nb">export</span> keys
+</span></span><span class="line"><span class="cl">     --send-keys                    <span class="nb">export</span> keys to a keyserver
+</span></span><span class="line"><span class="cl">     --receive-keys                 import keys from a keyserver
+</span></span><span class="line"><span class="cl">     --search-keys                  search <span class="k">for</span> keys on a keyserver
+</span></span><span class="line"><span class="cl">     --refresh-keys                 update all keys from a keyserver
+</span></span><span class="line"><span class="cl">     --import                       import/merge keys
+</span></span><span class="line"><span class="cl">     --card-status                  print the card status
+</span></span><span class="line"><span class="cl">     --edit-card                    change data on a card
+</span></span><span class="line"><span class="cl">     --change-pin                   change a card<span class="err">&#39;</span>s PIN
+</span></span><span class="line"><span class="cl">     --update-trustdb               update the trust database
+</span></span><span class="line"><span class="cl">     --print-md                     print message digests
+</span></span><span class="line"><span class="cl">     --server                       run in server mode
+</span></span><span class="line"><span class="cl">     --tofu-policy VALUE            <span class="nb">set</span> the TOFU policy <span class="k">for</span> a key
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the diagnostic output:
+</span></span><span class="line"><span class="cl"> -v, --verbose                      verbose
+</span></span><span class="line"><span class="cl"> -q, --quiet                        be somewhat more quiet
+</span></span><span class="line"><span class="cl">     --options FILE                 <span class="nb">read</span> options from FILE
+</span></span><span class="line"><span class="cl">     --log-file FILE                write server mode logs to FILE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the configuration:
+</span></span><span class="line"><span class="cl">     --default-key NAME             use NAME as default secret key
+</span></span><span class="line"><span class="cl">     --encrypt-to NAME              encrypt to user ID NAME as well
+</span></span><span class="line"><span class="cl">     --group SPEC                   <span class="nb">set</span> up email aliases
+</span></span><span class="line"><span class="cl">     --openpgp                      use strict OpenPGP behavior
+</span></span><span class="line"><span class="cl"> -n, --dry-run                      <span class="k">do</span> not make any changes
+</span></span><span class="line"><span class="cl"> -i, --interactive                  prompt before overwriting
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the output:
+</span></span><span class="line"><span class="cl"> -a, --armor                        create ascii armored output
+</span></span><span class="line"><span class="cl"> -o, --output FILE                  write output to FILE
+</span></span><span class="line"><span class="cl">     --textmode                     use canonical text mode
+</span></span><span class="line"><span class="cl"> -z N                               <span class="nb">set</span> compress level to N <span class="o">(</span><span class="m">0</span> disables<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling key import and export:
+</span></span><span class="line"><span class="cl">     --auto-key-locate MECHANISMS   use MECHANISMS to locate keys by mail address
+</span></span><span class="line"><span class="cl">     --disable-dirmngr              disable all access to the dirmngr
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options to specify keys:
+</span></span><span class="line"><span class="cl"> -r, --recipient USER-ID            encrypt <span class="k">for</span> USER-ID
+</span></span><span class="line"><span class="cl"> -u, --local-user USER-ID           use USER-ID to sign or decrypt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>See the man page <span class="k">for</span> a <span class="nb">complete</span> listing of all commands and options<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Examples:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> -se -r Bob <span class="o">[</span>file<span class="o">]</span>          sign and encrypt <span class="k">for</span> user Bob
+</span></span><span class="line"><span class="cl"> --clear-sign <span class="o">[</span>file<span class="o">]</span>        make a clear text signature
+</span></span><span class="line"><span class="cl"> --detach-sign <span class="o">[</span>file<span class="o">]</span>       make a detached signature
+</span></span><span class="line"><span class="cl"> --list-keys <span class="o">[</span>names<span class="o">]</span>        show keys
+</span></span><span class="line"><span class="cl"> --fingerprint <span class="o">[</span>names<span class="o">]</span>      show fingerprints
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please report bugs to &lt;https://bugs.gnupg.org&gt;.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gpg-shell-command"><strong>gpg shell command</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -360,7 +590,10 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="导出-gpg-key">导出 <em>GPG key</em></h3>
-<p><code>gpg --armor --export FE47519758053257</code></p>
+<ul>
+<li><code>gpg --armor --export FE47519758053257</code></li>
+<li>或 <code>gpg -a -o --export FE47519758053257</code></li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -377,7 +610,307 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">-----END PGP PUBLIC KEY BLOCK-----
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
+</div><p>导出 <em>gpg public key</em> 到指定位置:</p>
+<ul>
+<li><code>gpg --export --armor [uid] &gt; gpgkey.pub.asc</code> <strong>导出到文件</strong> <em>uid: keyID/name/email</em></li>
+<li><code>gpg --keyserver [keyserverAddress] --send-keys keyIDs</code> <em>导出到指定 key server</em></li>
+<li><code>gpg --send-keys keyIDs</code> <strong>导出到默认 key server</strong></li>
+</ul>
+<blockquote>
+<p><strong>导出到默认 key server 输出</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查找-gpg-key">查找 <em>GPG key</em></h3>
+<blockquote>
+<p><strong>keyIDs</strong> 可以为: <em>name</em>, <strong>keyID</strong>, <em>email</em></p>
+</blockquote>
+<ul>
+<li><code>gpg --keyserver keyserverAddress --search-keys keyIDs</code></li>
+<li><code>gpg --search-keys keyIDs</code> <strong>默认 key server 查找</strong></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --search-keys xwi88</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;xwi88&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --search-keys 90684042688CB9BE</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;90684042688CB9BE&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --search-keys 278810732@qq.com</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;278810732@qq.com&#34;.  Enter number(s), N)ext, or Q)uit &gt; y
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="导入-gpg-key">导入 <em>GPG key</em></h3>
+<blockquote>
+<p><strong>key server 导入</strong> 如果不指定地址则默认从 <code>hkps://keyserver.ubuntu.com</code> 导入, <strong>地址可能会不同，此为本机输出</strong></p>
+</blockquote>
+<ul>
+<li><code>gpg --import [GPG public key]</code> <em>文件导入</em></li>
+<li><code>gpg --keyserver [keyserverAddress] --recv-keys keyIDs</code>  <em>key server 导入</em></li>
+<li><code>gpg --recv-keys keyIDs</code> <strong>默认 key server 导入</strong></li>
+<li><code>gpg --refresh-keys</code> <em>从 key server 更新所有 keys</em></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --recv-keys 90684042688CB9BE</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 90684042688CB9BE: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="私钥备份导出与导入">私钥备份导出与导入</h3>
+<blockquote>
+<p>主要用于: <strong>个人多机共享</strong></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>私钥禁止上传 key server</strong></li>
+<li><strong>请通过安全的方式备份存储私钥文件</strong></li>
+<li><em>私钥文件权限</em>: <code>600</code></li>
+<li><em>公钥文件权限</em>: <code>644</code></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h4 id="私钥导出">私钥导出</h4>
+<p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg -K</code> 本机私钥查看</p>
+<p><code>gpg -a -o test_secKey.asc --export-secret-keys 1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80</code> 私钥导出</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h4 id="私钥导入">私钥导入</h4>
+<p><code>gpg --import secKeyFile</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --import test_secKey.asc</code> 私钥导入，与公钥导入一样操作</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg -K</code> 本机私钥查看</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="秘钥回收"><strong>秘钥回收</strong></h3>
+<p><em>当重新生成秘钥对后，如果其他的秘钥对不再使用，需要立即发布秘钥回收证书，声明以前的公钥不再生效，防止被恶意使用。</em></p>
+<blockquote>
+<p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p>
+<p><code>gpg --import test_revoke.asc</code> 导入回收证书</p>
+<p><code>gpg --send-keys keyID</code> 发送回收证书到服务器，声明原 <em>GPG Key</em> 作废</p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --output test_revoke.asc --gen-revoke 325ACD1FD3B6AA80</code></p>
+<p>或 <code>gpg --output test_revoke.asc --generate-revocation 325ACD1FD3B6AA80</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/325ACD1FD3B6AA80 2022-03-07 xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Create a revocation certificate for this key? (y/N) y
+</span></span><span class="line"><span class="cl">Please select the reason for the revocation:
+</span></span><span class="line"><span class="cl">  0 = No reason specified
+</span></span><span class="line"><span class="cl">  1 = Key has been compromised
+</span></span><span class="line"><span class="cl">  2 = Key is superseded
+</span></span><span class="line"><span class="cl">  3 = Key is no longer used
+</span></span><span class="line"><span class="cl">  Q = Cancel
+</span></span><span class="line"><span class="cl">(Probably you want to select 1 here)
+</span></span><span class="line"><span class="cl">Your decision? 3
+</span></span><span class="line"><span class="cl">Enter an optional description; end it with an empty line:
+</span></span><span class="line"><span class="cl">&gt; 
+</span></span><span class="line"><span class="cl">Reason for revocation: Key is no longer used
+</span></span><span class="line"><span class="cl">(No description given)
+</span></span><span class="line"><span class="cl">Is this okay? (y/N) y
+</span></span><span class="line"><span class="cl">ASCII armored output forced.
+</span></span><span class="line"><span class="cl">Revocation certificate created.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please move it to a medium which you can hide away; if Mallory gets
+</span></span><span class="line"><span class="cl">access to this certificate he can use it to make your key unusable.
+</span></span><span class="line"><span class="cl">It is smart to print this certificate and store it away, just in case
+</span></span><span class="line"><span class="cl">your media become unreadable.  But have some caution:  The print system of
+</span></span><span class="line"><span class="cl">your machine might store the data and make it available to others!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --import test_revoke.asc</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; revocation certificate imported
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:    new key revocations: 1
+</span></span><span class="line"><span class="cl">gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+</span></span><span class="line"><span class="cl">gpg: depth: 0  valid:   3  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 3u
+</span></span><span class="line"><span class="cl">gpg: next trustdb check due at 2024-03-06
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --send-keys 325ACD1FD3B6AA80</code></p>
+<p><code>gpg --search-keys 325ACD1FD3B6AA80</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">gpg: key &#34;325ACD1FD3B6AA80&#34; not found on keyserver
+</span></span><span class="line"><span class="cl">gpg: keyserver search failed: Not found
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="秘钥删除">秘钥删除</h3>
+<ul>
+<li><code>gpg --delete-secret-keys keyID</code> <strong>需要先删除</strong></li>
+<li><code>gpg --delete-keys keyID</code></li>
+</ul>
+<h2 id="重启-gpg-agent">重启 GPG Agent</h2>
+<blockquote>
+<p>GPG会在需要时重新启动它</p>
+</blockquote>
+<p><code>gpgconf --kill gpg-agent</code></p>
+<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
+<h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
 <blockquote>
 <ul>
 <li>
@@ -388,7 +921,6 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </li>
 </ul>
 </blockquote>
-<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
 <h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
 <blockquote>
 <p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <strong>local</strong> 替换 <del>&ndash;global</del></p>
@@ -495,6 +1027,80 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><em>N</em>: for no signature</li>
 </ul>
 </div>
+        </div>
+    </div>
+<h3 id="本地签名校验问题"><strong>本地签名校验问题</strong></h3>
+<p>通过命令 <code>git log --show-signature</code> 查看提交签名信息时可能会出现如下信息:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">commit e39e0920b68648b0751b7f91fffdd07080391945 (HEAD -&gt; main, origin/main, origin/HEAD)
+</span></span><span class="line"><span class="cl">gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class="line"><span class="cl">gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">gpg: Can&#39;t check signature: No public key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>也可通过命令 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code> 校验指定提交签名是否合法</p>
+</blockquote>
+<p><strong>出现上述现象原因是因为你当前代码不存在对应 <code>commits</code> 使用的 <code>gpg public key</code>。我们可以通过导入对应提交者 <code>gpg public keys</code> 的方法解决。</strong></p>
+<h3 id="缺失-gpg-keys-导入认证"><strong>缺失 gpg keys</strong> 导入认证</h3>
+<p>为了准确获取完整提交的签名校验信息，我们需要对缺失 <strong>public keys</strong> 进行导入。我们的实验导入源参考如下：</p>
+<ul>
+<li><code>https://github.com/&lt;username&gt;.gpg</code> <em>需要你在 github 进行 GPG keys 上传配置</em></li>
+<li><code>hkps://keyserver.ubuntu.com</code> <em>需要你进行了 keys 上传</em></li>
+</ul>
+<blockquote>
+<p>对导入的 <em>public key</em> 进行认证</p>
+</blockquote>
+<ul>
+<li><code>gpg --list-keys --keyid-format=long</code> 找到你要认证的 key</li>
+<li><code>gpg --lsign-key [GPG key ID]</code> <em>local sign</em></li>
+<li><code>gpg --edit-key [GPG key ID]</code> <em>local sign 与此处理选择一个即可</em></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><strong>从 github 导入我们本地缺失的 public key</strong> <code>gpg --keyserver https://github.com/xwi88.gpg --recv-keys 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p>
+<p><strong>认证 key</strong> <code>gpg --lsign-key 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p>
+<p><strong>查看认证key状态</strong> <code>gpg --list-keys --keyid-format=long</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">pub   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid                 [  full  ] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>再次校验我们的提交 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class="line"><span class="cl">gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">gpg: Good signature from &#34;xwi88 &lt;278810732@qq.com&gt;&#34; [full]
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
         </div>
     </div>
 <h2 id="gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></h2>
@@ -664,7 +1270,7 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="gpg-key-重新绑定">GPG key 重新绑定</h2>
+<h2 id="gpg-sign-key-重新绑定">GPG sign key 重新绑定</h2>
 <blockquote>
 <p><strong>以下设置如无需要，请勿更新</strong></p>
 </blockquote>
@@ -702,7 +1308,7 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
         </div>
         <div class="details-content">
             <div class="admonition-content"><p><strong>非必要不删除</strong>，如果是因为过期则直接选择进行<strong>续期操作</strong>即可</p>
-<p><em>tmp_gpg 对应的 uid</em> 输入， 可以是以下任一个，请尽量使用 GPG key ID:</p>
+<p><em>tmp_gpg 对应的 uid</em> 输入， 可以是以下任一个，请使用 <em>GPG key ID</em>:</p>
 <ul>
 <li><em>tmp_gpg</em></li>
 <li><strong>13431F2AC47C4AE0</strong></li>
@@ -756,8 +1362,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-10&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9c42c5ab4564beade47a4acebca9f2000743529f" target="_blank" title="commit by xwi88(278810732@qq.com) 9c42c5ab4564beade47a4acebca9f2000743529f: update posts git-sign-tag-commit-with-gpg">
-                                    <i class="fas fa-hashtag fa-fw"></i>9c42c5a</a></span>
+                <span>更新于 2022-03-10&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/913cc97bfb5aed53a2fa7d5d0a76400c4dd5a26c" target="_blank" title="commit by xwi88(278810732@qq.com) 913cc97bfb5aed53a2fa7d5d0a76400c4dd5a26c: update posts tmp">
+                                    <i class="fas fa-hashtag fa-fw"></i>913cc97</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
