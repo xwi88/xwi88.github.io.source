@@ -4,9 +4,16 @@
         <link>https://xwi88.com/</link>
         <description>技术 博客 分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 09 Mar 2022 12:31:34 &#43;0800</lastBuildDate>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 10 Mar 2022 21:31:19 &#43;0800</lastBuildDate>
             <atom:link href="https://xwi88.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Git 常用命令及配置</title>
+    <link>https://xwi88.com/git-common-config/</link>
+    <pubDate>Thu, 10 Mar 2022 21:31:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xwi88.com/git-common-config/</guid>
+    <description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer"><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>]]></description>
+</item><item>
     <title>Git 使用 GPG 对提交进行签名认证</title>
     <link>https://xwi88.com/git-sign-tags-commits-with-gpg/</link>
     <pubDate>Wed, 09 Mar 2022 12:31:34 &#43;0800</pubDate>

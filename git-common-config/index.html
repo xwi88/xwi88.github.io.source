@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git 常用命令及配置 - Coding Life Share</title><meta name="Description" content="我的常用 git 命令及配置"><meta property="og:title" content="Git 常用命令及配置" />
+<meta property="og:description" content="我的常用 git 命令及配置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/git-common-config/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-10T21:31:19+08:00" />
+<meta property="article:modified_time" content="2022-03-11T01:23:28+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Git 常用命令及配置"/>
+<meta name="twitter:description" content="我的常用 git 命令及配置"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/git-common-config/" /><link rel="prev" href="https://xwi88.com/git-sign-tags-commits-with-gpg/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.0d6caebf00b5c7d28f7cfa342125779c1121e6d1be32817cad67fca28d148a7c.css" integrity="sha256-DWyuvwC1x9KPfPo0ISV3nBEh5tG&#43;MoF8rWf8oo0Uinw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git 常用命令及配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/git-common-config\/"
+        },"genre": "posts","keywords": "git, env","wordcount":  1640 ,
+        "url": "https:\/\/xwi88.com\/git-common-config\/","datePublished": "2022-03-10T21:31:19+08:00","dateModified": "2022-03-11T01:23:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "我的常用 git 命令及配置"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/git-common-config/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/git-common-config/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git 常用命令及配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1640 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#账户基本配置">账户基本配置</a>
+      <ul>
+        <li><a href="#签名提交设置">签名提交设置</a></li>
+      </ul>
+    </li>
+    <li><a href="#密码存储">密码存储</a></li>
+    <li><a href="#密码清除">密码清除</a></li>
+    <li><a href="#日志输出美化">日志输出美化</a></li>
+    <li><a href="#分支操作">分支操作</a>
+      <ul>
+        <li><a href="#远程分支地址设置">远程分支地址设置</a></li>
+        <li><a href="#代码下载-clone">代码下载 clone</a></li>
+        <li><a href="#代码拉取与同步">代码拉取与同步</a></li>
+        <li><a href="#代码合并提交">代码合并提交</a></li>
+        <li><a href="#checkout-与-reset">checkout 与 reset</a></li>
+        <li><a href="#代码状态查看">代码状态查看</a></li>
+        <li><a href="#分支推送与删除">分支推送与删除</a></li>
+      </ul>
+    </li>
+    <li><a href="#撤销设置项">撤销设置项</a></li>
+    <li><a href="#配置文件编辑">配置文件编辑</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer"><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="账户基本配置">账户基本配置</h2>
+<blockquote>
+<p><code>--global</code> <em>表示全局配置</em>，<strong>非全局配置需要在具体 git 项目目录下面设置</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global user.name [your_name]</code></li>
+<li><code>git config --global user.email [your_email]</code></li>
+<li><code>git config --global --list</code> <strong>全局 git 配置查看</strong></li>
+<li><code>git config --list</code> <em>项目 git 配置查看</em></li>
+</ul>
+<h3 id="签名提交设置">签名提交设置</h3>
+<blockquote>
+<p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
+</blockquote>
+<ul>
+<li><code>git config --global user.signingkey [KeyID]</code></li>
+<li><code>git config --global commit.gpgsign true</code></li>
+</ul>
+<p>可参考: <a href="/git-sign-tags-commits-with-gpg/" rel="">Git 使用 GPG 对提交进行签名认证</a> 进行设置</p>
+<h2 id="密码存储">密码存储</h2>
+<blockquote>
+<p>为了避免每次都要输入密码，我们需要让机器记住密码。<em>MacOS</em> 会借助 <strong>keychain Access</strong> 存储你的密码及其他凭证。</p>
+</blockquote>
+<ul>
+<li><code>git config --global credential.helper store</code> <strong>设置本机永久保存你的密码或凭证</strong></li>
+<li><code>git config --global credential.helper 'cache --timeout=300'</code> <em>保存密码 300s</em></li>
+</ul>
+<blockquote>
+<p><strong>更多内容见</strong>:</p>
+<ul>
+<li><a href="https://git-scm.com/docs/gitcredentials" target="_blank" rel="noopener noreffer">gitcredentials</a></li>
+<li><a href="https://git-scm.com/docs/git-credential-cache" target="_blank" rel="noopener noreffer">git-credential-cache</a></li>
+</ul>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>如果你开启了多因素认证，则需要使用 <strong>Personal Token</strong> 之类的代替密码输入。</p>
+<ul>
+<li>github 设置路径: <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreffer">Settings Developer settings</a>-&gt;<strong>Personal access tokens</strong>-&gt;<em>Generate new token</em></li>
+</ul>
+</blockquote>
+<p><strong>Personal access tokens</strong> 📢</p>
+<ul>
+<li><strong>只有生成的时候可见，注意保存</strong></li>
+<li><strong>务必注意权限及过期时间设置</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="密码清除">密码清除</h2>
+<blockquote>
+<p>密码改变或过期后请务必清除存储的密码，否则可能造成<code>登录失败</code>，<code>无权限登录</code>等问题</p>
+</blockquote>
+<ul>
+<li><code>git config --system --unset credential.helper</code></li>
+<li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>或设置一个极短的过期时间，清除缓存密码</em></li>
+<li><code>git config --global credential.helper store</code> <strong>重新开启密码存储</strong></li>
+</ul>
+<h2 id="日志输出美化">日志输出美化</h2>
+<blockquote>
+<p>原始的 <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer"><code>git log</code></a> 太过简陋不方便查看更具体的信息，我们需要对其进行格式化，借助 <code>git alias</code> 可以很方便的定义我们自己的 <em>git log</em> 命令，<strong>请务必不要覆盖掉 <code>git</code> 自带的命令</strong>。</p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>我常用的 <em>git log</em> 配置如下</p>
+<blockquote>
+<p><code>git config --global alias.lg &quot;log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你需要查看 <strong>gpg</strong> 签名信息可以如下配置:</p>
+<blockquote>
+<p><code>git config --global alias.lsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>更详细签名信息可如下配置：</p>
+<blockquote>
+<p><code>git config --global alias.llsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git llsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>C739E6A64E102CD0 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>务必指定输出日志条数</strong></li>
+<li><strong>务必不要配置的过于复杂，可能会导致输出较慢</strong></li>
+<li><strong>如果使用 <code>gpg 签名</code>，务必保证你不要有太多个 <code>gpg key</code></strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="分支操作">分支操作</h2>
+<h3 id="远程分支地址设置">远程分支地址设置</h3>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code> 远程仓库地址配置</li>
+<li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> 远程仓库地址名修改</li>
+<li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> 远程仓库地址修改</li>
+</ul>
+<h3 id="代码下载-clone">代码下载 clone</h3>
+<ul>
+<li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> 单分支下载</li>
+<li><code>git clone &lt;url&gt; [dir]</code></li>
+</ul>
+<h3 id="代码拉取与同步">代码拉取与同步</h3>
+<ul>
+<li><code>git fetch --all</code> || <code>git merge</code> 仅拉取代码到<strong>本地远程分支</strong> 如 <code>origin/main</code>, <code>upstream/main</code> 等，不直接合并到相应本地分支，在需要时同步合并</li>
+<li><code>git pull</code> 拉取并合并远程分支代码到当前分支，一般情况不建议直接此操作，除非你很明确可能产生的后果</li>
+<li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> 主要用于本地新建分支与指定远程分支间的跟踪，<strong>一般用于新分支首次推送</strong></li>
+</ul>
+<h3 id="代码合并提交">代码合并提交</h3>
+<blockquote>
+<p>多人或大规模团队协作情况下，请务必掌握并使用 <code>git rebase</code> 进行操作，且要保证各自分支相比 <strong>base</strong> 分支有<strong>最小的 commits 数量</strong>，便于各自 <strong>rebase</strong> 及冲突解决。</p>
+<p>如果你提交了 <code>PR</code> 或 <code>MR</code>，<strong>reviewers</strong> 审查前，请务必保证你提交的分支相较 <strong>base</strong> 是 <code>Fast-Forward</code> 的，禁止在界面直接进行 <strong>Rebase</strong></p>
+</blockquote>
+<ul>
+<li><code>git rebase</code> <strong>慎重操作</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer">演示，请点击</a></li>
+<li><code>git merge</code> <del><strong>不建议此操作</strong></del></li>
+</ul>
+<h3 id="checkout-与-reset">checkout 与 reset</h3>
+<ul>
+<li><code>git chekout</code></li>
+<li><code>git reset</code></li>
+<li><code>git revert</code> <em>cli 不常用</em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Git Command</th>
+<th style="text-align:left">Scope</th>
+<th style="text-align:left">Common use cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Discard commits in a private branch or throw away uncommited changes</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Unstage a file</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Switch between branches or inspect old snapshots</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Discard changes in the working directory</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Undo commits in a public branch</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">(N/A)</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw"></i>信息<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>--soft</code> The staged snapshot and working directory are not altered in any way.</p>
+<p><code>--mixed</code> The staged snapshot is updated to match the specified commit, but the working directory is not affected. This is the default option.</p>
+<p><code>--hard</code> The staged snapshot and the working directory are both updated to match the specified commit.</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="代码状态查看">代码状态查看</h3>
+<ul>
+<li><code>git status -s</code> 当前分支状态查看</li>
+<li><code>git diff [&lt;path&gt;...]</code> 比较文件和暂存区文件差异</li>
+<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> 比较 commit 之间差异</li>
+<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> 比较暂存区和版本库差异</li>
+</ul>
+<h3 id="分支推送与删除">分支推送与删除</h3>
+<ul>
+<li><code>git push</code> 当前分支推送，需要与远程分支建立追踪；首次推送，请使用 <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
+<li><code>git push -f</code> 强制推送当前分支到对应远程仓库</li>
+<li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> 推送空分支到远程仓库，即<strong>删除远程仓库对应分支</strong></li>
+<li><code>git branch -d</code> 本地分支删除</li>
+</ul>
+<h2 id="撤销设置项">撤销设置项</h2>
+<blockquote>
+<p><strong>Remove the line matching the key from config file.</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global --unset [key]</code> 全局配置中删除</li>
+<li><code>git config --unset [key]</code> 项目配置中删除</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>全局配种中删除误操作创建项</em></p>
+<p><code>git config --global --unset alias.llg</code></p>
+</div>
+        </div>
+    </div>
+<h2 id="配置文件编辑">配置文件编辑</h2>
+<ul>
+<li><code>git config --global -e</code> 全局配置文件编辑，文件位置: <code>~/.gitconfig</code></li>
+<li><code>git config -e</code> 项目配置文件编辑，文件位置: <code>.git/config</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer">git docs</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer">Git-Basics-Git-Aliases</a></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-11&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/7cca335c77b97450ec640fb365907f7f1dd2608d" target="_blank" title="commit by xwi88(278810732@qq.com) 7cca335c77b97450ec640fb365907f7f1dd2608d: posts git common config">
+                                    <i class="fas fa-hashtag fa-fw"></i>7cca335</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/git-common-config/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/git-common-config/" data-title="Git 常用命令及配置" data-via="xwi88" data-hashtags="git,env"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/git-common-config/" data-hashtag="git"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/git-common-config/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/git-common-config/" data-title="Git 常用命令及配置"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/git-common-config/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/git-common-config/" data-title="Git 常用命令及配置"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/git/">git</a>,&nbsp;<a href="/tags/env/">env</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/git-sign-tags-commits-with-gpg/" class="prev" rel="prev" title="Git 使用 GPG 对提交进行签名认证"><i class="fas fa-angle-left fa-fw"></i>Git 使用 GPG 对提交进行签名认证</a></div>
+</div>
+<div id="comments">
+
+            <div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b75f7823ed815277b8be8f7b2c230cffa1f67c62aae6f5fdde56fd43eb6ddce0.js" integrity="sha256-t194I&#43;2BUne4vo97LCMM/6H2fGKq5vX93lb9Q&#43;tt3OA="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>
