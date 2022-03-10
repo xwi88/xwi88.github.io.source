@@ -112,6 +112,26 @@
 
 {{< /admonition >}}
 
+## 基本命令
+
+>关于命令更多细节，可通过 `git <command> --help` 查看
+
+- `git add [<path_spec>...]`  **添加文件到 `Index`**
+  - `git add [<path_spec>...] -n` **显示命令执行后结果，不真正执行**
+- `git status -s` 当前分支状态查看，显示文件在工作目录与暂存区不同状态：`修改`，`未添加 Index`，`暂存但未提交`
+- `git diff`
+  - `git diff [<path>...]` 比较工作目录文件和暂存区文件差异
+  - `git diff <commit>...<commit> [<path>...]` 比较 commits 之间差异
+  - `git diff --cached [<commit>] [<path>...]` 比较暂存区和版本库差异
+- `git commit` 暂存区变动提交到本地仓库
+  - `git commit -m <message>` 提交到本地仓库
+  - `git commit -S -m <message>` **签名**并提交到本地仓库，需要配置你的签名 **GPG key**
+  - `git commit -a -m` 添加并提交全部变动到本地仓库，跳过了 `git add`，一般请勿执行此操作
+  - `git commit --amend` 重新提交最近的提交，用于最近提交的**提交日志信息修改**或变动追加，**请勿连续此操作**，**已推送远程仓库提交请避免此操作**
+- `git reset` 变更撤销，具体见 [checkout 与 reset](#checkout-与-reset)
+- `git rm` 从暂存区和工作目录删除文件
+- `git mv <old> <new>` *文件的重定向*，相当于：`mv old new` , `git add` 新文件 和 `git rm` 旧文件
+
 ## 分支操作
 
 ### 远程分支地址设置
@@ -132,20 +152,11 @@
 - `git pull` 拉取并合并远程分支代码到当前分支，一般情况不建议直接此操作，除非你很明确可能产生的后果
 - `git push -u <repo_name> <branch_name>` 主要用于本地新建分支与指定远程分支间的跟踪，**一般用于新分支首次推送**
 
-### 代码合并提交
-
->多人或大规模团队协作情况下，请务必掌握并使用 `git rebase` 进行操作，且要保证各自分支相比 **base** 分支有**最小的 commits 数量**，便于各自 **rebase** 及冲突解决。
->
->如果你提交了 `PR` 或 `MR`，**reviewers** 审查前，请务必保证你提交的分支相较 **base** 是 `Fast-Forward` 的，禁止在界面直接进行 **Rebase**
-
-- `git rebase` **慎重操作** [演示，请点击](https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&mid=2247483733&idx=1&sn=5adc1d9d1a241ffc3565c47d7f924125&chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&token=281138563&lang=zh_CN#rd)
-- `git merge` ~~**不建议此操作**~~
-
 ### checkout 与 reset
 
 - `git chekout`
 - `git reset`
-- `git revert` *cli 不常用*
+- `git revert` **cli 不常用**
 
 |Git Command|Scope|Common use cases|
 |:---|:---|:---|
@@ -164,12 +175,14 @@
 > `--hard` The staged snapshot and the working directory are both updated to match the specified commit.
 {{< /admonition >}}
 
-### 代码状态查看
+### 代码合并提交
 
-- `git status -s` 当前分支状态查看
-- `git diff [<path>...]` 比较文件和暂存区文件差异
-- `git diff <commit>...<commit> [<path>...]` 比较 commit 之间差异
-- `git diff --cached [<commit>] [<path>...]` 比较暂存区和版本库差异
+>多人或大规模团队协作情况下，请务必掌握并使用 `git rebase` 进行操作，且要保证各自分支相比 **base** 分支有**最小的 commits 数量**，便于各自 **rebase** 及冲突解决。
+>
+>如果你提交了 `PR` 或 `MR`，**reviewers** 审查前，请务必保证你提交的分支相较 **base** 是 `Fast-Forward` 的，禁止在界面直接进行 **Rebase**
+
+- `git rebase` **慎重操作** [演示，请点击](https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&mid=2247483733&idx=1&sn=5adc1d9d1a241ffc3565c47d7f924125&chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&token=281138563&lang=zh_CN#rd)
+- `git merge` ~~**不建议此操作**~~
 
 ### 分支推送与删除
 
@@ -200,4 +213,6 @@
 
 - [git docs](https://git-scm.com/docs)
 - [Git-Basics-Git-Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)
+- [Git-Commands-Basic-Snapshotting](https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting)
+- [Git 使用 GPG 对提交进行签名认证](/git-sign-tags-commits-with-gpg/)
 

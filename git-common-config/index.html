@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/git-common-config/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-10T21:31:19+08:00" />
-<meta property="article:modified_time" content="2022-03-11T01:23:28+08:00" />
+<meta property="article:modified_time" content="2022-03-11T07:46:30+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/git-common-config\/"
-        },"genre": "posts","keywords": "git, env","wordcount":  1640 ,
-        "url": "https:\/\/xwi88.com\/git-common-config\/","datePublished": "2022-03-10T21:31:19+08:00","dateModified": "2022-03-11T01:23:28+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "git, env","wordcount":  1943 ,
+        "url": "https:\/\/xwi88.com\/git-common-config\/","datePublished": "2022-03-10T21:31:19+08:00","dateModified": "2022-03-11T07:46:30+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Git 常用命令及配置</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1640 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-10">2022-03-10</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1943 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
     
 
@@ -146,14 +146,14 @@
     <li><a href="#密码存储">密码存储</a></li>
     <li><a href="#密码清除">密码清除</a></li>
     <li><a href="#日志输出美化">日志输出美化</a></li>
+    <li><a href="#基本命令">基本命令</a></li>
     <li><a href="#分支操作">分支操作</a>
       <ul>
         <li><a href="#远程分支地址设置">远程分支地址设置</a></li>
         <li><a href="#代码下载-clone">代码下载 clone</a></li>
         <li><a href="#代码拉取与同步">代码拉取与同步</a></li>
-        <li><a href="#代码合并提交">代码合并提交</a></li>
         <li><a href="#checkout-与-reset">checkout 与 reset</a></li>
-        <li><a href="#代码状态查看">代码状态查看</a></li>
+        <li><a href="#代码合并提交">代码合并提交</a></li>
         <li><a href="#分支推送与删除">分支推送与删除</a></li>
       </ul>
     </li>
@@ -310,6 +310,36 @@
 </div>
         </div>
     </div>
+<h2 id="基本命令">基本命令</h2>
+<blockquote>
+<p>关于命令更多细节，可通过 <code>git &lt;command&gt; --help</code> 查看</p>
+</blockquote>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...]</code>  <strong>添加文件到 <code>Index</code></strong>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...] -n</code> <strong>显示命令执行后结果，不真正执行</strong></li>
+</ul>
+</li>
+<li><code>git status -s</code> 当前分支状态查看，显示文件在工作目录与暂存区不同状态：<code>修改</code>，<code>未添加 Index</code>，<code>暂存但未提交</code></li>
+<li><code>git diff</code>
+<ul>
+<li><code>git diff [&lt;path&gt;...]</code> 比较工作目录文件和暂存区文件差异</li>
+<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> 比较 commits 之间差异</li>
+<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> 比较暂存区和版本库差异</li>
+</ul>
+</li>
+<li><code>git commit</code> 暂存区变动提交到本地仓库
+<ul>
+<li><code>git commit -m &lt;message&gt;</code> 提交到本地仓库</li>
+<li><code>git commit -S -m &lt;message&gt;</code> <strong>签名</strong>并提交到本地仓库，需要配置你的签名 <strong>GPG key</strong></li>
+<li><code>git commit -a -m</code> 添加并提交全部变动到本地仓库，跳过了 <code>git add</code>，一般请勿执行此操作</li>
+<li><code>git commit --amend</code> 重新提交最近的提交，用于最近提交的<strong>提交日志信息修改</strong>或变动追加，<strong>请勿连续此操作</strong>，<strong>已推送远程仓库提交请避免此操作</strong></li>
+</ul>
+</li>
+<li><code>git reset</code> 变更撤销，具体见 <a href="#checkout-%e4%b8%8e-reset" rel="">checkout 与 reset</a></li>
+<li><code>git rm</code> 从暂存区和工作目录删除文件</li>
+<li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>文件的重定向</em>，相当于：<code>mv old new</code> , <code>git add</code> 新文件 和 <code>git rm</code> 旧文件</li>
+</ul>
 <h2 id="分支操作">分支操作</h2>
 <h3 id="远程分支地址设置">远程分支地址设置</h3>
 <ul>
@@ -329,20 +359,11 @@
 <li><code>git pull</code> 拉取并合并远程分支代码到当前分支，一般情况不建议直接此操作，除非你很明确可能产生的后果</li>
 <li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> 主要用于本地新建分支与指定远程分支间的跟踪，<strong>一般用于新分支首次推送</strong></li>
 </ul>
-<h3 id="代码合并提交">代码合并提交</h3>
-<blockquote>
-<p>多人或大规模团队协作情况下，请务必掌握并使用 <code>git rebase</code> 进行操作，且要保证各自分支相比 <strong>base</strong> 分支有<strong>最小的 commits 数量</strong>，便于各自 <strong>rebase</strong> 及冲突解决。</p>
-<p>如果你提交了 <code>PR</code> 或 <code>MR</code>，<strong>reviewers</strong> 审查前，请务必保证你提交的分支相较 <strong>base</strong> 是 <code>Fast-Forward</code> 的，禁止在界面直接进行 <strong>Rebase</strong></p>
-</blockquote>
-<ul>
-<li><code>git rebase</code> <strong>慎重操作</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer">演示，请点击</a></li>
-<li><code>git merge</code> <del><strong>不建议此操作</strong></del></li>
-</ul>
 <h3 id="checkout-与-reset">checkout 与 reset</h3>
 <ul>
 <li><code>git chekout</code></li>
 <li><code>git reset</code></li>
-<li><code>git revert</code> <em>cli 不常用</em></li>
+<li><code>git revert</code> <strong>cli 不常用</strong></li>
 </ul>
 <table>
 <thead>
@@ -398,12 +419,14 @@
 </div>
         </div>
     </div>
-<h3 id="代码状态查看">代码状态查看</h3>
+<h3 id="代码合并提交">代码合并提交</h3>
+<blockquote>
+<p>多人或大规模团队协作情况下，请务必掌握并使用 <code>git rebase</code> 进行操作，且要保证各自分支相比 <strong>base</strong> 分支有<strong>最小的 commits 数量</strong>，便于各自 <strong>rebase</strong> 及冲突解决。</p>
+<p>如果你提交了 <code>PR</code> 或 <code>MR</code>，<strong>reviewers</strong> 审查前，请务必保证你提交的分支相较 <strong>base</strong> 是 <code>Fast-Forward</code> 的，禁止在界面直接进行 <strong>Rebase</strong></p>
+</blockquote>
 <ul>
-<li><code>git status -s</code> 当前分支状态查看</li>
-<li><code>git diff [&lt;path&gt;...]</code> 比较文件和暂存区文件差异</li>
-<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> 比较 commit 之间差异</li>
-<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> 比较暂存区和版本库差异</li>
+<li><code>git rebase</code> <strong>慎重操作</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer">演示，请点击</a></li>
+<li><code>git merge</code> <del><strong>不建议此操作</strong></del></li>
 </ul>
 <h3 id="分支推送与删除">分支推送与删除</h3>
 <ul>
@@ -439,12 +462,14 @@
 <ul>
 <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer">git docs</a></li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer">Git-Basics-Git-Aliases</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting" target="_blank" rel="noopener noreffer">Git-Commands-Basic-Snapshotting</a></li>
+<li><a href="/git-sign-tags-commits-with-gpg/" rel="">Git 使用 GPG 对提交进行签名认证</a></li>
 </ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-11&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/7cca335c77b97450ec640fb365907f7f1dd2608d" target="_blank" title="commit by xwi88(278810732@qq.com) 7cca335c77b97450ec640fb365907f7f1dd2608d: posts git common config">
-                                    <i class="fas fa-hashtag fa-fw"></i>7cca335</a></span>
+                <span>更新于 2022-03-11&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/244640fe958f60107d8e8ba60e12ef7a31dc841e" target="_blank" title="commit by xwi88(278810732@qq.com) 244640fe958f60107d8e8ba60e12ef7a31dc841e: update posts git-common-config">
+                                    <i class="fas fa-hashtag fa-fw"></i>244640f</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>

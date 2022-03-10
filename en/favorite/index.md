@@ -6,7 +6,3 @@
 - PicGo
 - Hugo
 
-|Name|Type||
-|---|---|---|
-|Hugo|Blog Tool||
-
