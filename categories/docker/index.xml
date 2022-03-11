@@ -1,22 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>env - 标签 - Coding Life Share</title>
-        <link>https://xwi88.com/tags/env/</link>
-        <description>env - 标签 - Coding Life Share</description>
+        <title>docker - 分类 - Coding Life Share</title>
+        <link>https://xwi88.com/categories/docker/</link>
+        <description>docker - 分类 - Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/env/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/categories/docker/" rel="self" type="application/rss+xml" /><item>
     <title>Mac 使用 minikube 替换 Docker Desktop</title>
     <link>https://xwi88.com/mac-minikube-replace-docker-desktop/</link>
     <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://xwi88.com/mac-minikube-replace-docker-desktop/</guid>
     <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a>。</p>]]></description>
-</item><item>
-    <title>Git 常用命令及配置</title>
-    <link>https://xwi88.com/git-common-config/</link>
-    <pubDate>Thu, 10 Mar 2022 21:31:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xwi88.com/git-common-config/</guid>
-    <description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer"><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>]]></description>
 </item></channel>
 </rss>
