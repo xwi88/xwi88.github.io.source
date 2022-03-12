@@ -20,6 +20,8 @@
 
 ## *Docker Desktop* 清理
 
+>*不建议直接在 `Docker Desktop` 或其他类似环境上运行 `minikube`*
+
 **Uninstall** `Docker Desktop` by removing `/Applications/Docker.app`。
 
 ## minikube
@@ -78,20 +80,175 @@ brew link minikube
 minikube start
 
 # Tell Docker CLI to talk to minikube's VM
-# Add this line to .bash_profile or .zshrc or ... if you want to use minikube's daemon by default (or if you do not want to set this every time you open a new terminal).
-
 eval $(minikube docker-env)
 
 # Save IP to a hostname
 # echo "`minikube ip` docker.local" | sudo tee -a /etc/hosts > /dev/null
 
-# Test
+# control panel, must start minikube with cluster model, without flag --no-kubernetes
+minikube dashboard
+
+# test
 docker run hello-world
 ```
 
+## 高级启动
+
+>**[commands start](https://minikube.sigs.k8s.io/docs/commands/start/)**
+
+### 启动命令
+
+{{< admonition example >}}
+>`minikube start`
+>
+>`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='auto'`
+>
+>`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='cn'`
+>
+>`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com` **推荐使用类似配置，后续不用进入环境修改相关配置了**
+>
+>`minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com` *如果要使用 minikube dashboard，可这样启动*
+
+{{< /admonition >}}
+
+### 可能出现的问题
+
+{{< admonition warning >}}
+*我们这里仅提供演示，没有卸载掉 `Docker Desktop`，直接使用了它安装的*docker*及其配置。由于*资源限制*导致无法满足正常启动 `minikube` 出现了下面的提示*
+
+```tex
+😄  minikube v1.24.0 on Darwin 12.2.1
+✨  Using the docker driver based on existing profile
+
+⛔  Docker Desktop only has 1986MiB available, you may encounter application deployment failures.
+💡  Suggestion:
+
+    1. Click on "Docker for Desktop" menu icon
+    2. Click "Preferences"
+    3. Click "Resources"
+    4. Increase "Memory" slider bar to 2.25 GB or higher
+    5. Click "Apply & Restart"
+📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+
+❗  You cannot change the memory size for an existing minikube cluster. Please first delete the cluster.
+👍  Starting minikube without Kubernetes minikube in cluster minikube
+```
+
+>`minikube delete` *调整 docker 资源后，删除重建，重新启动即可*
+
+```tex
+🔥  Deleting "minikube" in docker ...
+🔥  Removing ~/.minikube/machines/minikube ...
+💀  Removed all traces of the "minikube" cluster.
+```
+
+{{< /admonition >}}
+
+### 启动后环境检查
+
+>**如果需要使用 `dashboard`，请不要在启动参数添加 `--no-kubernetes`**
+
+{{< admonition example >}}
+
+>`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+
+```tex
+😄  minikube v1.24.0 on Darwin 12.2.1
+✨  Using the docker driver based on user configuration
+
+⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
+💡  Suggestion:
+
+    1. Click on "Docker for Desktop" menu icon
+    2. Click "Preferences"
+    3. Click "Resources"
+    4. Increase "Memory" slider bar to 2.25 GB or higher
+    5. Click "Apply & Restart"
+📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+
+👍  Starting minikube without Kubernetes minikube in cluster minikube
+🚜  Pulling base image ...
+❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
+🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
+🏄  Done! minikube is ready without Kubernetes!
+╭───────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                       │
+│                       💡  Things to try without Kubernetes ...                        │
+│                                                                                       │
+│    - "minikube ssh" to SSH into minikube's node.                                      │
+│    - "minikube docker-env" to point your docker-cli to the docker inside minikube.    │
+│    - "minikube image" to build images without docker.                                 │
+│                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+>`eval $(minikube docker-env)` 让 Docker CLI 与 minikube's VM 交互
+
+{{< admonition tip >}}
+Add this line to `.bash_profile` or `.zshrc` or ... if you want to *use minikube's daemon* by default (or if you do not want to set this every time you open a new terminal).
+
+{{< /admonition >}}
+
+>`docker info` 查看我们现在终端的 docker 信息
+
+```tex
+Kernel Version: 5.10.76-linuxkit
+Operating System: Ubuntu 20.04.2 LTS
+OSType: linux
+Architecture: x86_64
+CPUs: 3
+Total Memory: 4.083GiB
+Name: minikube
+
+No Proxy: control-plane.minikube.internal
+ Registry: https://index.docker.io/v1/
+ Labels:
+  provider=docker
+ Experimental: false
+ Insecure Registries:
+  docker.mirrors.ustc.edu.cn
+  mirror.ccs.tencentyun.com
+  reg-mirror.qiniu.com
+  10.96.0.0/12
+  127.0.0.0/8
+ Live Restore Enabled: false
+```
+
+>新打开一个终端查看本机 `docker info`
+
+```tex
+Kernel Version: 5.10.76-linuxkit
+Operating System: Docker Desktop
+OSType: linux
+Architecture: x86_64
+CPUs: 3
+Total Memory: 4.083GiB
+Name: docker-desktop
+
+HTTP Proxy: http.docker.internal:3128
+ HTTPS Proxy: http.docker.internal:3128
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Registry Mirrors:
+  https://registry-1.docker.io/
+  https://hub-mirror.c.163.com/
+  https://mirror.baidubce.com/
+  https://registry.cn-hangzhou.aliyuncs.com/
+  https://docker.mirrors.ustc.edu.cn/
+  https://mirror.ccs.tencentyun.com/
+  https://registry.docker-cn.com/
+  https://reg-mirror.qiniu.com/
+  https://dockerhub.azk8s.cn/
+```
+
+{{< /admonition >}}
+
 ## 镜像源修改
 
->也可以在启动时指定: `minikube start --image-mirror-country='cn'` 见 [minikube start](https://minikube.sigs.k8s.io/docs/commands/start/)
+>**不建议进入 minikube 环境做此修改**，建议在启动时指定参数进行配置: `minikube start --image-mirror-country='cn'` 等参数， 详见 [minikube start](https://minikube.sigs.k8s.io/docs/commands/start/) 或 [高级启动](#高级启动)
 
 {{< admonition example >}}
 >`minikube ssh`  连入 minikube node
@@ -122,6 +279,62 @@ docker run hello-world
 >`sudo systemctl daemon-reload`
 >
 >`sudo systemctl restart docker`
+
+{{< /admonition >}}
+
+## Dashboard
+
+`minikube dashboard`
+
+{{< admonition example >}}
+
+>`minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+
+```tex
+😄  minikube v1.24.0 on Darwin 12.2.1
+    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
+✨  Using the docker driver based on user configuration
+
+⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
+💡  Suggestion:
+
+    1. Click on "Docker for Desktop" menu icon
+    2. Click "Preferences"
+    3. Click "Resources"
+    4. Increase "Memory" slider bar to 2.25 GB or higher
+    5. Click "Apply & Restart"
+📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+💾  Downloading Kubernetes v1.22.3 preload ...
+    > preloaded-images-k8s-v13-v1...: 501.73 MiB / 501.73 MiB  100.00% 21.11 Mi
+
+❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
+🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
+❗  This container is having trouble accessing https://k8s.gcr.io
+💡  To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+🐳  Preparing Kubernetes v1.22.3 on Docker 20.10.8 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+```
+
+>`minikube dashboard`
+
+```tex
+🔌  Enabling dashboard ...
+    ▪ Using image kubernetesui/metrics-scraper:v1.0.7
+    ▪ Using image kubernetesui/dashboard:v2.3.1
+🤔  Verifying dashboard health ...
+🚀  Launching proxy ...
+🤔  Verifying proxy health ...
+🎉  Opening http://127.0.0.1:51816/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+```
 
 {{< /admonition >}}
 

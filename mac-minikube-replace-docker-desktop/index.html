@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T21:27:21+08:00" />
-<meta property="article:modified_time" content="2022-03-11T23:53:59+08:00" />
+<meta property="article:modified_time" content="2022-03-12T09:06:37+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"
-        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  1015 ,
-        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-11T23:53:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  2228 ,
+        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-12T09:06:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,8 +115,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1015 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-12">2022-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2228 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;
     
 
     
@@ -148,7 +148,15 @@
       </ul>
     </li>
     <li><a href="#启动">启动</a></li>
+    <li><a href="#高级启动">高级启动</a>
+      <ul>
+        <li><a href="#启动命令">启动命令</a></li>
+        <li><a href="#可能出现的问题">可能出现的问题</a></li>
+        <li><a href="#启动后环境检查">启动后环境检查</a></li>
+      </ul>
+    </li>
     <li><a href="#镜像源修改">镜像源修改</a></li>
+    <li><a href="#dashboard">Dashboard</a></li>
     <li><a href="#更多">更多</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
@@ -173,6 +181,9 @@
         </div>
     </div>
 <h2 id="docker-desktop-清理"><em>Docker Desktop</em> 清理</h2>
+<blockquote>
+<p><em>不建议直接在 <code>Docker Desktop</code> 或其他类似环境上运行 <code>minikube</code></em></p>
+</blockquote>
 <p><strong>Uninstall</strong> <code>Docker Desktop</code> by removing <code>/Applications/Docker.app</code>。</p>
 <h2 id="minikube">minikube</h2>
 <h3 id="环境要求">环境要求</h3>
@@ -267,25 +278,302 @@
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Tell Docker CLI to talk to minikube&#39;s VM</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Add this line to .bash_profile or .zshrc or ... if you want to use minikube&#39;s daemon by default (or if you do not want to set this every time you open a new terminal).</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Save IP to a hostname</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># echo &#34;`minikube ip` docker.local&#34; | sudo tee -a /etc/hosts &gt; /dev/null</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Test</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># control panel, must start minikube with cluster model, without flag --no-kubernetes</span>
+</span></span><span class="line"><span class="cl">minikube dashboard
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># test</span>
 </span></span><span class="line"><span class="cl">docker run hello-world
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="镜像源修改">镜像源修改</h2>
+</div><h2 id="高级启动">高级启动</h2>
 <blockquote>
-<p>也可以在启动时指定: <code>minikube start --image-mirror-country='cn'</code> 见 <a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer">minikube start</a></p>
+<p><strong><a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer">commands start</a></strong></p>
+</blockquote>
+<h3 id="启动命令">启动命令</h3>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>minikube start</code></p>
+<p><code>minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='auto'</code></p>
+<p><code>minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='cn'</code></p>
+<p><code>minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code> <strong>推荐使用类似配置，后续不用进入环境修改相关配置了</strong></p>
+<p><code>minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code> <em>如果要使用 minikube dashboard，可这样启动</em></p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="可能出现的问题">可能出现的问题</h3>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>我们这里仅提供演示，没有卸载掉 <code>Docker Desktop</code>，直接使用了它安装的</em>docker<em>及其配置。由于</em>资源限制<em>导致无法满足正常启动 <code>minikube</code> 出现了下面的提示</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">😄  minikube v1.24.0 on Darwin 12.2.1
+</span></span><span class="line"><span class="cl">✨  Using the docker driver based on existing profile
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">⛔  Docker Desktop only has 1986MiB available, you may encounter application deployment failures.
+</span></span><span class="line"><span class="cl">💡  Suggestion:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    1. Click on &#34;Docker for Desktop&#34; menu icon
+</span></span><span class="line"><span class="cl">    2. Click &#34;Preferences&#34;
+</span></span><span class="line"><span class="cl">    3. Click &#34;Resources&#34;
+</span></span><span class="line"><span class="cl">    4. Increase &#34;Memory&#34; slider bar to 2.25 GB or higher
+</span></span><span class="line"><span class="cl">    5. Click &#34;Apply <span class="nb">&amp;</span> Restart&#34;
+</span></span><span class="line"><span class="cl">📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">❗  You cannot change the memory size for an existing minikube cluster. Please first delete the cluster.
+</span></span><span class="line"><span class="cl">👍  Starting minikube without Kubernetes minikube in cluster minikube
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>minikube delete</code> <em>调整 docker 资源后，删除重建，重新启动即可</em></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">🔥  Deleting &#34;minikube&#34; in docker ...
+</span></span><span class="line"><span class="cl">🔥  Removing ~/.minikube/machines/minikube ...
+</span></span><span class="line"><span class="cl">💀  Removed all traces of the &#34;minikube&#34; cluster.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="启动后环境检查">启动后环境检查</h3>
+<blockquote>
+<p><strong>如果需要使用 <code>dashboard</code>，请不要在启动参数添加 <code>--no-kubernetes</code></strong></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">😄  minikube v1.24.0 on Darwin 12.2.1
+</span></span><span class="line"><span class="cl">✨  Using the docker driver based on user configuration
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
+</span></span><span class="line"><span class="cl">💡  Suggestion:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    1. Click on &#34;Docker for Desktop&#34; menu icon
+</span></span><span class="line"><span class="cl">    2. Click &#34;Preferences&#34;
+</span></span><span class="line"><span class="cl">    3. Click &#34;Resources&#34;
+</span></span><span class="line"><span class="cl">    4. Increase &#34;Memory&#34; slider bar to 2.25 GB or higher
+</span></span><span class="line"><span class="cl">    5. Click &#34;Apply <span class="nb">&amp;</span> Restart&#34;
+</span></span><span class="line"><span class="cl">📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">👍  Starting minikube without Kubernetes minikube in cluster minikube
+</span></span><span class="line"><span class="cl">🚜  Pulling base image ...
+</span></span><span class="line"><span class="cl">❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
+</span></span><span class="line"><span class="cl">🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
+</span></span><span class="line"><span class="cl">🏄  Done! minikube is ready without Kubernetes!
+</span></span><span class="line"><span class="cl">╭───────────────────────────────────────────────────────────────────────────────────────╮
+</span></span><span class="line"><span class="cl">│                                                                                       │
+</span></span><span class="line"><span class="cl">│                       💡  Things to try without Kubernetes ...                        │
+</span></span><span class="line"><span class="cl">│                                                                                       │
+</span></span><span class="line"><span class="cl">│    - &#34;minikube ssh&#34; to SSH into minikube&#39;s node.                                      │
+</span></span><span class="line"><span class="cl">│    - &#34;minikube docker-env&#34; to point your docker-cli to the docker inside minikube.    │
+</span></span><span class="line"><span class="cl">│    - &#34;minikube image&#34; to build images without docker.                                 │
+</span></span><span class="line"><span class="cl">│                                                                                       │
+</span></span><span class="line"><span class="cl">╰───────────────────────────────────────────────────────────────────────────────────────╯
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>eval $(minikube docker-env)</code> 让 Docker CLI 与 minikube&rsquo;s VM 交互</p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Add this line to <code>.bash_profile</code> or <code>.zshrc</code> or &hellip; if you want to <em>use minikube&rsquo;s daemon</em> by default (or if you do not want to set this every time you open a new terminal).</div>
+        </div>
+    </div>
+<blockquote>
+<p><code>docker info</code> 查看我们现在终端的 docker 信息</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Kernel Version: 5.10.76-linuxkit
+</span></span><span class="line"><span class="cl">Operating System: Ubuntu 20.04.2 LTS
+</span></span><span class="line"><span class="cl">OSType: linux
+</span></span><span class="line"><span class="cl">Architecture: x86<span class="nb">_</span>64
+</span></span><span class="line"><span class="cl">CPUs: 3
+</span></span><span class="line"><span class="cl">Total Memory: 4.083GiB
+</span></span><span class="line"><span class="cl">Name: minikube
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">No Proxy: control-plane.minikube.internal
+</span></span><span class="line"><span class="cl"> Registry: https://index.docker.io/v1/
+</span></span><span class="line"><span class="cl"> Labels:
+</span></span><span class="line"><span class="cl">  provider=docker
+</span></span><span class="line"><span class="cl"> Experimental: false
+</span></span><span class="line"><span class="cl"> Insecure Registries:
+</span></span><span class="line"><span class="cl">  docker.mirrors.ustc.edu.cn
+</span></span><span class="line"><span class="cl">  mirror.ccs.tencentyun.com
+</span></span><span class="line"><span class="cl">  reg-mirror.qiniu.com
+</span></span><span class="line"><span class="cl">  10.96.0.0/12
+</span></span><span class="line"><span class="cl">  127.0.0.0/8
+</span></span><span class="line"><span class="cl"> Live Restore Enabled: false
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>新打开一个终端查看本机 <code>docker info</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Kernel Version: 5.10.76-linuxkit
+</span></span><span class="line"><span class="cl">Operating System: Docker Desktop
+</span></span><span class="line"><span class="cl">OSType: linux
+</span></span><span class="line"><span class="cl">Architecture: x86<span class="nb">_</span>64
+</span></span><span class="line"><span class="cl">CPUs: 3
+</span></span><span class="line"><span class="cl">Total Memory: 4.083GiB
+</span></span><span class="line"><span class="cl">Name: docker-desktop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">HTTP Proxy: http.docker.internal:3128
+</span></span><span class="line"><span class="cl"> HTTPS Proxy: http.docker.internal:3128
+</span></span><span class="line"><span class="cl"> Registry: https://index.docker.io/v1/
+</span></span><span class="line"><span class="cl"> Labels:
+</span></span><span class="line"><span class="cl"> Experimental: false
+</span></span><span class="line"><span class="cl"> Insecure Registries:
+</span></span><span class="line"><span class="cl">  127.0.0.0/8
+</span></span><span class="line"><span class="cl"> Registry Mirrors:
+</span></span><span class="line"><span class="cl">  https://registry-1.docker.io/
+</span></span><span class="line"><span class="cl">  https://hub-mirror.c.163.com/
+</span></span><span class="line"><span class="cl">  https://mirror.baidubce.com/
+</span></span><span class="line"><span class="cl">  https://registry.cn-hangzhou.aliyuncs.com/
+</span></span><span class="line"><span class="cl">  https://docker.mirrors.ustc.edu.cn/
+</span></span><span class="line"><span class="cl">  https://mirror.ccs.tencentyun.com/
+</span></span><span class="line"><span class="cl">  https://registry.docker-cn.com/
+</span></span><span class="line"><span class="cl">  https://reg-mirror.qiniu.com/
+</span></span><span class="line"><span class="cl">  https://dockerhub.azk8s.cn/
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="镜像源修改">镜像源修改</h2>
+<blockquote>
+<p><strong>不建议进入 minikube 环境做此修改</strong>，建议在启动时指定参数进行配置: <code>minikube start --image-mirror-country='cn'</code> 等参数， 详见 <a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer">minikube start</a> 或 <a href="#%e9%ab%98%e7%ba%a7%e5%90%af%e5%8a%a8" rel="">高级启动</a></p>
 </blockquote>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -339,6 +627,110 @@
 </div>
         </div>
     </div>
+<h2 id="dashboard">Dashboard</h2>
+<p><code>minikube dashboard</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">😄  minikube v1.24.0 on Darwin 12.2.1
+</span></span><span class="line"><span class="cl">    ▪ MINIKUBE<span class="nb">_</span>ACTIVE<span class="nb">_</span>DOCKERD=minikube
+</span></span><span class="line"><span class="cl">✨  Using the docker driver based on user configuration
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
+</span></span><span class="line"><span class="cl">💡  Suggestion:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    1. Click on &#34;Docker for Desktop&#34; menu icon
+</span></span><span class="line"><span class="cl">    2. Click &#34;Preferences&#34;
+</span></span><span class="line"><span class="cl">    3. Click &#34;Resources&#34;
+</span></span><span class="line"><span class="cl">    4. Increase &#34;Memory&#34; slider bar to 2.25 GB or higher
+</span></span><span class="line"><span class="cl">    5. Click &#34;Apply <span class="nb">&amp;</span> Restart&#34;
+</span></span><span class="line"><span class="cl">📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">👍  Starting control plane node minikube in cluster minikube
+</span></span><span class="line"><span class="cl">🚜  Pulling base image ...
+</span></span><span class="line"><span class="cl">💾  Downloading Kubernetes v1.22.3 preload ...
+</span></span><span class="line"><span class="cl">    &gt; preloaded-images-k8s-v13-v1...: 501.73 MiB / 501.73 MiB  100.00<span class="c">% 21.11 Mi
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>
+</span></span><span class="line"><span class="cl">❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
+</span></span><span class="line"><span class="cl">🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
+</span></span><span class="line"><span class="cl">❗  This container is having trouble accessing https://k8s.gcr.io
+</span></span><span class="line"><span class="cl">💡  To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
+</span></span><span class="line"><span class="cl">🐳  Preparing Kubernetes v1.22.3 on Docker 20.10.8 ...
+</span></span><span class="line"><span class="cl">    ▪ Generating certificates and keys ...
+</span></span><span class="line"><span class="cl">    ▪ Booting up control plane ...
+</span></span><span class="line"><span class="cl">    ▪ Configuring RBAC rules ...
+</span></span><span class="line"><span class="cl">🔎  Verifying Kubernetes components...
+</span></span><span class="line"><span class="cl">    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+</span></span><span class="line"><span class="cl">🌟  Enabled addons: storage-provisioner, default-storageclass
+</span></span><span class="line"><span class="cl">🏄  Done! kubectl is now configured to use &#34;minikube&#34; cluster and &#34;default&#34; namespace by default
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>minikube dashboard</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">🔌  Enabling dashboard ...
+</span></span><span class="line"><span class="cl">    ▪ Using image kubernetesui/metrics-scraper:v1.0.7
+</span></span><span class="line"><span class="cl">    ▪ Using image kubernetesui/dashboard:v2.3.1
+</span></span><span class="line"><span class="cl">🤔  Verifying dashboard health ...
+</span></span><span class="line"><span class="cl">🚀  Launching proxy ...
+</span></span><span class="line"><span class="cl">🤔  Verifying proxy health ...
+</span></span><span class="line"><span class="cl">🎉  Opening http://127.0.0.1:51816/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
 <h2 id="更多">更多</h2>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/" target="_blank" rel="noopener noreffer">Using minikube as Docker Desktop Replacement</a></strong></li>
@@ -354,8 +746,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-11&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/5e102687fb160a6c6259c7634c841144daabc413" target="_blank" title="commit by xwi88(278810732@qq.com) 5e102687fb160a6c6259c7634c841144daabc413: posts mac minikube replace docker desktop">
-                                    <i class="fas fa-hashtag fa-fw"></i>5e10268</a></span>
+                <span>更新于 2022-03-12&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/79c7e1c639683a17433030e99b1dee903fe0c2a1" target="_blank" title="commit by xwi88(278810732@qq.com) 79c7e1c639683a17433030e99b1dee903fe0c2a1: update posts mac-minikube-replace-docker-desktop">
+                                    <i class="fas fa-hashtag fa-fw"></i>79c7e1c</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
