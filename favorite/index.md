@@ -27,12 +27,18 @@
 				</div>
 				<div class="item">
 					<a href="https://github.com/golang/go/wiki" target="_blank" title="go wiki">
-						<div class="item-name">Go Wiki</div>
+						<div class="item-name" style="margin-left: -8px;">Go Wiki</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://awesome-go.com/" target="_blank" title="awesome-go">
-						<div class="item-name">Awesome Go</div>
+						<div class="item-name" style="margin-left: -8px;">Awesome Go</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://gohugo.io/" target="_blank" title="hugo go blog tool">
+						<img src="/img/logo/hugo-logo.jpeg" alt="hugo">
+						<div class="item-name">Hugo</div>
 					</a>
 				</div>
 			</div>
@@ -81,14 +87,57 @@
 			</div>
 		</div>
 	</div>
+	<div class="section" id="dev_need">
+		<div class="section-name"><strong>研发推荐</strong></div>
+		<div class="items">
+			<div class="row">
+				<div class="item">
+					<a href="https://iterm2.com/" target="_blank" title="iterm2">
+						<img src="/img/logo/iterm2-logo.png" alt="iterm2">
+						<div class="item-name">iterm2</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://grafana.com/" target="_blank" title="grafana">
+						<img src="/img/logo/grafana-logo.png" alt="grafana">
+						<div class="item-name">Grafana</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://www.elastic.co/cn/" target="_blank" title="elastic ELK">
+						<img src="/img/logo/elastic-logo.svg" alt="elk">
+						<div class="item-name">ELK</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://pyroscope.io/" target="_blank" title="开源的持续性能数据收集分析平台">
+						<img src="/img/logo/pyroscope-logo.png" alt="pyroscope">
+						<div class="item-name">Pyroscope</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://www.kafkatool.com/" target="_blank" title="kafka 数据查看工具">
+						<img src="/img/logo/kafka-tool-logo.jpeg" alt="kafkatool">
+						<div class="item-name">kafkatool</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://dbeaver.io/" target="_blank" title="database tool 支持大部分数据库">
+						<img src="/img/logo/dbeaver-logo.png" alt="dbeaver">
+						<div class="item-name">dbeaver</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="section" id="community">
 		<div class="section-name"><strong>学习社区</strong></div>
 		<div class="items">
 			<div class="row">
 				<div class="item">
 					<a href="https://leetcode-cn.com/" target="_blank" title="leetcode-cn.com">
-						<img src="/img/logo/leetcode-logo.jpeg" alt="leetcode">
-						<div class="item-name">leetcode</div>
+						<img src="/img/logo/leetcode-logo.jpeg" alt="力扣">
+						<div class="item-name">力扣</div>
 					</a>
 				</div>
 				<div class="item">
@@ -104,9 +153,9 @@
 					</a>
 				</div>
 				<div class="item">
-					<a href="https://www.bilibili.com/" target="_blank" title="www.bilibili.com">
+					<a href="https://www.bilibili.com/" target="_blank" title="哔哩哔哩">
 						<img src="/img/logo/bilibili-logo.png" alt="bilibili">
-						<div class="item-name">bilibili</div>
+						<div class="item-name">哔哩哔哩</div>
 					</a>
 				</div>
 				<div class="item">
@@ -147,7 +196,7 @@
 						<div class="item-name">conda</div>
 					</a>
 				</div>
-        <div class="item">
+				<div class="item">
 					<a href="https://www.pypandas.cn/" target="_blank" title="pypandas 中文网">
 						<img src="/img/logo/pandas-logo.svg" alt="pandas">
 						<div class="item-name">pandas</div>
@@ -167,8 +216,33 @@
 				</div>
 				<div class="item">
 					<a href="https://github.com/NVIDIA-Merlin/HugeCTR" target="_blank" title="Merlin: HugeCTR">
-						<img src="/img/logo/merlin_logo.png" alt="pytorch">
+						<img src="/img/logo/merlin-logo.png" alt="pytorch">
 						<div class="item-name">HugeCTR</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="draw-tools">
+		<div class="section-name"><strong>绘图神器</strong></div>
+		<div class="items">
+			<div class="row">
+				<div class="item">
+					<a href="https://www.processon.com/" target="_blank" title="在线绘图">
+						<img src="/img/logo/processon-logo.svg" alt="processon">
+						<div class="item-name">Process ON</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://www.diagrams.net/" target="_blank" title="diagrams or draw.io">
+						<img src="/img/logo/diagrams-logo.jpeg" alt="diagrams">
+						<div class="item-name">diagrams</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://www.edrawsoft.cn/" target="_blank" title="国产绘图神器，多场景支持">
+						<img src="/img/logo/edraw-logo.jpeg" alt="edrawsoft">
+						<div class="item-name">亿图</div>
 					</a>
 				</div>
 			</div>
@@ -179,26 +253,51 @@
 		<div class="items">
 			<div class="row">
 				<div class="item">
-					<a href="https://www.processon.com/" target="_blank" title="在线绘图">
-						<img src="/img/logo/processon-logo.svg" alt="processon">
-						<div class="item-name">Process ON</div>
-					</a>
-				</div>
-        <div class="item">
-					<a href="https://www.diagrams.net/" target="_blank" title="diagrams or draw.io">
-						<img src="/img/logo/diagrams-logo.jpeg" alt="diagrams">
-						<div class="item-name">diagrams</div>
+					<a href="https://docsmall.com/image-compress" target="_blank" title="图片压缩">
+						<img src="/img/logo/docsmall-logo.png" alt="图片压处理">
+						<div class="item-name">docsmall</div>
 					</a>
 				</div>
 				<div class="item">
-					<a href="https://docsmall.com/image-compress" target="_blank" title="图片压缩">
-						<img src="/img/logo/docsmall-logo.png" alt="图片压处理" style="background-color:blue;">
-						<div class="item-name">docsmall</div>
+					<a href="https://tinypng.com/" target="_blank" title="图片压缩">
+					<img src="/img/logo/tinypng-logo.png" alt="图片压处理" style="background-color:white;">
+						<div class="item-name">tinypng</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.tablesgenerator.com/" target="_blank" title="tables 格式转换">
 						<div class="item-name" style="margin-left: -8px;">tablesgenerator</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section" id="free-images">
+		<div class="section-name"><strong>免费图库</strong></div>
+		<div class="items">
+			<div class="row">
+				<div class="item">
+					<a href="https://www.pexels.com/" target="_blank" title="免费图库 pexels">
+						<img src="/img/logo/pexels-logo.png" alt="pexels">
+						<div class="item-name">pexels</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="http://pngimg.com/" target="_blank" title="PNG images and cliparts for web design">
+						<img src="/img/logo/pnging-logo.png" alt="pngimg" style="background-color:white;">
+						<div class="item-name">pngimg</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://unsplash.com/" target="_blank" title="free usable images">
+						<img src="/img/logo/unsplash-logo.png" alt="unsplash" style="background-color:white;">
+						<div class="item-name">unsplash</div>
+					</a>
+				</div>
+				<div class="item">
+					<a href="https://pixabay.com/" target="_blank" title="free images">
+						<img src="/img/logo/pixabay-logo.png" alt="pixabay">
+						<div class="item-name">pixabay</div>
 					</a>
 				</div>
 			</div>
@@ -228,9 +327,9 @@
 		<div class="items">
 			<div class="row">
 				<div class="item">
-					<a href="https://www.edrawsoft.cn/" target="_blank" title="国产绘图神器，多场景支持">
-						<img src="/img/logo/edraw-logo.svg" alt="edrawsoft">
-						<div class="item-name">亿图</div>
+					<a href="https://www.wps.cn/" target="_blank" title="wps">
+						<img src="/img/logo/wps-logo.png" alt="wps">
+						<div class="item-name">wps</div>
 					</a>
 				</div>
 			</div>
