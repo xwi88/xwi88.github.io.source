@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T21:27:21+08:00" />
-<meta property="article:modified_time" content="2022-03-15T17:08:07+08:00" />
+<meta property="article:modified_time" content="2022-03-15T21:21:14+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"
-        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  2646 ,
-        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-15T17:08:07+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  2939 ,
+        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-15T21:21:14+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-15">2022-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2646 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-15">2022-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2939 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;
     
 
@@ -140,11 +140,14 @@
   <ul>
     <li><a href="#术语说明">术语说明</a></li>
     <li><a href="#docker-desktop-清理"><em>Docker Desktop</em> 清理</a></li>
-    <li><a href="#minikube">minikube</a>
+    <li><a href="#环境要求">环境要求</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#检查安装">检查安装</a></li>
+    <li><a href="#drivers-说明">drivers 说明</a>
       <ul>
-        <li><a href="#环境要求">环境要求</a></li>
-        <li><a href="#安装">安装</a></li>
-        <li><a href="#检查安装">检查安装</a></li>
+        <li><a href="#linux"><em>Linux</em></a></li>
+        <li><a href="#macos"><strong>macOS</strong></a></li>
+        <li><a href="#windows">Windows</a></li>
       </ul>
     </li>
     <li><a href="#启动">启动</a></li>
@@ -186,8 +189,7 @@
 <p><em>不建议直接在 <code>Docker Desktop</code> 或其他类似环境上运行 <code>minikube</code></em></p>
 </blockquote>
 <p><strong>Uninstall</strong> <code>Docker Desktop</code> by removing <code>/Applications/Docker.app</code>。</p>
-<h2 id="minikube">minikube</h2>
-<h3 id="环境要求">环境要求</h3>
+<h2 id="环境要求">环境要求</h2>
 <ul>
 <li>最少 2核</li>
 <li>最少 2GB 可用内存</li>
@@ -195,7 +197,7 @@
 <li>网络连接</li>
 <li>容器或虚拟机管理器, 如: <strong><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener noreffer">Docker</a></strong>, <strong><a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a></strong>, Hyper-V, KVM, Parallels, <strong><a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a></strong>, <em><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreffer">VirtualBox</a></em>, or VMware Fusion/Workstation</li>
 </ul>
-<h3 id="安装">安装</h3>
+<h2 id="安装">安装</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -242,7 +244,7 @@
 </div>
         </div>
     </div>
-<h3 id="检查安装">检查安装</h3>
+<h2 id="检查安装">检查安装</h2>
 <p>执行 <code>which minikube</code></p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -264,6 +266,99 @@
 </div>
         </div>
     </div>
+<h2 id="drivers-说明">drivers 说明</h2>
+<blockquote>
+<p><code>minikube</code> 在 mac 下启动需要依赖 <code>Linux VM</code>，这里也就是我们配置的 driver，如果你已经启动了 <code>Docker Desktop</code>，则可以配置为 <code>--driver=docker</code> 借助已经存在的 VM，否则需要选择其他，具体支持的 driver 参考如下：</p>
+</blockquote>
+<h3 id="linux"><em>Linux</em></h3>
+<ul>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer">Docker</a></strong> - container-based (preferred)</li>
+<li>KVM2 - VM-based (preferred)</li>
+<li>VirtualBox - VM</li>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/none/" target="_blank" rel="noopener noreffer">None</a></strong> - bare-metal</li>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/podman/" target="_blank" rel="noopener noreffer">Podman</a></strong> - container (experimental)</li>
+<li>SSH - remote ssh</li>
+</ul>
+<h3 id="macos"><strong>macOS</strong></h3>
+<ul>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer">Docker</a></strong> - VM + Container (preferred)</li>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperkit/" target="_blank" rel="noopener noreffer">Hyperkit</a></strong> - VM</li>
+<li>VirtualBox - VM</li>
+<li>Parallels - VM</li>
+<li>VMware Fusion - VM</li>
+<li>SSH - remote ssh</li>
+</ul>
+<h3 id="windows">Windows</h3>
+<ul>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperv/" target="_blank" rel="noopener noreffer">Hyper-V</a></strong> - VM (preferred)</li>
+<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer">Docker</a></strong> - VM + Container (preferred)</li>
+<li>VirtualBox - VM</li>
+<li>VMware Workstation - VM</li>
+<li>SSH - remote ssh</li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果配置了 <code>--driver=docker</code> 需要区分 <strong><code>standard</code>, <code>rootless</code></strong> docker</p>
+<blockquote>
+<p><strong>Standard Docker</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># need: install Docker 18.09 or higher</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#       amd64 or arm64 system.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start a cluster using the docker driver:</span>
+</span></span><span class="line"><span class="cl">minikube start --driver<span class="o">=</span>docker
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># To make docker the default driver:</span>
+</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> driver docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Rootless Docker</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Requirements</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Docker 20.10 or higher, see https://rootlesscontaine.rs/getting-started/docker/</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#    Cgroup v2 delegation, see https://rootlesscontaine.rs/getting-started/common/cgroup2/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dockerd-rootless-setuptool.sh install -f
+</span></span><span class="line"><span class="cl">docker context use rootless
+</span></span><span class="line"><span class="cl">minikube start --driver<span class="o">=</span>docker --container-runtime<span class="o">=</span>containerd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>The <code>--container-runtime</code> flag must be set to <code>“containerd”</code> or “<code>cri-o</code>”.</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<blockquote>
+<p>更多 <code>drivers</code> 配置及用法请查看: <a href="https://minikube.sigs.k8s.io/docs/drivers/" target="_blank" rel="noopener noreffer">minikube drivers</a></p>
+</blockquote>
 <h2 id="启动">启动</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -827,8 +922,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-15&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/532524806ff3610e88eff9430f125a2fcc4d4612" target="_blank" title="commit by xwi88(278810732@qq.com) 532524806ff3610e88eff9430f125a2fcc4d4612: update posts mac-minikube-replace-docker-desktop">
-                                    <i class="fas fa-hashtag fa-fw"></i>5325248</a></span>
+                <span>更新于 2022-03-15&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/eb350c63dcf6d4ce62f9b78af6a153adfd67e71e" target="_blank" title="commit by xwi88(278810732@qq.com) eb350c63dcf6d4ce62f9b78af6a153adfd67e71e: update posts mac-minikube-replace-docker-desktop">
+                                    <i class="fas fa-hashtag fa-fw"></i>eb350c6</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>

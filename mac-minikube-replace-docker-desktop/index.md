@@ -24,9 +24,7 @@
 
 **Uninstall** `Docker Desktop` by removing `/Applications/Docker.app`。
 
-## minikube
-
-### 环境要求
+## 环境要求
 
 - 最少 2核
 - 最少 2GB 可用内存
@@ -34,7 +32,7 @@
 - 网络连接
 - 容器或虚拟机管理器, 如: **[Docker](https://docs.docker.com/get-docker/)**, **[Hyperkit](https://github.com/moby/hyperkit)**, Hyper-V, KVM, Parallels, **[podman](https://podman.io/)**, *[VirtualBox](https://www.virtualbox.org/)*, or VMware Fusion/Workstation
 
-### 安装
+## 安装
 
 {{< admonition example >}}
 
@@ -59,7 +57,7 @@ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 {{< /admonition >}}
 {{< /admonition >}}
 
-### 检查安装
+## 检查安装
 
 执行 `which minikube`
 
@@ -73,6 +71,69 @@ brew link minikube
 
 *remove the old minikube links and link the newly installed binary*
 {{< /admonition >}}
+
+## drivers 说明
+
+>`minikube` 在 mac 下启动需要依赖 `Linux VM`，这里也就是我们配置的 driver，如果你已经启动了 `Docker Desktop`，则可以配置为 `--driver=docker` 借助已经存在的 VM，否则需要选择其他，具体支持的 driver 参考如下：
+
+### *Linux*
+
+- **[Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)** - container-based (preferred)
+- KVM2 - VM-based (preferred)
+- VirtualBox - VM
+- **[None](https://minikube.sigs.k8s.io/docs/drivers/none/)** - bare-metal
+- **[Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)** - container (experimental)
+- SSH - remote ssh
+
+### **macOS**
+
+- **[Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)** - VM + Container (preferred)
+- **[Hyperkit](https://minikube.sigs.k8s.io/docs/drivers/hyperkit/)** - VM
+- VirtualBox - VM
+- Parallels - VM
+- VMware Fusion - VM
+- SSH - remote ssh
+
+### Windows
+
+- **[Hyper-V](https://minikube.sigs.k8s.io/docs/drivers/hyperv/)** - VM (preferred)
+- **[Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)** - VM + Container (preferred)
+- VirtualBox - VM
+- VMware Workstation - VM
+- SSH - remote ssh
+
+{{< admonition warning >}}
+如果配置了 `--driver=docker` 需要区分 **`standard`, `rootless`** docker
+
+>**Standard Docker**
+
+```bash
+# need: install Docker 18.09 or higher
+#       amd64 or arm64 system.
+
+# Start a cluster using the docker driver:
+minikube start --driver=docker
+
+# To make docker the default driver:
+minikube config set driver docker
+```
+
+>**Rootless Docker**
+
+```bash
+# Requirements
+#    Docker 20.10 or higher, see https://rootlesscontaine.rs/getting-started/docker/
+#    Cgroup v2 delegation, see https://rootlesscontaine.rs/getting-started/common/cgroup2/
+
+dockerd-rootless-setuptool.sh install -f
+docker context use rootless
+minikube start --driver=docker --container-runtime=containerd
+```
+
+>The `--container-runtime` flag must be set to `“containerd”` or “`cri-o`”.
+{{< /admonition >}}
+
+>更多 `drivers` 配置及用法请查看: [minikube drivers](https://minikube.sigs.k8s.io/docs/drivers/)
 
 ## 启动
 

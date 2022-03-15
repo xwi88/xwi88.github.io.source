@@ -2,7 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://xwi88.com/categories/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/categories/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/categories/"
@@ -11,7 +11,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/categories/"
                     /></url><url>
-            <loc>https://xwi88.com/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/"
@@ -21,7 +21,7 @@
                     href="https://xwi88.com/"
                     /></url><url>
             <loc>https://xwi88.com/tags/mirror/</loc><lastmod>2022-03-13T19:19:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/posts/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/posts/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/posts/"
@@ -31,7 +31,7 @@
                     href="https://xwi88.com/posts/"
                     /></url><url>
             <loc>https://xwi88.com/tags/resources/</loc><lastmod>2022-03-13T19:19:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/tags/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/tags/"
@@ -45,11 +45,11 @@
             <loc>https://xwi88.com/categories/linux/</loc><lastmod>2022-03-12T09:52:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://xwi88.com/makefile-shell-path-get/</loc><lastmod>2022-03-12T09:52:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://xwi88.com/tags/shell/</loc><lastmod>2022-03-12T09:52:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/tags/docker/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/categories/docker/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/tags/env/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/tags/k8s/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/mac-minikube-replace-docker-desktop/</loc><lastmod>2022-03-15T17:08:07&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/docker/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/categories/docker/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/env/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/k8s/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/mac-minikube-replace-docker-desktop/</loc><lastmod>2022-03-15T21:21:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://xwi88.com/tags/git/</loc><lastmod>2022-03-11T07:46:30&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
