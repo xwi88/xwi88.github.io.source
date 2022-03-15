@@ -91,7 +91,7 @@ docker kill 默认 `signal_number=9` **KILL**
 
 ## 优雅停止服务
 
-1. 执行 kill 发送信号 `-15/-TERM/-**SIGTERM**`
+1. 执行 kill 发送信号 `-15/-TERM/-SIGTERM`
 2. 程序捕获信号后**节点摘除**, **释放资源**，*停止程序*
 3. 间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 `kill -9/-KILL/-SIGKILL`
 
@@ -99,7 +99,7 @@ docker kill 默认 `signal_number=9` **KILL**
 
 1. **节点摘除**
 2. `preStop hook` *可设置延迟时间，用于处理进入流量*
-3. 发送 kill 信号 `-15/-TERM/-**SIGTERM**`
+3. 发送 kill 信号 `-15/-TERM/-SIGTERM`
 4. 程序捕获信号**释放资源**，*停止程序*
 5. 超时强制关闭处理 `kill -9/-KILL/-SIGKILL`
     - 默认 30s
