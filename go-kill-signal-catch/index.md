@@ -42,7 +42,7 @@ go func() {
 <-done
 ```
 
->需要更便捷处理可以引入: [signal](https://github.com/love-wheel/signal)
+>需要更便捷处理可以引入: [signal4go](https://github.com/love-wheel/signal4go)
 
 ## kill 测试
 
