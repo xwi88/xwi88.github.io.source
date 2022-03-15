@@ -2,7 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://xwi88.com/en/categories/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/categories/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/categories/"
@@ -11,7 +11,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/categories/"
                     /></url><url>
-            <loc>https://xwi88.com/en/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/"
@@ -47,7 +47,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/tags/hugo-plugin/"
                     /></url><url>
-            <loc>https://xwi88.com/en/posts/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/posts/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/posts/"
@@ -56,7 +56,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/posts/"
                     /></url><url>
-            <loc>https://xwi88.com/en/tags/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/tags/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/tags/"
@@ -83,7 +83,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/about/"
                     /></url><url>
-            <loc>https://xwi88.com/en/tags/dev_ops/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/tags/dev_ops/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/tags/dev_ops/"
@@ -92,7 +92,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/tags/dev_ops/"
                     /></url><url>
-            <loc>https://xwi88.com/en/tags/git/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/tags/git/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/tags/git/"
@@ -101,7 +101,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/tags/git/"
                     /></url><url>
-            <loc>https://xwi88.com/en/categories/git/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/categories/git/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/categories/git/"
@@ -110,7 +110,7 @@
                     hreflang="en"
                     href="https://xwi88.com/en/categories/git/"
                     /></url><url>
-            <loc>https://xwi88.com/en/git-clone-slowly-solve/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/en/git-clone-slowly-solve/</loc><lastmod>2022-03-06T23:47:45&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://xwi88.com/git-clone-slowly-solve/"

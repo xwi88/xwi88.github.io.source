@@ -338,6 +338,48 @@ HTTP Proxy: http.docker.internal:3128
 
 {{< /admonition >}}
 
+## **注意事项**
+
+>如果你启动时指定 **driver=docker，且本机 `docker daemon`** 未运行，*可能出现以下错误*
+
+```tex
+😄  minikube v1.24.0 on Darwin 10.15.7
+    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
+✨  Using the docker driver based on user configuration
+
+💣  Exiting due to PROVIDER_DOCKER_NOT_RUNNING: "docker version --format -" exit status 1: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+💡  Suggestion: Start the Docker service
+📘  Documentation: https://minikube.sigs.k8s.io/docs/drivers/docker/
+```
+
+>使用 `driver=hyperkit` 启动即可
+
+{{< admonition tip >}}
+>`minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+
+```tex
+😄  minikube v1.24.0 on Darwin 10.15.7
+    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
+✨  Using the hyperkit driver based on user configuration
+
+⛔  Requested memory allocation (1800MB) is less than the recommended minimum 1900MB. Deployments may fail.
+
+👍  Starting minikube without Kubernetes minikube in cluster minikube
+🔥  Creating hyperkit VM (CPUs=2, Memory=1800MB, Disk=20000MB) ...
+🏄  Done! minikube is ready without Kubernetes!
+╭───────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                       │
+│                       💡  Things to try without Kubernetes ...                        │
+│                                                                                       │
+│    - "minikube ssh" to SSH into minikube's node.                                      │
+│    - "minikube docker-env" to point your docker-cli to the docker inside minikube.    │
+│    - "minikube image" to build images without docker.                                 │
+│                                                                                       │
+╰───────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+{{< /admonition >}}
+
 ## 更多
 
 - **[Using minikube as Docker Desktop Replacement](https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/)**
