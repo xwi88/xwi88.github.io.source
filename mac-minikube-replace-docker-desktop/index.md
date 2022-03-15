@@ -72,7 +72,7 @@ brew link minikube
 *remove the old minikube links and link the newly installed binary*
 {{< /admonition >}}
 
-## drivers 说明
+## Drivers 说明
 
 >`minikube` 在 mac 下启动需要依赖 `Linux VM`，这里也就是我们配置的 driver，如果你已经启动了 `Docker Desktop`，则可以配置为 `--driver=docker` 借助已经存在的 VM，否则需要选择其他，具体支持的 driver 参考如下：
 
@@ -130,7 +130,7 @@ docker context use rootless
 minikube start --driver=docker --container-runtime=containerd
 ```
 
->The `--container-runtime` flag must be set to `“containerd”` or “`cri-o`”.
+>The `--container-runtime` flag must be set to `containerd` or `cri-o`.
 {{< /admonition >}}
 
 >更多 `drivers` 配置及用法请查看: [minikube drivers](https://minikube.sigs.k8s.io/docs/drivers/)
@@ -401,7 +401,7 @@ HTTP Proxy: http.docker.internal:3128
 
 ## **注意事项**
 
->如果你启动时指定 **driver=docker，且本机 `docker daemon`** 未运行，*可能出现以下错误*
+>如果你启动时指定 **--driver=docker，且本机 `docker daemon`** 未运行，*可能出现以下错误*
 
 ```tex
 😄  minikube v1.24.0 on Darwin 10.15.7
