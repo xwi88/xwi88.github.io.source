@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T21:27:21+08:00" />
-<meta property="article:modified_time" content="2022-03-16T18:48:15+08:00" />
+<meta property="article:modified_time" content="2022-03-17T00:50:06+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"
-        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  2942 ,
-        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-16T18:48:15+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  3383 ,
+        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-17T00:50:06+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,8 +115,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-16">2022-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2942 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3383 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;
     
 
     
@@ -160,15 +160,25 @@
     <li><a href="#启动后环境检查">启动后环境检查</a></li>
     <li><a href="#镜像源修改">镜像源修改</a></li>
     <li><a href="#dashboard">Dashboard</a></li>
-    <li><a href="#目录挂载">目录挂载</a></li>
+    <li><a href="#目录挂载">目录挂载</a>
+      <ul>
+        <li><a href="#driver-默认挂载路径">Driver 默认挂载路径</a></li>
+      </ul>
+    </li>
     <li><a href="#本机应用启动"><strong>本机应用启动</strong></a>
       <ul>
         <li><a href="#文件或配置找不到"><strong>文件或配置找不到</strong></a></li>
         <li><a href="#解决方案"><strong>解决方案</strong></a></li>
       </ul>
     </li>
+    <li><a href="#开机启动">开机启动</a>
+      <ul>
+        <li><a href="#仅挂载当前项目目录"><strong>仅挂载当前项目目录</strong></a></li>
+        <li><a href="#挂载整个工作目录"><strong>挂载整个工作目录</strong></a></li>
+        <li><a href="#挂载整个工作目录且后台运行"><em>挂载整个工作目录且后台运行</em></a></li>
+      </ul>
+    </li>
     <li><a href="#注意事项"><strong>注意事项</strong></a></li>
-    <li><a href="#开机启动">开机启动</a></li>
     <li><a href="#更多">更多</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
@@ -558,16 +568,24 @@
 <ul>
 <li><strong><code>--insecure-registry</code></strong></li>
 <li><em><code>--registry-mirror</code></em></li>
-<li><em><code>--mount</code></em></li>
+<li><em><code>--mount</code></em> <strong>挂载本地主机目录到 <code>minikube vm</code></strong>
+<ul>
+<li>当前 MacOS 下，默认将挂载 <code>/Users:/minikube-host/</code></li>
+<li><strong>挂载路径最好保持完全一致，避免程序有路径依赖而无法正常启动</strong></li>
+<li>建议使用 <code>--mount-string</code> 按需挂载</li>
+</ul>
+</li>
+<li><strong><code>--mount-string</code></strong> 指定挂载目录</li>
 <li><strong><code>--no-kubernetes</code></strong></li>
 <li><strong><code>--cpus</code></strong></li>
 <li><strong><code>--memory</code></strong></li>
 <li><code>--image-mirror-country</code></li>
 </ul>
-<p><code>minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker</code></p>
+<p><code>minikube start --no-kubernetes --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker</code></p>
 <p>如果要使用 minikube dashboard，可这样启动:
-<code>minikube start --cpus=2 --memory=2000mb \ --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
+<code>minikube start --cpus=2 --memory=2000mb \ --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
 <p><em>Tell Docker CLI to talk to minikube&rsquo;s VM:</em> <code>eval $(minikube docker-env)</code></p>
+<p><code>eval $(minikube docker-env)</code> 可以直接配置到对应 shell 如: <code>~/.zshrc</code> 或 <code>~/.bashrc</code> 中，以避免每次输入</p>
 </div>
         </div>
     </div>
@@ -639,7 +657,7 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><blockquote>
-<p>启动命令: <code>minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker</code></p>
+<p>启动命令: <code>minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -867,7 +885,7 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><blockquote>
-<p><code>minikube start --driver=hyperkit --cpus=2 --memory=2000mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
+<p><code>minikube start --driver=hyperkit --cpus=2 --memory=2000mb --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
 <p><code>minikube dashboard</code></p>
 </blockquote>
 </div>
@@ -879,6 +897,57 @@
 </blockquote>
 <p><code>minikube mount &lt;local directory&gt;:&lt;host directory&gt;</code></p>
 <p><strong>映射/挂载关系</strong>: <code>本地主机 volumes</code>&lt;-&gt;<code>docker desktop VM volumes</code>&lt;-&gt;<code>docker container volumes</code></p>
+<h3 id="driver-默认挂载路径">Driver 默认挂载路径</h3>
+<p>Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Driver</th>
+<th style="text-align:left">OS</th>
+<th style="text-align:left">HostFolder</th>
+<th style="text-align:left">VM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">VirtualBox</td>
+<td style="text-align:left">Linux</td>
+<td style="text-align:left">/home</td>
+<td style="text-align:left">/hosthome</td>
+</tr>
+<tr>
+<td style="text-align:left">VirtualBox</td>
+<td style="text-align:left">macOS</td>
+<td style="text-align:left">/Users</td>
+<td style="text-align:left">/Users</td>
+</tr>
+<tr>
+<td style="text-align:left">VirtualBox</td>
+<td style="text-align:left">Windows</td>
+<td style="text-align:left">C://Users</td>
+<td style="text-align:left">/c/Users</td>
+</tr>
+<tr>
+<td style="text-align:left">VMware Fusion</td>
+<td style="text-align:left">macOS</td>
+<td style="text-align:left">/Users</td>
+<td style="text-align:left">/mnt/hgfs/Users</td>
+</tr>
+<tr>
+<td style="text-align:left">KVM</td>
+<td style="text-align:left">Linux</td>
+<td style="text-align:left">Unsupported</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">HyperKit</td>
+<td style="text-align:left">Linux</td>
+<td style="text-align:left">Unsupported (see NFS mounts)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>These mounts can be disabled by passing &ndash;disable-driver-mounts to minikube start.</em></p>
 <h2 id="本机应用启动"><strong>本机应用启动</strong></h2>
 <blockquote>
 <p>如果你使用了目录映射，则必须开启挂载，且一定要注意挂载路径，否则会出现文件或者配置找不到问题。</p>
@@ -901,7 +970,7 @@
 <blockquote>
 <p><strong>在本地本机进行工作目录映射/挂载</strong>:</p>
 <ul>
-<li><code>minikube mount $HOME/workspace/:$HOME/workspace</code></li>
+<li><code>minikube mount $HOME/workspace:$HOME/workspace</code></li>
 <li><strong>minikube vm 内部映射路径一定要注意: 挂载路径务必与实际路径保持一致</strong></li>
 <li><em>注意目录权限问题，正常挂载当前用户目录不涉及权限问题</em></li>
 <li>可设置挂载多个目录</li>
@@ -922,26 +991,97 @@
 </div>
         </div>
     </div>
-<h2 id="注意事项"><strong>注意事项</strong></h2>
-<ul>
-<li>minikube 启动后配置 <code>eval $(minikube docker-env)</code></li>
-<li>启动时尽量指定 <code>--driver</code>，如果是 <code>docker</code> 务必确保 <code>docker daemon</code> 已运行</li>
-<li><a href="#%e6%9c%ac%e6%9c%ba%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8" rel="">应用启动目录挂载问题</a></li>
-</ul>
 <h2 id="开机启动">开机启动</h2>
+<blockquote>
+<p><code>--mount --mount-string=$HOME/workspace:$HOME/workspace</code> <em>可能存在问题，推荐启动后用命令 <code>minikube mount</code> 挂载</em></p>
+</blockquote>
+<h3 id="仅挂载当前项目目录"><strong>仅挂载当前项目目录</strong></h3>
+<ul>
+<li>优: 挂载目录少，占空间较小</li>
+<li>缺: 如果切换项目需要重新挂载，太过麻烦</li>
+</ul>
+<blockquote>
+<p><strong>尽量挂载整个工作目录(注意控制规模)，切换项目不用额外操作</strong></p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2000mb --insecure-registry<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span><span class="line"><span class="cl">minikube mount <span class="nv">$HOME</span>/workspace/:<span class="nv">$HOME</span>/workspace
+</span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="更多">更多</h2>
+</div><h3 id="挂载整个工作目录"><strong>挂载整个工作目录</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># issues here {单独 --mount 将挂载: /Users:/minikube-host/; --mount-string 仅挂载指定目录，此时不需要添加 --mount， 推荐方式}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
+</span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="挂载整个工作目录且后台运行"><em>挂载整个工作目录且后台运行</em></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
+</span></span><span class="line"><span class="cl">nohup minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="注意事项"><strong>注意事项</strong></h2>
+<ul>
+<li>minikube 启动后配置 <code>eval $(minikube docker-env)</code></li>
+<li><em>minikube 启动后挂载目录</em> <a href="#%e6%9c%ac%e6%9c%ba%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8" rel="">应用启动目录挂载问题</a></li>
+<li>启动时指定 <code>--driver</code>，如果是 <code>docker</code> 务必确保 <code>docker daemon</code> 已运行</li>
+<li>如果启动参数 mount 设置错误，则需要 <code>minikube mount --kill</code>，且 <code>minikube vm</code> 移出相应目录</li>
+<li><code>minikube delete 不用每次都运行</code></li>
+</ul>
+<h2 id="更多">更多</h2>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/" target="_blank" rel="noopener noreffer">Using minikube as Docker Desktop Replacement</a></strong></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/handbook/registry/" target="_blank" rel="noopener noreffer">How to interact with registries</a></li>
@@ -956,8 +1096,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-16&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/39871df591591c126aa5a5619973f10cc78c0be9" target="_blank" title="commit by xwi88(278810732@qq.com) 39871df591591c126aa5a5619973f10cc78c0be9: update and fixed posts">
-                                    <i class="fas fa-hashtag fa-fw"></i>39871df</a></span>
+                <span>更新于 2022-03-17&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/028f9b14563738bda6470c1c3452ddd1e64fd978" target="_blank" title="commit by xwi88(278810732@qq.com) 028f9b14563738bda6470c1c3452ddd1e64fd978: update posts">
+                                    <i class="fas fa-hashtag fa-fw"></i>028f9b1</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>

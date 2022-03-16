@@ -241,19 +241,25 @@ docker run hello-world
 
 - **`--insecure-registry`**
 - *`--registry-mirror`*
-- *`--mount`*
+- *`--mount`* **挂载本地主机目录到 `minikube vm`**
+  - 当前 MacOS 下，默认将挂载 `/Users:/minikube-host/`
+  - **挂载路径最好保持完全一致，避免程序有路径依赖而无法正常启动**
+  - 建议使用 `--mount-string` 按需挂载
+- **`--mount-string`** 指定挂载目录
 - **`--no-kubernetes`**
 - **`--cpus`**
 - **`--memory`**
 - `--image-mirror-country`
   
-`minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker`
+`minikube start --no-kubernetes --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker`
 
 如果要使用 minikube dashboard，可这样启动:
 `minikube start --cpus=2 --memory=2000mb \
-    --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+    --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
 
 *Tell Docker CLI to talk to minikube's VM:* `eval $(minikube docker-env)`
+
+`eval $(minikube docker-env)` 可以直接配置到对应 shell 如: `~/.zshrc` 或 `~/.bashrc` 中，以避免每次输入
 
 {{< /admonition >}}
 
@@ -294,7 +300,7 @@ docker run hello-world
 
 {{< admonition example >}}
 
->启动命令: `minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker`
+>启动命令: `minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
 
 ```tex
   minikube v1.24.0 on Darwin 10.15.7
@@ -422,7 +428,7 @@ HTTP Proxy: http.docker.internal:3128
 
 {{< admonition example >}}
 
->`minikube start --driver=hyperkit --cpus=2 --memory=2000mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+>`minikube start --driver=hyperkit --cpus=2 --memory=2000mb --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
 >
 >`minikube dashboard`
 
@@ -435,6 +441,21 @@ HTTP Proxy: http.docker.internal:3128
 `minikube mount <local directory>:<host directory>`
 
 **映射/挂载关系**: `本地主机 volumes`<->`docker desktop VM volumes`<->`docker container volumes`
+
+### Driver 默认挂载路径
+
+Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:
+
+|Driver|OS|HostFolder|VM|
+|:---|:---|:---|:---|
+|VirtualBox|Linux|/home|/hosthome|
+|VirtualBox|macOS|/Users|/Users|
+|VirtualBox|Windows|C://Users|/c/Users|
+|VMware Fusion|macOS|/Users|/mnt/hgfs/Users|
+|KVM|Linux|Unsupported||
+|HyperKit|Linux|Unsupported (see NFS mounts)|
+
+*These mounts can be disabled by passing --disable-driver-mounts to minikube start.*
 
 ## **本机应用启动**
 
@@ -454,7 +475,7 @@ HTTP Proxy: http.docker.internal:3128
 
 >**在本地本机进行工作目录映射/挂载**:
 >
->- `minikube mount $HOME/workspace/:$HOME/workspace`
+>- `minikube mount $HOME/workspace:$HOME/workspace`
 >- **minikube vm 内部映射路径一定要注意: 挂载路径务必与实际路径保持一致**
 >- *注意目录权限问题，正常挂载当前用户目录不涉及权限问题*
 >- 可设置挂载多个目录
@@ -468,19 +489,62 @@ HTTP Proxy: http.docker.internal:3128
 - `$HOME/workspace/gitee.com`
 {{< /admonition >}}
 
+## 开机启动
+
+>`--mount --mount-string=$HOME/workspace:$HOME/workspace` *可能存在问题，推荐启动后用命令 `minikube mount` 挂载*
+
+### **仅挂载当前项目目录**
+
+- 优: 挂载目录少，占空间较小
+- 缺: 如果切换项目需要重新挂载，太过麻烦
+
+> **尽量挂载整个工作目录(注意控制规模)，切换项目不用额外操作**
+
+```bash
+# --mount --mount-string=$HOME/workspace:$HOME/workspace
+
+#minikube delete
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+--image-mirror-country=cn \
+--registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+eval $(minikube docker-env)
+minikube mount ${PWD}:${PWD}
+```
+
+### **挂载整个工作目录**
+
+```bash
+# issues here {单独 --mount 将挂载: /Users:/minikube-host/; --mount-string 仅挂载指定目录，此时不需要添加 --mount， 推荐方式}
+# --mount --mount-string=$HOME/workspace:$HOME/workspace
+
+#minikube delete
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+--image-mirror-country=cn \
+--registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+eval $(minikube docker-env)
+minikube mount ${HOME}/workspace:${HOME}/workspace
+```
+
+### *挂载整个工作目录且后台运行*
+
+```bash
+# --mount --mount-string=$HOME/workspace:$HOME/workspace
+
+#minikube delete
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+--image-mirror-country=cn \
+--registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+eval $(minikube docker-env)
+nohup minikube mount ${HOME}/workspace:${HOME}/workspace &
+```
+
 ## **注意事项**
 
 - minikube 启动后配置 `eval $(minikube docker-env)`
-- 启动时尽量指定 `--driver`，如果是 `docker` 务必确保 `docker daemon` 已运行
-- [应用启动目录挂载问题](#本机应用启动)
-
-## 开机启动
-
-```bash
-minikube start --driver=hyperkit --cpus=2 --memory=2000mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
-eval $(minikube docker-env)
-minikube mount $HOME/workspace/:$HOME/workspace
-```
+- *minikube 启动后挂载目录* [应用启动目录挂载问题](#本机应用启动)
+- 启动时指定 `--driver`，如果是 `docker` 务必确保 `docker daemon` 已运行
+- 如果启动参数 mount 设置错误，则需要 `minikube mount --kill`，且 `minikube vm` 移出相应目录
+- `minikube delete 不用每次都运行`
 
 ## 更多
 

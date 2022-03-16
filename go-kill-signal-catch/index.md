@@ -107,5 +107,7 @@ docker kill 默认 `signal_number=9` **KILL**
 
 ## Docker-compose kill issue
 
-docker-compose 启动 `CTRL+C` 退出失败，强制退出: `CTRL+\`
+- 当前 `Docker Compose version 2.2.2`
+
+`docker-compose` 启动 `CTRL+C` 退出失败，强制退出: `CTRL+\`
 
