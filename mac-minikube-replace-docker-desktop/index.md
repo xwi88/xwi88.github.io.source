@@ -18,12 +18,6 @@
 继续在 **macOS** 上运行和构建容器应用程序的方法是在 `Linux VM` 上运行 `Docker Engine`。
 {{< /admonition >}}
 
-## *Docker Desktop* 清理
-
->*不建议直接在 `Docker Desktop` 或其他类似环境上运行 `minikube`*
-
-**Uninstall** `Docker Desktop` by removing `/Applications/Docker.app`。
-
 ## 环境要求
 
 - 最少 2核
@@ -32,7 +26,9 @@
 - 网络连接
 - 容器或虚拟机管理器, 如: **[Docker](https://docs.docker.com/get-docker/)**, **[Hyperkit](https://github.com/moby/hyperkit)**, Hyper-V, KVM, Parallels, **[podman](https://podman.io/)**, *[VirtualBox](https://www.virtualbox.org/)*, or VMware Fusion/Workstation
 
-## 安装
+## 环境安装
+
+>如果确定以后不需要在 `docker desktop` 中运行 image，请删除所有 `docker` `docker desktop` 相关的配置。
 
 {{< admonition example >}}
 
@@ -74,7 +70,8 @@ brew link minikube
 
 ## Drivers 说明
 
->`minikube` 在 mac 下启动需要依赖 `Linux VM`，这里也就是我们配置的 driver，如果你已经启动了 `Docker Desktop`，则可以配置为 `--driver=docker` 借助已经存在的 VM，否则需要选择其他，具体支持的 driver 参考如下：
+>`minikube` 在 `mac/windows` 下启动需要依赖 `Linux VM`，这里也就是我们配置的 driver，如果配置 `--driver=docker` 则需要安装相应版本的 `Docker Desktop` 借助已安装的 `linux vm`。
+否则需要选择其他，具体支持的 drivers 参考如下：
 
 ### *Linux*
 
@@ -87,7 +84,7 @@ brew link minikube
 
 ### **macOS**
 
-- **[Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)** - VM + Container (preferred)
+- *[Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)* - VM + Container (preferred)
 - **[Hyperkit](https://minikube.sigs.k8s.io/docs/drivers/hyperkit/)** - VM
 - VirtualBox - VM
 - Parallels - VM
@@ -132,23 +129,99 @@ minikube start --driver=docker --container-runtime=containerd
 
 >The `--container-runtime` flag must be set to `containerd` or `cri-o`.
 {{< /admonition >}}
-
 >更多 `drivers` 配置及用法请查看: [minikube drivers](https://minikube.sigs.k8s.io/docs/drivers/)
 
-## 启动
+## 配置命令
+
+`minikube config SUBCOMMAND [flags] [options]`
+
+- `minikube config help`
+- `minikube config defaults PROPERTY_NAME [flags]` *list displays all valid default settings for PROPERTY_NAME*
+- `minikube config view [flags]` Display values currently set in the minikube config file.
+- `minikube config set PROPERTY_NAME PROPERTY_VALUE [flags]` *Sets an individual value in a minikube config file*
+- `minikube config get PROPERTY_NAME [flags]` *Returns the value of PROPERTY_NAME from the minikube config file*
+- `minikube config unset PROPERTY_NAME [flags]` *unsets PROPERTY_NAME from the minikube config file.*
+
+{{< admonition tip >}}
+
+>`minikube config --help`
+
+```tex
+config modifies minikube config files using subcommands like "minikube config set driver kvm2"
+Configurable fields:
+
+ * driver
+ * vm-driver
+ * container-runtime
+ * feature-gates
+ * v
+ * cpus
+ * disk-size
+ * host-only-cidr
+ * memory
+ * log_dir
+ * kubernetes-version
+ * iso-url
+ * WantUpdateNotification
+ * WantBetaUpdateNotification
+ * ReminderWaitPeriodInHours
+ * WantNoneDriverWarning
+ * WantVirtualBoxDriverWarning
+ * profile
+ * bootstrapper
+ * insecure-registry
+ * hyperv-virtual-switch
+ * disable-driver-mounts
+ * cache
+ * EmbedCerts
+ * native-ssh
+
+Available Commands:
+  defaults    Lists all valid default values for PROPERTY_NAME
+  get         Gets the value of PROPERTY_NAME from the minikube config file
+  set         Sets an individual value in a minikube config file
+  unset       unsets an individual value in a minikube config file
+  view        Display values currently set in the minikube config file
+
+Usage:
+  minikube config SUBCOMMAND [flags] [options]
+
+Use "minikube <command> --help" for more information about a given command.
+Use "minikube options" for a list of global command-line options (applies to all commands).
+```
+
+{{< /admonition>}}
+
+{{< admonition example>}}
 
 ```bash
-minikube start
+minikube config set driver hyperkit
+minikube config set cpus 2
+minikube config set memory 2000mb
+minikube config set disk-size 20gb
 
+# insecure-registry 测试未生效, 启动时指定!
+minikube config set insecure-registry https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+# minikube config set kubernetes-version <>
+
+# The name of the minikube VM being used. This can be set to allow having multiple instances of minikube independently. (default "minikube")
+minikube config set profile
+```
+
+{{< /admonition>}}
+
+## 快捷启动
+
+```bash
+minikube start # minikube start --container-runtime=docker
 # Tell Docker CLI to talk to minikube's VM
 eval $(minikube docker-env)
-
 # Save IP to a hostname
 # echo "`minikube ip` docker.local" | sudo tee -a /etc/hosts > /dev/null
-
 # control panel, must start minikube with cluster model, without flag --no-kubernetes
 minikube dashboard
-
+# stop kubernetes related
+minikube pause
 # test
 docker run hello-world
 ```
@@ -159,23 +232,35 @@ docker run hello-world
 
 ### 启动命令
 
+- 某些配置更新后后需要执行: `minikube delete` 然后重新启动
+
 {{< admonition example >}}
->`minikube start`
->
->`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='auto'`
->
->`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --image-mirror-country='cn'`
->
->`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com` **推荐使用类似配置，后续不用进入环境修改相关配置了**
->
->`minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com` *如果要使用 minikube dashboard，可这样启动*
+`minikube start --driver=hyperkit`  或 `minikube start --driver=docker` 或其他驱动
+
+推荐使用类似配置，后续不用进入 `minikube vm` 修改相关配置，主要配置：
+
+- **`--insecure-registry`**
+- *`--registry-mirror`*
+- *`--mount`*
+- **`--no-kubernetes`**
+- **`--cpus`**
+- **`--memory`**
+- `--image-mirror-country`
+  
+`minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker`
+
+如果要使用 minikube dashboard，可这样启动:
+`minikube start --cpus=2 --memory=2000mb \
+    --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+
+*Tell Docker CLI to talk to minikube's VM:* `eval $(minikube docker-env)`
 
 {{< /admonition >}}
 
 ### 可能出现的问题
 
 {{< admonition warning >}}
-*我们这里仅提供演示，没有卸载掉 `Docker Desktop`，直接使用了它安装的*docker*及其配置。由于*资源限制*导致无法满足正常启动 `minikube` 出现了下面的提示*
+*如果你在 `Docker Desktop` 基础上启动 `minikube`，直接借助它的 `vm` 及配置。由于资源限制，可能导致无法正常启动 `minikube`*
 
 ```tex
 😄  minikube v1.24.0 on Darwin 12.2.1
@@ -205,32 +290,18 @@ docker run hello-world
 
 {{< /admonition >}}
 
-### 启动后环境检查
-
->**如果需要使用 `dashboard`，请不要在启动参数添加 `--no-kubernetes`**
+## 启动后环境检查
 
 {{< admonition example >}}
 
->`minikube start --no-kubernetes --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+>启动命令: `minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker`
 
 ```tex
-😄  minikube v1.24.0 on Darwin 12.2.1
-✨  Using the docker driver based on user configuration
-
-⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
-💡  Suggestion:
-
-    1. Click on "Docker for Desktop" menu icon
-    2. Click "Preferences"
-    3. Click "Resources"
-    4. Increase "Memory" slider bar to 2.25 GB or higher
-    5. Click "Apply & Restart"
-📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
-
+  minikube v1.24.0 on Darwin 10.15.7
+    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
+✨  Using the hyperkit driver based on user configuration
 👍  Starting minikube without Kubernetes minikube in cluster minikube
-🚜  Pulling base image ...
-❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
-🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
+🔥  Creating hyperkit VM (CPUs=2, Memory=2000MB, Disk=20480MB) ...
 🏄  Done! minikube is ready without Kubernetes!
 ╭───────────────────────────────────────────────────────────────────────────────────────╮
 │                                                                                       │
@@ -243,7 +314,7 @@ docker run hello-world
 ╰───────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
->`eval $(minikube docker-env)` 让 Docker CLI 与 minikube's VM 交互
+>`eval $(minikube docker-env)` **让 Docker CLI 与 minikube's VM 交互**
 
 {{< admonition tip >}}
 Add this line to `.bash_profile` or `.zshrc` or ... if you want to *use minikube's daemon* by default (or if you do not want to set this every time you open a new terminal).
@@ -253,29 +324,31 @@ Add this line to `.bash_profile` or `.zshrc` or ... if you want to *use minikube
 >`docker info` 查看我们现在终端的 docker 信息
 
 ```tex
-Kernel Version: 5.10.76-linuxkit
-Operating System: Ubuntu 20.04.2 LTS
-OSType: linux
-Architecture: x86_64
-CPUs: 3
-Total Memory: 4.083GiB
-Name: minikube
-
-No Proxy: control-plane.minikube.internal
+Kernel Version: 4.19.202
+ Operating System: Buildroot 2021.02.4
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 2
+ Total Memory: 1.894GiB
+ Name: minikube
+ ID: STNM:GBUS:PMHK:ASTU:BZHZ:WIEY:L6F3:YOMH:M432:S5XK:PAT5:IU2D
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
  Registry: https://index.docker.io/v1/
  Labels:
-  provider=docker
+  provider=hyperkit
  Experimental: false
  Insecure Registries:
+  reg-mirror.qiniu.com
   docker.mirrors.ustc.edu.cn
   mirror.ccs.tencentyun.com
-  reg-mirror.qiniu.com
   10.96.0.0/12
   127.0.0.0/8
  Live Restore Enabled: false
+ Product License: Community Engine
 ```
 
->新打开一个终端查看本机 `docker info`
+>新打开一个终端查看本机(未卸载 docker desktop 机器，仅做对比) `docker info`
 
 ```tex
 Kernel Version: 5.10.76-linuxkit
@@ -349,97 +422,65 @@ HTTP Proxy: http.docker.internal:3128
 
 {{< admonition example >}}
 
->`minikube start --driver=docker --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
-
-```tex
-😄  minikube v1.24.0 on Darwin 12.2.1
-    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
-✨  Using the docker driver based on user configuration
-
-⛔  Docker Desktop only has 4180MiB available, you may encounter application deployment failures.
-💡  Suggestion:
-
-    1. Click on "Docker for Desktop" menu icon
-    2. Click "Preferences"
-    3. Click "Resources"
-    4. Increase "Memory" slider bar to 2.25 GB or higher
-    5. Click "Apply & Restart"
-📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
-
-👍  Starting control plane node minikube in cluster minikube
-🚜  Pulling base image ...
-💾  Downloading Kubernetes v1.22.3 preload ...
-    > preloaded-images-k8s-v13-v1...: 501.73 MiB / 501.73 MiB  100.00% 21.11 Mi
-
-❗  minikube was unable to download gcr.io/k8s-minikube/kicbase:v0.0.28, but successfully downloaded docker.io/kicbase/stable:v0.0.28 as a fallback image
-🔥  Creating docker container (CPUs=2, Memory=1800MB) ...
-❗  This container is having trouble accessing https://k8s.gcr.io
-💡  To pull new external images, you may need to configure a proxy: https://minikube.sigs.k8s.io/docs/reference/networking/proxy/
-🐳  Preparing Kubernetes v1.22.3 on Docker 20.10.8 ...
-    ▪ Generating certificates and keys ...
-    ▪ Booting up control plane ...
-    ▪ Configuring RBAC rules ...
-🔎  Verifying Kubernetes components...
-    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
-🌟  Enabled addons: storage-provisioner, default-storageclass
-🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
-```
-
+>`minikube start --driver=hyperkit --cpus=2 --memory=2000mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
+>
 >`minikube dashboard`
 
-```tex
-🔌  Enabling dashboard ...
-    ▪ Using image kubernetesui/metrics-scraper:v1.0.7
-    ▪ Using image kubernetesui/dashboard:v2.3.1
-🤔  Verifying dashboard health ...
-🚀  Launching proxy ...
-🤔  Verifying proxy health ...
-🎉  Opening http://127.0.0.1:51816/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
-```
+{{< /admonition >}}
 
+## 目录挂载
+
+>This will start the mount daemon and automatically mount files into minikube.
+
+`minikube mount <local directory>:<host directory>`
+
+**映射/挂载关系**: `本地主机 volumes`<->`docker desktop VM volumes`<->`docker container volumes`
+
+## **本机应用启动**
+
+>如果你使用了目录映射，则必须开启挂载，且一定要注意挂载路径，否则会出现文件或者配置找不到问题。
+
+### **文件或配置找不到**
+
+{{< admonition warning >}}
+原因：
+
+- 使用 `docker desktop` 时，自动帮我们做了映射：`本地主机 volumes`<->`docker desktop VM volumes`<->`docker container volumes`
+- 当我们使用 `minikube` 在本地运行 `docker run` 或 `docker-compose up` 实际相当于在 `minikube vm` 中运行，但是 `minikube vm` 中**无本地本机的源码映射**
+
+{{< /admonition >}}
+
+### **解决方案**
+
+>**在本地本机进行工作目录映射/挂载**:
+>
+>- `minikube mount $HOME/workspace/:$HOME/workspace`
+>- **minikube vm 内部映射路径一定要注意: 挂载路径务必与实际路径保持一致**
+>- *注意目录权限问题，正常挂载当前用户目录不涉及权限问题*
+>- 可设置挂载多个目录
+
+{{< admonition tip >}}
+可将你的源码放在一个统一的工作目录，这样方便挂载及代码查找，目录结构参考如下：
+
+- `$HOME/workspace` **源码工作空间，可整个挂载**
+- `$HOME/workspace/git.company.com` *公司源码工作空间，仅公司代码*
+- `$HOME/workspace/github.com` *github 源码工作空间*
+- `$HOME/workspace/gitee.com`
 {{< /admonition >}}
 
 ## **注意事项**
 
->如果你启动时指定 **--driver=docker，且本机 `docker daemon`** 未运行，*可能出现以下错误*
+- minikube 启动后配置 `eval $(minikube docker-env)`
+- 启动时尽量指定 `--driver`，如果是 `docker` 务必确保 `docker daemon` 已运行
+- [应用启动目录挂载问题](#本机应用启动)
 
-```tex
-😄  minikube v1.24.0 on Darwin 10.15.7
-    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
-✨  Using the docker driver based on user configuration
+## 开机启动
 
-💣  Exiting due to PROVIDER_DOCKER_NOT_RUNNING: "docker version --format -" exit status 1: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-💡  Suggestion: Start the Docker service
-📘  Documentation: https://minikube.sigs.k8s.io/docs/drivers/docker/
+```bash
+minikube start --driver=hyperkit --cpus=2 --memory=2000mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+eval $(minikube docker-env)
+minikube mount $HOME/workspace/:$HOME/workspace
 ```
-
->使用 `driver=hyperkit` 启动即可
-
-{{< admonition tip >}}
->`minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=1800mb --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com`
-
-```tex
-😄  minikube v1.24.0 on Darwin 10.15.7
-    ▪ MINIKUBE_ACTIVE_DOCKERD=minikube
-✨  Using the hyperkit driver based on user configuration
-
-⛔  Requested memory allocation (1800MB) is less than the recommended minimum 1900MB. Deployments may fail.
-
-👍  Starting minikube without Kubernetes minikube in cluster minikube
-🔥  Creating hyperkit VM (CPUs=2, Memory=1800MB, Disk=20000MB) ...
-🏄  Done! minikube is ready without Kubernetes!
-╭───────────────────────────────────────────────────────────────────────────────────────╮
-│                                                                                       │
-│                       💡  Things to try without Kubernetes ...                        │
-│                                                                                       │
-│    - "minikube ssh" to SSH into minikube's node.                                      │
-│    - "minikube docker-env" to point your docker-cli to the docker inside minikube.    │
-│    - "minikube image" to build images without docker.                                 │
-│                                                                                       │
-╰───────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-{{< /admonition >}}
 
 ## 更多
 

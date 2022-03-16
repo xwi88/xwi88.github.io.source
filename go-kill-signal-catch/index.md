@@ -86,7 +86,7 @@ docker kill 默认 `signal_number=9` **KILL**
 
 根据信号表示意义，我们推荐程序使用
 
-- 2 **SIGINT**
+- 2 **SIGINT**  **触发: `CTRL+C` 或 `kill -2`**
 - 15 **SIGTERM**
 
 ## 优雅停止服务
@@ -95,7 +95,7 @@ docker kill 默认 `signal_number=9` **KILL**
 2. 程序捕获信号后**节点摘除**, **释放资源**，*停止程序*
 3. 间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 `kill -9/-KILL/-SIGKILL`
 
-### k8s 停机实现
+## k8s 优雅停止服务
 
 1. **节点摘除**
 2. `preStop hook` *可设置延迟时间，用于处理进入流量*
@@ -104,4 +104,8 @@ docker kill 默认 `signal_number=9` **KILL**
 5. 超时强制关闭处理 `kill -9/-KILL/-SIGKILL`
     - 默认 30s
     - pod: `terminationGracePeriodSecond` 修改
+
+## Docker-compose kill issue
+
+docker-compose 启动 `CTRL+C` 退出失败，强制退出: `CTRL+\`
 
