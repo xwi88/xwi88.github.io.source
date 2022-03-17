@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Dockerfile 指令小抄与构建示例 - Coding Life Share</title><meta name="Description" content="dockerfile 指令小抄与镜像构建示例"><meta property="og:title" content="Dockerfile 指令小抄与构建示例" />
+<meta property="og:description" content="dockerfile 指令小抄与镜像构建示例" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-17T21:16:08+08:00" />
+<meta property="article:modified_time" content="2022-03-18T01:22:34+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Dockerfile 指令小抄与构建示例"/>
+<meta name="twitter:description" content="dockerfile 指令小抄与镜像构建示例"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><link rel="prev" href="https://xwi88.com/go-kill-signal-catch/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.62747080dc83bde1a0ee9caa98bb236b6744d44fb76e885bd8929bcf018fb16c.css" integrity="sha256-YnRwgNyDveGg7pyqmLsja2dE1E&#43;3bohb2JKbzwGPsWw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Dockerfile 指令小抄与构建示例",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/dockerfile-cheat-sheet-demo\/"
+        },"genre": "posts","keywords": "docker","wordcount":  1893 ,
+        "url": "https:\/\/xwi88.com\/dockerfile-cheat-sheet-demo\/","datePublished": "2022-03-17T21:16:08+08:00","dateModified": "2022-03-18T01:22:34+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "dockerfile 指令小抄与镜像构建示例"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/dockerfile-cheat-sheet-demo/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/dockerfile-cheat-sheet-demo/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Dockerfile 指令小抄与构建示例</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-18">2022-03-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1893 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#dockerfile-简介">Dockerfile 简介</a></li>
+    <li><a href="#dockerignore"><code>.dockerignore</code></a></li>
+    <li><a href="#基本组成">基本组成</a>
+      <ul>
+        <li><a href="#所有指令">所有指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#from"><strong>FROM</strong></a>
+      <ul>
+        <li><a href="#arg-参数与-from-交互"><strong>ARG 参数与 FROM 交互</strong></a></li>
+        <li><a href="#arg-参数作用域">ARG 参数作用域</a></li>
+      </ul>
+    </li>
+    <li><a href="#run">RUN</a>
+      <ul>
+        <li><a href="#run-指令缓存">RUN 指令缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#cmd">CMD</a>
+      <ul>
+        <li><a href="#注意事项">注意事项</a></li>
+      </ul>
+    </li>
+    <li><a href="#label">LABEL</a></li>
+    <li><a href="#expose">EXPOSE</a>
+      <ul>
+        <li><a href="#expose-for-run">expose for run</a></li>
+      </ul>
+    </li>
+    <li><a href="#env">ENV</a></li>
+    <li><a href="#add">ADD</a></li>
+    <li><a href="#copy">COPY</a></li>
+    <li><a href="#entrypoint">ENTRYPOINT</a></li>
+    <li><a href="#volume">VOLUME</a></li>
+    <li><a href="#user">USER</a></li>
+    <li><a href="#workdir">WORKDIR</a></li>
+    <li><a href="#arg">ARG</a></li>
+    <li><a href="#onbuild">ONBUILD</a></li>
+    <li><a href="#stopsignal">STOPSIGNAL</a></li>
+    <li><a href="#healthcheck">HEALTHCHECK</a></li>
+    <li><a href="#shell">SHELL</a></li>
+    <li><a href="#示例">示例</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="dockerfile-简介">Dockerfile 简介</h2>
+<p><code>Dockerfile</code> 是一个用来构建镜像的文本文件，由一条条构建镜像所需的指令（<code>instruction</code>）和说明组成。每一条指令构建一层。</p>
+<p>默认执行构建命令 <code>docker build .</code> 会在当前路径下查找名为 <code>Dockerfile</code> 的文件，也可以指定路径及文件名：<code>docker build -f xxx/path/DockerfileName .</code></p>
+<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">为了提高构建的性能，可以通过在上下文目录中添加 <code>.dockerignore</code> 文件来排除文件和目录。如果你的项目目录下有较多或较大的不必要参与镜像构建的文件，请将其排除，这对于加快构建速度、减少镜像体积将会非常有用。</div>
+        </div>
+    </div>
+<h2 id="基本组成">基本组成</h2>
+<blockquote>
+<p>支持以 <code>#</code> 开头的注释行，可以放在任意行的开头位置，不建议在 <code>#</code> 前保留多余的空格。</p>
+</blockquote>
+<ul>
+<li>基础镜像信息</li>
+<li>维护者信息</li>
+<li>镜像操作指令</li>
+<li>容器启动执行指令</li>
+</ul>
+<h3 id="所有指令">所有指令</h3>
+<blockquote>
+<ul>
+<li><a href="#from" rel=""><strong>FROM</strong></a></li>
+<li><a href="#run" rel="">RUN</a></li>
+<li><a href="#cmd" rel="">CMD</a></li>
+<li><a href="#label" rel="">LABEL</a></li>
+<li><a href="#expose" rel="">EXPOSE</a></li>
+<li><a href="#env" rel="">ENV</a></li>
+<li><a href="#add" rel="">ADD</a></li>
+<li><a href="#copy" rel="">COPY</a></li>
+<li><a href="#entrypoint" rel="">ENTRYPOINT</a></li>
+<li><a href="#volume" rel="">VOLUME</a></li>
+<li><a href="#user" rel="">USER</a></li>
+<li><a href="#workdir" rel="">WORKDIR</a></li>
+<li><a href="#arg" rel="">ARG</a></li>
+<li><a href="#onbuild" rel="">ONBUILD</a></li>
+<li><a href="#stopsignal" rel="">STOPSIGNAL</a></li>
+<li><a href="#healthcheck" rel="">HEALTHCHECK</a></li>
+<li><a href="#shell" rel="">SHELL</a></li>
+</ul>
+</blockquote>
+<h2 id="from"><strong>FROM</strong></h2>
+<ul>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]</code></li>
+</ul>
+<p><code>FROM</code> 指令<strong>初始化一个新的构建阶段，并为后续指令设置基本镜像</strong>。因此，<strong>有效的 <code>Dockerfile</code> 必须以 <code>FROM</code> 指令开始</strong>。</p>
+<ul>
+<li><code>ARG</code> 是 <code>Dockerfile</code> 中能出现在 <code>FROM</code> 之前的唯一指令。</li>
+<li><code>FROM</code> 可以在单个 <code>Dockerfile</code> 中出现多次，以<em>创建多个镜像</em>，或者<strong>使用一个构建阶段作为另一个构建阶段的依赖项</strong>。只需在每个新的 <code>FROM</code> 指令之前记录提交的最后一个镜像 ID 即可。每个 <code>FROM</code> 指令都会清除前面指令创建的任何状态。</li>
+<li>通过向 <code>FROM</code> 指令添加 <code>AS &lt;name&gt;</code> ，可以为新的构建阶段提供名称。可以在后续的 <code>FROM</code> 和 <code>COPY --from=&lt;name&gt;</code> 指令中使用该名称来引用在这个阶段构建的镜像。</li>
+<li>标签 <code>tag</code> 或摘要值 <code>digest</code> 是可选的。如果省略它们中的任何一个，构建器将默认使用标签 <code>latest</code>。如果构建器找不到标记值，则返回一个错误。</li>
+<li>可以通过 <code>--platform=&lt;platform&gt;</code> 指定 <code>FROM</code> 引用的是哪个平台的镜像。例如：<code>linux/amd64</code>、 <code>linux/arm64</code> 或 <code>windows/amd64</code>。默认使用构建请求的目标平台。可以在这个标志中使用全局构建参数，如：<a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer">全局范围内自动平台参数</a>，允许你强制指定一个阶段的本机构建平台<code>(--platform=$BUILDPLATFORM)</code>，并使用它在此构建阶段内交叉编译到目标平台。</li>
+</ul>
+<h3 id="arg-参数与-from-交互"><strong>ARG 参数与 FROM 交互</strong></h3>
+<blockquote>
+<p>由 <code>ARG</code> 指令声明的变量，可以出现在第一个 <code>FROM</code> 指令之前。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c"># FROM instructions support variables that are declared by any ARG instructions that occur before the first FROM.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">CODE_VERSION</span><span class="o">=</span>latest
+</span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> base:${CODE_VERSION}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-app<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> extras:${CODE_VERSION}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="arg-参数作用域">ARG 参数作用域</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c"># VERSION outside of a build stage, can`t be used in any instruction after a FROM</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">VERSION</span><span class="o">=</span>latest
+</span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> busybox:$VERSION</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># To use the default value of an ARG declared before the first FROM use an ARG instruction without a value inside of a build stage</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> VERSION<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">VERSION</span><span class="o">=</span>old
+</span></span><span class="line"><span class="cl"><span class="c"># guess what? old</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> VERSION<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># guess what? latest, again use ARG VERSION without value will override the before $VERSION</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="run">RUN</h2>
+<ul>
+<li><code>RUN &lt;command&gt;</code> (以 <code>shell</code> 形式运行, <em>linux</em> 下默认:  <code>/bin/sh -c</code>， <em>Windows</em> 下默认: <code>cmd /S /C</code>)</li>
+<li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> 形式)</li>
+</ul>
+<p><code>RUN</code> 指令将在当前镜像顶部的<strong>新层</strong>中执行任何命令并提交结果。生成的提交镜像将用于 <code>Dockerfile</code> 中的下一步。</p>
+<p><code>exec</code> 形式可以避免 <code>shell</code> 字符串转换，并使用不包含 <code>shell</code> 可执行文件的基本镜像运行命令。</p>
+<ul>
+<li>可以使用 <code>SHELL</code> 命令更改默认 <code>shell</code></li>
+<li>可以使用 <code>\</code> <em>backslash</em> 让单条 <code>RUN</code> 指令跨行，适用于指令较长的情况。</li>
+</ul>
+<blockquote>
+<p>替换默认 <code>shell</code></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">RUN /bin/bash -c <span class="s1">&#39;source $HOME/.bashrc; \
+</span></span></span><span class="line"><span class="cl"><span class="s1">echo $HOME&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># equivalent to</span>
+</span></span><span class="line"><span class="cl">RUN /bin/bash -c <span class="s1">&#39;source $HOME/.bashrc; echo $HOME&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>The <code>exec</code> form is parsed as a <strong>JSON array</strong>, which means that you must use double-quotes (<code>&quot;</code>) around words not single-quotes (<code>'</code>).</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># To use a different shell, other than &#39;/bin/sh&#39;, use the exec form passing in the desired shell. For example:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN <span class="o">[</span><span class="s2">&#34;/bin/bash&#34;</span>, <span class="s2">&#34;-c&#34;</span>, <span class="s2">&#34;echo hello&#34;</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="run-指令缓存">RUN 指令缓存</h3>
+<ul>
+<li><code>在下一次构建期间，RUN</code> 指令的缓存不会自动失效</li>
+<li><code>RUN apt-get dist-upgrade-y</code> 这样的指令的缓存将在下一次构建期间重用</li>
+<li><code>--no-cache</code> 标志使 <code>RUN</code> 指令的缓存失效，<code>docker build --no-cache</code></li>
+<li><strong><code>ADD</code>、<code>COPY</code> 可以使 <code>RUN</code> 指令缓存失效</strong></li>
+</ul>
+<h2 id="cmd">CMD</h2>
+<ul>
+<li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
+<li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
+<li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
+</ul>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>一个 <code>Dockerfile</code> 只能有一个 <code>CMD</code> 指令，如果有多个则只有最后一个会生效。</li>
+<li><code>CMD</code> 的主要目的是为正在执行的容器提供缺省值。这些缺省值可以包括可执行文件，也可以省略可执行文件，在这种情况下，你必须指定 <code>ENTRYPOINT</code> 指令。</li>
+<li>如果使用 <code>CMD</code> 为 <code>ENTRYPOINT</code> 指令提供默认参数，则应使用 <code>JSON</code> 数组格式指定 <code>CMD</code> 和 <code>ENTRYPOINT</code> 指令。</li>
+<li><strong>如果希望容器每次都运行相同的可执行文件，那么应该考虑结合使用 <code>ENTRYPOINT</code> 和 <code>CMD</code></strong></li>
+<li><strong>如果用户指定参数来运行 <code>docker</code>，那么它们将覆盖 <code>CMD</code> 中指定的缺省值</strong></li>
+<li>不要将 <code>RUN</code> 与 <code>CMD</code> 混淆。<code>RUN</code> <em>实际上运行一个命令并提交结果</em>; <code>CMD</code> <em>在构建时不执行任何内容，但是为镜像指定预期的命令</em>。</li>
+</ul>
+<h2 id="label">LABEL</h2>
+<blockquote>
+<p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">LABEL multi.label1<span class="o">=</span><span class="s2">&#34;value1&#34;</span> multi.label2<span class="o">=</span><span class="s2">&#34;value2&#34;</span> <span class="nv">other</span><span class="o">=</span><span class="s2">&#34;value3&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 等价</span>
+</span></span><span class="line"><span class="cl">LABEL multi.label1<span class="o">=</span><span class="s2">&#34;value1&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      multi.label2<span class="o">=</span><span class="s2">&#34;value2&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      <span class="nv">other</span><span class="o">=</span><span class="s2">&#34;value3&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<blockquote>
+<p>image 标签查看: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
+</blockquote>
+<h2 id="expose">EXPOSE</h2>
+<blockquote>
+<p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
+</blockquote>
+<p><code>EXPOSE</code> 指令通知 <code>Docker</code> 容器在运行时监听指定的网络端口。你可以指定端口侦听 <code>TCP</code> 或 <code>UDP</code>，如果没有指定协议，则默认为 <code>TCP</code>。</p>
+<p><code>EXPOSE</code> 指令<strong>实际上并不发布端口</strong>。它介于构建镜像的人和运行容器的人之间的关于发布哪些端口的文档。要在运行容器时实际发布端口，可以使用 <code>docker run</code> 上的 <code>-p</code> 标志发布和映射一个或多个端口，或使用 <code>-P</code> 标志发布所有公开的端口并将它们映射到高阶端口(所有端口一一映射)。</p>
+<p>默认情况下，<code>EXPOSE</code> 假设为 TCP。您也可以指定 UDP:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># expose udp</span>
+</span></span><span class="line"><span class="cl">EXPOSE 80/udp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># expose both: tcp and udp</span>
+</span></span><span class="line"><span class="cl">EXPOSE 80/tcp
+</span></span><span class="line"><span class="cl">EXPOSE 80/udp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="expose-for-run">expose for run</h3>
+<ul>
+<li>
+<p><code>P</code> Publish all exposed ports to the host interfaces</p>
+</li>
+<li>
+<p><code>p=[]</code> Publish a container&rsquo;s port or a range of ports to the host</p>
+</li>
+<li>
+<p><code>docker run -p 80:80/tcp -p 80:80/udp ...</code></p>
+</li>
+<li>
+<p><code>docker run -p 80-81:80-81/tcp</code></p>
+</li>
+</ul>
+<h2 id="env">ENV</h2>
+<blockquote>
+<p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
+</blockquote>
+<h2 id="add">ADD</h2>
+<h2 id="copy">COPY</h2>
+<h2 id="entrypoint">ENTRYPOINT</h2>
+<h2 id="volume">VOLUME</h2>
+<h2 id="user">USER</h2>
+<h2 id="workdir">WORKDIR</h2>
+<h2 id="arg">ARG</h2>
+<h2 id="onbuild">ONBUILD</h2>
+<h2 id="stopsignal">STOPSIGNAL</h2>
+<h2 id="healthcheck">HEALTHCHECK</h2>
+<h2 id="shell">SHELL</h2>
+<h2 id="示例">示例</h2>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer">Docker reference</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer">understand-how-arg-and-from-interact</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer">Dockerfile reference</a></li>
+<li><strong><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices" target="_blank" rel="noopener noreffer">dockerfile_best-practices</a></strong></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-18&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/de97441aa9aecae6d67fd1fb78a94c253f69ba31" target="_blank" title="commit by xwi88(278810732@qq.com) de97441aa9aecae6d67fd1fb78a94c253f69ba31: tmp submit">
+                                    <i class="fas fa-hashtag fa-fw"></i>de97441</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/dockerfile-cheat-sheet-demo/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/" data-title="Dockerfile 指令小抄与构建示例" data-via="xwi88" data-hashtags="docker"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/" data-title="Dockerfile 指令小抄与构建示例"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/dockerfile-cheat-sheet-demo/" data-title="Dockerfile 指令小抄与构建示例"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/docker/">docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-kill-signal-catch/" class="prev" rel="prev" title="Go 程序常用 kill 信号及捕获"><i class="fas fa-angle-left fa-fw"></i>Go 程序常用 kill 信号及捕获</a></div>
+</div>
+<div id="comments">
+
+            <div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b75f7823ed815277b8be8f7b2c230cffa1f67c62aae6f5fdde56fd43eb6ddce0.js" integrity="sha256-t194I&#43;2BUne4vo97LCMM/6H2fGKq5vX93lb9Q&#43;tt3OA="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>

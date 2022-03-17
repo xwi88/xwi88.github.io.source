@@ -232,7 +232,7 @@ docker run hello-world
 
 ### 启动命令
 
-- 某些配置更新后后需要执行: `minikube delete` 然后重新启动
+- 某些配置更新后需要执行: `minikube delete` 然后重新启动
 
 {{< admonition example >}}
 `minikube start --driver=hyperkit`  或 `minikube start --driver=docker` 或其他驱动
