@@ -4,7 +4,14 @@
         <link>https://xwi88.com/categories/docker/</link>
         <description>docker - 分类 - Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/categories/docker/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/categories/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>Dockerfile 指令小抄与构建示例</title>
+    <link>https://xwi88.com/dockerfile-cheat-sheet-demo/</link>
+    <pubDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xwi88.com/dockerfile-cheat-sheet-demo/</guid>
+    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
+</item><item>
     <title>Mac 使用 minikube 替换 Docker Desktop</title>
     <link>https://xwi88.com/mac-minikube-replace-docker-desktop/</link>
     <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
