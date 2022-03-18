@@ -2,7 +2,7 @@
 url: "mac-minikube-replace-docker-desktop"
 title: "Mac 使用 minikube 替换 Docker Desktop"
 date: 2022-03-11T21:27:21+08:00
-lastmod: 2022-03-17T00:50:10+08:00
+lastmod: 2022-03-19T01:45:10+08:00
 draft: false
 
 description: "MacOS 上使用 minikube 替换 Docker Desktop"
@@ -246,7 +246,7 @@ docker run hello-world
 
 ### 启动命令
 
-- 某些配置更新后后需要执行: `minikube delete` 然后重新启动
+- 某些配置更新后需要执行: `minikube delete` 然后重新启动
 
 {{< admonition example >}}
 `minikube start --driver=hyperkit`  或 `minikube start --driver=docker` 或其他驱动
