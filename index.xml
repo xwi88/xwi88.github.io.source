@@ -4,16 +4,9 @@
         <link>https://xwi88.com/</link>
         <description>技术 博客 分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</lastBuildDate>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 16 Mar 2022 01:30:10 &#43;0800</lastBuildDate>
             <atom:link href="https://xwi88.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Dockerfile 指令小抄与构建示例</title>
-    <link>https://xwi88.com/dockerfile-cheat-sheet-demo/</link>
-    <pubDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://xwi88.com/dockerfile-cheat-sheet-demo/</guid>
-    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
-</item><item>
     <title>Go 程序常用 kill 信号及捕获</title>
     <link>https://xwi88.com/go-kill-signal-catch/</link>
     <pubDate>Wed, 16 Mar 2022 01:30:10 &#43;0800</pubDate>
@@ -76,5 +69,12 @@
     <author>作者</author>
     <guid>https://xwi88.com/hugo-plugin-busuanzi/</guid>
     <description><![CDATA[<p>Hugo 网站访问量、文章阅读次数统计插件 <strong>busuanzi</strong> 集成配置使用，基于个人实验验证，旨在为需要的人提供方便，效果见 <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer">我的博客</a> 或访问 <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer">xwi88.github.io</a>。</p>]]></description>
+</item><item>
+    <title>Hugo 插件 Utterances 用法</title>
+    <link>https://xwi88.com/hugo-plugin-utterances-usage/</link>
+    <pubDate>Fri, 04 Mar 2022 07:38:57 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xwi88.com/hugo-plugin-utterances-usage/</guid>
+    <description><![CDATA[<p>Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
 </item></channel>
 </rss>
