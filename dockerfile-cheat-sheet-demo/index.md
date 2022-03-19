@@ -28,7 +28,7 @@
 - 镜像操作指令
 - 容器启动执行指令
 
-### 所有指令
+## 所有指令
 
 >- [**FROM**](#from)
 >- [RUN](#run)
@@ -543,24 +543,279 @@ root@abef26d10e25:/# ll myvol/*
 
 - `WORKDIR /path/to/workdir`
 
+- 任何在 `Dockerfile` 中跟随它的 `RUN`、 `CMD`、 `ENTRYPOINT`、 `COPY` 和 `ADD` 指令设置**工作目录**。如果 `WORKDIR` 不存在，即使它不在任何后续的 `Dockerfile` 指令中使用，它也会被创建。
+- 可以在 `Dockerfile` 中多次使用 `WORKDIR` 指令。如果提供了相对路径，那么它将相对于前一条 `WORKDIR` 指令的路径。
+- `WORKDIR` 可解析在它之前设置的环境变量 `ENV`
+- `WORKDIR` 如果未设置，则默认为 `/`
+
+```bash
+WORKDIR /a
+WORKDIR b
+WORKDIR c
+RUN pwd
+# output /a/b/c
+
+ENV DIRPATH=/path
+WORKDIR $DIRPATH/$DIRNAME
+RUN pwd
+# output /path/$DIRNAME
+```
+
 ## ARG
 
-## ONBUILD
+- `ARG <name>[=<default value>]`
+
+- `ARG` 指令定义了一个变量，用户可以在构建时使用 `docker build` 命令使用 **`--build-ARG <varname>=<value>`** 标志将该变量传递给构建器。*如果用户指定了未在 `Dockerfile` 中定义的构建参数，则构建将输出一个警告。*
+- 不建议使用构建时变量来传递诸如 `github key`、`用户凭证`等秘密。使用 `docker history` 命令，构建时变量值对于镜像的任何用户都是可见的。
+
+```bash
+FROM busybox
+ARG user1
+ARG buildno
+# ...
+```
+
+### 默认值
+
+```bash
+FROM busybox
+ARG user1=someuser
+ARG buildno=1
+# ..
+```
+
+### 作用域
+
+- `ARG` 变量在 `Dockerfile` 中**定义的行之后的指令中生效**，其他地方不生效。
+- `docker build --build-arg <name>=<value>` **可覆盖变量 `<arg-name>`**
+- `ARG` 指令在定义它的构建阶段结束时失效。要在多个阶段中使用 `ARG`，每个阶段都必须包含 `ARG` 指令。
+  - 每个 `FROM` 都定义了一个构建阶段
+
+```bash
+FROM busybox
+USER ${user:-some_user}
+ARG user
+USER $user
+# ...
+
+# -------multi build stage 1 -----------
+FROM busybox
+ARG SETTINGS # declare it to use next
+RUN ./run/setup $SETTINGS
+
+# -------multi build stage 2 -----------
+FROM busybox
+ARG SETTINGS  # declare it to use next
+RUN ./run/other $SETTINGS
+```
+
+### **ARG 变量使用**
+
+- `ENV` `ARG` 定义的同名变量，`ARG` 后定义的 `ENV` 值会覆盖它之前声明的最近的 `ARG` 值。
+- `ARG VAR_NAME` 可多次使用，每次都相当于重置，都可被其后最近的同名 `ENV` 覆盖
+- 请避免
+  - 多次引入 `ARG VAR_NAME`
+  - 避免 ARG 与 ENV 变量同名
+  - 避免你定义的变量名与镜像系统内的一样，除非你需要这么做
+
+```Dockerfile
+FROM ubuntu
+ARG CONT_IMG_VER
+ENV CONT_IMG_VER=v1.0.0
+RUN echo $CONT_IMG_VER
+```
+
+>`docker build --build-arg CONT_IMG_VER=v2.0.1 .` *输出 v1.0.0*
+
+更多可参考：[环境变量替换](https://docs.docker.com/engine/reference/builder/#environment-replacement)
+
+### 内置参数
+
+>`docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .`
+
+- HTTP_PROXY
+- http_proxy
+- HTTPS_PROXY
+- https_proxy
+- FTP_PROXY
+- ftp_proxy
+- NO_PROXY
+- no_proxy
+
+### 平台相关全局参数
+
+- `docker build --platform=`
+
+>- 仅支持 [BuildKit](https://github.com/moby/buildkit) `18.09+`
+>- `DOCKER_BUILDKIT=1`
+
+- TARGETPLATFORM - platform of the build result. Eg linux/amd64, linux/arm/v7, windows/amd64.
+- TARGETOS - OS component of TARGETPLATFORM
+- TARGETARCH - architecture component of TARGETPLATFORM
+- TARGETVARIANT - variant component of TARGETPLATFORM
+- BUILDPLATFORM - platform of the node performing the build.
+- BUILDOS - OS component of BUILDPLATFORM
+- BUILDARCH - architecture component of BUILDPLATFORM
+- BUILDVARIANT - variant component of BUILDPLATFORM
+
+### ARG 引起的缓存失效
+
+>`docker build --build-arg CONT_IMG_VER=v2.0.1 .`
+
+```bashFROM ubuntu
+RUN echo 123
+ARG CONT_IMG_VER
+ENV CONT_IMG_VER=$CONT_IMG_VER
+RUN echo $CONT_IMG_VER
+RUN echo 456
+RUN echo 789
+```
+
+- exec count 1: no use cache
+- exec count 2: use cache
+- exec count 3, but change `CONT_IMG_VER=v2.0.2`，`ARG CONT_IMG_VER` 之前的使用了 cache, 后续输出全部缓存失效
+
+## **ONBUILD**
+
+- `ONBUILD <INSTRUCTION>`
+
+>说明
+
+- 任何构建指令都可以注册为触发器，`FROM`、`MAINTAINER`、`ONBUILD` 除外
+- 标准化基础镜像构建流程，下游使用者只需遵循你的触发器设置即可
+- 示例：默认源码/文件复制到指定目录 `ONBUILD ADD . /app/src` 或 `ONBUILD COPY . /app/src`
+  - 注意此时 `Dockerfile` 必须在你的项目根路径下或者与你的资源文件同级
+  - 如果有不需要参与构建的文件，一定通过配置 `.dockerignore` 将其忽略掉
+
+`ONBUILD` 指令向镜像添加一个触发器指令，以便在以后将该镜像用作另一个构建的基础时执行。触发器将在下游构建的上下文中执行，就好像它是在下游的 `Dockerfile` 中的 `FROM` 指令之后立即插入的一样。
+
+如果你正在构建一个镜像，该镜像将用作构建其他镜像的基础，例如一个应用程序构建环境或一个守护进程，该守护进程可以使用特定于用户的配置进行自定义，那么这是非常有用的。
+
+例如，如果你的镜像是一个可重用的 `Python` 应用程序构建器，则需要*将应用程序源代码添加到特定的目录中*，并且可能需要在此之后调用构建脚本。你现在不能只调用 `ADD` 和 `RUN`，因为你还没有访问应用程序源代码的权限，而且对于每个应用程序构建都是不同的。你可以简单地向应用程序开发人员提供一个样板文件 `Dockerfile`，以便将其复制粘贴到他们的应用程序中，但是这样做**效率低下，容易出错，而且很难更新**，因为它与应用程序特定的代码混合在。
+
+**解决方案**是使用 `ONBUILD` 来**注册预执行指令**，以便稍后在下一个构建阶段运行。
+
+### `ONBUILD` 的工作原理
+
+- 1. 当遇到 `ONBUILD` 指令时，构建器会向正在构建的镜像的元数据添加一个触发器。否则，该指令不会影响当前的生成。
+- 2. 在构建结束时，所有触发器的列表都存储在镜像清单中的 `OnBuild` 键下面。它们可以通过 `docker inspect` 命令进行检查。
+- 3. 稍后，可以使用 `FROM` 指令将该镜像用作新构建的基础。作为处理 `FROM` 指令的一部分，下游构建器查找 `ONBUILD` **触发器**，并按照它们**注册的顺序执行**它们。如果任何一个触发器失败，`FROM` 指令就会中止，这反过来又会导致生成失败。如果所有触发器都成功了，`FROM` 指令就完成了，构建过程照常继续。
+- 4. **触发器在执行后从最终镜像中清除**。换句话说，它们不会被 "子级" 构建继承。
 
 ## STOPSIGNAL
 
-## HEALTHCHECK
+> `STOPSIGNAL signal`
+
+`STOPSIGNAL` 指令设置系统调用信号，该信号将被发送到容器以退出。这个信号可以是 `SIG<name>` 格式的信号名，例如 `SIGKILL`，或者是与内核系统调用表中的位置匹配的无符号数，例如 `9`。如果没有定义，则默认为 `SIGTERM`。
+
+在 `docker` 运行和 `docker create` 上使用 `--stop-signal` 标志，可以对每个容器重写镜像的默认停止信号。
+
+## **HEALTHCHECK**
+
+- `HEALTHCHECK [OPTIONS] CMD command` (check container health by running a command inside the container)
+- `HEALTHCHECK NONE` (disable any healthcheck inherited from the base image)
+
+>用于检测容器中服务运行状态：是否陷入无限循环不能处理新请求，但服务还在运行等情况。
+
+**`OPTIONS` 参数可选**：
+
+- `--interval=DURATION (default: 30s)`
+- `--timeout=DURATION (default: 30s)`
+- `--start-period=DURATION (default: 0s)`
+- `--retries=N (default: 3)`
+
+>The command’s `exit status` indicates the health status of the container. The possible values are:
+
+- **0**: `success` - the container is healthy and ready for use
+- **1**: `unhealthy` - the container is not working correctly
+- **2**: `reserved` - do not use this exit code
+
+### `HEALTHCHECK` 示例
+
+```Dockerfile
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+```
 
 ## SHELL
 
+>`SHELL ["executable", "parameters"]`
+
+- `SHELL` 指令允许重写用于 `SHELL` 形式命令的默认 `SHELL`
+  - Linux 上的默认 `shell` 是 `["/bin/sh", "-c"]`
+  - Windows 上的默认 `shell` 是 `["cmd", "/s", "/c"]`
+  - `SHELL` 指令必须以 `JSON` 格式写入 `Dockerfile` 中
+- `SHELL` 指令在 Windows 上特别有用，在 Windows 上有两个常用的、完全不同的本机 SHELL: `cmd` 和 p`owershell`，以及可选 SHELL，包括 `sh`
+- `SHELL` 指令可以出现多次。**每个 `SHELL` 指令覆盖以前的所有 `SHELL` 指令，并影响以后的所有指令**
+- 如果需要其他 `SHELL`，比如 `zsh`、 `csh`、 `tcsh` 和其他，那么也可以在 Linux 上使用 `SHELL` 指令
+
+{{< admonition example >}}
+
+```Dockerfile
+FROM microsoft/windowsservercore
+
+# Executed as cmd /S /C echo default
+RUN echo default
+
+# Executed as cmd /S /C powershell -command Write-Host default
+RUN powershell -command Write-Host default
+
+# Executed as powershell -command Write-Host hello
+SHELL ["powershell", "-command"]
+RUN Write-Host hello
+
+# Executed as cmd /S /C echo hello
+SHELL ["cmd", "/S", "/C"]
+RUN echo hello
+```
+
+{{< /admonition >}}
+
 ## 示例
+
+>`go1.18` 基础镜像构建，更多基础镜像构建可参考: [docker-compose-resources](https://github.com/v8fg/docker-compose-resources.git)
+
+```Dockerfile
+FROM v8fg/golang:official-1.18-alpine3.13
+
+LABEL maintainer="278810732@qq.com" github="https://github.com/xwi88" group="https://github.com/v8fg"
+
+# Version of upx to be used(without the 'v' prefix)
+# For all releases, see https://github.com/upx/upx/releases
+ARG UPX_VERSION=3.96
+
+# Fetch upx, decompress it, make it executable.
+ADD https://github.com/upx/upx/releases/download/v${UPX_VERSION}/upx-${UPX_VERSION}-amd64_linux.tar.xz /tmp/upx.tar.xy
+
+RUN apk add --no-cache tzdata git make bash && \ 
+tar -xJOf /tmp/upx.tar.xy upx-${UPX_VERSION}-amd64_linux/upx > /bin/upx \ 
+&& chmod +x /bin/upx && rm /tmp/upx.tar.xy
+```
 
 ## 最佳实践
 
-- **`ADD` `COPY`** `src` 引用内容变化将会使之后的 `RUN` 缓存失效
+- 每一条指定会生成一层。对于下游镜像来说，上游镜像是只读层，当前镜像构建只是在上游只读层基础上一层层**追加镜像层**。
+- 优先使用 `COPY` 比 `ADD` 更加透明直接
+- `docker build [OPTIONS] -f PATH` 如使用 `stdin` 输入则使用 ``docker build [OPTIONS] -f- PATH``
+- `.dockerignore` 排除不需要参与构建的文件，用法可参考 [dockerignore-file](https://docs.docker.com/engine/reference/builder/#dockerignore-file)
+- 镜像体积大小优化
+  - **使用[多阶段构建](https://docs.docker.com/develop/develop-images/multistage-build/)**，**减小最终构建镜像体积**
+    - 对于多阶段构建文件，也可以指定需要构建的阶段，如 `docker build --target builder -t xxxx .`
+    - 多阶段构建，某一构建阶段可复制之前构建过程文件或者已存在镜像文件，如： `COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf`
+  - *不要安装非必要的软件包*
+  - *只复制必要的文件到镜像中，注意配合 .dockerignore 使用*
+  - 尽量做到一个容器只做一件事，避免多个服务使用一个容器
+  - **压缩可执行文件**，如果可以
+  - **最小化镜像层数**
+    - **只有 `RUN`、`COPY`、`ADD` 会创建层，合并精简相关指令到一行或多行**
+    - **指令合并重排**，可通过 `backslash` 进行多行编写，最后要*清理掉产生的临时文件*
+    - 如果需要进行管道处理，直接使用它，如：`RUN set -o pipefail && wget -O - https://some.site | wc -l > /number`
+- 构建缓存失效
+  - **`ADD` `COPY`** `src` 引用内容变化将会使之后的 `RUN` 缓存失效
+  - `ARG` `ENV` 内容变化会让**后续首次使用他们定义变量的指令**`及其后面其他指令失效`
+- 构建缓存失效建议
   - 尽量将其放到最后或者使用其他命令代替
-  - 尽量保持 `src` 不变
-- `RUN` 将多个 `RUN` 指令尽可能的组合在一起，减少镜像层数
+  - 尽量保持 `src` 或其他引用不变
 - `PID=1` 才能被 `docker stop` 终止，shell 形式的 `sh -c` `PID!=1`
 - 执行 `docker stop`， `PID=1` 的容器干净的退出；`stop` 超时后发送 `SIGKILL` 来终止
 - [CMD 与 ENTRYPOINT 联合作用规则](#cmd-与-entrypoint-联合作用规则)
@@ -571,4 +826,6 @@ root@abef26d10e25:/# ll myvol/*
 - [understand-how-arg-and-from-interact](https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact)
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
 - **[dockerfile_best-practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices)**
+- [storage driver](https://docs.docker.com/storage/storagedriver/)
+- [multistage-build](https://docs.docker.com/develop/develop-images/multistage-build/)
 

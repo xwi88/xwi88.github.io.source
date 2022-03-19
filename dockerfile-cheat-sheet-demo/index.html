@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-17T21:16:08+08:00" />
-<meta property="article:modified_time" content="2022-03-19T01:46:32+08:00" />
+<meta property="article:modified_time" content="2022-03-19T17:12:52+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/dockerfile-cheat-sheet-demo\/"
-        },"genre": "posts","keywords": "docker","wordcount":  4859 ,
-        "url": "https:\/\/xwi88.com\/dockerfile-cheat-sheet-demo\/","datePublished": "2022-03-17T21:16:08+08:00","dateModified": "2022-03-19T01:46:32+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "docker","wordcount":  7525 ,
+        "url": "https:\/\/xwi88.com\/dockerfile-cheat-sheet-demo\/","datePublished": "2022-03-17T21:16:08+08:00","dateModified": "2022-03-19T17:12:52+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -112,11 +112,11 @@
 <main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
+            <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Dockerfile 指令小抄与构建示例</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4859 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7525 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;
     
 
     
@@ -140,11 +140,8 @@
   <ul>
     <li><a href="#dockerfile-简介">Dockerfile 简介</a></li>
     <li><a href="#dockerignore"><code>.dockerignore</code></a></li>
-    <li><a href="#基本组成">基本组成</a>
-      <ul>
-        <li><a href="#所有指令">所有指令</a></li>
-      </ul>
-    </li>
+    <li><a href="#基本组成">基本组成</a></li>
+    <li><a href="#所有指令">所有指令</a></li>
     <li><a href="#from"><strong>FROM</strong></a>
       <ul>
         <li><a href="#arg-参数与-from-交互"><strong>ARG 参数与 FROM 交互</strong></a></li>
@@ -189,10 +186,27 @@
     <li><a href="#volume">VOLUME</a></li>
     <li><a href="#user">USER</a></li>
     <li><a href="#workdir">WORKDIR</a></li>
-    <li><a href="#arg">ARG</a></li>
-    <li><a href="#onbuild">ONBUILD</a></li>
+    <li><a href="#arg">ARG</a>
+      <ul>
+        <li><a href="#默认值">默认值</a></li>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#arg-变量使用"><strong>ARG 变量使用</strong></a></li>
+        <li><a href="#内置参数">内置参数</a></li>
+        <li><a href="#平台相关全局参数">平台相关全局参数</a></li>
+        <li><a href="#arg-引起的缓存失效">ARG 引起的缓存失效</a></li>
+      </ul>
+    </li>
+    <li><a href="#onbuild"><strong>ONBUILD</strong></a>
+      <ul>
+        <li><a href="#onbuild-的工作原理"><code>ONBUILD</code> 的工作原理</a></li>
+      </ul>
+    </li>
     <li><a href="#stopsignal">STOPSIGNAL</a></li>
-    <li><a href="#healthcheck">HEALTHCHECK</a></li>
+    <li><a href="#healthcheck"><strong>HEALTHCHECK</strong></a>
+      <ul>
+        <li><a href="#healthcheck-示例"><code>HEALTHCHECK</code> 示例</a></li>
+      </ul>
+    </li>
     <li><a href="#shell">SHELL</a></li>
     <li><a href="#示例">示例</a></li>
     <li><a href="#最佳实践">最佳实践</a></li>
@@ -225,7 +239,7 @@
 <li>镜像操作指令</li>
 <li>容器启动执行指令</li>
 </ul>
-<h3 id="所有指令">所有指令</h3>
+<h2 id="所有指令">所有指令</h2>
 <blockquote>
 <ul>
 <li><a href="#from" rel=""><strong>FROM</strong></a></li>
@@ -1046,23 +1060,447 @@
 </blockquote>
 <h2 id="workdir">WORKDIR</h2>
 <ul>
-<li><code>WORKDIR /path/to/workdir</code></li>
+<li>
+<p><code>WORKDIR /path/to/workdir</code></p>
+</li>
+<li>
+<p>任何在 <code>Dockerfile</code> 中跟随它的 <code>RUN</code>、 <code>CMD</code>、 <code>ENTRYPOINT</code>、 <code>COPY</code> 和 <code>ADD</code> 指令设置<strong>工作目录</strong>。如果 <code>WORKDIR</code> 不存在，即使它不在任何后续的 <code>Dockerfile</code> 指令中使用，它也会被创建。</p>
+</li>
+<li>
+<p>可以在 <code>Dockerfile</code> 中多次使用 <code>WORKDIR</code> 指令。如果提供了相对路径，那么它将相对于前一条 <code>WORKDIR</code> 指令的路径。</p>
+</li>
+<li>
+<p><code>WORKDIR</code> 可解析在它之前设置的环境变量 <code>ENV</code></p>
+</li>
+<li>
+<p><code>WORKDIR</code> 如果未设置，则默认为 <code>/</code></p>
+</li>
 </ul>
-<h2 id="arg">ARG</h2>
-<h2 id="onbuild">ONBUILD</h2>
-<h2 id="stopsignal">STOPSIGNAL</h2>
-<h2 id="healthcheck">HEALTHCHECK</h2>
-<h2 id="shell">SHELL</h2>
-<h2 id="示例">示例</h2>
-<h2 id="最佳实践">最佳实践</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">WORKDIR /a
+</span></span><span class="line"><span class="cl">WORKDIR b
+</span></span><span class="line"><span class="cl">WORKDIR c
+</span></span><span class="line"><span class="cl">RUN <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># output /a/b/c</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENV <span class="nv">DIRPATH</span><span class="o">=</span>/path
+</span></span><span class="line"><span class="cl">WORKDIR <span class="nv">$DIRPATH</span>/<span class="nv">$DIRNAME</span>
+</span></span><span class="line"><span class="cl">RUN <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="arg">ARG</h2>
 <ul>
-<li><strong><code>ADD</code> <code>COPY</code></strong> <code>src</code> 引用内容变化将会使之后的 <code>RUN</code> 缓存失效
+<li>
+<p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
+</li>
+<li>
+<p><code>ARG</code> 指令定义了一个变量，用户可以在构建时使用 <code>docker build</code> 命令使用 <strong><code>--build-ARG &lt;varname&gt;=&lt;value&gt;</code></strong> 标志将该变量传递给构建器。<em>如果用户指定了未在 <code>Dockerfile</code> 中定义的构建参数，则构建将输出一个警告。</em></p>
+</li>
+<li>
+<p>不建议使用构建时变量来传递诸如 <code>github key</code>、<code>用户凭证</code>等秘密。使用 <code>docker history</code> 命令，构建时变量值对于镜像的任何用户都是可见的。</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG user1
+</span></span><span class="line"><span class="cl">ARG buildno
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="默认值">默认值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG <span class="nv">user1</span><span class="o">=</span>someuser
+</span></span><span class="line"><span class="cl">ARG <span class="nv">buildno</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="作用域">作用域</h3>
 <ul>
-<li>尽量将其放到最后或者使用其他命令代替</li>
-<li>尽量保持 <code>src</code> 不变</li>
+<li><code>ARG</code> 变量在 <code>Dockerfile</code> 中<strong>定义的行之后的指令中生效</strong>，其他地方不生效。</li>
+<li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>可覆盖变量 <code>&lt;arg-name&gt;</code></strong></li>
+<li><code>ARG</code> 指令在定义它的构建阶段结束时失效。要在多个阶段中使用 <code>ARG</code>，每个阶段都必须包含 <code>ARG</code> 指令。
+<ul>
+<li>每个 <code>FROM</code> 都定义了一个构建阶段</li>
 </ul>
 </li>
-<li><code>RUN</code> 将多个 <code>RUN</code> 指令尽可能的组合在一起，减少镜像层数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">USER <span class="si">${</span><span class="nv">user</span><span class="k">:-</span><span class="nv">some_user</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">ARG user
+</span></span><span class="line"><span class="cl">USER <span class="nv">$user</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------multi build stage 1 -----------</span>
+</span></span><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG SETTINGS <span class="c1"># declare it to use next</span>
+</span></span><span class="line"><span class="cl">RUN ./run/setup <span class="nv">$SETTINGS</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------multi build stage 2 -----------</span>
+</span></span><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG SETTINGS  <span class="c1"># declare it to use next</span>
+</span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="arg-变量使用"><strong>ARG 变量使用</strong></h3>
+<ul>
+<li><code>ENV</code> <code>ARG</code> 定义的同名变量，<code>ARG</code> 后定义的 <code>ENV</code> 值会覆盖它之前声明的最近的 <code>ARG</code> 值。</li>
+<li><code>ARG VAR_NAME</code> 可多次使用，每次都相当于重置，都可被其后最近的同名 <code>ENV</code> 覆盖</li>
+<li>请避免
+<ul>
+<li>多次引入 <code>ARG VAR_NAME</code></li>
+<li>避免 ARG 与 ENV 变量同名</li>
+<li>避免你定义的变量名与镜像系统内的一样，除非你需要这么做</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> CONT_IMG_VER<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">CONT_IMG_VER</span><span class="o">=</span>v1.0.0<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$CONT_IMG_VER</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>输出 v1.0.0</em></p>
+</blockquote>
+<p>更多可参考：<a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer">环境变量替换</a></p>
+<h3 id="内置参数">内置参数</h3>
+<blockquote>
+<p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
+</blockquote>
+<ul>
+<li>HTTP_PROXY</li>
+<li>http_proxy</li>
+<li>HTTPS_PROXY</li>
+<li>https_proxy</li>
+<li>FTP_PROXY</li>
+<li>ftp_proxy</li>
+<li>NO_PROXY</li>
+<li>no_proxy</li>
+</ul>
+<h3 id="平台相关全局参数">平台相关全局参数</h3>
+<ul>
+<li><code>docker build --platform=</code></li>
+</ul>
+<blockquote>
+<ul>
+<li>仅支持 <a href="https://github.com/moby/buildkit" target="_blank" rel="noopener noreffer">BuildKit</a> <code>18.09+</code></li>
+<li><code>DOCKER_BUILDKIT=1</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>TARGETPLATFORM - platform of the build result. Eg linux/amd64, linux/arm/v7, windows/amd64.</li>
+<li>TARGETOS - OS component of TARGETPLATFORM</li>
+<li>TARGETARCH - architecture component of TARGETPLATFORM</li>
+<li>TARGETVARIANT - variant component of TARGETPLATFORM</li>
+<li>BUILDPLATFORM - platform of the node performing the build.</li>
+<li>BUILDOS - OS component of BUILDPLATFORM</li>
+<li>BUILDARCH - architecture component of BUILDPLATFORM</li>
+<li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
+</ul>
+<h3 id="arg-引起的缓存失效">ARG 引起的缓存失效</h3>
+<blockquote>
+<p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RUN echo 123
+</span></span><span class="line"><span class="cl">ARG CONT_IMG_VER
+</span></span><span class="line"><span class="cl">ENV CONT_IMG_VER=$CONT_IMG_VER
+</span></span><span class="line"><span class="cl">RUN echo $CONT_IMG_VER
+</span></span><span class="line"><span class="cl">RUN echo 456
+</span></span><span class="line"><span class="cl">RUN echo 789
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>exec count 1: no use cache</li>
+<li>exec count 2: use cache</li>
+<li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>，<code>ARG CONT_IMG_VER</code> 之前的使用了 cache, 后续输出全部缓存失效</li>
+</ul>
+<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<ul>
+<li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
+</ul>
+<blockquote>
+<p>说明</p>
+</blockquote>
+<ul>
+<li>任何构建指令都可以注册为触发器，<code>FROM</code>、<code>MAINTAINER</code>、<code>ONBUILD</code> 除外</li>
+<li>标准化基础镜像构建流程，下游使用者只需遵循你的触发器设置即可</li>
+<li>示例：默认源码/文件复制到指定目录 <code>ONBUILD ADD . /app/src</code> 或 <code>ONBUILD COPY . /app/src</code>
+<ul>
+<li>注意此时 <code>Dockerfile</code> 必须在你的项目根路径下或者与你的资源文件同级</li>
+<li>如果有不需要参与构建的文件，一定通过配置 <code>.dockerignore</code> 将其忽略掉</li>
+</ul>
+</li>
+</ul>
+<p><code>ONBUILD</code> 指令向镜像添加一个触发器指令，以便在以后将该镜像用作另一个构建的基础时执行。触发器将在下游构建的上下文中执行，就好像它是在下游的 <code>Dockerfile</code> 中的 <code>FROM</code> 指令之后立即插入的一样。</p>
+<p>如果你正在构建一个镜像，该镜像将用作构建其他镜像的基础，例如一个应用程序构建环境或一个守护进程，该守护进程可以使用特定于用户的配置进行自定义，那么这是非常有用的。</p>
+<p>例如，如果你的镜像是一个可重用的 <code>Python</code> 应用程序构建器，则需要<em>将应用程序源代码添加到特定的目录中</em>，并且可能需要在此之后调用构建脚本。你现在不能只调用 <code>ADD</code> 和 <code>RUN</code>，因为你还没有访问应用程序源代码的权限，而且对于每个应用程序构建都是不同的。你可以简单地向应用程序开发人员提供一个样板文件 <code>Dockerfile</code>，以便将其复制粘贴到他们的应用程序中，但是这样做<strong>效率低下，容易出错，而且很难更新</strong>，因为它与应用程序特定的代码混合在。</p>
+<p><strong>解决方案</strong>是使用 <code>ONBUILD</code> 来<strong>注册预执行指令</strong>，以便稍后在下一个构建阶段运行。</p>
+<h3 id="onbuild-的工作原理"><code>ONBUILD</code> 的工作原理</h3>
+<ul>
+<li>
+<ol>
+<li>当遇到 <code>ONBUILD</code> 指令时，构建器会向正在构建的镜像的元数据添加一个触发器。否则，该指令不会影响当前的生成。</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>在构建结束时，所有触发器的列表都存储在镜像清单中的 <code>OnBuild</code> 键下面。它们可以通过 <code>docker inspect</code> 命令进行检查。</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>稍后，可以使用 <code>FROM</code> 指令将该镜像用作新构建的基础。作为处理 <code>FROM</code> 指令的一部分，下游构建器查找 <code>ONBUILD</code> <strong>触发器</strong>，并按照它们<strong>注册的顺序执行</strong>它们。如果任何一个触发器失败，<code>FROM</code> 指令就会中止，这反过来又会导致生成失败。如果所有触发器都成功了，<code>FROM</code> 指令就完成了，构建过程照常继续。</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><strong>触发器在执行后从最终镜像中清除</strong>。换句话说，它们不会被 &ldquo;子级&rdquo; 构建继承。</li>
+</ol>
+</li>
+</ul>
+<h2 id="stopsignal">STOPSIGNAL</h2>
+<blockquote>
+<p><code>STOPSIGNAL signal</code></p>
+</blockquote>
+<p><code>STOPSIGNAL</code> 指令设置系统调用信号，该信号将被发送到容器以退出。这个信号可以是 <code>SIG&lt;name&gt;</code> 格式的信号名，例如 <code>SIGKILL</code>，或者是与内核系统调用表中的位置匹配的无符号数，例如 <code>9</code>。如果没有定义，则默认为 <code>SIGTERM</code>。</p>
+<p>在 <code>docker</code> 运行和 <code>docker create</code> 上使用 <code>--stop-signal</code> 标志，可以对每个容器重写镜像的默认停止信号。</p>
+<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<ul>
+<li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
+<li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
+</ul>
+<blockquote>
+<p>用于检测容器中服务运行状态：是否陷入无限循环不能处理新请求，但服务还在运行等情况。</p>
+</blockquote>
+<p><strong><code>OPTIONS</code> 参数可选</strong>：</p>
+<ul>
+<li><code>--interval=DURATION (default: 30s)</code></li>
+<li><code>--timeout=DURATION (default: 30s)</code></li>
+<li><code>--start-period=DURATION (default: 0s)</code></li>
+<li><code>--retries=N (default: 3)</code></li>
+</ul>
+<blockquote>
+<p>The command’s <code>exit status</code> indicates the health status of the container. The possible values are:</p>
+</blockquote>
+<ul>
+<li><strong>0</strong>: <code>success</code> - the container is healthy and ready for use</li>
+<li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
+<li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
+</ul>
+<h3 id="healthcheck-示例"><code>HEALTHCHECK</code> 示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="err">HEALTHCHECK --interval=5m --timeout=3s \
+</span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="shell">SHELL</h2>
+<blockquote>
+<p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
+</blockquote>
+<ul>
+<li><code>SHELL</code> 指令允许重写用于 <code>SHELL</code> 形式命令的默认 <code>SHELL</code>
+<ul>
+<li>Linux 上的默认 <code>shell</code> 是 <code>[&quot;/bin/sh&quot;, &quot;-c&quot;]</code></li>
+<li>Windows 上的默认 <code>shell</code> 是 <code>[&quot;cmd&quot;, &quot;/s&quot;, &quot;/c&quot;]</code></li>
+<li><code>SHELL</code> 指令必须以 <code>JSON</code> 格式写入 <code>Dockerfile</code> 中</li>
+</ul>
+</li>
+<li><code>SHELL</code> 指令在 Windows 上特别有用，在 Windows 上有两个常用的、完全不同的本机 SHELL: <code>cmd</code> 和 p<code>owershell</code>，以及可选 SHELL，包括 <code>sh</code></li>
+<li><code>SHELL</code> 指令可以出现多次。<strong>每个 <code>SHELL</code> 指令覆盖以前的所有 <code>SHELL</code> 指令，并影响以后的所有指令</strong></li>
+<li>如果需要其他 <code>SHELL</code>，比如 <code>zsh</code>、 <code>csh</code>、 <code>tcsh</code> 和其他，那么也可以在 Linux 上使用 <code>SHELL</code> 指令</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> microsoft/windowsservercore</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C echo default</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> default<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C powershell -command Write-Host default</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> powershell -command Write-Host default<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as powershell -command Write-Host hello</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">SHELL</span> <span class="p">[</span><span class="s2">&#34;powershell&#34;</span><span class="p">,</span> <span class="s2">&#34;-command&#34;</span><span class="p">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> Write-Host hello<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C echo hello</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">SHELL</span> <span class="p">[</span><span class="s2">&#34;cmd&#34;</span><span class="p">,</span> <span class="s2">&#34;/S&#34;</span><span class="p">,</span> <span class="s2">&#34;/C&#34;</span><span class="p">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> hello<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="示例">示例</h2>
+<blockquote>
+<p><code>go1.18</code> 基础镜像构建，更多基础镜像构建可参考: <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer">docker-compose-resources</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> v8fg/golang:official-1.18-alpine3.13</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">maintainer</span><span class="o">=</span><span class="s2">&#34;278810732@qq.com&#34;</span> <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Version of upx to be used(without the &#39;v&#39; prefix)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># For all releases, see https://github.com/upx/upx/releases</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">UPX_VERSION</span><span class="o">=</span><span class="m">3</span>.96<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Fetch upx, decompress it, make it executable.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ADD</span> https://github.com/upx/upx/releases/download/v<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>/upx-<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>-amd64_linux.tar.xz /tmp/upx.tar.xy<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add --no-cache tzdata git make bash <span class="o">&amp;&amp;</span> <span class="se">\ </span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>tar -xJOf /tmp/upx.tar.xy upx-<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>-amd64_linux/upx &gt; /bin/upx <span class="se">\ </span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="最佳实践">最佳实践</h2>
+<ul>
+<li>每一条指定会生成一层。对于下游镜像来说，上游镜像是只读层，当前镜像构建只是在上游只读层基础上一层层<strong>追加镜像层</strong>。</li>
+<li>优先使用 <code>COPY</code> 比 <code>ADD</code> 更加透明直接</li>
+<li><code>docker build [OPTIONS] -f PATH</code> 如使用 <code>stdin</code> 输入则使用 <code>docker build [OPTIONS] -f- PATH</code></li>
+<li><code>.dockerignore</code> 排除不需要参与构建的文件，用法可参考 <a href="https://docs.docker.com/engine/reference/builder/#dockerignore-file" target="_blank" rel="noopener noreffer">dockerignore-file</a></li>
+<li>镜像体积大小优化
+<ul>
+<li><strong>使用<a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener noreffer">多阶段构建</a></strong>，<strong>减小最终构建镜像体积</strong>
+<ul>
+<li>对于多阶段构建文件，也可以指定需要构建的阶段，如 <code>docker build --target builder -t xxxx .</code></li>
+<li>多阶段构建，某一构建阶段可复制之前构建过程文件或者已存在镜像文件，如： <code>COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf</code></li>
+</ul>
+</li>
+<li><em>不要安装非必要的软件包</em></li>
+<li><em>只复制必要的文件到镜像中，注意配合 .dockerignore 使用</em></li>
+<li>尽量做到一个容器只做一件事，避免多个服务使用一个容器</li>
+<li><strong>压缩可执行文件</strong>，如果可以</li>
+<li><strong>最小化镜像层数</strong>
+<ul>
+<li><strong>只有 <code>RUN</code>、<code>COPY</code>、<code>ADD</code> 会创建层，合并精简相关指令到一行或多行</strong></li>
+<li><strong>指令合并重排</strong>，可通过 <code>backslash</code> 进行多行编写，最后要<em>清理掉产生的临时文件</em></li>
+<li>如果需要进行管道处理，直接使用它，如：<code>RUN set -o pipefail &amp;&amp; wget -O - https://some.site | wc -l &gt; /number</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>构建缓存失效
+<ul>
+<li><strong><code>ADD</code> <code>COPY</code></strong> <code>src</code> 引用内容变化将会使之后的 <code>RUN</code> 缓存失效</li>
+<li><code>ARG</code> <code>ENV</code> 内容变化会让<strong>后续首次使用他们定义变量的指令</strong><code>及其后面其他指令失效</code></li>
+</ul>
+</li>
+<li>构建缓存失效建议
+<ul>
+<li>尽量将其放到最后或者使用其他命令代替</li>
+<li>尽量保持 <code>src</code> 或其他引用不变</li>
+</ul>
+</li>
 <li><code>PID=1</code> 才能被 <code>docker stop</code> 终止，shell 形式的 <code>sh -c</code> <code>PID!=1</code></li>
 <li>执行 <code>docker stop</code>， <code>PID=1</code> 的容器干净的退出；<code>stop</code> 超时后发送 <code>SIGKILL</code> 来终止</li>
 <li><a href="#cmd-%e4%b8%8e-entrypoint-%e8%81%94%e5%90%88%e4%bd%9c%e7%94%a8%e8%a7%84%e5%88%99" rel="">CMD 与 ENTRYPOINT 联合作用规则</a></li>
@@ -1073,12 +1511,14 @@
 <li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer">understand-how-arg-and-from-interact</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer">Dockerfile reference</a></li>
 <li><strong><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices" target="_blank" rel="noopener noreffer">dockerfile_best-practices</a></strong></li>
+<li><a href="https://docs.docker.com/storage/storagedriver/" target="_blank" rel="noopener noreffer">storage driver</a></li>
+<li><a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener noreffer">multistage-build</a></li>
 </ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-19&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/04bbe523211ed0635f9dd5bc652e02e3a14e4560" target="_blank" title="commit by xwi88(278810732@qq.com) 04bbe523211ed0635f9dd5bc652e02e3a14e4560: tmp">
-                                    <i class="fas fa-hashtag fa-fw"></i>04bbe52</a></span>
+                <span>更新于 2022-03-19&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/3e7b5eddc5bd056cde610480fa6c27933e4c8b30" target="_blank" title="commit by xwi88(278810732@qq.com) 3e7b5eddc5bd056cde610480fa6c27933e4c8b30: update dockerfile-cheat-sheet-demo">
+                                    <i class="fas fa-hashtag fa-fw"></i>3e7b5ed</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
