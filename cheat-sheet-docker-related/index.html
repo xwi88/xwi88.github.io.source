@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Docker 相关命令备忘参考 - Coding Life Share</title><meta name="Description" content="docker 相关命令备忘参考"><meta property="og:title" content="Docker 相关命令备忘参考" />
+<meta property="og:description" content="docker 相关命令备忘参考" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/cheat-sheet-docker-related/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-19T23:50:02+08:00" />
+<meta property="article:modified_time" content="2022-03-20T01:38:39+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Docker 相关命令备忘参考"/>
+<meta name="twitter:description" content="docker 相关命令备忘参考"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/cheat-sheet-docker-related/" /><link rel="prev" href="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.62747080dc83bde1a0ee9caa98bb236b6744d44fb76e885bd8929bcf018fb16c.css" integrity="sha256-YnRwgNyDveGg7pyqmLsja2dE1E&#43;3bohb2JKbzwGPsWw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker 相关命令备忘参考",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/cheat-sheet-docker-related\/"
+        },"genre": "posts","keywords": "docker, cheat-sheet","wordcount":  2922 ,
+        "url": "https:\/\/xwi88.com\/cheat-sheet-docker-related\/","datePublished": "2022-03-19T23:50:02+08:00","dateModified": "2022-03-20T01:38:39+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "docker 相关命令备忘参考"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/cheat-sheet-docker-related/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/cheat-sheet-docker-related/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Docker 相关命令备忘参考</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/documentation/"><i class="far fa-folder fa-fw"></i>文档</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-20">2022-03-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2922 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#docker-相关参考资源">Docker 相关参考资源</a>
+      <ul>
+        <li><a href="#文件格式">文件格式</a></li>
+        <li><a href="#命令行接口-clis">命令行接口 (CLIs)</a></li>
+        <li><a href="#应用程序接口-apis">应用程序接口 (APIs)</a></li>
+        <li><a href="#驱动与规范">驱动与规范</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-cli-用法">Docker CLI 用法</a></li>
+    <li><a href="#docker-compose-cli-用法">Docker Compose CLI 用法</a></li>
+    <li><a href="#docker-命令">Docker 命令</a>
+      <ul>
+        <li><a href="#docker-常用管理命令">Docker 常用管理命令</a></li>
+        <li><a href="#docker-常用命令">Docker 常用命令</a></li>
+        <li><a href="#docker-镜像过滤查找">docker 镜像过滤查找</a></li>
+        <li><a href="#docker-commit-基于容器创建镜像">docker commit 基于容器创建镜像</a></li>
+        <li><a href="#prune-镜像容器等一键删除">prune 镜像容器等一键删除</a></li>
+      </ul>
+    </li>
+    <li><a href="#simple-cheat-sheet">Simple Cheat Sheet</a>
+      <ul>
+        <li><a href="#running-containers">Running Containers</a></li>
+        <li><a href="#container-lifecycle-stuff">Container Lifecycle Stuff</a></li>
+        <li><a href="#resource-limits-and-controls">Resource Limits and Controls</a></li>
+        <li><a href="#stats-logs-and-events">Stats, Logs, and Events</a></li>
+        <li><a href="#docker-images">Docker Images</a></li>
+        <li><a href="#exportimportsaveload">Export/Import/Save/Load</a></li>
+        <li><a href="#docker-hubregistry">Docker Hub/Registry</a></li>
+        <li><a href="#building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</a></li>
+        <li><a href="#simple-dockerfile-example">Simple Dockerfile Example</a></li>
+        <li><a href="#big-dockerfile-example">Big Dockerfile Example</a></li>
+        <li><a href="#volumesstorage">Volumes/Storage</a></li>
+        <li><a href="#expose-ports">Expose Ports</a></li>
+        <li><a href="#networks">Networks</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose CLI</a>。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<ul>
+<li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
+<li>Compose version: <code>Docker Compose version 2.2.2</code></li>
+</ul>
+<h2 id="docker-相关参考资源">Docker 相关参考资源</h2>
+<h3 id="文件格式">文件格式</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">File format</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer">Dockerfile</a></td>
+<td style="text-align:left">Defines the contents and startup behavior of a single container</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose file</a></td>
+<td style="text-align:left">Defines a multi-container application</td>
+</tr>
+</tbody>
+</table>
+<h3 id="命令行接口-clis">命令行接口 (CLIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CLI</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a></td>
+<td style="text-align:left">The main CLI for Docker, includes all docker commands</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer">Compose CLI</a></td>
+<td style="text-align:left">The CLI, which allows you to build and run multi-container applications</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank" rel="noopener noreffer">dockerd</a></td>
+<td style="text-align:left">Persistent process that manages containers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="应用程序接口-apis">应用程序接口 (APIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/api/" target="_blank" rel="noopener noreffer">Engine API</a></td>
+<td style="text-align:left">The main API for Docker, provides programmatic access to a daemon</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/api/" target="_blank" rel="noopener noreffer">Registry API</a></td>
+<td style="text-align:left">Facilitates distribution of images to the engine</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/docker-hub/api/latest/" target="_blank" rel="noopener noreffer">Docker Hub API</a></td>
+<td style="text-align:left">API to interact with Docker Hub</td>
+</tr>
+</tbody>
+</table>
+<h3 id="驱动与规范">驱动与规范</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Driver</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/manifest-v2-2/" target="_blank" rel="noopener noreffer">Image specification</a></td>
+<td style="text-align:left">Describes the various components of a Docker image</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/auth/" target="_blank" rel="noopener noreffer">Registry token authentication</a></td>
+<td style="text-align:left">Outlines the Docker registry authentication scheme</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/storage-drivers/" target="_blank" rel="noopener noreffer">Registry storage drivers</a></td>
+<td style="text-align:left">Enables support for given cloud providers when storing images with Registry</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-cli-用法">Docker CLI 用法</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">A self-sufficient runtime for containers
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config string      Location of client config files (default &#34;/Users/wangxin/.docker&#34;)
+</span></span><span class="line"><span class="cl">  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER<span class="nb">_</span>HOST env var and default context set with &#34;docker context use&#34;)
+</span></span><span class="line"><span class="cl">  -D, --debug              Enable debug mode
+</span></span><span class="line"><span class="cl">  -H, --host list          Daemon socket(s) to connect to
+</span></span><span class="line"><span class="cl">  -l, --log-level string   Set the logging level (&#34;debug&#34;|&#34;info&#34;|&#34;warn&#34;|&#34;error&#34;|&#34;fatal&#34;) (default &#34;info&#34;)
+</span></span><span class="line"><span class="cl">      --tls                Use TLS; implied by --tlsverify
+</span></span><span class="line"><span class="cl">      --tlscacert string   Trust certs signed only by this CA (default &#34;/Users/wangxin/.docker/ca.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlscert string     Path to TLS certificate file (default &#34;/Users/wangxin/.docker/cert.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlskey string      Path to TLS key file (default &#34;/Users/wangxin/.docker/key.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlsverify          Use TLS and verify the remote
+</span></span><span class="line"><span class="cl">  -v, --version            Print version information and quit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Management Commands:
+</span></span><span class="line"><span class="cl">  builder     Manage builds
+</span></span><span class="line"><span class="cl">  buildx*     Docker Buildx (Docker Inc., v0.7.1)
+</span></span><span class="line"><span class="cl">  compose*    Docker Compose (Docker Inc., 2.2.2)
+</span></span><span class="line"><span class="cl">  config      Manage Docker configs
+</span></span><span class="line"><span class="cl">  container   Manage containers
+</span></span><span class="line"><span class="cl">  context     Manage contexts
+</span></span><span class="line"><span class="cl">  image       Manage images
+</span></span><span class="line"><span class="cl">  manifest    Manage Docker image manifests and manifest lists
+</span></span><span class="line"><span class="cl">  network     Manage networks
+</span></span><span class="line"><span class="cl">  node        Manage Swarm nodes
+</span></span><span class="line"><span class="cl">  plugin      Manage plugins
+</span></span><span class="line"><span class="cl">  scan*       Docker Scan (Docker Inc., v0.17.0)
+</span></span><span class="line"><span class="cl">  secret      Manage Docker secrets
+</span></span><span class="line"><span class="cl">  service     Manage services
+</span></span><span class="line"><span class="cl">  stack       Manage Docker stacks
+</span></span><span class="line"><span class="cl">  swarm       Manage Swarm
+</span></span><span class="line"><span class="cl">  system      Manage Docker
+</span></span><span class="line"><span class="cl">  trust       Manage trust on Docker images
+</span></span><span class="line"><span class="cl">  volume      Manage volumes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  attach      Attach local standard input, output, and error streams to a running container
+</span></span><span class="line"><span class="cl">  build       Build an image from a Dockerfile
+</span></span><span class="line"><span class="cl">  commit      Create a new image from a container&#39;s changes
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Create a new container
+</span></span><span class="line"><span class="cl">  diff        Inspect changes to files or directories on a container&#39;s filesystem
+</span></span><span class="line"><span class="cl">  events      Get real time events from the server
+</span></span><span class="line"><span class="cl">  exec        Run a command in a running container
+</span></span><span class="line"><span class="cl">  export      Export a container&#39;s filesystem as a tar archive
+</span></span><span class="line"><span class="cl">  history     Show the history of an image
+</span></span><span class="line"><span class="cl">  images      List images
+</span></span><span class="line"><span class="cl">  import      Import the contents from a tarball to create a filesystem image
+</span></span><span class="line"><span class="cl">  info        Display system-wide information
+</span></span><span class="line"><span class="cl">  inspect     Return low-level information on Docker objects
+</span></span><span class="line"><span class="cl">  kill        Kill one or more running containers
+</span></span><span class="line"><span class="cl">  load        Load an image from a tar archive or STDIN
+</span></span><span class="line"><span class="cl">  login       Log in to a Docker registry
+</span></span><span class="line"><span class="cl">  logout      Log out from a Docker registry
+</span></span><span class="line"><span class="cl">  logs        Fetch the logs of a container
+</span></span><span class="line"><span class="cl">  pause       Pause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  port        List port mappings or a specific mapping for the container
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull an image or a repository from a registry
+</span></span><span class="line"><span class="cl">  push        Push an image or a repository to a registry
+</span></span><span class="line"><span class="cl">  rename      Rename a container
+</span></span><span class="line"><span class="cl">  restart     Restart one or more containers
+</span></span><span class="line"><span class="cl">  rm          Remove one or more containers
+</span></span><span class="line"><span class="cl">  rmi         Remove one or more images
+</span></span><span class="line"><span class="cl">  run         Run a command in a new container
+</span></span><span class="line"><span class="cl">  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+</span></span><span class="line"><span class="cl">  search      Search the Docker Hub for images
+</span></span><span class="line"><span class="cl">  start       Start one or more stopped containers
+</span></span><span class="line"><span class="cl">  stats       Display a live stream of container(s) resource usage statistics
+</span></span><span class="line"><span class="cl">  stop        Stop one or more running containers
+</span></span><span class="line"><span class="cl">  tag         Create a tag TARGET<span class="nb">_</span>IMAGE that refers to SOURCE<span class="nb">_</span>IMAGE
+</span></span><span class="line"><span class="cl">  top         Display the running processes of a container
+</span></span><span class="line"><span class="cl">  unpause     Unpause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  update      Update configuration of one or more containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker version information
+</span></span><span class="line"><span class="cl">  wait        Block until one or more containers stop, then print their exit codes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker COMMAND --help&#39; for more information on a command.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-compose-cli-用法">Docker Compose CLI 用法</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker compose [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Docker Compose
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --ansi string                Control when to print ANSI control characters (&#34;never&#34;|&#34;always&#34;|&#34;auto&#34;) (default &#34;auto&#34;)
+</span></span><span class="line"><span class="cl">      --compatibility              Run compose in backward compatibility mode
+</span></span><span class="line"><span class="cl">      --env-file string            Specify an alternate environment file.
+</span></span><span class="line"><span class="cl">  -f, --file stringArray           Compose configuration files
+</span></span><span class="line"><span class="cl">      --profile stringArray        Specify a profile to enable
+</span></span><span class="line"><span class="cl">      --project-directory string   Specify an alternate working directory
+</span></span><span class="line"><span class="cl">                                   (default: the path of the Compose file)
+</span></span><span class="line"><span class="cl">  -p, --project-name string        Project name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  build       Build or rebuild services
+</span></span><span class="line"><span class="cl">  convert     Converts the compose file to platform&#39;s canonical format
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a service container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Creates containers for a service.
+</span></span><span class="line"><span class="cl">  down        Stop and remove containers, networks
+</span></span><span class="line"><span class="cl">  events      Receive real time events from containers.
+</span></span><span class="line"><span class="cl">  exec        Execute a command in a running container.
+</span></span><span class="line"><span class="cl">  images      List images used by the created containers
+</span></span><span class="line"><span class="cl">  kill        Force stop service containers.
+</span></span><span class="line"><span class="cl">  logs        View output from containers
+</span></span><span class="line"><span class="cl">  ls          List running compose projects
+</span></span><span class="line"><span class="cl">  pause       Pause services
+</span></span><span class="line"><span class="cl">  port        Print the public port for a port binding.
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull service images
+</span></span><span class="line"><span class="cl">  push        Push service images
+</span></span><span class="line"><span class="cl">  restart     Restart containers
+</span></span><span class="line"><span class="cl">  rm          Removes stopped service containers
+</span></span><span class="line"><span class="cl">  run         Run a one-off command on a service.
+</span></span><span class="line"><span class="cl">  start       Start services
+</span></span><span class="line"><span class="cl">  stop        Stop services
+</span></span><span class="line"><span class="cl">  top         Display the running processes
+</span></span><span class="line"><span class="cl">  unpause     Unpause services
+</span></span><span class="line"><span class="cl">  up          Create and start containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker Compose version information
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker compose COMMAND --help&#39; for more information on a command.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-命令">Docker 命令</h2>
+<h3 id="docker-常用管理命令">Docker 常用管理命令</h3>
+<ul>
+<li><code>docker context [--help]</code> <strong>上下文管理</strong></li>
+<li><code>docker compose [--help]</code> <strong>docker compose 命令</strong> <code>v2.2.2+</code></li>
+<li><code>docker container [--help]</code> <strong>docker 容器命令</strong></li>
+<li><code>docker image [--help]</code> <strong>docker 镜像命令</strong>
+<ul>
+<li><code>docker image prune</code> <strong>删除所有未被 <code>tag</code> 标记和未被容器使用的镜像，标记为 <code>&lt;none&gt;</code> 的</strong></li>
+</ul>
+</li>
+<li><code>docker volume [--help]</code> <em>目录挂载命令</em></li>
+<li><code>docker network [--help]</code> <em>docker 网络命令</em></li>
+<li><code>docker system [--help]</code> <em>docker 系统命令</em>
+<ul>
+<li><code>docker system df</code> 磁盘使用查看</li>
+<li><code>docker system info</code> == <code>docker info</code> <em>Display system-wide information</em></li>
+</ul>
+</li>
+<li><code>docker scan [--help]</code> docker 镜像扫描分析</li>
+<li><code>docker manifest [--help]</code> docker 镜像清单查看，实验特性</li>
+</ul>
+<h3 id="docker-常用命令">Docker 常用命令</h3>
+<ul>
+<li><code>docker build [--help]</code> <strong>镜像构建</strong>
+<ul>
+<li><code>docker build [[-t tag] ...] -f [PATH/Dockerfile] .</code></li>
+<li><code>docker build -t tag1 -t tag2 -f [PATH/Dockerfile] .</code> <strong>可同时生成多个 <code>tag</code> 镜像</strong></li>
+</ul>
+</li>
+<li><code>docker commit [OPTIONS] &lt;container&gt; &lt;REPOSITORY[:TAG]&gt;</code> <em>基于容器创建镜像</em></li>
+<li><code>docker cp</code> 容器与本地文件之间复制
+<ul>
+<li><code>docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-</code></li>
+<li><code>docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></li>
+</ul>
+</li>
+<li><em><code>docker create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></em> 一般使用 <code>docker run</code> <strong>直接创建并运行</strong></li>
+<li><code>docker history</code> = <code>docker image history</code> 镜像历史查看</li>
+<li><code>docker images</code> <strong><a href="#docker-%e9%95%9c%e5%83%8f%e8%bf%87%e6%bb%a4%e6%9f%a5%e6%89%be" rel="">查看镜像列表</a></strong></li>
+<li><code>docker login</code></li>
+<li><code>docker search</code></li>
+<li><code>docker tag</code></li>
+<li><code>docker pull</code></li>
+<li><code>docker build</code></li>
+<li><code>docker run</code></li>
+<li><code>docker push</code></li>
+<li><code>docker stop</code></li>
+<li><code>docker logs</code></li>
+</ul>
+<h3 id="docker-镜像过滤查找">docker 镜像过滤查找</h3>
+<blockquote>
+<p><code>docker images -f [filter params]</code></p>
+</blockquote>
+<ul>
+<li><code>dangling=(true|false)</code> <strong>none tag images</strong></li>
+<li><code>label=&lt;key&gt;</code> or <code>label=&lt;key&gt;=&lt;value&gt;</code> <em>通过 <code>label</code> 过滤</em></li>
+<li><code>before=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>since=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>reference=(pattern of an image reference)</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images -f <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span>author
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span><span class="nv">author</span><span class="o">=</span>xwi88
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine:*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:*1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;[REPOSITORY:TAG]&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;tes*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test*2&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>警告<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">测试发现，如果 <code>REPOSITORY</code> 中含有 <code>/</code> 则通过 reference 正则查询时，必须包含 <code>/</code> 否则无法匹配出来，也即 <code>/</code> 无法被 filter 正则匹配</div>
+        </div>
+    </div>
+<h3 id="docker-commit-基于容器创建镜像">docker commit 基于容器创建镜像</h3>
+<blockquote>
+<p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage:  docker commit <span class="o">[</span>OPTIONS<span class="o">]</span> CONTAINER <span class="o">[</span>REPOSITORY<span class="o">[</span>:TAG<span class="o">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Create a new image from a container<span class="err">&#39;</span>s changes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -a, --author string    Author <span class="o">(</span>e.g., <span class="s2">&#34;John Hannibal Smith &lt;hannibal@a-team.com&gt;&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -c, --change list      Apply Dockerfile instruction to the created image
+</span></span><span class="line"><span class="cl">  -m, --message string   Commit message
+</span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="prune-镜像容器等一键删除">prune 镜像容器等一键删除</h3>
+<ul>
+<li><code>docker image prune -a</code> <strong>删除所有未被容器使用的镜像</strong></li>
+<li><code>docker container prune</code> <em>删除所有停止运行容器</em></li>
+<li><code>docker volume prune</code> <em>删除所有未被挂载的卷</em></li>
+<li><code>docker system prune</code> <em>删除 docker 所有资源</em></li>
+<li><code>docker network prune</code> <em>删除所有网络</em></li>
+</ul>
+<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<ul>
+<li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer">v8fg/demo</a></li>
+<li>演示镜像: <code>v8fg/demo[:latest]</code></li>
+<li>演示容器名: <code>v8fg-demo</code></li>
+</ul>
+<h3 id="running-containers">Running Containers</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo bash</td>
+<td style="text-align:left">Run container and specify command</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo</td>
+<td style="text-align:left">Run container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid v8fg/demo</td>
+<td style="text-align:left">Run container detatched, -tty</td>
+</tr>
+<tr>
+<td style="text-align:left">docker create -ti v8fg/demo</td>
+<td style="text-align:left">Create a container without starting it</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">named container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps</td>
+<td style="text-align:left">show running containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps -a</td>
+<td style="text-align:left">show all containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=v8fg</code></td>
+<td style="text-align:left">show matching containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=demo -q</code></td>
+<td style="text-align:left">show matching container ID</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">inspect container</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>经上面操作后，部分输出如下</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">CONTAINER ID   IMAGE       COMMAND     CREATED              STATUS                          PORTS     NAMES
+</span></span><span class="line"><span class="cl">01430cc7b2c0   v8fg/demo   &#34;/bin/sh&#34;   11 seconds ago       Up 11 seconds                             v8fg-demo
+</span></span><span class="line"><span class="cl">83ce7dee0346   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Created                                   thirsty<span class="nb">_</span>bassi
+</span></span><span class="line"><span class="cl">1bd61cc802f1   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Up About a minute                         relaxed<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">be104825d061   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">8cfe1c19773f   v8fg/demo   &#34;bash&#34;      About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>euclid
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker start v8fg-demo</td>
+<td style="text-align:left">start</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo</td>
+<td style="text-align:left">stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">stop mutliple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker restart v8fg-demo</td>
+<td style="text-align:left">restart container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker pause v8fg-demo</td>
+<td style="text-align:left">pauses a running container, freeze in place</td>
+</tr>
+<tr>
+<td style="text-align:left">docker unpause v8fg-demo</td>
+<td style="text-align:left">unpause a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker wait v8fg-demo</td>
+<td style="text-align:left">blocks until running container stops</td>
+</tr>
+<tr>
+<td style="text-align:left">docker kill v8fg-demo</td>
+<td style="text-align:left">sends SIGKILL, faster than stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo</td>
+<td style="text-align:left">remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">remove multiple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm -f v8fg-demo</td>
+<td style="text-align:left">force remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker container rm -f $(docker ps -aq)</td>
+<td style="text-align:left">Remove all containers, running or stopped</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -tid -c 512 v8fg/demo</td>
+<td style="text-align:left">50% cpu</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpu-shares 2 v8fg/demo</code></td>
+<td style="text-align:left">CPU shares (relative weight)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpus 2 v8fg/demo</code></td>
+<td style="text-align:left">number of CPUs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpuset-cpus=0,4,6 v8fg/demo</code></td>
+<td style="text-align:left">use these cpus</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid -m 300M v8fg/demo</td>
+<td style="text-align:left">limit memory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker create -ti --storage-opt size=5G v8fg/demo</code></td>
+<td style="text-align:left">limit storage, not on aufs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -m 300M --cpus 1 --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">limit memory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker stats</td>
+<td style="text-align:left">resourse stats for all containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stats v8fg-demo</td>
+<td style="text-align:left">resource stats for one container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker top v8fg-demo</td>
+<td style="text-align:left">shows processes in a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logs v8fg-demo</td>
+<td style="text-align:left">container logs</td>
+</tr>
+<tr>
+<td style="text-align:left">docker events</td>
+<td style="text-align:left">watch events in real time</td>
+</tr>
+<tr>
+<td style="text-align:left">docker port v8fg-demo</td>
+<td style="text-align:left">shows public facing port of container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker diff v8fg-demo</td>
+<td style="text-align:left">show changes to a container&rsquo;s file system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-images">Docker Images</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker history v8fg/demo</td>
+<td style="text-align:left">show history of image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image rm v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove ddd4b27c1c67</td>
+<td style="text-align:left">remove by id</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi $(docker images -q)</td>
+<td style="text-align:left">remove all images</td>
+</tr>
+<tr>
+<td style="text-align:left">Commit container to an image:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo</td>
+<td style="text-align:left">no repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:my-update</td>
+<td style="text-align:left">tagged</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:v1.2.3</td>
+<td style="text-align:left">tagged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<ul>
+<li><strong>export, import</strong>: 不保留层历史信息，较小 <strong>制作基础镜像，去除历史</strong></li>
+<li><em>save, load</em>: 保留层历史信息，较大</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker export</td>
+<td style="text-align:left">export container to tarball archive stream</td>
+</tr>
+<tr>
+<td style="text-align:left">docker import</td>
+<td style="text-align:left">create image from tarball, excludes history ( smaller image )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker save</td>
+<td style="text-align:left">save image to tar archive stream ( includes parent layers )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker load</td>
+<td style="text-align:left">load an image from tarball, includes history ( larger image )</td>
+</tr>
+<tr>
+<td style="text-align:left">Examples:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker export v8fg-demo | gzip &gt; v8fg-demo-container-export.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">cat v8fg-demo-container-export.tar.gz | docker import - v8fg-demo:latest-import</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker save v8fg/demo | gzip &gt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker load &lt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker login</td>
+<td style="text-align:left">Login to Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logout</td>
+<td style="text-align:left">Logout of Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker tag ddd4b27c1c67 v8fg/demo:local-v1</td>
+<td style="text-align:left">Tag an image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker push v8fg/demo</td>
+<td style="text-align:left">Push to registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg/golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker pull v8fg/demo</td>
+<td style="text-align:left">Pull it down, default latest</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run v8fg/demo:alpine</td>
+<td style="text-align:left">Will be downloaded if it isn`t here</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mkdir mydockerbuild</td>
+<td style="text-align:left">Create build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">cd mydockerbuild</td>
+<td style="text-align:left">cd into build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">vi Dockerfile</td>
+<td style="text-align:left">Edit build instructions</td>
+</tr>
+<tr>
+<td style="text-align:left">docker build -t mydockerimage .</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">Show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run mydockerimage</td>
+<td style="text-align:left">Run the new image</td>
+</tr>
+</tbody>
+</table>
+<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<blockquote>
+<p><code>v8fg/demo:latest</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">ARG</span> <span class="nv">FROM_REPOSITORY</span><span class="o">=</span>alpine <span class="nv">FROM_TAG</span><span class="o">=</span><span class="m">3</span>.15.1<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> ${FROM_REPOSITORY}:${FROM_TAG}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>latest <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add --no-cache tzdata bash<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>v8fg/demo:ubuntu</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>ubuntu <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install nginx -y <span class="o">&amp;&amp;</span> apt-get clean <span class="o">&amp;&amp;</span> apt-get autoclean <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FROM ubuntu</td>
+<td style="text-align:left">base image</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt update</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt install nginx -y</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>WORKDIR ~/</code></td>
+<td style="text-align:left">working dir that CMD is run from</td>
+</tr>
+<tr>
+<td style="text-align:left">ENTRYPOINT echo</td>
+<td style="text-align:left">default application</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;echo&rdquo; &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">main command / default application</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CMD [&quot;--port 27017&quot;]</code></td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">ENV SERVER_WORKS 4</td>
+<td style="text-align:left">set env variable</td>
+</tr>
+<tr>
+<td style="text-align:left">EXPOSE 8080</td>
+<td style="text-align:left">expose a port, not published to the host</td>
+</tr>
+<tr>
+<td style="text-align:left">MAINTAINER authors_name</td>
+<td style="text-align:left">deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL version=&ldquo;1.0&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL author=&ldquo;User One&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">USER 751</td>
+<td style="text-align:left">UID (or username) to run as</td>
+</tr>
+<tr>
+<td style="text-align:left">VOLUME [&quot;/my_files&quot;]</td>
+<td style="text-align:left">sets up a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test relativeDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to <code>WORKDIR</code>/relativeDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test /absoluteDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to /absoluteDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY ssh_config /etc/ssh/ssh_config</td>
+<td style="text-align:left">copy over a vile</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>COPY --chown=user1:group1 files* /data/</code></td>
+<td style="text-align:left">also changes ownership</td>
+</tr>
+<tr>
+<td style="text-align:left">ADD /dir1 /dir2</td>
+<td style="text-align:left">like copy but does more &hellip;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="volumesstorage">Volumes/Storage</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker info</td>
+<td style="text-align:left">grep -i storage</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">look for &ldquo;Mounts&rdquo;</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls</td>
+<td style="text-align:left">show voluems</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume create testvol1</td>
+<td style="text-align:left">create a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume inspect testvol1</td>
+<td style="text-align:left">inspect a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls -f dangling=true</td>
+<td style="text-align:left">find dangling ( unused ) volumes</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume rm volume1</td>
+<td style="text-align:left">remove volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Running containers with volumes:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test1 -v /data v8fg/demo</code></td>
+<td style="text-align:left">unamed volume mounted on /data</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test2 -v vol1:/data v8fg/demo</code></td>
+<td style="text-align:left">named volume</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test3 -v /src/data:/data v8fg/demo</code></td>
+<td style="text-align:left">bind mount</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test4 -v /src/data:/data:ro v8fg/demo</code></td>
+<td style="text-align:left">RO</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --volumes-from test2 --name test5 v8fg/demo</code></td>
+<td style="text-align:left">storage can be shared</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker rm -v test1</code></td>
+<td style="text-align:left">remove container and unnamed volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Access and sharing parameters:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">:ro</td>
+<td style="text-align:left">for read only</td>
+</tr>
+<tr>
+<td style="text-align:left">:z</td>
+<td style="text-align:left">shared all containers can read/write</td>
+</tr>
+<tr>
+<td style="text-align:left">:Z</td>
+<td style="text-align:left">private, unshared</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`/var/lib/docker/overlay2</td>
+<td style="text-align:left">`Defalt volume storage location on Ubuntu Linux</td>
+</tr>
+</tbody>
+</table>
+<h3 id="expose-ports">Expose Ports</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 1234:80 nginx</code></td>
+<td style="text-align:left">expose container port 80 on host port 1234</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000 ubuntu</td>
+<td style="text-align:left">`bind port</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 8000-9000:5000 ubuntu</code></td>
+<td style="text-align:left">bind port to range</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000/udp ubuntu</td>
+<td style="text-align:left">`udp ports</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 127.0.0.1:80:5000 ubuntu</td>
+<td style="text-align:left">`bind port on an interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 127.0.0.1::5000 ubuntu</code></td>
+<td style="text-align:left">bind any port, specific interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -P ubuntu</code></td>
+<td style="text-align:left">exposed ports to random ports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="networks">Networks</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker network ls</td>
+<td style="text-align:left">show networks, bridge is default</td>
+</tr>
+<tr>
+<td style="text-align:left">docker network inspect bridge</td>
+<td style="text-align:left">show network details and connected containers</td>
+</tr>
+<tr>
+<td style="text-align:left">Create Bridge Network, Specify Subnet and Gateway:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network create -d bridge my-network</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create -d bridge --subnet 172.25.0.0/16 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create --subnet 203.0.113.0/24 --gateway 203.0.113.254 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network rm my-network</td>
+<td style="text-align:left">remove network</td>
+</tr>
+<tr>
+<td style="text-align:left">Run container and specify network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --name test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Run container, specify network and IP:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --ip=172.25.3.3 --name=test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Connect container to network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network connect net1 test1</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network connect net1 test2 --ip 172.25.0.102</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Disconnect container from network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`docker network disconnect net1 test1</td>
+<td style="text-align:left">`Disconnect container from this network</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network disconnect -f test1 test2</code></td>
+<td style="text-align:left">Force disconnect</td>
+</tr>
+<tr>
+<td style="text-align:left">Find container&rsquo;s IP address:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{json .NetworkSettings.Networks}}' container1</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container1</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer">docker run reference</a></li>
+<li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer">compose reference</a></li>
+<li><a href="https://low-orbit.net/docker-cheat-sheet" target="_blank" rel="noopener noreffer">docker-cheat-sheet</a></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-20&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/cd8d0e8ed5970ddf4f93bc2341ef802dfa829469" target="_blank" title="commit by xwi88(278810732@qq.com) cd8d0e8ed5970ddf4f93bc2341ef802dfa829469: posts cheat-sheet-docker-related">
+                                    <i class="fas fa-hashtag fa-fw"></i>cd8d0e8</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/cheat-sheet-docker-related/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/cheat-sheet-docker-related/" data-title="Docker 相关命令备忘参考" data-via="xwi88" data-hashtags="docker,cheat-sheet"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/cheat-sheet-docker-related/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/cheat-sheet-docker-related/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/cheat-sheet-docker-related/" data-title="Docker 相关命令备忘参考"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/cheat-sheet-docker-related/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/cheat-sheet-docker-related/" data-title="Docker 相关命令备忘参考"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/docker/">docker</a>,&nbsp;<a href="/tags/cheat-sheet/">cheat-sheet</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/dockerfile-cheat-sheet-demo/" class="prev" rel="prev" title="Dockerfile 指令小抄与构建示例"><i class="fas fa-angle-left fa-fw"></i>Dockerfile 指令小抄与构建示例</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b75f7823ed815277b8be8f7b2c230cffa1f67c62aae6f5fdde56fd43eb6ddce0.js" integrity="sha256-t194I&#43;2BUne4vo97LCMM/6H2fGKq5vX93lb9Q&#43;tt3OA="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>

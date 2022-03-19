@@ -5,6 +5,13 @@
         <description>文档 - 分类 - Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
             <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><atom:link href="https://xwi88.com/categories/documentation/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker 相关命令备忘参考</title>
+    <link>https://xwi88.com/cheat-sheet-docker-related/</link>
+    <pubDate>Sat, 19 Mar 2022 23:50:02 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://xwi88.com/cheat-sheet-docker-related/</guid>
+    <description><![CDATA[<p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose CLI</a>。</p>]]></description>
+</item><item>
     <title>开源软件镜像站收集及推荐</title>
     <link>https://xwi88.com/mirrors-cn/</link>
     <pubDate>Sun, 13 Mar 2022 19:07:30 &#43;0800</pubDate>
