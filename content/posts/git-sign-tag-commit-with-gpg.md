@@ -2,7 +2,7 @@
 url: "git-sign-tags-commits-with-gpg"
 title: "Git 使用 GPG 对提交进行签名认证"
 date: 2022-03-09T12:31:34+08:00
-lastmod: 2022-03-10T21:30:00+08:00
+lastmod: 2022-03-20T14:28:00+08:00
 draft: false
 
 description: "使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理"
@@ -587,6 +587,14 @@ gpg: Good signature from "xwi88 <278810732@qq.com>" [full]
 ```
 
 {{< /admonition >}}
+
+## Github GPG public key 导入
+
+>[github public GPG key for web-flow](https://github.com/web-flow.gpg)
+
+1. `curl https://github.com/web-flow.gpg | gpg --import` **import github public gpg key**
+2. `gpg --edit-key noreply@github.com trust quit` **trust and save, you choose: `4`**
+3. `gpg --lsign-key noreply@github.com` *sign selected user IDs locally*
 
 ## **GPG keys 更新续期处理**
 
