@@ -578,9 +578,9 @@ gpg: Good signature from "xwi88 <278810732@qq.com>" [full]
 
 >[github public GPG key for web-flow](https://github.com/web-flow.gpg)
 
-- 1. `curl https://github.com/web-flow.gpg | gpg --import` **import github public gpg key**
-- 2. `gpg --edit-key noreply@github.com trust quit` **trust and save, you choose: `4`**
-- 3. `gpg --lsign-key noreply@github.com` *sign selected user IDs locally*
+1. `curl https://github.com/web-flow.gpg | gpg --import` **import github public gpg key**
+2. `gpg --edit-key noreply@github.com trust quit` **trust and save, you choose: `4`**
+3. `gpg --lsign-key noreply@github.com` *sign selected user IDs locally*
 
 ## **GPG keys 更新续期处理**
 
