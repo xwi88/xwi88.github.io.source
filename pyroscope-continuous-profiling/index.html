@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Pyroscope Go 性能数据持续收集分析 - Coding Life Share</title><meta name="Description" content="Pyroscope Go 性能数据持续收集分析"><meta property="og:title" content="Pyroscope Go 性能数据持续收集分析" />
+<meta property="og:description" content="Pyroscope Go 性能数据持续收集分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/pyroscope-continuous-profiling/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-29T23:22:32+08:00" />
+<meta property="article:modified_time" content="2022-03-29T23:23:37+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Pyroscope Go 性能数据持续收集分析"/>
+<meta name="twitter:description" content="Pyroscope Go 性能数据持续收集分析"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/pyroscope-continuous-profiling/" /><link rel="prev" href="https://xwi88.com/cheat-sheet-docker-related/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.62747080dc83bde1a0ee9caa98bb236b6744d44fb76e885bd8929bcf018fb16c.css" integrity="sha256-YnRwgNyDveGg7pyqmLsja2dE1E&#43;3bohb2JKbzwGPsWw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Pyroscope Go 性能数据持续收集分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/pyroscope-continuous-profiling\/"
+        },"genre": "posts","keywords": "go, profiling","wordcount":  1361 ,
+        "url": "https:\/\/xwi88.com\/pyroscope-continuous-profiling\/","datePublished": "2022-03-29T23:22:32+08:00","dateModified": "2022-03-29T23:23:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "Pyroscope Go 性能数据持续收集分析"
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/pyroscope-continuous-profiling/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/pyroscope-continuous-profiling/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Pyroscope Go 性能数据持续收集分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-29">2022-03-29</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-29">2022-03-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1361 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#为什么使用">为什么使用</a></li>
+    <li><a href="#使用场景">使用场景</a></li>
+    <li><a href="#负载消耗">负载消耗</a></li>
+    <li><a href="#工作模式">工作模式</a></li>
+    <li><a href="#server-安装">Server 安装</a>
+      <ul>
+        <li><a href="#安装部署方式">安装部署方式</a></li>
+        <li><a href="#macos-与-linux-安装示例">MacOS 与 Linux 安装示例</a></li>
+        <li><a href="#配置">配置</a></li>
+        <li><a href="#启动">启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#go-agent-使用">Go Agent 使用</a>
+      <ul>
+        <li><a href="#依赖导入">依赖导入</a></li>
+        <li><a href="#agent-push-示例">Agent Push 示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#认证登录">认证登录</a></li>
+    <li><a href="#数据查询导出">数据查询导出</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer">Pyroscope</a></strong> 开放源码的性能持续分析平台。支持多种语言：<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code> 等，支持<strong>多平台</strong>，<strong>多种部署方式</strong>。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，<code>Push</code> 与 <code>Pull</code> 模式。可支持多种数据导出格式： <code>png</code>，<code>json</code>， <code>pprof</code>， <code>html</code>，<code>flamegraph.com</code>，可接入 <code>[grafana](https://grafana.com/grafana/plugins/pyroscope-panel/)</code> 展示。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="为什么使用">为什么使用</h2>
+<ul>
+<li>了解应用程序的哪些部分消耗资源最多</li>
+<li>持续性分析增加了一个时间维度，允许您随着时间的推移了解系统资源使用情况(如 CPU、内存等) ，并使你能够定位、调试和修复与性能相关的问题。</li>
+</ul>
+<h2 id="使用场景">使用场景</h2>
+<ul>
+<li>查找代码中的性能问题</li>
+<li>解决高 CPU 利用率的问题</li>
+<li>定位并修复内存泄漏</li>
+<li>理解应用程序的调用树</li>
+<li>跟踪指标随时间的变化</li>
+</ul>
+<h2 id="负载消耗">负载消耗</h2>
+<p>通过使用采样分析，<strong>Pyroscope</strong> 能够以最小的开销(约为 <code>2-5%</code>)收集数据。 特别构建的<em>存储引擎</em>能<em>高效地压缩和存储数据</em>。</p>
+<ul>
+<li>由于采样分析技术，CPU 开销较低</li>
+<li>控制分析数据粒度(<code>10s</code> 至多年)</li>
+<li>高效的压缩，低的磁盘空间需求和成本</li>
+</ul>
+<h2 id="工作模式">工作模式</h2>
+<blockquote>
+<p>类似于常见的数据采集处理工具，<code>Agent-Server</code> 模式。</p>
+</blockquote>
+<ul>
+<li><code>Pyroscope Server</code> <em>记录并聚合应用程序正在执行的操作，然后将该数据发送到 <code>Pyroscope</code> 服务器。</em></li>
+<li><code>Pyroscope Agent</code> 处理、聚合和存储来自代理的数据，以实现任意时间范围内的快速查询。稍后，你可以查看在任何时间范围内的分析数据。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/go/pyroscope-agents.jpeg"
+        data-srcset="/images/go/pyroscope-agents.jpeg, /images/go/pyroscope-agents.jpeg 1.5x, /images/go/pyroscope-agents.jpeg 2x"
+        data-sizes="auto"
+        alt="/images/go/pyroscope-agents.jpeg"
+        title="pyroscope-agents" /></p>
+<h2 id="server-安装">Server 安装</h2>
+<h3 id="安装部署方式">安装部署方式</h3>
+<ul>
+<li>Docker</li>
+<li>K8S</li>
+<li>Direct
+<ul>
+<li>MacOS</li>
+<li>Linux</li>
+<li>Windows</li>
+</ul>
+</li>
+</ul>
+<h3 id="macos-与-linux-安装示例">MacOS 与 Linux 安装示例</h3>
+<ul>
+<li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer">install-macos</a></li>
+<li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer">install-linux</a></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>export pyroscope_version=0.13.0</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># MacOs</span>
+</span></span><span class="line"><span class="cl">brew install pyroscope-io/brew/pyroscope
+</span></span><span class="line"><span class="cl">brew services start pyroscope-server
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">sudo apt-get install ./pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">sudo yum localinstall pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use systemctl to enable boot start and start the service</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pyroscope-server
+</span></span><span class="line"><span class="cl">sudo systemctl start pyroscope-server
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="配置">配置</h3>
+<p>支持多种<a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer">配置</a>，优先级如下：</p>
+<ol>
+<li><strong>命令行参数</strong></li>
+<li><em>环境变量</em></li>
+<li>配置文件</li>
+</ol>
+<p>我们将使用配置文件进行服务端的配置。配置文件默认位置：</p>
+<ul>
+<li><code>/etc/pyroscope/server.yml</code> <strong>on Linux</strong></li>
+<li><code>/usr/local/etc/pyroscope/server.yml</code> <strong>on Intel macOS</strong></li>
+<li><code>/opt/homebrew/etc/pyroscope/server.yml</code> <em>on M1 macOS</em></li>
+</ul>
+<p>可通过参数指定配置文件路径：</p>
+<ul>
+<li><code>pyroscope server -config my-custom-config.yml</code> <code>命令行方式指定</code> <strong>推荐</strong></li>
+<li><code>PYROSCOPE_CONFIG=/tmp/pyroscope-server.yml pyroscope server</code> 环境变量指定</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw"></i>示例<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>pyroscope-server.yml</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">auth:
+</span></span><span class="line"><span class="cl"> # Specifies which role will be granted to a newly signed up user.
+</span></span><span class="line"><span class="cl">  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+</span></span><span class="line"><span class="cl">  # The parameter affects all authentication providers.
+</span></span><span class="line"><span class="cl">  signup-default-role: ReadOnly
+</span></span><span class="line"><span class="cl">  # Internal authentication provider configuration.
+</span></span><span class="line"><span class="cl">  internal:
+</span></span><span class="line"><span class="cl">    admin:
+</span></span><span class="line"><span class="cl">      create: true
+</span></span><span class="line"><span class="cl">    enabled: true
+</span></span><span class="line"><span class="cl">    signup-enabled: true
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"># Disables analytics.
+</span></span><span class="line"><span class="cl">analytics-opt-out: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">log-level: &#34;info&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">badger-log-level: &#34;error&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Directory where pyroscope stores profiling data.
+</span></span><span class="line"><span class="cl">storage-path: &#34;/var/lib/pyroscope&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Port for the HTTP server used for data ingestion and web UI.
+</span></span><span class="line"><span class="cl">api-bind-addr: &#34;:4040&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Base URL for when the server is behind a reverse proxy with a different path.
+</span></span><span class="line"><span class="cl">base-url: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of memory at which cache evictions start.
+</span></span><span class="line"><span class="cl">cache-evict-threshold: &#34;0.25&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of cache that is evicted per eviction run.
+</span></span><span class="line"><span class="cl">cache-evict-volume: &#34;0.33&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Database configuration. By default, Pyroscope Server uses embedded sqlite3 database.
+</span></span><span class="line"><span class="cl">database:
+</span></span><span class="line"><span class="cl">  # Indicates the database type. Supported DB engines: sqlite3.
+</span></span><span class="line"><span class="cl">  type: &#34;sqlite3&#34;
+</span></span><span class="line"><span class="cl">  # Database connection string. Specific to the engine.
+</span></span><span class="line"><span class="cl">  url: &#34;/var/lib/pyroscope/pyroscope.db&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Indicates whether value log files should be truncated to delete corrupt data, if any.
+</span></span><span class="line"><span class="cl">badger-no-truncate: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Disables /debug/pprof route.
+</span></span><span class="line"><span class="cl">disable-pprof-endpoint: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used when saving profiles to disk.
+</span></span><span class="line"><span class="cl">max-nodes-serialization: &#34;2048&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used to display data on the frontend.
+</span></span><span class="line"><span class="cl">max-nodes-render: &#34;8192&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Please don&#39;t use, this will soon be deprecated.
+</span></span><span class="line"><span class="cl">hide-applications: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention: &#34;0s&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention: &#34;480h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Specifies how long the profiling data is stored per aggregation level. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention-levels: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl"># 0: 720h  # 30 days
+</span></span><span class="line"><span class="cl"># 1: 2160h # 90 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention-levels:
+</span></span><span class="line"><span class="cl"> 0: 480h  # 20 days
+</span></span><span class="line"><span class="cl"> 1: 1440h # 60 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Metrics export rules.
+</span></span><span class="line"><span class="cl">metrics-export-rules: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># A list of scrape configurations.
+</span></span><span class="line"><span class="cl">scrape-configs: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Certificate file (.crt).
+</span></span><span class="line"><span class="cl">tls-certificate-file: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Private key file (.key).
+</span></span><span class="line"><span class="cl">tls-key-file: &#34;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="启动">启动</h3>
+<p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
+<h2 id="go-agent-使用">Go Agent 使用</h2>
+<blockquote>
+<p>采用 <code>Push 模式</code>，简单高效。</p>
+</blockquote>
+<h3 id="依赖导入">依赖导入</h3>
+<p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
+<h3 id="agent-push-示例">Agent Push 示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/pyroscope-io/client/pyroscope&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pyroscope</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ApplicationName</span><span class="p">:</span> <span class="s">&#34;simple.golang.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// replace this with the address of pyroscope server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ServerAddress</span><span class="p">:</span>   <span class="s">&#34;http://pyroscope-server:4040&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// you can disable logging by setting this to nil
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Logger</span><span class="p">:</span>          <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">StandardLogger</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// optionally, if authentication is enabled, specify the API key:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// AuthToken: os.Getenv(&#34;PYROSCOPE_AUTH_TOKEN&#34;),
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// by default all profilers are enabled,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// but you can select the ones you want to use:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ProfileTypes</span><span class="p">:</span> <span class="p">[]</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileType</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileCPU</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// your code goes here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="认证登录">认证登录</h2>
+<blockquote>
+<p>默认用户及密码为: <code>admin</code>:<code>admin</code></p>
+</blockquote>
+<ul>
+<li><a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer">api-key-authentication</a></li>
+<li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer">内部身份验证</a></li>
+</ul>
+<p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
+<h2 id="数据查询导出">数据查询导出</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer">grafana</a></li>
+<li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer">API</a></li>
+<li><strong>UI 界面操作</strong>
+<ul>
+<li><code>png</code></li>
+<li><code>json</code></li>
+<li><code>pprof</code></li>
+<li><code>html</code></li>
+<li><code>flamegraph.com</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer">pyroscope docs</a></li>
+<li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer">pyroscope-io</a></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-29&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9e3f5957b7f52655717e01d2b38266b731ba9c6c" target="_blank" title="commit by xwi88(278810732@qq.com) 9e3f5957b7f52655717e01d2b38266b731ba9c6c: post pyroscope-continuous-profiling">
+                                    <i class="fas fa-hashtag fa-fw"></i>9e3f595</a></span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/pyroscope-continuous-profiling/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/pyroscope-continuous-profiling/" data-title="Pyroscope Go 性能数据持续收集分析" data-via="xwi88" data-hashtags="go,profiling"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/pyroscope-continuous-profiling/" data-hashtag="go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/pyroscope-continuous-profiling/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/pyroscope-continuous-profiling/" data-title="Pyroscope Go 性能数据持续收集分析"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/pyroscope-continuous-profiling/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/pyroscope-continuous-profiling/" data-title="Pyroscope Go 性能数据持续收集分析"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">go</a>,&nbsp;<a href="/tags/profiling/">profiling</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/cheat-sheet-docker-related/" class="prev" rel="prev" title="Docker 相关命令备忘参考"><i class="fas fa-angle-left fa-fw"></i>Docker 相关命令备忘参考</a></div>
+</div>
+<div id="comments">
+
+            <div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b75f7823ed815277b8be8f7b2c230cffa1f67c62aae6f5fdde56fd43eb6ddce0.js" integrity="sha256-t194I&#43;2BUne4vo97LCMM/6H2fGKq5vX93lb9Q&#43;tt3OA="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>
