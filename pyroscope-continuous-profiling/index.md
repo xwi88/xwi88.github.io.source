@@ -257,6 +257,8 @@ func main() {
   - `html`
   - `flamegraph.com`
 
+![proscope-server-table-flamegraph](/images/go/proscope-server-table-flamegraph.png)
+
 ## 参考
 
 - [pyroscope docs](https://pyroscope.io/docs/)
