@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T21:27:21+08:00" />
-<meta property="article:modified_time" content="2022-03-19T01:46:02+08:00" />
+<meta property="article:modified_time" content="2022-03-30T13:30:54+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"
-        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  3382 ,
-        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-19T01:46:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  3385 ,
+        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-30T13:30:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-19">2022-03-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3382 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-30">2022-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3385 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;
     
 
@@ -1018,7 +1018,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>20gb <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
@@ -1043,7 +1043,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>20gb <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
@@ -1066,7 +1066,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb <span class="se">\
+</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>40gb <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
 </span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 </span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
@@ -1096,8 +1096,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-03-19&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/965374bb2e297f7f072026018411dc05082e686d" target="_blank" title="commit by xwi88(278810732@qq.com) 965374bb2e297f7f072026018411dc05082e686d: update mac-minikube-replace-docker-desktop">
-                                    <i class="fas fa-hashtag fa-fw"></i>965374b</a></span>
+                <span>更新于 2022-03-30&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/7e8fd3e0d5750b0df0689efda748b361abd70caf" target="_blank" title="commit by xwi88(278810732@qq.com) 7e8fd3e0d5750b0df0689efda748b361abd70caf: update posts">
+                                    <i class="fas fa-hashtag fa-fw"></i>7e8fd3e</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>

@@ -504,7 +504,7 @@ Some hypervisors, have built-in host folder sharing. Driver mounts are reliable 
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=20gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
@@ -518,7 +518,7 @@ minikube mount ${PWD}:${PWD}
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=20gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
@@ -531,7 +531,7 @@ minikube mount ${HOME}/workspace:${HOME}/workspace
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=40gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
