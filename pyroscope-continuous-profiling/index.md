@@ -248,7 +248,7 @@ func main() {
 
 ## 数据查询导出
 
-- [grafana](https://pyroscope.io/docs/grafana-plugins/)
+- [grafana](https://pyroscope.io/docs/grafana-plugins/) [配置](https://pyroscope.io/docs/api-key-authentication/)
 - [API](https://pyroscope.io/docs/server-api-reference/)
 - **UI 界面操作**
   - `png`
