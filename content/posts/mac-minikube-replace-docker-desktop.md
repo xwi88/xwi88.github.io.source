@@ -2,7 +2,7 @@
 url: "mac-minikube-replace-docker-desktop"
 title: "Mac 使用 minikube 替换 Docker Desktop"
 date: 2022-03-11T21:27:21+08:00
-lastmod: 2022-03-19T01:45:10+08:00
+lastmod: 2022-03-30T13:30:10+08:00
 draft: false
 
 description: "MacOS 上使用 minikube 替换 Docker Desktop"
@@ -518,7 +518,7 @@ Some hypervisors, have built-in host folder sharing. Driver mounts are reliable 
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=20gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
@@ -532,7 +532,7 @@ minikube mount ${PWD}:${PWD}
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=20gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
@@ -545,7 +545,7 @@ minikube mount ${HOME}/workspace:${HOME}/workspace
 # --mount --mount-string=$HOME/workspace:$HOME/workspace
 
 #minikube delete
-minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb \
+minikube start --no-kubernetes --driver=hyperkit --cpus=2 --memory=2gb --disk-size=40gb \
 --image-mirror-country=cn \
 --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
 eval $(minikube docker-env)
