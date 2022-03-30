@@ -2,7 +2,7 @@
 url: "pyroscope-continuous-profiling"
 title: "Pyroscope Go 性能数据持续收集分析"
 date: 2022-03-29T23:22:32+08:00
-lastmod: 2022-03-30T22:36:32+08:00
+lastmod: 2022-03-31T00:14:32+08:00
 draft: false
 
 description: "Pyroscope Go 性能数据持续收集分析"
@@ -262,7 +262,7 @@ func main() {
 
 ## 数据查询导出
 
-- [grafana](https://pyroscope.io/docs/grafana-plugins/)
+- [grafana](https://pyroscope.io/docs/grafana-plugins/) [配置](https://pyroscope.io/docs/api-key-authentication/)
 - [API](https://pyroscope.io/docs/server-api-reference/)
 - **UI 界面操作**
   - `png`
