@@ -1,7 +1,7 @@
 # Pyroscope Go 性能数据持续收集分析
 
 
-**[Pyroscope](https://pyroscope.io/)** 开放源码的性能持续分析平台。支持多种语言：`Go`, `Python`, `Rust`, `Java` 等，支持**多平台**，**多种部署方式**。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，`Push` 与 `Pull` 模式。可支持多种数据导出格式： `png`，`json`， `pprof`， `html`，`flamegraph.com`，可接入 `[grafana](https://grafana.com/grafana/plugins/pyroscope-panel/)` 展示。
+**[Pyroscope](https://pyroscope.io/)** 开放源码的性能持续分析平台。支持多种语言：`Go`, `Python`, `Rust`, `Java` 等，支持**多平台**，**多种部署方式**。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，`Push` 与 `Pull` 模式。可支持多种数据导出格式： `png`，`json`， `pprof`， `html`，`flamegraph.com`，可接入 [`grafana`](https://grafana.com/grafana/plugins/pyroscope-panel/) 展示。
 
 <!--more-->
 
