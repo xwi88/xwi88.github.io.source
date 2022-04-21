@@ -6,12 +6,12 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 <!--more-->
 
 >- *blog theme*: [LoveIt](https://github.com/xwi88/LoveIt.git)
->- [giscus 体验](blog.xwi88.com)
+>- [giscus 体验](https://blog.xwi88.com)
 
 ## giscus 集成使用
 
->- [utteranc](https://giscus.app)
->- [utteranc zh-CN](https://giscus.app/zh-CN)
+>- [giscus](https://giscus.app)
+>- [giscus zh-CN](https://giscus.app/zh-CN)
 
 ### 介绍
 
