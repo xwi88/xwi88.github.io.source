@@ -2,7 +2,7 @@
 url: "hugo-plugin-giscus-support"
 title: "Hugo Plugin Giscus Support"
 date: 2022-03-07T23:46:10+08:00
-lastmod: 2022-03-08T01:01:40+08:00
+lastmod: 2022-04-12T14:00:00+08:00
 draft: false
 
 description: "Hugo 评论插件 giscus 的集成与支持"
@@ -18,12 +18,12 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 <!--more-->
 
 >- *blog theme*: [LoveIt](https://github.com/xwi88/LoveIt.git)
->- [giscus 体验](blog.xwi88.com)
+>- [giscus 体验](https://blog.xwi88.com)
 
 ## giscus 集成使用
 
->- [utteranc](https://giscus.app)
->- [utteranc zh-CN](https://giscus.app/zh-CN)
+>- [giscus](https://giscus.app)
+>- [giscus zh-CN](https://giscus.app/zh-CN)
 
 ### 介绍
 

@@ -625,6 +625,7 @@ class Theme {
             if (this.config.comment.giscus) {
                 const giscusConfig = this.config.comment.giscus;
                 const script = document.createElement('script');
+                var dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
                 script.src = 'https://giscus.app/client.js';
                 script.type = 'text/javascript';
                 script.setAttribute('data-repo', giscusConfig.repo);
@@ -637,16 +638,22 @@ class Theme {
                 script.setAttribute('data-input-position', giscusConfig.input_position);
                 script.setAttribute('data-lang', giscusConfig.lang);
                 if (giscusConfig.label) script.setAttribute('label', giscusConfig.label);
-                script.setAttribute('data-theme', this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme);
+                script.setAttribute('data-theme', dataTheme);
                 script.crossOrigin = 'anonymous';
                 script.async = true;
                 document.getElementById('giscus').appendChild(script);
+
+                const replaceThemeVal = new RegExp('(theme=)([^&]*)', 'gi')
                 this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || (() => {
+                    // fixed: giscus iframe themes dynamic change with your themes change.
+                    dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
                     const message = {
                         type: 'set-theme',
-                        'data-theme': this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme,
+                        'data-theme': dataTheme,
                     };
                     const iframe = document.querySelector('.giscus-frame');
+                    // update iframe.src request param theme=dark to theme=light or reverse.
+                    iframe.src = iframe.src.replace(replaceThemeVal, "theme=" + dataTheme)
                     iframe.contentWindow.postMessage(message, 'https://giscus.app');
                 });
                 this.switchThemeEventSet.add(this._giscusOnSwitchTheme);
