@@ -642,19 +642,18 @@ class Theme {
                 script.crossOrigin = 'anonymous';
                 script.async = true;
                 document.getElementById('giscus').appendChild(script);
-
-                const replaceThemeVal = new RegExp('(theme=)([^&]*)', 'gi')
                 this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || (() => {
-                    // fixed: giscus iframe themes dynamic change with your themes change.
                     dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
                     const message = {
-                        type: 'set-theme',
-                        'data-theme': dataTheme,
+                        setConfig: {
+                            // theme: 'https://giscus.app/themes/custom_example.css',
+                            theme: dataTheme,
+                            reactionsEnabled: false,
+                        }
                     };
-                    const iframe = document.querySelector('.giscus-frame');
-                    // update iframe.src request param theme=dark to theme=light or reverse.
-                    iframe.src = iframe.src.replace(replaceThemeVal, "theme=" + dataTheme)
-                    iframe.contentWindow.postMessage(message, 'https://giscus.app');
+                    const iframe = document.querySelector('iframe.giscus-frame');
+                    if (!iframe) return;
+                    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
                 });
                 this.switchThemeEventSet.add(this._giscusOnSwitchTheme);
             }

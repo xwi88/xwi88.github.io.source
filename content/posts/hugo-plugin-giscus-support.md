@@ -2,7 +2,7 @@
 url: "hugo-plugin-giscus-support"
 title: "Hugo Plugin Giscus Support"
 date: 2022-03-07T23:46:10+08:00
-lastmod: 2022-04-12T14:00:00+08:00
+lastmod: 2022-04-22T18:00:00+08:00
 draft: false
 
 description: "Hugo 评论插件 giscus 的集成与支持"
@@ -82,13 +82,15 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 
 可以通过两种方式进行改造支持:
 
-- **theme.js** *js* 方式
+- **theme.js** *JS 方式* **需要重新编译 theme.js** *具体参考项目文件* `Makefile` `make debug`
 - **comment.html** 模板方式
 
 **js** 方式更灵活一些。我们写了两种方式，*注释掉了模板插件方式修改*，对修改感兴趣的可以参考相应变更:
 
 - [replace utterances by giscus](https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c) **github**
 - [replace utterances by giscus](https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c) **gitee**
+
+>giscus iframe 主题配置异步修改: [isetconfigmessage](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage)
 
 ### 效果查看
 
