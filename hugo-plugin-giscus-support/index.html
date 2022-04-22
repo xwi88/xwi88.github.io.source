@@ -10,7 +10,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/hugo-plugin-giscus-support/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-07T23:46:10+08:00" />
-<meta property="article:modified_time" content="2022-04-21T17:19:20+08:00" />
+<meta property="article:modified_time" content="2022-04-22T18:02:43+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/xwi88.com\/hugo-plugin-giscus-support\/"
-        },"genre": "posts","keywords": "hugo-plugin","wordcount":  710 ,
-        "url": "https:\/\/xwi88.com\/hugo-plugin-giscus-support\/","datePublished": "2022-03-07T23:46:10+08:00","dateModified": "2022-04-21T17:19:20+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "hugo-plugin","wordcount":  740 ,
+        "url": "https:\/\/xwi88.com\/hugo-plugin-giscus-support\/","datePublished": "2022-03-07T23:46:10+08:00","dateModified": "2022-04-22T18:02:43+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xwi88","logo": {
                     "@type": "ImageObject",
@@ -115,7 +115,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Hugo Plugin Giscus Support</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hugo/"><i class="far fa-folder fa-fw"></i>hugo</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-04-21">2022-04-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 710 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-04-22">2022-04-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 740 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;
     
 
@@ -245,7 +245,7 @@
 <h3 id="主题修改支持-giscus">主题修改支持 <strong>giscus</strong></h3>
 <p>可以通过两种方式进行改造支持:</p>
 <ul>
-<li><strong>theme.js</strong> <em>js</em> 方式</li>
+<li><strong>theme.js</strong> <em>JS 方式</em> <strong>需要重新编译 theme.js</strong> <em>具体参考项目文件</em> <code>Makefile</code> <code>make debug</code></li>
 <li><strong>comment.html</strong> 模板方式</li>
 </ul>
 <p><strong>js</strong> 方式更灵活一些。我们写了两种方式，<em>注释掉了模板插件方式修改</em>，对修改感兴趣的可以参考相应变更:</p>
@@ -253,6 +253,9 @@
 <li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer">replace utterances by giscus</a> <strong>github</strong></li>
 <li><a href="https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer">replace utterances by giscus</a> <strong>gitee</strong></li>
 </ul>
+<blockquote>
+<p>giscus iframe 主题配置异步修改: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer">isetconfigmessage</a></p>
+</blockquote>
 <h3 id="效果查看">效果查看</h3>
 <ul>
 <li><a href="https://xwi88.com/" target="_blank" rel="noopener noreffer">xwi88.com</a></li>
@@ -269,8 +272,8 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-04-21&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/35e44ac9ca528f72a043582823f3f864fcec93f5" target="_blank" title="commit by xwi88(278810732@qq.com) 35e44ac9ca528f72a043582823f3f864fcec93f5: fixed giscus theme change issues">
-                                    <i class="fas fa-hashtag fa-fw"></i>35e44ac</a></span>
+                <span>更新于 2022-04-22&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/76e753eb6378223355a85bf30686d298e65316fc" target="_blank" title="commit by xwi88(278810732@qq.com) 76e753eb6378223355a85bf30686d298e65316fc: use native method async update giscus configs">
+                                    <i class="fas fa-hashtag fa-fw"></i>76e753e</a></span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -387,7 +390,7 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.418cf2e7af4c85da50ee43d258a819979c63d973014abe5164847b32c1986b85.js" integrity="sha256-QYzy569MhdpQ7kPSWKgZl5xj2XMBSr5RZIR7MsGYa4U="></script><script type="text/javascript">
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.be96d52bad6af3cf7a0396bc84a22c89e5cd99ea53902c405f526a1e2620897a.js" integrity="sha256-vpbVK61q8896A5a8hKIsieXNmepTkCxAX1JqHiYgiXo="></script><script type="text/javascript">
             window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
             gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
         </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
