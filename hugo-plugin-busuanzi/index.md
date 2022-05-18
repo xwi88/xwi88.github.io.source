@@ -53,7 +53,7 @@ Hugo 网站访问量、文章阅读次数统计插件 **busuanzi** 集成配置�
 
 >需要变动的地方如图所示:
 
-![/images/screen_img/hugo_busuanzi_support.jpeg](/images/screen_img/hugo_busuanzi_support.jpeg)
+![/images/screen_img/hugo_busuanzi_support.jpeg](/images/screen_img/hugo_busuanzi_support.jpeg "hugo busuanzi support")
 
 ##### 自定义配置
 

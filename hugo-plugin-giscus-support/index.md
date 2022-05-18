@@ -85,5 +85,5 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 - [xwi88.com](https://xwi88.com/)
 - [blog.xiw88.com](https://blog.xwi88.com/)
 
-![hugo_giscus_demo](/images/screen_img/hugo_giscus_demo.png)
+![hugo_giscus_demo](/images/screen_img/hugo_giscus_demo.png "hugo giscus demo")
 

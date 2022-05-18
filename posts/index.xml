@@ -8,71 +8,81 @@
     <title>Pyroscope Go 性能数据持续收集分析</title>
     <link>https://xwi88.com/pyroscope-continuous-profiling/</link>
     <pubDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/pyroscope-continuous-profiling/</guid>
     <description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer">Pyroscope</a></strong> 开放源码的性能持续分析平台。支持多种语言：<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code> 等，支持<strong>多平台</strong>，<strong>多种部署方式</strong>。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，<code>Push</code> 与 <code>Pull</code> 模式。可支持多种数据导出格式： <code>png</code>，<code>json</code>， <code>pprof</code>， <code>html</code>，<code>flamegraph.com</code>，可接入 <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer"><code>grafana</code></a> 展示。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Docker 相关命令备忘参考</title>
     <link>https://xwi88.com/cheat-sheet-docker-related/</link>
     <pubDate>Sat, 19 Mar 2022 23:50:02 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/cheat-sheet-docker-related/</guid>
     <description><![CDATA[<p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose CLI</a>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Dockerfile 指令小抄与构建示例</title>
     <link>https://xwi88.com/dockerfile-cheat-sheet-demo/</link>
     <pubDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/dockerfile-cheat-sheet-demo/</guid>
     <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Go 程序常用 kill 信号及捕获</title>
     <link>https://xwi88.com/go-kill-signal-catch/</link>
     <pubDate>Wed, 16 Mar 2022 01:30:10 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/go-kill-signal-catch/</guid>
     <description><![CDATA[<p>Go 程序常用 kill 信号及捕获， <em>MacOS</em> 下验证，基于 <code>go1.17.7</code>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>开源软件镜像站收集及推荐</title>
     <link>https://xwi88.com/mirrors-cn/</link>
     <pubDate>Sun, 13 Mar 2022 19:07:30 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/mirrors-cn/</guid>
     <description><![CDATA[<p>国内开源软件镜像站收集，建议优先选择推荐的几个镜像站，也可直接访问<a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer">国内公网开源镜像</a>或<a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer">教育网开源镜像</a>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Makefile shell 中绝对路径的正确处理</title>
     <link>https://xwi88.com/makefile-shell-path-get/</link>
     <pubDate>Sat, 12 Mar 2022 09:15:14 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/makefile-shell-path-get/</guid>
     <description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer">Bash</a>) 中绝对路径的处理。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Mac 使用 minikube 替换 Docker Desktop</title>
     <link>https://xwi88.com/mac-minikube-replace-docker-desktop/</link>
     <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/mac-minikube-replace-docker-desktop/</guid>
     <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Git 常用命令及配置</title>
     <link>https://xwi88.com/git-common-config/</link>
     <pubDate>Thu, 10 Mar 2022 21:31:19 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/git-common-config/</guid>
     <description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer"><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Git 使用 GPG 对提交进行签名认证</title>
     <link>https://xwi88.com/git-sign-tags-commits-with-gpg/</link>
     <pubDate>Wed, 09 Mar 2022 12:31:34 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid>
     <description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Go 版本管理工具 gvm</title>
     <link>https://xwi88.com/go-vcs-gvm/</link>
     <pubDate>Tue, 08 Mar 2022 08:09:41 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/go-vcs-gvm/</guid>
     <description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>

@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>Go 程序常用 kill 信号及捕获 - Coding Life Share</title><meta name="Description" content="go 程序常用 kill 信号及捕获"><meta property="og:title" content="Go 程序常用 kill 信号及捕获" />
 <meta property="og:description" content="go 程序常用 kill 信号及捕获" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://xwi88.com/go-kill-signal-catch/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-16T01:30:10+08:00" />
-<meta property="article:modified_time" content="2022-03-17T00:51:10+08:00" />
+<meta property="article:modified_time" content="2022-03-17T00:51:10+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://xwi88.com/logo.png"/>
@@ -20,7 +19,9 @@
 <meta name="application-name" content="XIN WANG blog">
 <meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/go-kill-signal-catch/" /><link rel="prev" href="https://xwi88.com/mirrors-cn/" /><link rel="next" href="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.62747080dc83bde1a0ee9caa98bb236b6744d44fb76e885bd8929bcf018fb16c.css" integrity="sha256-YnRwgNyDveGg7pyqmLsja2dE1E&#43;3bohb2JKbzwGPsWw="><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/go-kill-signal-catch/" /><link rel="prev" href="https://xwi88.com/mirrors-cn/" /><link rel="next" href="https://xwi88.com/dockerfile-cheat-sheet-demo/" /><link rel="stylesheet" href="/css/style.min.956fb14759fa3b58a507beffa824debc874d9b34e259b73c93737461f7051a2d.css" integrity="sha256-lW+xR1n6O1ilB77/qCTevIdNmzTiWbc8k3N0YfcFGi0="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -43,29 +44,29 @@
             },"description": "go 程序常用 kill 信号及捕获"
     }
     </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa-fw'></i></span></a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
                         <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/go-kill-signal-catch/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -74,7 +75,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa'></i></span></a>
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa-fw'></i></span></a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -84,37 +85,35 @@
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
                         </a>
                         <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
                         </span>
                     </div>
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
                 </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
                     <select class="language-select" onchange="location = this.value;"><option value="/go-kill-signal-catch/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Go 程序常用 kill 信号及捕获</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>go</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>go</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-16">2022-03-16</time>&nbsp;<i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="2022-03-17">2022-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 646 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;
     
@@ -231,7 +230,7 @@
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content">linux/unix kill 默认 <code>signal_number=15</code> <strong>TERM</strong></div>
@@ -253,7 +252,7 @@
 </blockquote>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw"></i>技巧<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content">docker kill 默认 <code>signal_number=9</code> <strong>KILL</strong></div>
@@ -320,7 +319,7 @@
                             <a class="link-to-markdown" href="/go-kill-signal-catch/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获" data-via="xwi88" data-hashtags="go,golang,signal"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/go-kill-signal-catch/" data-hashtag="go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/go-kill-signal-catch/"><i class="fab fa-linkedin fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/go-kill-signal-catch/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获"><i class="fab fa-weibo fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获" data-via="xwi88" data-hashtags="go,golang,signal"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/go-kill-signal-catch/" data-hashtag="go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/go-kill-signal-catch/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/go-kill-signal-catch/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/go-kill-signal-catch/" data-title="Go 程序常用 kill 信号及捕获"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -424,11 +423,11 @@
             </script></footer></div>
 
         <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.be96d52bad6af3cf7a0396bc84a22c89e5cd99ea53902c405f526a1e2620897a.js" integrity="sha256-vpbVK61q8896A5a8hKIsieXNmepTkCxAX1JqHiYgiXo="></script><script type="text/javascript">
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.71fbad5040a19d873319b9d00c89386eeb7152443c08be46131fd7c731b32d02.js" integrity="sha256-cfutUEChnYczGbnQDIk4butxUkQ8CL5GEx/XxzGzLQI="></script><script type="text/javascript">
             window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
             gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
         </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>

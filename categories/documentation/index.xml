@@ -8,15 +8,17 @@
     <title>Docker 相关命令备忘参考</title>
     <link>https://xwi88.com/cheat-sheet-docker-related/</link>
     <pubDate>Sat, 19 Mar 2022 23:50:02 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/cheat-sheet-docker-related/</guid>
     <description><![CDATA[<p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose CLI</a>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>开源软件镜像站收集及推荐</title>
     <link>https://xwi88.com/mirrors-cn/</link>
     <pubDate>Sun, 13 Mar 2022 19:07:30 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/mirrors-cn/</guid>
     <description><![CDATA[<p>国内开源软件镜像站收集，建议优先选择推荐的几个镜像站，也可直接访问<a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer">国内公网开源镜像</a>或<a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer">教育网开源镜像</a>。</p>]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>

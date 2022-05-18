@@ -35,7 +35,7 @@
 - `Pyroscope Server` *记录并聚合应用程序正在执行的操作，然后将该数据发送到 `Pyroscope` 服务器。*
 - `Pyroscope Agent` 处理、聚合和存储来自代理的数据，以实现任意时间范围内的快速查询。稍后，你可以查看在任何时间范围内的分析数据。
 
-![pyroscope-agents](/images/go/pyroscope-agents.jpeg)
+![pyroscope-agents](/images/go/pyroscope-agents.jpeg "pyroscope agents")
 
 ## Server 安装
 
@@ -257,7 +257,7 @@ func main() {
   - `html`
   - `flamegraph.com`
 
-![proscope-server-table-flamegraph](/images/go/proscope-server-table-flamegraph.png)
+![proscope-server-table-flamegraph](/images/go/proscope-server-table-flamegraph.png "proscope server table flamegraph")
 
 ## 参考
 

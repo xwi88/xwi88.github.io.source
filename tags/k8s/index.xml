@@ -8,8 +8,9 @@
     <title>Mac 使用 minikube 替换 Docker Desktop</title>
     <link>https://xwi88.com/mac-minikube-replace-docker-desktop/</link>
     <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/mac-minikube-replace-docker-desktop/</guid>
     <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a>。</p>]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>

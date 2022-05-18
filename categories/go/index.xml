@@ -8,22 +8,25 @@
     <title>Pyroscope Go 性能数据持续收集分析</title>
     <link>https://xwi88.com/pyroscope-continuous-profiling/</link>
     <pubDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/pyroscope-continuous-profiling/</guid>
     <description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer">Pyroscope</a></strong> 开放源码的性能持续分析平台。支持多种语言：<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code> 等，支持<strong>多平台</strong>，<strong>多种部署方式</strong>。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，<code>Push</code> 与 <code>Pull</code> 模式。可支持多种数据导出格式： <code>png</code>，<code>json</code>， <code>pprof</code>， <code>html</code>，<code>flamegraph.com</code>，可接入 <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer"><code>grafana</code></a> 展示。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Go 程序常用 kill 信号及捕获</title>
     <link>https://xwi88.com/go-kill-signal-catch/</link>
     <pubDate>Wed, 16 Mar 2022 01:30:10 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/go-kill-signal-catch/</guid>
     <description><![CDATA[<p>Go 程序常用 kill 信号及捕获， <em>MacOS</em> 下验证，基于 <code>go1.17.7</code>。</p>]]></description>
-</item><item>
+</item>
+<item>
     <title>Go 版本管理工具 gvm</title>
     <link>https://xwi88.com/go-vcs-gvm/</link>
     <pubDate>Tue, 08 Mar 2022 08:09:41 &#43;0800</pubDate>
-    <author>作者</author>
+    <author>xwi88</author>
     <guid>https://xwi88.com/go-vcs-gvm/</guid>
     <description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>
