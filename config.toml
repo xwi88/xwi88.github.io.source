@@ -103,7 +103,6 @@ enableEmoji = true
         url = "/favorite/"
         title = ""
         weight = 5
-     
     [languages.en.params]
       # site description
       description = "Tech Blog Share"
@@ -491,7 +490,7 @@ enableEmoji = true
 
       # you can add extra information after the name (HTML format is supported), such as icons
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-      post = "<i class='far fa-book fa'></i>"
+      post = "<i class='far fa-book fa-fw'></i>"
       # whether to use typeit animation for title name
       # 是否为标题显示打字机动画
       typeit = false
@@ -766,11 +765,9 @@ enableEmoji = true
         enable = true
         category = "Announcements" # Announcements, Comments
         lang = "en" # 保持 en, 只需要控制每篇文章的 url 不一样即可
-
         repo = "xwi88/hugo-comment" # Entering repo will enable giscus
         repo_id = "R_kgDOG7xEcg" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
         category_id = "DIC_kwDOG7xEcs4CN-KB" # query by GraphQL API, https://docs.github.com/en/graphql/overview/explorer
-
         mapping = "pathname"
         reactions_enabled = "0"
         emit_metadata = "0"

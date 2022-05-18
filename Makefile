@@ -39,9 +39,10 @@ prod:
 	@hugo server -w -e production
 run: prod
 
-# uglifyjs 3.15.2, shall not use npx babel will import npm module...
+# uglifyjs 3.15.2, shall not use npx babel will import npm module...; latest version, use theme.js in assets/js/theme.js, old is theme.min.js
 uglifyjs: 
-	@uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.min.js -c -m --source-map "url=theme.min.js.map,names=false,filename=theme.js,base='${BASEDIR}/assets/js'"
+	@uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.js -c -b
+	# @uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.min.js -c -m --source-map "url=theme.min.js.map,names=false,filename=theme.js,base='${BASEDIR}/assets/js'"
 	# @npx babel ${BASEDIR}/src/js/theme.js --out-file ${BASEDIR}/assets/js/theme.min.js --source-maps
 
 # dev & test use

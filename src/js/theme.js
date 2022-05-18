@@ -18,9 +18,9 @@ class Util {
 
     animateCSS(element, animation, reserved, callback) {
         if (!Array.isArray(animation)) animation = [animation];
-        element.classList.add('animated', ...animation);
+        element.classList.add('animate__animated', ...animation);
         const handler = () => {
-            element.classList.remove('animated', ...animation);
+            element.classList.remove('animate__animated', ...animation);
             element.removeEventListener('animationend', handler);
             if (typeof callback === 'function') callback();
         };
@@ -33,7 +33,6 @@ class Theme {
         this.config = window.config;
         this.data = this.config.data;
         this.isDark = document.body.getAttribute('theme') === 'dark';
-        this.HTMLlang = document.documentElement.lang;
         this.util = new Util();
         this.newScrollTop = this.util.getScrollTop();
         this.oldScrollTop = this.newScrollTop;
@@ -42,6 +41,12 @@ class Theme {
         this.switchThemeEventSet = new Set();
         this.clickMaskEventSet = new Set();
         if (window.objectFitImages) objectFitImages();
+    }
+
+    initRaw() {
+        this.util.forEach(document.querySelectorAll('[data-raw]'), $raw => {
+            $raw.innerHTML = this.data[$raw.id];
+        });
     }
 
     initSVGIcon() {
@@ -86,7 +91,6 @@ class Theme {
             $themeSwitch.addEventListener('click', () => {
                 if (document.body.getAttribute('theme') === 'dark') document.body.setAttribute('theme', 'light');
                 else document.body.setAttribute('theme', 'dark');
-
                 this.isDark = !this.isDark;
                 window.localStorage && localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
                 for (let event of this.switchThemeEventSet) event();
@@ -273,7 +277,7 @@ class Theme {
                     footer: ({}) => {
                         const { searchType, icon, href } = searchConfig.type === 'algolia' ? {
                             searchType: 'algolia',
-                            icon: '<i class="fab fa-algolia fa-fw"></i>',
+                            icon: '<i class="fab fa-algolia fa-fw" aria-hidden="true"></i>',
                             href: 'https://www.algolia.com/',
                         } : {
                             searchType: 'Lunr.js',
@@ -321,7 +325,19 @@ class Theme {
     }
 
     initLightGallery() {
-        if (this.config.lightGallery) lightGallery(document.getElementById('content'), this.config.lightGallery);
+        if (this.config.lightgallery) lightGallery(document.getElementById('content'), {
+            plugins: [lgThumbnail, lgZoom],
+            selector: '.lightgallery',
+            speed: 400,
+            hideBarsDelay: 2000,
+            allowMediaOverlap: true,
+            exThumbImage: 'data-thumbnail',
+            toggleThumb: true,
+            thumbWidth: 80,
+            thumbHeight: '60px',
+            actualSize: false,
+            showZoomInOutIcons: true,
+        });
     }
 
     initHighlight() {
@@ -347,20 +363,20 @@ class Theme {
                 $header.className = 'code-header ' + $code.className.toLowerCase();
                 const $title = document.createElement('span');
                 $title.classList.add('code-title');
-                $title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-right fa-fw"></i>');
+                $title.insertAdjacentHTML('afterbegin', '<i class="arrow fas fa-chevron-right fa-fw" aria-hidden="true"></i>');
                 $title.addEventListener('click', () => {
                     $chroma.classList.toggle('open');
                 }, false);
                 $header.appendChild($title);
                 const $ellipses = document.createElement('span');
-                $ellipses.insertAdjacentHTML('afterbegin', '<i class="fas fa-ellipsis-h fa-fw"></i>');
+                $ellipses.insertAdjacentHTML('afterbegin', '<i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i>');
                 $ellipses.classList.add('ellipses');
                 $ellipses.addEventListener('click', () => {
                     $chroma.classList.add('open');
                 }, false);
                 $header.appendChild($ellipses);
                 const $copy = document.createElement('span');
-                $copy.insertAdjacentHTML('afterbegin', '<i class="far fa-copy fa-fw"></i>');
+                $copy.insertAdjacentHTML('afterbegin', '<i class="far fa-copy fa-fw" aria-hidden="true"></i>');
                 $copy.classList.add('copy');
                 const code = $code.innerText;
                 if (this.config.code.maxShownLines < 0 || code.split('\n').length < this.config.code.maxShownLines + 2) $chroma.classList.add('open');
@@ -369,7 +385,7 @@ class Theme {
                     $copy.title = this.config.code.copyTitle;
                     const clipboard = new ClipboardJS($copy);
                     clipboard.on('success', _e => {
-                        this.util.animateCSS($code, 'flash');
+                        this.util.animateCSS($code, 'animate__flash');
                     });
                     $header.appendChild($copy);
                 }
@@ -399,7 +415,7 @@ class Theme {
     initToc() {
         const $tocCore = document.getElementById('TableOfContents');
         if ($tocCore === null) return;
-        if (document.getElementById('toc-static').getAttribute('kept') || this.util.isTocStatic()) {
+        if (document.getElementById('toc-static').getAttribute('data-kept') || this.util.isTocStatic()) {
             const $tocContentStatic = document.getElementById('toc-content-static');
             if ($tocCore.parentElement !== $tocContentStatic) {
                 $tocCore.parentElement.removeChild($tocCore);
@@ -421,7 +437,7 @@ class Theme {
             const $tocLinkElements = $tocCore.querySelectorAll('a:first-child');
             const $tocLiElements = $tocCore.getElementsByTagName('li');
             const $headerLinkElements = document.getElementsByClassName('headerLink');
-            const headerIsFixed = document.body.getAttribute('header-desktop') !== 'normal';
+            const headerIsFixed = document.body.getAttribute('data-header-desktop') !== 'normal';
             const headerHeight = document.getElementById('header-desktop').offsetHeight;
             const TOP_SPACING = 20 + (headerIsFixed ? headerHeight : 0);
             const minTocTop = $toc.offsetTop;
@@ -473,38 +489,46 @@ class Theme {
     }
 
     initMermaid() {
-        const $mermaidElements = document.getElementsByClassName('mermaid');
-        if ($mermaidElements.length) {
-            mermaid.initialize({startOnLoad: false, theme: 'null'});
-            this.util.forEach($mermaidElements, $mermaid => {
-                mermaid.mermaidAPI.render('svg-' + $mermaid.id, this.data[$mermaid.id], svgCode => {
-                    $mermaid.insertAdjacentHTML('afterbegin', svgCode);
-                }, $mermaid);
-            });
-        }
+        this._mermaidOnSwitchTheme = this._mermaidOnSwitchTheme || (() => {
+            const $mermaidElements = document.getElementsByClassName('mermaid');
+            if ($mermaidElements.length) {
+                mermaid.initialize({startOnLoad: false, theme: this.isDark ? 'dark' : 'neutral', securityLevel: 'loose'});
+                this.util.forEach($mermaidElements, $mermaid => {
+                    mermaid.render('svg-' + $mermaid.id, this.data[$mermaid.id], svgCode => {
+                        $mermaid.innerHTML = svgCode;
+                    }, $mermaid);
+                });
+            }
+        });
+        this.switchThemeEventSet.add(this._mermaidOnSwitchTheme);
+        this._mermaidOnSwitchTheme();
     }
 
     initEcharts() {
-        this._echartsOnSwitchTheme = this._echartsOnSwitchTheme || (() => {
-            this._echartsArr = this._echartsArr || [];
-            for (let i = 0; i < this._echartsArr.length; i++) {
-                this._echartsArr[i].dispose();
-            }
-            this._echartsArr = [];
-            this.util.forEach(document.getElementsByClassName('echarts'), $echarts => {
-                const chart = echarts.init($echarts, this.isDark ? 'dark' : 'macarons', {renderer: 'svg'});
-                chart.setOption(JSON.parse(this.data[$echarts.id]));
-                this._echartsArr.push(chart);
+        if (this.config.echarts) {
+            echarts.registerTheme('light', this.config.echarts.lightTheme);
+            echarts.registerTheme('dark', this.config.echarts.darkTheme);
+            this._echartsOnSwitchTheme = this._echartsOnSwitchTheme || (() => {
+                this._echartsArr = this._echartsArr || [];
+                for (let i = 0; i < this._echartsArr.length; i++) {
+                    this._echartsArr[i].dispose();
+                }
+                this._echartsArr = [];
+                this.util.forEach(document.getElementsByClassName('echarts'), $echarts => {
+                    const chart = echarts.init($echarts, this.isDark ? 'dark' : 'light', {renderer: 'svg'});
+                    chart.setOption(JSON.parse(this.data[$echarts.id]));
+                    this._echartsArr.push(chart);
+                });
             });
-        });
-        this.switchThemeEventSet.add(this._echartsOnSwitchTheme);
-        this._echartsOnSwitchTheme();
-        this._echartsOnResize = this._echartsOnResize || (() => {
-            for (let i = 0; i < this._echartsArr.length; i++) {
-                this._echartsArr[i].resize();
-            }
-        });
-        this.resizeEventSet.add(this._echartsOnResize);
+            this.switchThemeEventSet.add(this._echartsOnSwitchTheme);
+            this._echartsOnSwitchTheme();
+            this._echartsOnResize = this._echartsOnResize || (() => {
+                for (let i = 0; i < this._echartsArr.length; i++) {
+                    this._echartsArr[i].resize();
+                }
+            });
+            this.resizeEventSet.add(this._echartsOnResize);
+        }
     }
 
     initMapbox() {
@@ -620,28 +644,28 @@ class Theme {
                     iframe.contentWindow.postMessage(message, 'https://utteranc.es');
                 });
                 this.switchThemeEventSet.add(this._utterancesOnSwitchTheme);
-            };
+            }
 
             if (this.config.comment.giscus) {
                 const giscusConfig = this.config.comment.giscus;
-                const script = document.createElement('script');
-                var dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
-                script.src = 'https://giscus.app/client.js';
-                script.type = 'text/javascript';
-                script.setAttribute('data-repo', giscusConfig.repo);
-                script.setAttribute('data-repo-id', giscusConfig.repo_id);
-                script.setAttribute('data-category', giscusConfig.category);
-                script.setAttribute('data-category-id', giscusConfig.category_id);
-                script.setAttribute('data-mapping', giscusConfig.mapping);
-                script.setAttribute('data-reactions-enabled', giscusConfig.reactions_enabled);
-                script.setAttribute('data-emit-metadata', giscusConfig.emit_metadata);
-                script.setAttribute('data-input-position', giscusConfig.input_position);
-                script.setAttribute('data-lang', giscusConfig.lang);
-                if (giscusConfig.label) script.setAttribute('label', giscusConfig.label);
-                script.setAttribute('data-theme', dataTheme);
-                script.crossOrigin = 'anonymous';
-                script.async = true;
-                document.getElementById('giscus').appendChild(script);
+                const giscusScript = document.createElement('script');
+                let dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
+                giscusScript.src = 'https://giscus.app/client.js';
+                giscusScript.type = 'text/javascript';
+                giscusScript.setAttribute('data-repo', giscusConfig.repo);
+                giscusScript.setAttribute('data-repo-id', giscusConfig.repo_id);
+                giscusScript.setAttribute('data-category', giscusConfig.category);
+                giscusScript.setAttribute('data-category-id', giscusConfig.category_id);
+                giscusScript.setAttribute('data-mapping', giscusConfig.mapping);
+                giscusScript.setAttribute('data-reactions-enabled', giscusConfig.reactions_enabled);
+                giscusScript.setAttribute('data-emit-metadata', giscusConfig.emit_metadata);
+                giscusScript.setAttribute('data-input-position', giscusConfig.input_position);
+                giscusScript.setAttribute('data-lang', giscusConfig.lang);
+                if (giscusConfig.label) giscusScript.setAttribute('label', giscusConfig.label);
+                giscusScript.setAttribute('data-theme', dataTheme);
+                giscusScript.crossOrigin = 'anonymous';
+                giscusScript.async = true;
+                document.getElementById('giscus').appendChild(giscusScript);
                 this._giscusOnSwitchTheme = this._giscusOnSwitchTheme || (() => {
                     dataTheme = this.isDark ? giscusConfig.darkTheme : giscusConfig.lightTheme
                     const message = {
@@ -660,18 +684,14 @@ class Theme {
         }
     }
 
-    initSmoothScroll() {
-        if (SmoothScroll) new SmoothScroll('[href^="#"]', { speed: 300, speedAsDuration: true, header: '#header-desktop' });
-    }
-
     initCookieconsent() {
         if (this.config.cookieconsent) cookieconsent.initialise(this.config.cookieconsent);
     }
 
     onScroll() {
         const $headers = [];
-        if (document.body.getAttribute('header-desktop') === 'auto') $headers.push(document.getElementById('header-desktop'));
-        if (document.body.getAttribute('header-mobile') === 'auto') $headers.push(document.getElementById('header-mobile'));
+        if (document.body.getAttribute('data-header-desktop') === 'auto') $headers.push(document.getElementById('header-desktop'));
+        if (document.body.getAttribute('data-header-mobile') === 'auto') $headers.push(document.getElementById('header-mobile'));
         if (document.getElementById('comments')) {
             const $viewComments = document.getElementById('view-comments');
             $viewComments.href = `#comments`;
@@ -685,26 +705,26 @@ class Theme {
             const isMobile = this.util.isMobile();
             this.util.forEach($headers, $header => {
                 if (scroll > ACCURACY) {
-                    $header.classList.remove('fadeInDown');
-                    this.util.animateCSS($header, ['fadeOutUp', 'faster'], true);
+                    $header.classList.remove('animate__fadeInDown');
+                    this.util.animateCSS($header, ['animate__fadeOutUp', 'animate__faster'], true);
                 } else if (scroll < - ACCURACY) {
-                    $header.classList.remove('fadeOutUp');
-                    this.util.animateCSS($header, ['fadeInDown', 'faster'], true);
+                    $header.classList.remove('animate__fadeOutUp');
+                    this.util.animateCSS($header, ['animate__fadeInDown', 'animate__faster'], true);
                 }
             });
             if (this.newScrollTop > MINIMUM) {
                 if (isMobile && scroll > ACCURACY) {
-                    $fixedButtons.classList.remove('fadeIn');
-                    this.util.animateCSS($fixedButtons, ['fadeOut', 'faster'], true);
+                    $fixedButtons.classList.remove('animate__fadeIn');
+                    this.util.animateCSS($fixedButtons, ['animate__fadeOut', 'animate__faster'], true);
                 } else if (!isMobile || scroll < - ACCURACY) {
                     $fixedButtons.style.display = 'block';
-                    $fixedButtons.classList.remove('fadeOut');
-                    this.util.animateCSS($fixedButtons, ['fadeIn', 'faster'], true);
+                    $fixedButtons.classList.remove('animate__fadeOut');
+                    this.util.animateCSS($fixedButtons, ['animate__fadeIn', 'animate__faster'], true);
                 }
             } else {
                 if (!isMobile) {
-                    $fixedButtons.classList.remove('fadeIn');
-                    this.util.animateCSS($fixedButtons, ['fadeOut', 'faster'], true);
+                    $fixedButtons.classList.remove('animate__fadeIn');
+                    this.util.animateCSS($fixedButtons, ['animate__fadeOut', 'animate__faster'], true);
                 }
                 $fixedButtons.style.display = 'none';
             }
@@ -736,6 +756,7 @@ class Theme {
 
     init() {
         try {
+            this.initRaw();
             this.initSVGIcon();
             this.initTwemoji();
             this.initMenuMobile();
@@ -746,7 +767,6 @@ class Theme {
             this.initHighlight();
             this.initTable();
             this.initHeaderLink();
-            this.initSmoothScroll();
             this.initMath();
             this.initMermaid();
             this.initEcharts();
