@@ -20,7 +20,7 @@
 
     <article class="page single">
         {{- /* Title */ -}}
-        <h1 class="single-title animated flipInX">{{ .Title }}</h1>
+        <h1 class="single-title animate__animated animate__flipInX">{{ .Title | emojify }}</h1>
 
         {{- /* Subtitle */ -}}
         {{- with $params.subtitle -}}
@@ -56,13 +56,18 @@
                 {{- /* xwi88 config */ -}}
                 {{- if .Site.Params.xwi88Cfg.page.update -}}
                     {{- with .Site.Params.dateformat | default "2006-01-02" | .Lastmod.Format -}}
-                    <i class="far fa-calendar-check fa-fw"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
+                    <i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="{{ . }}">{{ . }}</time>&nbsp;
                     {{- end -}}
                 {{- end -}}
                 
-                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;{{ T "wordCount" .WordCount }}&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;{{ T "readingTime" .ReadingTime }}&nbsp;
-
+                <i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;{{ T "wordCount" .WordCount }}&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;{{ T "readingTime" .ReadingTime }}&nbsp;
+                {{- $comment := .Scratch.Get "comment" | default dict -}}
+                {{- if $comment.enable | and $comment.valine.enable | and $comment.valine.visitor -}}
+                    <span id="{{ .RelPermalink }}" class="leancloud_visitors" data-flag-title="{{ .Title }}">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;{{ T "views" }}
+                    </span>&nbsp;
+                {{- end -}}
                 {{- /* busuanzi plugin */ -}}
                 {{- partial "plugin/busuanzi.html" (dict "params" .Site.Params.xwi88Cfg.busuanzi "bsz_type" "page-reading") -}}
             </div>
