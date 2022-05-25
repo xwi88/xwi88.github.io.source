@@ -6,7 +6,7 @@
 		"assets/css/style.scss",
 		"themes/LoveIt/assets/lib/normalize/normalize.css",
 		"themes/LoveIt/assets/css/_variables.scss",
-		"assets/css/_override.scss",
+		"themes/LoveIt/assets/css/_override.scss",
 		"themes/LoveIt/assets/css/_core/_variables.scss",
 		"themes/LoveIt/assets/css/_mixin/_index.scss",
 		"themes/LoveIt/assets/css/_mixin/_compatibility.scss",
@@ -43,7 +43,7 @@
 		"themes/LoveIt/assets/css/_core/_footer.scss",
 		"themes/LoveIt/assets/css/_core/_pagination.scss",
 		"themes/LoveIt/assets/css/_core/_media.scss",
-		"assets/css/_custom.scss",
+		"themes/LoveIt/assets/css/_custom.scss",
 		"assets/css/favorite.scss"
 	],
 	"sourcesContent": [
