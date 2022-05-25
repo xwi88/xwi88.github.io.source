@@ -4,7 +4,15 @@
         <link>https://xwi88.com/posts/</link>
         <description>所有文章 | Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 08:55:28 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Kafka Consumer Group Usage</title>
+    <link>https://xwi88.com/go-kafka-consumer-group-usage/</link>
+    <pubDate>Wed, 25 May 2022 08:55:28 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/go-kafka-consumer-group-usage/</guid>
+    <description><![CDATA[<p>本文基于 <code>Go 1.18</code>、<code>Kafka 2.4.1</code>， 利用 <code>Kafka Consumer Group</code> 进行消息消费，提供了最佳范例及部分配置建议，减少因 <code>Rebalance</code> 引起的 <code>timeout</code> 问题发生。</p>]]></description>
+</item>
+<item>
     <title>Pyroscope Go 性能数据持续收集分析</title>
     <link>https://xwi88.com/pyroscope-continuous-profiling/</link>
     <pubDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>xwi88</author>
     <guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid>
     <description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description>
-</item>
-<item>
-    <title>Go 版本管理工具 gvm</title>
-    <link>https://xwi88.com/go-vcs-gvm/</link>
-    <pubDate>Tue, 08 Mar 2022 08:09:41 &#43;0800</pubDate>
-    <author>xwi88</author>
-    <guid>https://xwi88.com/go-vcs-gvm/</guid>
-    <description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>]]></description>
 </item>
 </channel>
 </rss>

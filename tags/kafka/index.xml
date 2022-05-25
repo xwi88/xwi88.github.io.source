@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>kafka - 标签 - Coding Life Share</title>
+        <link>https://xwi88.com/tags/kafka/</link>
+        <description>kafka - 标签 - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 08:55:28 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/kafka/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Kafka Consumer Group Usage</title>
+    <link>https://xwi88.com/go-kafka-consumer-group-usage/</link>
+    <pubDate>Wed, 25 May 2022 08:55:28 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/go-kafka-consumer-group-usage/</guid>
+    <description><![CDATA[<p>本文基于 <code>Go 1.18</code>、<code>Kafka 2.4.1</code>， 利用 <code>Kafka Consumer Group</code> 进行消息消费，提供了最佳范例及部分配置建议，减少因 <code>Rebalance</code> 引起的 <code>timeout</code> 问题发生。</p>]]></description>
+</item>
+</channel>
+</rss>

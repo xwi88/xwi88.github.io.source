@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go Kafka Consumer Group Usage - Coding Life Share</title><meta name="Description" content="Go Kafka consumer group 使用示例及注意事项"><meta property="og:title" content="Go Kafka Consumer Group Usage" />
+<meta property="og:description" content="Go Kafka consumer group 使用示例及注意事项" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/go-kafka-consumer-group-usage/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-25T08:55:28+08:00" />
+<meta property="article:modified_time" content="2022-05-25T11:54:05+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Go Kafka Consumer Group Usage"/>
+<meta name="twitter:description" content="Go Kafka consumer group 使用示例及注意事项"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/go-kafka-consumer-group-usage/" /><link rel="prev" href="https://xwi88.com/pyroscope-continuous-profiling/" /><link rel="stylesheet" href="/css/style.min.f706a93e7835064cd58e9919b10c1ca321038b4365a0bc00339ba8993afc2d33.css" integrity="sha256-9wapPng1BkzVjpkZsQwcoyEDi0NloLwAM5uomTr8LTM="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go Kafka Consumer Group Usage",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/go-kafka-consumer-group-usage\/"
+        },"genre": "posts","keywords": "go, kafka","wordcount":  2043 ,
+        "url": "https:\/\/xwi88.com\/go-kafka-consumer-group-usage\/","datePublished": "2022-05-25T08:55:28+08:00","dateModified": "2022-05-25T11:54:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  1280 ,
+                    "height":  1685 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "Go Kafka consumer group 使用示例及注意事项"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/go-kafka-consumer-group-usage/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='far fa-book fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/go-kafka-consumer-group-usage/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go Kafka Consumer Group Usage</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-05-25">2022-05-25</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-25">2022-05-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2043 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#consumer-group">Consumer Group</a></li>
+    <li><a href="#rebalance">Rebalance</a></li>
+    <li><a href="#go-consumer-group">GO Consumer Group</a>
+      <ul>
+        <li><a href="#consumergroup-接口及说明">ConsumerGroup 接口及说明</a></li>
+        <li><a href="#consumergroup-demo">ConsumerGroup Demo</a></li>
+      </ul>
+    </li>
+    <li><a href="#部分配置参数说明">部分配置参数说明</a></li>
+    <li><a href="#参数配置建议">参数配置建议</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>本文基于 <code>Go 1.18</code>、<code>Kafka 2.4.1</code>， 利用 <code>Kafka Consumer Group</code> 进行消息消费，提供了最佳范例及部分配置建议，减少因 <code>Rebalance</code> 引起的 <code>timeout</code> 问题发生。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="consumer-group">Consumer Group</h2>
+<p><code>consumer group</code> 是 <code>kafka</code> 提供的可扩展且具有容错性的消费者机制。具有一些特性:</p>
+<ul>
+<li><code>consumer group</code> 由<strong>一个或多个</strong> <code>consumer</code> 组成，它们共同消费<strong>一个或多个</strong> <code>topic</code> 中的消息</li>
+<li><code>consumer group</code> 由 <code>group ID</code> 唯一标识，组内消费者共享 <code>group ID</code></li>
+<li>一个 <code>topic</code> 的每个分区只能被同一个消费者组中的一个 <code>consumer</code> 消费，但可以被不同组中的消费者进行消费</li>
+</ul>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>分区数应大于消费者个数，消费能力不足时可以考虑增加消费者个数</li>
+<li>当单纯提升消费者个数不能显著增加消费能力时，考虑优化你的消费处理逻辑</li>
+<li>消费者个数必须进行限制，避免 <code>rebalance</code> 耗时过长</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="rebalance">Rebalance</h2>
+<p>分区的重平衡 (<code>Rebalance</code>) 是 <code>Kafka</code> 一个很重要特性，它可以保证系统的高可用和系统的水平扩展。以下几种情况会触发 <code>Kafka</code> 发生重平衡。</p>
+<ul>
+<li>消费者组成员变化:
+<ul>
+<li><strong>新消费者加入</strong></li>
+<li><em>老消费者离开</em>: 主动离开，主动 <code>rebalance</code></li>
+<li><em>老消费者故障离开或崩溃</em>: 超过一定时间未发送心跳，可被视为宕机，需要在一个 <code>session.timeout</code> 周期才能检测到，被动 <code>rebalance</code></li>
+</ul>
+</li>
+<li>订阅的 <code>topic</code> 数量变化: 如通过正则方式进行订阅，所匹配 <code>topic</code> 的数量变化</li>
+<li>订阅的 <code>topic</code> 分区数变化</li>
+</ul>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>优点: 可以保证高可用性和扩展性</li>
+<li>缺点: 重平衡期间，整个消费者组不可用；重平衡会导致消费者需要更新状态，原消费者状态过期，降低消费者能力</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="go-consumer-group">GO Consumer Group</h2>
+<h3 id="consumergroup-接口及说明">ConsumerGroup 接口及说明</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ConsumerGroup is responsible for dividing up processing of topics and partitions
+</span></span></span><span class="line"><span class="cl"><span class="c1">// over a collection of processes (the members of the consumer group).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Consume joins a cluster of consumers for a given list of topics and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// starts a blocking ConsumerGroupSession through the ConsumerGroupHandler.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// The life-cycle of a session is represented by the following steps:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 1. The consumers join the group (as explained in https://kafka.apache.org/documentation/#intro_consumers)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    and is assigned their &#34;fair share&#34; of partitions, aka &#39;claims&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 2. Before processing starts, the handler&#39;s Setup() hook is called to notify the user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    of the claims and allow any necessary preparation or alteration of state.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 3. For each of the assigned claims the handler&#39;s ConsumeClaim() function is then called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    in a separate goroutine which requires it to be thread-safe. Any state must be carefully protected
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    from concurrent reads/writes.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 4. The session will persist until one of the ConsumeClaim() functions exits. This can be either when the
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    parent context is canceled or when a server-side rebalance cycle is initiated.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 5. Once all the ConsumeClaim() loops have exited, the handler&#39;s Cleanup() hook is called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    to allow the user to perform any final tasks before a rebalance.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 6. Finally, marked offsets are committed one last time before claims are released.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Please note, that once a rebalance is triggered, sessions must be completed within
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Config.Consumer.Group.Rebalance.Timeout. This means that ConsumeClaim() functions must exit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// as quickly as possible to allow time for Cleanup() and the final offset commit. If the timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// is exceeded, the consumer will be removed from the group by Kafka, which will cause offset
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// commit failures.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// This method should be called inside an infinite loop, when a
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// server-side rebalance happens, the consumer session will need to be
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// recreated to get the new claims.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Consume</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Errors returns a read channel of errors that occurred during the consumer life-cycle.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// By default, errors are logged and not returned over this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// If you want to implement any custom error handling, set your config&#39;s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Consumer.Return.Errors setting to true, and read from this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Errors</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Close stops the ConsumerGroup and detaches any running sessions. It is required to call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// this function before the object passes out of scope, as it will otherwise leak memory.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">kafka</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/Shopify/sarama&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/pkg/errors&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">consumerGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span>           <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">groupId</span>       <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">brokers</span>       <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">done</span>          <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cancel</span>        <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">groupId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">brokers</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="nx">ConsumerGroup</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConfig</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Version</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">V2_4_1_0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Return</span><span class="p">.</span><span class="nx">Errors</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Net</span><span class="p">.</span><span class="nx">ReadTimeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">75</span>                  <span class="c1">// default 30s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">60</span> <span class="c1">// default 60s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Session</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">45</span>   <span class="c1">// default 10s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Heartbeat</span><span class="p">.</span><span class="nx">Interval</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span> <span class="c1">// default 3s, must &lt;= 1/3 * Group.Session.Timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Strategy</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">BalanceStrategySticky</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">MaxWaitTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">250</span> <span class="c1">// default 250ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Retry</span><span class="p">.</span><span class="nx">Backoff</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">2</span>      <span class="c1">// default 2s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">brokers</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nf">Wrap</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;consumerGroup create err&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">err</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cg</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup, group_id:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">consumerGroup</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ctx</span><span class="p">:</span>           <span class="nx">ctx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">consumerGroup</span><span class="p">:</span> <span class="nx">cg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">groupId</span><span class="p">:</span>       <span class="nx">groupId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">brokers</span><span class="p">:</span>       <span class="nx">brokers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">done</span><span class="p">:</span>          <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">cancel</span><span class="p">:</span>        <span class="nx">cancel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">err</span> <span class="o">:=</span> <span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}(</span><span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">Loop</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Consume</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">switch</span> <span class="nx">err</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedClient</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedConsumerGroup</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, shutdown with err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;session exit after close signal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server-side reBalance happens, consumer session exit, will recreated&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span><span class="p">.</span><span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup close error, %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup exit gracefully&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="部分配置参数说明">部分配置参数说明</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
+<li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
+<li><code>Group.Session.Timeout</code>: The timeout used to detect consumer failures when using Kafka&rsquo;s group management facility. The consumer sends periodic heartbeats to indicate its liveness to the broker. If no heartbeats are received by the broker before the expiration of this session timeout, then the broker will remove this consumer from the group and initiate a rebalance. Note that the value must be in the allowable range as configured in the broker configuration by <code>group.min.session.timeout.ms</code> and <code>group.max.session.timeout.ms</code> (default 10s)</li>
+<li><code>Group.Heartbeat.Interval</code>: The expected time between heartbeats to the consumer coordinator when using Kafka&rsquo;s group management facilities. Heartbeats are used to ensure that the consumer&rsquo;s session stays active and to facilitate rebalancing when new consumers join or leave the group. The value must be set lower than Consumer.Group.Session.Timeout, but typically should be set no higher than 1/3 of that value.</li>
+<li><code>Group.Rebalance.Strategy</code>: Strategy for allocating topic partitions to members (default BalanceStrategyRange), [&ldquo;range&rdquo;, &ldquo;roundrobin&rdquo;, &ldquo;sticky&rdquo;]</li>
+<li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
+<li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
+</ul>
+<h2 id="参数配置建议">参数配置建议</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: 默认值 <code>30s</code>，如果消费者常出现 <code>read tcp xxx i/o timeout</code> 可考虑增大此值
+<ul>
+<li><code>&gt; session.timeout</code></li>
+<li><code>&gt; rebalance.timeout</code></li>
+</ul>
+</li>
+<li><code>Group.Rebalance.Timeout</code>: 默认值 <code>60s</code>，如果消费者较多可考虑增大此值；对于 <code>TPS</code> 较低的主题可以适当降低此值</li>
+<li><code>Group.Session.Timeout</code>: 默认值 <code>10s</code>，消费者未上报心跳超过此时间则认为宕机，触发 <code>rebalance</code>
+<ul>
+<li><code>shall &gt;= 1/3 * Group.Heartbeat.Interval</code></li>
+</ul>
+</li>
+<li><code>Group.Heartbeat.Interval</code>: 默认值 <code>3s</code> 消费者心跳上报间隔</li>
+<li><code>Group.Rebalance.Strategy</code>: rebalance 策略
+<ul>
+<li><code>range</code>: default，<em>针对每一个 topic，n=分区数/消费者数量, m=分区数%消费者数量，前 m 个消费者每个分配 n+1 个分区，后面的 （消费者数量-m）个消费者每个分配 n 个分区</em></li>
+<li><code>roundrobin</code>: 将消费组内所有消费者以及消费者所订阅的所有 <code>topic</code> 的 <code>partition</code> 按照字典序排序，然后通过轮询方式逐个将分区以此分配给每个消费者</li>
+<li><code>sticky</code>: <strong>粘性策略</strong>，尽可能保证消费者消费数据均匀
+<ul>
+<li>分区的分配要尽可能的均匀，分配给消费者者的主题分区数最多相差一个</li>
+<li>分区的分配尽可能的与上次分配的保持相同</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>MaxWaitTime</code>: 默认值 <code>250ms</code>，最多等待此时间或数据达到 <code>fetch.min.bytes</code> 后发送数据给消费者</li>
+<li><code>Retry.Backoff</code>: 默认值 <code>2s</code></li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-05-25&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/6a6941caee176e5d0d1cc7af42ca4e4b8f5786f8" target="_blank" title="commit by xwi88(278810732@qq.com) 6a6941caee176e5d0d1cc7af42ca4e4b8f5786f8: go-kafka-consumer-group-usage">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>6a6941c</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/go-kafka-consumer-group-usage/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/go-kafka-consumer-group-usage/" data-title="Go Kafka Consumer Group Usage" data-via="xwi88" data-hashtags="go,kafka"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/go-kafka-consumer-group-usage/" data-hashtag="go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/go-kafka-consumer-group-usage/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/go-kafka-consumer-group-usage/" data-title="Go Kafka Consumer Group Usage"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/go-kafka-consumer-group-usage/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/go-kafka-consumer-group-usage/" data-title="Go Kafka Consumer Group Usage"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">go</a>,&nbsp;<a href="/tags/kafka/">kafka</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/pyroscope-continuous-profiling/" class="prev" rel="prev" title="Pyroscope Go 性能数据持续收集分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Pyroscope Go 性能数据持续收集分析</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","category_id":"DIC_kwDOG7xEcs4CN-KB","crossorigin":"anonymous","darkTheme":"dark","emit_metadata":"0","input_position":"top","lang":"en","lightTheme":"light","mapping":"pathname","reactions_enabled":"0","repo":"xwi88/hugo-comment","repo_id":"R_kgDOG7xEcg"}},"lightgallery":true,"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.0ec808c50d6167e10aa247705c3592842ca7ca29c70aef440bfa880fdbe90551.js" integrity="sha256-DsgIxQ1hZ+EKokdwXDWShCynyinHCu9EC/qID9vpBVE="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>
