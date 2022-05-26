@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>github - 标签 - Coding Life Share</title>
+        <link>https://xwi88.com/tags/github/</link>
+        <description>github - 标签 - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/github/" rel="self" type="application/rss+xml" /><item>
+    <title>Hugo Plugin Giscus Support</title>
+    <link>https://xwi88.com/hugo-plugin-giscus-support/</link>
+    <pubDate>Mon, 07 Mar 2022 23:46:10 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/hugo-plugin-giscus-support/</guid>
+    <description><![CDATA[<p>Hugo 评论插件用了几个感觉好用的还是 <strong>utterances</strong> 与 <strong>giscus</strong>，前者功能太过单，最新的基于 <em>github discussion</em> 的 <strong>giscus</strong> 使用体验非常不错。本文基于个人实验验证，旨在为需要的人提供方便。</p>]]></description>
+</item>
+</channel>
+</rss>

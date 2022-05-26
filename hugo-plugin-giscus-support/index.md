@@ -64,6 +64,8 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 - **category** 一般为 **Announcements**, 或者根据需要选择其他的，务必保证与 **category-id** 一致！
 - *mapping* 根据你的需要填写，一般选择 **pathname**
 
+![github-graphql-discussion-query](/images/screen_img/github-graphql-discussion.png "github graphql discussion query")
+
 >经过以上步骤，我们就可以轻松的使用此插件了，但是如果要将其嵌入到当前使用的模板中还需要做一些特殊的处理。
 
 ### 主题修改支持 **giscus**
