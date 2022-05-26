@@ -2,11 +2,11 @@
 url: "hugo-plugin-giscus-support"
 title: "Hugo Plugin Giscus Support"
 date: 2022-03-07T23:46:10+08:00
-lastmod: 2022-04-22T18:00:00+08:00
+lastmod: 2022-05-26T08:20:00+08:00
 draft: false
 
 description: "Hugo 评论插件 giscus 的集成与支持"
-tags: ["hugo-plugin"]
+tags: ["hugo-plugin", "github"]
 categories: ["hugo"]
 
 toc:
@@ -75,6 +75,8 @@ Hugo 评论插件用了几个感觉好用的还是 **utterances** 与 **giscus**
 - **repo-id**, **category-id** [github graphql api](https://docs.github.com/en/graphql/overview/explorer)
 - **category** 一般为 **Announcements**, 或者根据需要选择其他的，务必保证与 **category-id** 一致！
 - *mapping* 根据你的需要填写，一般选择 **pathname**
+
+![github-graphql-discussion-query](/images/screen_img/github-graphql-discussion.png "github graphql discussion query")
 
 >经过以上步骤，我们就可以轻松的使用此插件了，但是如果要将其嵌入到当前使用的模板中还需要做一些特殊的处理。
 
