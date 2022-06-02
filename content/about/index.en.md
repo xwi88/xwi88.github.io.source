@@ -1,7 +1,7 @@
 ---
 title: "About xwi88"
 date: 2022-02-28T00:00:00+08:00
-lastmod: 2022-03-13T16:00:00+08:00
+lastmod: 2022-06-02T19:25:00+08:00
 draft: false
 
 lightgallery: true
@@ -13,6 +13,25 @@ comment: false
 ---
 
 >Gopher, open source contributor, back-end development. Internet education, blockchain, advertising and other industries for many years.
+
+## Github Stats
+
+<table>
+  <thead style="background:none;">
+    <tr>
+      <th style="border:0px;">
+        <a href="https://github.com/xwi88">
+          <img align="center" src="https://github-readme-stats.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
+        </a>
+      </th>
+      <th style="border:0px;">
+        <a href="https://github.com/xwi88">
+          <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
+        </a>
+      </th>
+    </tr>
+  </thead>
+</table>
 
 ## Open Source
 
