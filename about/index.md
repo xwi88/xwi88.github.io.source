@@ -3,6 +3,16 @@
 
 >Gopher，开源贡献者，后端研发。互联网教育、区块链、广告投放等行业多年从业者。
 
+## Github 统计
+
+<a href="https://github.com/xwi88">
+  <img align="center" src="https://github-readme-stats.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=cn" />
+</a>
+
+<a href="https://github.com/xwi88">
+  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=cn&layout=compact" />
+</a>
+
 ## 开源
 
 - **[docker-compose-resources](https://github.com/v8fg/docker-compose-resources)** **常用基础镜像封装发布**
