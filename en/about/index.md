@@ -5,13 +5,22 @@
 
 ## Github Stats
 
-<a href="https://github.com/xwi88">
-  <img align="center" src="https://github-readme-stats.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
-</a>
-
-<a href="https://github.com/xwi88">
-  <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
-</a>
+<table>
+  <thead style="background:none;">
+    <tr>
+      <th style="border:0px;">
+        <a href="https://github.com/xwi88">
+          <img align="center" src="https://github-readme-stats.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
+        </a>
+      </th>
+      <th style="border:0px;">
+        <a href="https://github.com/xwi88">
+          <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
+        </a>
+      </th>
+    </tr>
+  </thead>
+</table>
 
 ## Open Source
 
