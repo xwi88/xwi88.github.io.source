@@ -4,9 +4,17 @@
         <link>https://xwi88.com/</link>
         <description>技术 博客 分享</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 08:55:28 &#43;0800</lastBuildDate>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</lastBuildDate>
             <atom:link href="https://xwi88.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Go 对象池使用及优化-理论篇</title>
+    <link>https://xwi88.com/go-object-pool-usage-tips-theory/</link>
+    <pubDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/go-object-pool-usage-tips-theory/</guid>
+    <description><![CDATA[<p>Go 对象池用于<code>临时对象</code>重用，可以<code>减少对象频繁创建</code>造成的资源浪费，即<code>减少GC开销</code>及内存占用等，在一定程度上提升程序性能，降低服务成本。本文基于 <code>go1.18.2</code> ，给出对象池使用场景、<strong>处理流程及注意事项</strong>、开源示例、个人实例(包括<code>GRPC</code> 下对象池的使用)及最佳实践。</p>]]></description>
+</item>
+<item>
     <title>Go Kafka Consumer Group Usage</title>
     <link>https://xwi88.com/go-kafka-consumer-group-usage/</link>
     <pubDate>Wed, 25 May 2022 08:55:28 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>xwi88</author>
     <guid>https://xwi88.com/git-common-config/</guid>
     <description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer"><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>]]></description>
-</item>
-<item>
-    <title>Git 使用 GPG 对提交进行签名认证</title>
-    <link>https://xwi88.com/git-sign-tags-commits-with-gpg/</link>
-    <pubDate>Wed, 09 Mar 2022 12:31:34 &#43;0800</pubDate>
-    <author>xwi88</author>
-    <guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid>
-    <description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description>
 </item>
 </channel>
 </rss>

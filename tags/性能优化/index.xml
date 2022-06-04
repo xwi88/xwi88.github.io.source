@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>性能优化 - 标签 - Coding Life Share</title>
+        <link>https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+        <description>性能优化 - 标签 - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="self" type="application/rss+xml" /><item>
+    <title>Go 对象池使用及优化-理论篇</title>
+    <link>https://xwi88.com/go-object-pool-usage-tips-theory/</link>
+    <pubDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/go-object-pool-usage-tips-theory/</guid>
+    <description><![CDATA[<p>Go 对象池用于<code>临时对象</code>重用，可以<code>减少对象频繁创建</code>造成的资源浪费，即<code>减少GC开销</code>及内存占用等，在一定程度上提升程序性能，降低服务成本。本文基于 <code>go1.18.2</code> ，给出对象池使用场景、<strong>处理流程及注意事项</strong>、开源示例、个人实例(包括<code>GRPC</code> 下对象池的使用)及最佳实践。</p>]]></description>
+</item>
+</channel>
+</rss>
