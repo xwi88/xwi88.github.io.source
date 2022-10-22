@@ -1,7 +1,7 @@
 ---
 title: "关于我"
 date: 2022-02-28T00:00:00+08:00
-lastmod: 2022-06-02T19:25:00+08:00
+lastmod: 2022-10-22T12:20:00+08:00
 draft: false
 
 lightgallery: true
@@ -36,6 +36,7 @@ comment: false
 ## 开源
 
 - **[docker-compose-resources](https://github.com/v8fg/docker-compose-resources)** **常用基础镜像封装发布**
+- **[kit4go](https://github.com/v8fg/kit4go)** *go common utils*
 - **[log4go](https://github.com/xwi88/log4go)** *go simple log pkg*
 - **[gp](https://github.com/xwi88/gp)** *go predict with tensorflow*
 - **[collectd](https://github.com/v8fg/collectd)** *docker 内存及 cpu 信息收集*
