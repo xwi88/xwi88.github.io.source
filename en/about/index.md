@@ -25,6 +25,7 @@
 ## Open Source
 
 - **[docker-compose-resources](https://github.com/v8fg/docker-compose-resources)** **common docker images and build, run, push scripts**
+- **[kit4go](https://github.com/v8fg/kit4go)** *go common utils*
 - **[log4go](https://github.com/xwi88/log4go)** *go simple log pkg*
 - **[gp](https://github.com/xwi88/gp)** *go predict with tensorflow*
 - **[collectd](https://github.com/v8fg/collectd)** *docker memory and cpu info collect*

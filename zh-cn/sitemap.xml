@@ -2,7 +2,7 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://xwi88.com/categories/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/categories/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/categories/"
@@ -11,7 +11,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/categories/"
                     /></url><url>
-            <loc>https://xwi88.com/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/"
@@ -20,10 +20,12 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/go/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/categories/go/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/go-object-pool-usage-tips-theory/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/posts/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/go/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/categories/go/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/go-otp-totp-hotp/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/golang/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/otp/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/posts/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/posts/"
@@ -32,7 +34,8 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/posts/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/security/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://xwi88.com/tags/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/tags/"
@@ -41,18 +44,18 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/tags/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/go-kafka-consumer-group-usage/</loc><lastmod>2022-05-25T11:54:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://xwi88.com/tags/kafka/</loc><lastmod>2022-05-25T11:54:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://xwi88.com/tags/profiling/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://xwi88.com/pyroscope-continuous-profiling/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://xwi88.com/go-object-pool-usage-tips-theory/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</loc><lastmod>2022-06-04T20:13:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/go-kafka-consumer-group-usage/</loc><lastmod>2022-05-25T11:54:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/tags/kafka/</loc><lastmod>2022-05-25T11:54:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/tags/profiling/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/pyroscope-continuous-profiling/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/cheat-sheet/</loc><lastmod>2022-03-20T01:38:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/docker/</loc><lastmod>2022-03-30T13:30:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/cheat-sheet-docker-related/</loc><lastmod>2022-03-20T01:38:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/categories/docker/</loc><lastmod>2022-03-30T13:30:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/dockerfile-cheat-sheet-demo/</loc><lastmod>2022-03-19T17:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/go-kill-signal-catch/</loc><lastmod>2022-03-17T00:51:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://xwi88.com/tags/golang/</loc><lastmod>2022-03-17T00:51:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/signal/</loc><lastmod>2022-03-17T00:51:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/mirror/</loc><lastmod>2022-03-13T19:19:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/resources/</loc><lastmod>2022-03-13T19:19:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -86,8 +89,8 @@
             <loc>https://xwi88.com/git-sign-tags-commits-with-gpg/</loc><lastmod>2022-03-20T14:29:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/gpg/</loc><lastmod>2022-03-20T14:29:04&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/go-vcs-gvm/</loc><lastmod>2022-03-08T12:41:03&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://xwi88.com/tags/github/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://xwi88.com/categories/hugo/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+            <loc>https://xwi88.com/tags/github/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/categories/hugo/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/categories/hugo/"
@@ -96,8 +99,8 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/categories/hugo/"
                     /></url><url>
-            <loc>https://xwi88.com/hugo-plugin-giscus-support/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://xwi88.com/tags/hugo-plugin/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+            <loc>https://xwi88.com/hugo-plugin-giscus-support/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/tags/hugo-plugin/</loc><lastmod>2022-05-26T08:23:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/tags/hugo-plugin/"
@@ -106,7 +109,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/tags/hugo-plugin/"
                     /></url><url>
-            <loc>https://xwi88.com/hugo-plugin-busuanzi/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://xwi88.com/hugo-plugin-busuanzi/</loc><lastmod>2022-05-18T20:06:19&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/hugo-plugin-busuanzi/"
@@ -124,7 +127,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/hugo-plugin-utterances-usage/"
                     /></url><url>
-            <loc>https://xwi88.com/about/</loc><lastmod>2022-06-02T19:05:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/about/</loc><lastmod>2022-10-22T12:21:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/about/"

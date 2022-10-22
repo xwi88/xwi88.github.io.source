@@ -4,7 +4,15 @@
         <link>https://xwi88.com/tags/go/</link>
         <description>go - 标签 - Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/go/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/go/" rel="self" type="application/rss+xml" /><item>
+    <title>Go OTP TOTP HOTP</title>
+    <link>https://xwi88.com/go-otp-totp-hotp/</link>
+    <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/go-otp-totp-hotp/</guid>
+    <description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">kit4go/otp</a>。</p>]]></description>
+</item>
+<item>
     <title>Go 对象池使用及优化-理论篇</title>
     <link>https://xwi88.com/go-object-pool-usage-tips-theory/</link>
     <pubDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</pubDate>

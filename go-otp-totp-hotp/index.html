@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go OTP TOTP HOTP - Coding Life Share</title><meta name="Description" content="Go 动态令牌 otp totp hotp"><meta property="og:title" content="Go OTP TOTP HOTP" />
+<meta property="og:description" content="Go 动态令牌 otp totp hotp" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/go-otp-totp-hotp/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-22T12:09:20+08:00" />
+<meta property="article:modified_time" content="2022-10-22T12:21:29+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="Go OTP TOTP HOTP"/>
+<meta name="twitter:description" content="Go 动态令牌 otp totp hotp"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/go-otp-totp-hotp/" /><link rel="prev" href="https://xwi88.com/go-object-pool-usage-tips-theory/" /><link rel="stylesheet" href="/css/style.min.f706a93e7835064cd58e9919b10c1ca321038b4365a0bc00339ba8993afc2d33.css" integrity="sha256-9wapPng1BkzVjpkZsQwcoyEDi0NloLwAM5uomTr8LTM="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go OTP TOTP HOTP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/go-otp-totp-hotp\/"
+        },"genre": "posts","keywords": "go, golang, otp, security","wordcount":  1005 ,
+        "url": "https:\/\/xwi88.com\/go-otp-totp-hotp\/","datePublished": "2022-10-22T12:09:20+08:00","dateModified": "2022-10-22T12:21:29+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  725 ,
+                    "height":  967 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "Go 动态令牌 otp totp hotp"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/go-otp-totp-hotp/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/go-otp-totp-hotp/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go OTP TOTP HOTP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-22">2022-10-22</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-22">2022-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1005 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概念">概念</a></li>
+    <li><a href="#使用场景">使用场景</a></li>
+    <li><a href="#产品">产品</a></li>
+    <li><a href="#原理">原理</a>
+      <ul>
+        <li><a href="#otp">OTP</a></li>
+        <li><a href="#totp">TOTP</a></li>
+        <li><a href="#hotp">HOTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现参考">实现参考</a></li>
+    <li><a href="#使用">使用</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">kit4go/otp</a>。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="概念">概念</h2>
+<ul>
+<li>OTP: One-Time Password.
+<ul>
+<li>一次性密码</li>
+</ul>
+</li>
+<li>TOTP: Time-based One-time Password Algorithm (TOTP) (RFC 6238): Time based OTP, the most commonly used method.
+<ul>
+<li>基于时间戳算法生成的一次性密码，使用最广泛</li>
+<li>基于私钥及当前时间生成</li>
+<li>一般每30秒或60秒产生一个新口令</li>
+<li>需要客户端与服务器保持较精确的时钟</li>
+</ul>
+</li>
+<li>HOTP: HMAC-based One-time Password Algorithm (HOTP) (RFC 4226): Counter based OTP, which TOTP is based upon.
+<ul>
+<li>基于<code>HMAC</code>算法生成的一次性密码</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用场景">使用场景</h2>
+<ul>
+<li>服务器登录动态密码验证（云服务器登录, 企业管理平台登录等）</li>
+<li>github, twitter, google 登录双因素认证</li>
+<li>公司内网代理登录双因素验证</li>
+<li>银行转账动态密码</li>
+<li>网银、网络游戏的实体动态口令牌</li>
+<li>双因素认证<code>2FA</code>，多因素认证<code>MFA</code>等</li>
+</ul>
+<h2 id="产品">产品</h2>
+<ul>
+<li>Microsoft 身份认证器: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer">microsoft-authenticator</a>
+<ul>
+<li>跨应用使用简单、快速且高度安全的双因素身份验证</li>
+<li>推荐个人使用 ☆☆☆☆☆</li>
+</ul>
+</li>
+<li>Google 身份验证器: <a href="https://github.com/google/google-authenticator" target="_blank" rel="noopener noreffer">google-authenticator</a></li>
+<li>银行网盾令牌: 仅限绑定账户卡</li>
+<li>支持OTP的游戏厂商的安全防护应用: 仅限指定厂商产品</li>
+</ul>
+<h2 id="原理">原理</h2>
+<p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
+<ul>
+<li><code>K</code>: 秘钥串</li>
+<li><code>C</code>: 数字</li>
+<li><code>HMAC-SHA-1</code>: 使用SHA-1做HMAC</li>
+<li><code>Truncate</code>: 用于截取加密后的字符串</li>
+</ul>
+<blockquote>
+<p>对HMAC-SHA-1方式加密来说，Truncate实现如下</p>
+</blockquote>
+<ul>
+<li>HMAC-SHA-1加密后的长度得到一个20字节的密串</li>
+<li>取这个20字节的密串的最后一个字节，取这字节的低4位，作为截取加密串的下标偏移量</li>
+<li>按照下标偏移量开始，获取4个字节，按照大端方式组成一个整数</li>
+<li>截取这个整数的后6位或者8位转成字符串返回。</li>
+</ul>
+<h3 id="otp">OTP</h3>
+<ul>
+<li><code>C</code>: 数字，表示随机数</li>
+<li>其他参数与定义相同</li>
+</ul>
+<h3 id="totp">TOTP</h3>
+<ul>
+<li>
+<p><code>C</code>: 随机数，基于时间戳生成</p>
+<ul>
+<li><code>C = (T - T0) / T1</code></li>
+<li>T:  当前的时间戳</li>
+<li>T0: 起始时间，一般为0</li>
+<li>T1: 时间间隔，根据业务需要自定义
+<ul>
+<li>一般为 <strong>30</strong>，表示产生的口令<code>30s</code>有效</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>其他参数与定义相同</p>
+</li>
+<li>
+<p>一般散列函数使用<code>SHA2</code>, 即：基于<code>SHA-256</code> or <code>SHA-512</code> [SHA2] 的散列函数做事件同步验证</p>
+</li>
+</ul>
+<h3 id="hotp">HOTP</h3>
+<ul>
+<li><code>C</code>: 数字，表示随机数</li>
+<li>其他参数与定义相同</li>
+</ul>
+<h2 id="实现参考">实现参考</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">URL</th>
+<th style="text-align:left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">kit4go/otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">https://github.com/v8fg/kit4go</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer">otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer">https://github.com/pquerna/otp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer">pyotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer">https://github.com/pyauth/pyotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer">gotp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer">https://github.com/xlzd/gotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer">otplib</a></td>
+<td style="text-align:left">Node</td>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer">https://github.com/yeojz/otplib</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer">otphp</a></td>
+<td style="text-align:left">PHP</td>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer">https://github.com/Spomky-Labs/otphp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer">mintotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer">https://github.com/susam/mintotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer">otp</a></td>
+<td style="text-align:left">Erlang</td>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer">https://github.com/erlang/otp</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用">使用</h2>
+<blockquote>
+<p><code>go get -u github.com/v8fg/kit4go</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/v8fg/kit4go/otp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">secret</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">RandomSecret</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// 生成10字节长度的 secret字符串，如: JBSWY3DPEHPK3PXP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// otp url
+</span></span></span><span class="line"><span class="cl"><span class="c1">// otpauth://totp/Twitter:@xwi88?issuer=Twitter&amp;secret=JJBFGV2ZGNCFARKIKBFTGUCYKA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">totpURL</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">GenerateURLTOTP</span><span class="p">(</span><span class="nx">otp</span><span class="p">.</span><span class="nx">KeyOpts</span><span class="p">{</span><span class="nx">Issuer</span><span class="p">:</span> <span class="s">&#34;Twitter&#34;</span><span class="p">,</span> <span class="nx">AccountName</span><span class="p">:</span> <span class="s">&#34;@xwi88&#34;</span><span class="p">,</span> <span class="nx">Secret</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;JJBFGV2ZGNCFARKIKBFTGUCYKA&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// now time: 2022-10-22 18:00:00 +0000 UTC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.Code(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">Code</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">)</span> <span class="c1">// 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCode(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCodeCustom(&#34;JBSWY3DPEHPK3PXP&#34;, now, nil) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">TOTPCodeCustom</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">otp</span><span class="p">.</span><span class="nx">Opts</span><span class="p">{</span><span class="nx">Skew</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1">// 允许时间误差在 [Before(30s) ~ Present(30s) ~ After(30s)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// verify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTP</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">)</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTPCustom</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// true
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>更多示例可以查看源码 <code>otp/*_test.go</code> 文件</p>
+</blockquote></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-10-22&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/9190a1cf302acf26ad587cc59d5a38be10959f9a" target="_blank" title="commit by xwi88(278810732@qq.com) 9190a1cf302acf26ad587cc59d5a38be10959f9a: update and add otp">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>9190a1c</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/go-otp-totp-hotp/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/go-otp-totp-hotp/" data-title="Go OTP TOTP HOTP" data-via="xwi88" data-hashtags="go,golang,otp,security"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/go-otp-totp-hotp/" data-hashtag="go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/go-otp-totp-hotp/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/go-otp-totp-hotp/" data-title="Go OTP TOTP HOTP"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/go-otp-totp-hotp/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/go-otp-totp-hotp/" data-title="Go OTP TOTP HOTP"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">go</a>,&nbsp;<a href="/tags/golang/">golang</a>,&nbsp;<a href="/tags/otp/">otp</a>,&nbsp;<a href="/tags/security/">security</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-object-pool-usage-tips-theory/" class="prev" rel="prev" title="Go 对象池使用及优化-理论篇"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go 对象池使用及优化-理论篇</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOG7xEcs4CN-KB","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"xwi88/hugo-comment","repoId":"R_kgDOG7xEcg"}},"lightgallery":true,"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.2c9c4edf4baacd8662c27bc87684728ee9b820f391fdfb9fac6bdbf4f87a9926.js" integrity="sha256-LJxO30uqzYZiwnvIdoRyjum4IPOR/fufrGvb9Ph6mSY="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>

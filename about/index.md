@@ -25,6 +25,7 @@
 ## 开源
 
 - **[docker-compose-resources](https://github.com/v8fg/docker-compose-resources)** **常用基础镜像封装发布**
+- **[kit4go](https://github.com/v8fg/kit4go)** *go common utils*
 - **[log4go](https://github.com/xwi88/log4go)** *go simple log pkg*
 - **[gp](https://github.com/xwi88/gp)** *go predict with tensorflow*
 - **[collectd](https://github.com/v8fg/collectd)** *docker 内存及 cpu 信息收集*
