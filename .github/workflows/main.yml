@@ -77,7 +77,7 @@ jobs:
         uses: rxrw/algolia-index-uploader@v1
         with:
           # ID of this application in your Algolia account
-          algolia_index_id: 7QU1O7DMR5
+          algolia_index_id: PSXXZJM5GO
           algolia_index_name: blog_index
           # API key with write permissions to the index in your Algolia account
           algolia_index_admin_key: ${{ secrets.ALGOLIA_API_KEY }}
