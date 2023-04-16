@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ai - 分类 - Coding Life Share</title>
+        <link>https://xwi88.com/categories/ai/</link>
+        <description>ai - 分类 - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/categories/ai/" rel="self" type="application/rss+xml" /><item>
+    <title>ChatGPT Web 本地化使用配置</title>
+    <link>https://xwi88.com/chatgpt-web-local-build/</link>
+    <pubDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/chatgpt-web-local-build/</guid>
+    <description><![CDATA[<p>ChatGPT 是一个基于人工智能的社交互动机器人，能够与用户进行聊天交互和提供帮助，包括但不限于回答各种问题、提供中英文翻译、提供丰富的笑话、哲理、格言等内容。它还能学习和记忆用户的喜好和使用习惯，从而更好地为用户提供个性化、专业化的服务。本文主要介绍相关原理、部分竞品、环境配置及使用场景。</p>]]></description>
+</item>
+</channel>
+</rss>

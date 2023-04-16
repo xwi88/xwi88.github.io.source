@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ChatGPT Web 本地化使用配置 - Coding Life Share</title><meta name="Description" content="ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGPT Web"><meta property="og:title" content="ChatGPT Web 本地化使用配置" />
+<meta property="og:description" content="ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGPT Web" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xwi88.com/chatgpt-web-local-build/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-16T11:52:48+08:00" />
+<meta property="article:modified_time" content="2023-04-16T18:41:59+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
+
+<meta name="twitter:title" content="ChatGPT Web 本地化使用配置"/>
+<meta name="twitter:description" content="ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGPT Web"/>
+<meta name="application-name" content="XIN WANG blog">
+<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/chatgpt-web-local-build/" /><link rel="prev" href="https://xwi88.com/go-otp-totp-hotp/" /><link rel="stylesheet" href="/css/style.min.f706a93e7835064cd58e9919b10c1ca321038b4365a0bc00339ba8993afc2d33.css" integrity="sha256-9wapPng1BkzVjpkZsQwcoyEDi0NloLwAM5uomTr8LTM="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ChatGPT Web 本地化使用配置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/xwi88.com\/chatgpt-web-local-build\/"
+        },"genre": "posts","keywords": "chatgpt, ai","wordcount":  3836 ,
+        "url": "https:\/\/xwi88.com\/chatgpt-web-local-build\/","datePublished": "2023-04-16T11:52:48+08:00","dateModified": "2023-04-16T18:41:59+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xwi88","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
+                    "width":  725 ,
+                    "height":  967 
+                }},"author": {
+                "@type": "Person",
+                "name": "xwi88"
+            },"description": "ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGPT Web"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/chatgpt-web-local-build/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/chatgpt-web-local-build/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ChatGPT Web 本地化使用配置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ai/"><i class="far fa-folder fa-fw"></i>ai</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2023-04-16">2023-04-16</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-16">2023-04-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3836 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;
+    
+
+    
+        
+
+        
+        
+            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
+                
+                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
+        
+    
+
+</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#历史">历史</a>
+      <ul>
+        <li><a href="#gpt-各版本简介">GPT 各版本简介</a></li>
+      </ul>
+    </li>
+    <li><a href="#原理">原理</a>
+      <ul>
+        <li><a href="#模型原理">模型原理</a></li>
+        <li><a href="#工作原理">工作原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#竞品">竞品</a>
+      <ul>
+        <li><a href="#chatgpt-api-计费">ChatGPT API 计费</a></li>
+      </ul>
+    </li>
+    <li><a href="#访问环境配置">访问环境配置</a>
+      <ul>
+        <li><a href="#可选方式">可选方式</a></li>
+        <li><a href="#推荐方式">推荐方式</a>
+          <ul>
+            <li><a href="#创建步骤如下">创建步骤如下</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#api-测试">API 测试</a>
+      <ul>
+        <li><a href="#余额">余额</a></li>
+        <li><a href="#订阅">订阅</a></li>
+        <li><a href="#交互">交互</a></li>
+      </ul>
+    </li>
+    <li><a href="#chatgpt-web-搭建">ChatGPT Web 搭建</a>
+      <ul>
+        <li><a href="#容器相关配置">容器相关配置</a></li>
+        <li><a href="#环境变量说明">环境变量说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#更多-web-or-app-项目">更多 Web Or APP 项目</a></li>
+    <li><a href="#nginx-配置注意事项">Nginx 配置注意事项</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>ChatGPT 是一个基于人工智能的社交互动机器人，能够与用户进行聊天交互和提供帮助，包括但不限于回答各种问题、提供中英文翻译、提供丰富的笑话、哲理、格言等内容。它还能学习和记忆用户的喜好和使用习惯，从而更好地为用户提供个性化、专业化的服务。本文主要介绍相关原理、部分竞品、环境配置及使用场景。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="历史">历史</h2>
+<p>ChatGPT最早由OpenAI团队开发，它在2018年由此带来的一系列语言生成模型（如GPT-2、GPT-3等）都备受关注。ChatGPT的历史始于2019年，当时AI开发人员在研究中发现，GPT模型可以用于生成自然对话。基于这一发现，AI开发人员进行了一系列的研究和调整，逐渐形成了今天的ChatGPT。</p>
+<h3 id="gpt-各版本简介">GPT 各版本简介</h3>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">ChatGPT 基于 GPT-3.5，调用时可选不低于此版本的 model</div>
+        </div>
+    </div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">版本</th>
+<th style="text-align:left">开闭源</th>
+<th style="text-align:left">发布时间</th>
+<th style="text-align:left">使用限制</th>
+<th style="text-align:left">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GPT-1</td>
+<td style="text-align:left">开源</td>
+<td style="text-align:left">2018-06</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">117M</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-2</td>
+<td style="text-align:left">开源</td>
+<td style="text-align:left">2019-02</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">1.5B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-3</td>
+<td style="text-align:left">闭源</td>
+<td style="text-align:left">2020-06</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">175B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-3.5</td>
+<td style="text-align:left">闭源</td>
+<td style="text-align:left">2022-11</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">200B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-4</td>
+<td style="text-align:left">闭源</td>
+<td style="text-align:left">2023-03</td>
+<td style="text-align:left">Plus</td>
+<td style="text-align:left">1000B</td>
+</tr>
+</tbody>
+</table>
+<h2 id="原理">原理</h2>
+<p>ChatGPT基于GPT（Generative Pre-training Transformer）技术，是一种基于深层神经网络的自然语言生成模型。GPT模型是由OpenAI团队开发的，它基于深度学习技术，通过预先训练一个大规模的语料库，从而使得该模型可以为用户提供高质量的自然语言生成服务。ChatGPT是基于GPT模型进行训练和调整的，其核心是通过上下文理解识别用户的话题和意图，从而生成合适的答案和回答。</p>
+<h3 id="模型原理">模型原理</h3>
+<ol>
+<li>架构：OpenAI ChatGPT是基于transformer架构的深度学习模型。该架构通过多头自注意力机制和前向神经网络对序列数据进行编码和解码，具有高度的表示能力和泛化能力。</li>
+<li>预训练：OpenAI ChatGPT使用大规模的语料库进行预训练，训练过程主要包括两个步骤: 遮盖语言模型和下一句预测模型。
+<ol>
+<li>遮盖语言模型 (Masked Language Model, MLM)：在这个阶段，OpenAI ChatGPT通过将输入序列中的某些词随机遮盖并让模型预测这些遮盖部分的内容。这个过程类似于完形填空，它能够帮助模型获取上下文语境中的语法、语义和词汇知识。</li>
+<li>下一句预测模型 (Next Sentence Prediction, NSP)：在这个阶段，OpenAI ChatGPT通过输入两个句子，让模型预测第二个句子是否接在第一个句子的后面。这个过程也能够帮助模型理解上下文信息，从而生成连贯的文本。</li>
+</ol>
+</li>
+<li>微调：在预训练完成后，OpenAI ChatGPT针对特定的任务（如对话生成）进行微调，进一步提升模型性能。</li>
+<li>序列到序列生成：在ChatGPT的使用中，它将用户输入的问题作为输入序列，经过处理后得到输出序列，输出序列经过细致的调整后以自然语言的形式呈现给用户。ChatGPT通过监督学习的方式，不断优化模型的参数和结构，提高答案的质量和相关性。</li>
+</ol>
+<h3 id="工作原理">工作原理</h3>
+<ol>
+<li>输入编码：当用户输入一条聊天句子并发送时，ChatGPT 会使用 Transformer 编码器对该输入句子进行编码,得到其语义向量表示。</li>
+<li>解码器初始化：然后 ChatGPT 会初始化 Transformer 解码器，以最大化生成下一条回复句子的概率。</li>
+<li>贪心搜索：在解码生成回复句子的过程中，ChatGPT 使用贪心搜索算法逐步生成输出词tokens。具体而言，在每一时间步，ChatGPT 都会选择概率最大的下一个词来生成，这种搜索算法简单高效但容易产生不连贯输出。</li>
+<li>注意力机制：Transformer 解码器可以通过注意力机制来关注输入句子的编码，以建模输入和输出之间的依赖关系，这可以生成更加相关的回复。</li>
+<li>重复判定：为了避免生成重复无意义的回复，ChatGPT 会在解码的过程中判断当前生成的回复是否与输入句子过于接近，如果是则重新生成新的回复。</li>
+<li>回复输出：当 ChatGPT 根据以上过程生成了一条满意的回复句子，就会将该回复句子返回给用户。</li>
+<li>重复学习：ChatGPT 是一个预训练语言模型，在和用户的每轮交互中，它都会继续学习，并不断优化自身的语言表达和生成能力。</li>
+</ol>
+<p>所以总的来说，ChatGPT 的工作原理主要依靠 Transformer 编码器-解码器框架，利用注意力机制和贪心搜索算法进行序列生成，并借助大规模聊天数据集不断学习和优化，以实现人机开放领域对话。这也使其成为目前效果最为显著的聊天机器人系统之一。</p>
+<h2 id="竞品">竞品</h2>
+<blockquote>
+<p>相关内容及分析，基于文章发布时间，如有不准确的地方，见谅。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">竞品</th>
+<th style="text-align:left">推荐度</th>
+<th style="text-align:left">Proxy</th>
+<th style="text-align:left">Fee</th>
+<th style="text-align:left">访问放式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ChatGPT</td>
+<td style="text-align:left">★★★★★</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Pay</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+<tr>
+<td style="text-align:left">Claude</td>
+<td style="text-align:left">★★★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Slack APP: Claude</td>
+</tr>
+<tr>
+<td style="text-align:left">通义千问</td>
+<td style="text-align:left">★★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+<tr>
+<td style="text-align:left">文心一格</td>
+<td style="text-align:left">★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">以上标注免费的产品仅限于当前官方页面访问，具体计费请以官方为准。</div>
+        </div>
+    </div>
+<h3 id="chatgpt-api-计费">ChatGPT API 计费</h3>
+<ul>
+<li>OpenAI网站计费说明：<a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer">pricing#language-models</a></li>
+<li>OpenAI根据token数收费，1000个token通常可代表750个英文单词，或500个汉字。</li>
+<li>输入（Prompt）和输出（Completion）分别统计费用。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">模型</th>
+<th style="text-align:left">Prompt</th>
+<th style="text-align:left">Completion</th>
+<th style="text-align:left">每次交互最大token数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gpt-3.5</td>
+<td style="text-align:left">$0.002 / 1千tokens</td>
+<td style="text-align:left">$0.002 / 1千tokens</td>
+<td style="text-align:left">4096</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt-4</td>
+<td style="text-align:left">$0.03 / 1千tokens</td>
+<td style="text-align:left">$0.06 / 1千tokens</td>
+<td style="text-align:left">8192</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt-4-32K</td>
+<td style="text-align:left">$0.06 / 1千tokens</td>
+<td style="text-align:left">$0.12 / 1千tokens</td>
+<td style="text-align:left">32768</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>注意 api key 安全性</li>
+<li>注意每次交互携带的上下文长度，携带过多的上下文会加速token消耗</li>
+<li>注意使用的模型版本，不同版本成本差异</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="访问环境配置">访问环境配置</h2>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">我们主要以 ChatGPT 为例来进行科学访问的配置，仅限于个人研究使用，商业使用请务必合法合规。</div>
+        </div>
+    </div>
+<h3 id="可选方式">可选方式</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Access Way</th>
+<th style="text-align:left">Proxy</th>
+<th style="text-align:left">Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Official Web</td>
+<td style="text-align:left">local overseas proxy</td>
+<td style="text-align:left">ban</td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">local overseas proxy</td>
+<td style="text-align:left">ban</td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">server overseas proxy</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">overseas cloud function</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">如果你需要通过自己域名进行调用，需要通过Nginx或其他工具在你的服务端进行反代处理。</div>
+        </div>
+    </div>
+<h3 id="推荐方式">推荐方式</h3>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">选择合适地区通过云函数方式创建并测试，当前可用: 腾讯云，阿里云，其他云服务商请自行探索。</div>
+        </div>
+    </div>
+<h4 id="创建步骤如下">创建步骤如下</h4>
+<blockquote>
+<p>更多请参考: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer">openai-scf-proxy</a> 或 <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer">openai-scf-goproxy</a></p>
+</blockquote>
+<ol>
+<li>登录你的云服务商，并找到 <em>云函数控制台</em></li>
+<li>云函数创建及配置
+<ul>
+<li>新建
+<ul>
+<li>腾讯云: 从头开始新建</li>
+<li>阿里云: 使用自定义运行时创建，处理HTTP请求</li>
+</ul>
+</li>
+<li>选择 web 函数</li>
+<li>选择符合你要求的地域(可直接访问你调用服务的地域)</li>
+<li>运行环境选择(根据你的云函数需求选择)
+<ul>
+<li>NodeJS
+<ul>
+<li>环境: Nodejs 16.13（或者更高的版本）</li>
+<li>zip: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy/releases" target="_blank" rel="noopener noreffer">请选择你需要版本的zip进行下载</a></li>
+</ul>
+</li>
+<li>GO
+<ul>
+<li>环境: <em>Go1</em></li>
+<li>zip: <a href="https://github.com/riba2534/openai-scf-goproxy/releases" target="_blank" rel="noopener noreffer">请选择你需要版本的zip进行下载</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>将上一步下载的zip包上传</li>
+<li>时区配置请根据需要设置</li>
+<li>日志配置请根据需要设置</li>
+<li>触发器配置
+<ul>
+<li>请求方法： Any</li>
+<li>鉴权或认证: 否</li>
+</ul>
+</li>
+<li>高级配置
+<ul>
+<li>内存: 64M+</li>
+<li>执行超时时间：900s</li>
+<li>并发: 2 (请根据实际情况调，设置合理值，避免频繁调用被封禁或触发限流)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建完成后找到访问路径或公网地址
+<ul>
+<li>腾讯云需要去掉生成url中附带的 <code>/release</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="api-测试">API 测试</h2>
+<h3 id="余额">余额</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 查余额，只能通过浏览器请求</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/dashboard/billing/credit_grants <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/dashboard/billing/credit_grants <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="订阅">订阅</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 订阅查询</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/dashboard/billing/subscription <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 订阅查询</span>
+</span></span><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/dashboard/billing/subscription <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;object&#34;</span><span class="p">:</span> <span class="s2">&#34;billing_subscription&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;has_payment_method&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;canceled&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;canceled_at&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;delinquent&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;access_until&#34;</span><span class="p">:</span> <span class="mi">1688169600</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;soft_limit&#34;</span><span class="p">:</span> <span class="mi">66667</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hard_limit&#34;</span><span class="p">:</span> <span class="mi">83334</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;system_hard_limit&#34;</span><span class="p">:</span> <span class="mi">83334</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;soft_limit_usd&#34;</span><span class="p">:</span> <span class="mf">4.00002</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hard_limit_usd&#34;</span><span class="p">:</span> <span class="mf">5.00004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;system_hard_limit_usd&#34;</span><span class="p">:</span> <span class="mf">5.00004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;plan&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Explore&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;free&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;account_name&#34;</span><span class="p">:</span> <span class="s2">&#34;xyz&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;po_number&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;billing_email&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tax_ids&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;billing_address&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;business_address&#34;</span><span class="p">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="交互">交互</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 交互测试</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;黄芪功效及用法&#34;}]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/chat/completions/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;max_tokens&#34;: 2000,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;temperature&#34;: 1.0,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;黄芪功效及用法&#34;}]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;chatcmpl-75sXKeiaLI75HtMXgXsulhlQFeXpA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;object&#34;</span><span class="p">:</span> <span class="s2">&#34;chat.completion&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;created&#34;</span><span class="p">:</span> <span class="mi">1681635634</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;gpt-3.5-turbo-0301&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;usage&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;prompt_tokens&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;completion_tokens&#34;</span><span class="p">:</span> <span class="mi">632</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total_tokens&#34;</span><span class="p">:</span> <span class="mi">649</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;choices&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;assistant&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;黄芪，又名黄耆，是一种中药材，被广泛用于中医治疗多种疾病。其主要功效和用法如下：\n\n1. 增强人体免疫力：黄芪可以提高机体抗病能力，增强人体免疫力，对于体质虚弱、易感冒、慢性疲劳等人群有很好的调理作用。\n\n2. 抗氧化：黄芪中富含多种抗氧化物质，可以抑制自由基的生成和氧化反应，保护细胞和组织免受氧化损伤。\n\n3. 具有抗炎作用：黄芪能够调节免疫系统，抑制炎症反应，对于慢性炎症引起的各种疾病具有较好的治疗作用。\n\n4. 健脾益气：黄芪可补益脾气、益气健脾、改善消化不良、食欲不振等症状。\n\n5. 抗疲劳：黄芪可以提高人体能量代谢，改善疲劳状态，对于劳累、乏力、失眠等症状具有缓解作用。\n\n黄芪的用法有多种，常见的方式有：\n1. 泡水饮用：将干黄芪煮沸后，加入水中泡服，常用于调理身体、预防感冒等。\n2. 煮汤煮饭：黄芪可以与其他中草药搭配煮汤或煮饭，增强味道的同时也能保持药效。\n3. 熬糖膏：将黄芪与其他中草药熬制成糖膏，用于治疗呼吸系统疾病等。\n4. 外敷：将黄芪捣碎后加入油中制成膏剂，外敷治疗皮肤病等。&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;finish_reason&#34;</span><span class="p">:</span> <span class="s2">&#34;stop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="chatgpt-web-搭建">ChatGPT Web 搭建</h2>
+<p>借助开源的ChatGPT Web项目，以容器方式，已成功搭建可通过域名访问的 <strong>ChatGPT UI</strong>，链路: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
+<h3 id="容器相关配置">容器相关配置</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.8&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">chatgpt-next-web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">chatgpt-next-web-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">v8fg/chatgpt-next-web:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">OPENAI_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="c"># Your openai api key.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">CODE</span><span class="p">:</span><span class="w"> </span><span class="c"># Access passsword, separated by comma.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">BASE_URL: # proxy api URL, default</span><span class="p">:</span><span class="w"> </span><span class="l">api.openai.com, without scheme</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># PROTOCOL: https # http | https </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="环境变量说明">环境变量说明</h3>
+<ul>
+<li>OPENAI_API_KEY: Your openai api key
+<ul>
+<li>若服务端不配置，则需要在web page进行单独配置</li>
+</ul>
+</li>
+<li>CODE: 访问码
+<ul>
+<li>如果服务端配置了 <code>OPENAI_API_KEY</code>，且进行了CODE设置，则必须填写</li>
+<li>如果在web page配置了<code>OPENAI_API_KEY</code>，则不需要填写</li>
+</ul>
+</li>
+<li>BASE_URL: Proxy URL，仅包含域名部分
+<ul>
+<li>default: <code>api.openai.com</code></li>
+<li>example: <code>api.openai-proxy.com</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="更多-web-or-app-项目">更多 Web Or APP 项目</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Link</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">Stars</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ChatGPT-Next-Web</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/Yidadaa/ChatGPT-Next-Web" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatgpt-web</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/Chanzhaoyu/chatgpt-web" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">Vue3</td>
+<td style="text-align:left">☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatgpt-demo</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/ddiu8081/chatgpt-demo" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatbot-ui</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/mckaywrigley/chatbot-ui" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">whatsapp-chatgpt</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/askrella/whatsapp-chatgpt" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">lencx/ChatGPT</td>
+<td style="text-align:left">Desktop App</td>
+<td style="text-align:left"><a href="https://github.com/lencx/ChatGPT" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chat-ai-desktop</td>
+<td style="text-align:left">Desktop App</td>
+<td style="text-align:left"><a href="https://github.com/sonnylazuardi/chat-ai-desktop" target="_blank" rel="noopener noreffer">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nginx-配置注意事项">Nginx 配置注意事项</h2>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>如果你使用 Nginx 作为reverse proxy，需要在配置文件中增加下列代码</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 不缓存，支持流式输出</span>
+</span></span><span class="line"><span class="cl">proxy_cache off<span class="p">;</span>  <span class="c1"># 关闭缓存</span>
+</span></span><span class="line"><span class="cl">proxy_buffering off<span class="p">;</span>  <span class="c1"># 关闭代理缓冲</span>
+</span></span><span class="line"><span class="cl">chunked_transfer_encoding on<span class="p">;</span>  <span class="c1"># 开启分块传输编码</span>
+</span></span><span class="line"><span class="cl">tcp_nopush on<span class="p">;</span>  <span class="c1"># 开启TCP NOPUSH选项，禁止Nagle算法</span>
+</span></span><span class="line"><span class="cl">tcp_nodelay on<span class="p">;</span>  <span class="c1"># 开启TCP NODELAY选项，禁止延迟ACK算法</span>
+</span></span><span class="line"><span class="cl">keepalive_timeout 300<span class="p">;</span>  <span class="c1"># 设定keep-alive超时时间为65秒</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-04-16&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/14471c41e62b2228f7a7b58f736943156ef0bd8c" target="_blank" title="commit by xwi88(278810732@qq.com) 14471c41e62b2228f7a7b58f736943156ef0bd8c: posts chatgpt web local build">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>14471c4</a></span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/chatgpt-web-local-build/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/chatgpt-web-local-build/" data-title="ChatGPT Web 本地化使用配置" data-via="xwi88" data-hashtags="chatgpt,ai"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/chatgpt-web-local-build/" data-hashtag="chatgpt"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/chatgpt-web-local-build/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/chatgpt-web-local-build/" data-title="ChatGPT Web 本地化使用配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/chatgpt-web-local-build/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/chatgpt-web-local-build/" data-title="ChatGPT Web 本地化使用配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/chatgpt/">chatgpt</a>,&nbsp;<a href="/tags/ai/">ai</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go-otp-totp-hotp/" class="prev" rel="prev" title="Go OTP TOTP HOTP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go OTP TOTP HOTP</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-container">
+    
+        
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+    
+        
+            <section>
+                
+                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
+                        
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+
+                
+                    &nbsp;|&nbsp;              
+                
+
+                
+                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
+                        
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+            </section>
+        
+
+        
+        
+    
+
+</div>
+
+            <div class="footer-line"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span></div></div><script>
+                var _hmt = _hmt || [];
+                (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            
+            
+
+            
+
+            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
+            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
+
+            <script type="text/javascript">
+                L2Dwidget.init({
+                    model: {
+                        scale: 1,
+                        hHeadPos: 0.5,
+                        vHeadPos: 0.618,
+                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
+                    },
+                    display: {
+                        superSample: 1,     
+                        width: 120,         
+                        height: 300,        
+                        position: 'left',   
+                        hOffset: 0,         
+                        vOffset: 0,         
+                    },
+                    mobile: {
+                        show: true,         
+                        scale: 1,           
+                        motion: true,       
+                    },
+                    react: {
+                        opacityDefault: 1,  
+                        opacityOnHover: 1,  
+                    },
+                });
+            </script></footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOG7xEcs4CN-KB","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"xwi88/hugo-comment","repoId":"R_kgDOG7xEcg"}},"lightgallery":true,"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.2c9c4edf4baacd8662c27bc87684728ee9b820f391fdfb9fac6bdbf4f87a9926.js" integrity="sha256-LJxO30uqzYZiwnvIdoRyjum4IPOR/fufrGvb9Ph6mSY="></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
+</html>

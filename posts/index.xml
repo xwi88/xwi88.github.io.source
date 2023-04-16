@@ -4,7 +4,15 @@
         <link>https://xwi88.com/posts/</link>
         <description>所有文章 | Coding Life Share</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
-            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>ChatGPT Web 本地化使用配置</title>
+    <link>https://xwi88.com/chatgpt-web-local-build/</link>
+    <pubDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/chatgpt-web-local-build/</guid>
+    <description><![CDATA[<p>ChatGPT 是一个基于人工智能的社交互动机器人，能够与用户进行聊天交互和提供帮助，包括但不限于回答各种问题、提供中英文翻译、提供丰富的笑话、哲理、格言等内容。它还能学习和记忆用户的喜好和使用习惯，从而更好地为用户提供个性化、专业化的服务。本文主要介绍相关原理、部分竞品、环境配置及使用场景。</p>]]></description>
+</item>
+<item>
     <title>Go OTP TOTP HOTP</title>
     <link>https://xwi88.com/go-otp-totp-hotp/</link>
     <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>xwi88</author>
     <guid>https://xwi88.com/makefile-shell-path-get/</guid>
     <description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer">Bash</a>) 中绝对路径的处理。</p>]]></description>
-</item>
-<item>
-    <title>Mac 使用 minikube 替换 Docker Desktop</title>
-    <link>https://xwi88.com/mac-minikube-replace-docker-desktop/</link>
-    <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
-    <author>xwi88</author>
-    <guid>https://xwi88.com/mac-minikube-replace-docker-desktop/</guid>
-    <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a>。</p>]]></description>
 </item>
 </channel>
 </rss>
