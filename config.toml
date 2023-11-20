@@ -517,6 +517,10 @@ enableEmoji = true
     # ICP info only in China (HTML format is supported)
     # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
     icp = '<a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a>'
+    # icp_ga_logo = '<img src="/images/beian.png" width="16" height="19" align="center">'
+    # icp_ga_logo = 'images/beian.png'
+
+    # icp_ga = '<a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel="noreferrer" target="_blank">京公网安备11010602200802</a>'
     # license info (HTML format is supported)
     # 许可协议信息 (支持 HTML 格式)
     license= '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
@@ -525,6 +529,14 @@ enableEmoji = true
     enable_l2d_widget = true # 是否开启 live2D 看板娘
     # support model: hibiki, hijiki, izumi, koharu, nipsilon, shizuku, tororo, tsumiki, wanko, z16
     l2d_widget_model = "z16" # 模型, 默认 z16
+  
+  [params.footer.icp_ga]
+    logo = 'images/beian.png'
+    width = 16
+    height = 19
+    align = "center"
+    url = '<a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel="noreferrer" target="_blank">京公网安备11010602200802</a>'
+
 
   # Section (all posts) page config
   # Section (所有文章) 页面配置

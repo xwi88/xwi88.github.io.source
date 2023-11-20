@@ -41,6 +41,18 @@
                     <span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">{{ . | safeHTML }}</span>
                 {{- end -}}
+
+                {{- /* ICP_GA */ -}}
+                {{ $icp_ga := (dict "logo" .Site.Params.footer.icp_ga.logo "width" .Site.Params.footer.icp_ga.width "height" .Site.Params.footer.icp_ga.height "align" .Site.Params.footer.icp_ga.align "url" .Site.Params.footer.icp_ga.url) }}
+                    <span class="icp-splitter">&nbsp;|&nbsp;</span>
+                    <span class="icp">
+                        {{ with resources.Get $icp_ga.logo }}
+                            <img src="{{ .RelPermalink }}" width="{{ $icp_ga.width }}" height="{{ $icp_ga.height }}" align="{{ $icp_ga.align }}">
+                        {{ end }}
+                    </span>
+                    <span class="icp-splitter"></span><br class="icp-br"/>
+                    <span class="icp">{{ $icp_ga.url | safeHTML }}</span>
+                {{/*  {{- end -}}  */}}
             </div>
 
             {{- /* Hugo and LoveIt */ -}}

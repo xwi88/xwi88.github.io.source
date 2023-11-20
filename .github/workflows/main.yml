@@ -20,7 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # checkout to the commit that has been pushed
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0   # Fetch all history for .GitInfo and .Lastmod
@@ -28,10 +28,10 @@ jobs:
       - name: Hugo setup
         # You may pin to the exact commit or the version.
         # uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
-        uses: peaceiris/actions-hugo@v2.4.13
+        uses: peaceiris/actions-hugo@v2
         with:
           # The Hugo version to download (if necessary) and use. Example: 0.58.2
-          hugo-version: '0.93.0' # optional, default is latest
+          hugo-version: '0.119.0' # optional, default is latest
           # Download (if necessary) and use Hugo extended version. Example: true
           extended: true # optional, default is false
       
