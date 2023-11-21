@@ -10,7 +10,7 @@
     <pubDate>Wed, 09 Mar 2022 12:31:34 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid>
-    <description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description>
+    <description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer ">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer ">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description>
 </item>
 </channel>
 </rss>

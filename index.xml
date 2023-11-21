@@ -20,7 +20,7 @@
     <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/go-otp-totp-hotp/</guid>
-    <description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">kit4go/otp</a>。</p>]]></description>
+    <description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>。</p>]]></description>
 </item>
 <item>
     <title>Go 对象池使用及优化-理论篇</title>
@@ -44,7 +44,7 @@
     <pubDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/pyroscope-continuous-profiling/</guid>
-    <description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer">Pyroscope</a></strong> 开放源码的性能持续分析平台。支持多种语言：<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code> 等，支持<strong>多平台</strong>，<strong>多种部署方式</strong>。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，<code>Push</code> 与 <code>Pull</code> 模式。可支持多种数据导出格式： <code>png</code>，<code>json</code>， <code>pprof</code>， <code>html</code>，<code>flamegraph.com</code>，可接入 <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer"><code>grafana</code></a> 展示。</p>]]></description>
+    <description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer ">Pyroscope</a></strong> 开放源码的性能持续分析平台。支持多种语言：<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code> 等，支持<strong>多平台</strong>，<strong>多种部署方式</strong>。具有便捷的可视化分析界面，极致的数据查询、分析与存储能力，可配的数据淘汰策略，<code>Push</code> 与 <code>Pull</code> 模式。可支持多种数据导出格式： <code>png</code>，<code>json</code>， <code>pprof</code>， <code>html</code>，<code>flamegraph.com</code>，可接入 <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer "><code>grafana</code></a> 展示。</p>]]></description>
 </item>
 <item>
     <title>Docker 相关命令备忘参考</title>
@@ -52,7 +52,7 @@
     <pubDate>Sat, 19 Mar 2022 23:50:02 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/cheat-sheet-docker-related/</guid>
-    <description><![CDATA[<p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer">Compose CLI</a>。</p>]]></description>
+    <description><![CDATA[<p>Docker 相关命令备忘参考，主要关于 <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer ">Docker CLI</a> 与 <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer ">Compose CLI</a>。</p>]]></description>
 </item>
 <item>
     <title>Dockerfile 指令小抄与构建示例</title>
@@ -60,7 +60,7 @@
     <pubDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/dockerfile-cheat-sheet-demo/</guid>
-    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
+    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer "><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
 </item>
 <item>
     <title>Go 程序常用 kill 信号及捕获</title>
@@ -76,7 +76,7 @@
     <pubDate>Sun, 13 Mar 2022 19:07:30 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/mirrors-cn/</guid>
-    <description><![CDATA[<p>国内开源软件镜像站收集，建议优先选择推荐的几个镜像站，也可直接访问<a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer">国内公网开源镜像</a>或<a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer">教育网开源镜像</a>。</p>]]></description>
+    <description><![CDATA[<p>国内开源软件镜像站收集，建议优先选择推荐的几个镜像站，也可直接访问<a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer ">国内公网开源镜像</a>或<a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer ">教育网开源镜像</a>。</p>]]></description>
 </item>
 <item>
     <title>Makefile shell 中绝对路径的正确处理</title>
@@ -84,7 +84,7 @@
     <pubDate>Sat, 12 Mar 2022 09:15:14 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/makefile-shell-path-get/</guid>
-    <description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer">Bash</a>) 中绝对路径的处理。</p>]]></description>
+    <description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>) 中绝对路径的处理。</p>]]></description>
 </item>
 </channel>
 </rss>

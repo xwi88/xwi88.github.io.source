@@ -1,0 +1,32 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - Coding Life Share</title>
+        <link>https://xwi88.com/en/categories/</link>
+        <description>Categories - Category - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/en/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>hugo</title>
+    <link>https://xwi88.com/en/categories/hugo/</link>
+    <pubDate>Sat, 05 Mar 2022 00:01:01 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/en/categories/hugo/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>git</title>
+    <link>https://xwi88.com/en/categories/git/</link>
+    <pubDate>Sat, 26 Feb 2022 23:51:01 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/en/categories/git/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Documentation</title>
+    <link>https://xwi88.com/en/categories/documentation/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/en/categories/documentation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

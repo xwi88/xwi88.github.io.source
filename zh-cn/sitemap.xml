@@ -2,9 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://xwi88.com/tags/ai/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/categories/ai/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/categories/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/ai/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/categories/ai/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/categories/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/categories/"
@@ -13,9 +13,9 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/categories/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/chatgpt/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/chatgpt-web-local-build/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://xwi88.com/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/chatgpt/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/chatgpt-web-local-build/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/"
@@ -24,7 +24,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/"
                     /></url><url>
-            <loc>https://xwi88.com/posts/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/posts/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/posts/"
@@ -33,7 +33,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/posts/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://xwi88.com/tags/</loc><lastmod>2023-04-16T18:41:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://xwi88.com/en/tags/"
@@ -158,17 +158,7 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/git-clone-slowly-solve/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/content/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://xwi88.com/tags/installation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://xwi88.com/categories/documentation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="en"
-                        href="https://xwi88.com/en/categories/documentation/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="zh-cn"
-                    href="https://xwi88.com/categories/documentation/"
-                    /></url><url>
             <loc>https://xwi88.com/favorite/</loc><lastmod>2022-03-13T17:50:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -178,4 +168,14 @@
                     hreflang="zh-cn"
                     href="https://xwi88.com/favorite/"
                     /></url><url>
-            <loc>https://xwi88.com/tags/configuration/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>https://xwi88.com/tags/content/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/tags/configuration/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://xwi88.com/categories/documentation/</loc><lastmod>2022-03-01T22:26:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://xwi88.com/en/categories/documentation/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://xwi88.com/categories/documentation/"
+                    /></url></urlset>

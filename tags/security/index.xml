@@ -10,7 +10,7 @@
     <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/go-otp-totp-hotp/</guid>
-    <description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer">kit4go/otp</a>。</p>]]></description>
+    <description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>。</p>]]></description>
 </item>
 </channel>
 </rss>

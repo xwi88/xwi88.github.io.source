@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - 标签 - Coding Life Share</title>
+        <link>https://xwi88.com/tags/</link>
+        <description>Tags - 标签 - Coding Life Share</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor>
+            <webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</lastBuildDate><atom:link href="https://xwi88.com/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>ai</title>
+    <link>https://xwi88.com/tags/ai/</link>
+    <pubDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/ai/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>chatgpt</title>
+    <link>https://xwi88.com/tags/chatgpt/</link>
+    <pubDate>Sun, 16 Apr 2023 11:52:48 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/chatgpt/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>go</title>
+    <link>https://xwi88.com/tags/go/</link>
+    <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/go/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>golang</title>
+    <link>https://xwi88.com/tags/golang/</link>
+    <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/golang/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>otp</title>
+    <link>https://xwi88.com/tags/otp/</link>
+    <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/otp/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>security</title>
+    <link>https://xwi88.com/tags/security/</link>
+    <pubDate>Sat, 22 Oct 2022 12:09:20 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/security/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>性能优化</title>
+    <link>https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+    <pubDate>Fri, 03 Jun 2022 08:23:52 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>kafka</title>
+    <link>https://xwi88.com/tags/kafka/</link>
+    <pubDate>Wed, 25 May 2022 08:55:28 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/kafka/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>profiling</title>
+    <link>https://xwi88.com/tags/profiling/</link>
+    <pubDate>Tue, 29 Mar 2022 23:22:32 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/profiling/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>cheat-sheet</title>
+    <link>https://xwi88.com/tags/cheat-sheet/</link>
+    <pubDate>Sat, 19 Mar 2022 23:50:02 &#43;0800</pubDate>
+    <author>xwi88</author>
+    <guid>https://xwi88.com/tags/cheat-sheet/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

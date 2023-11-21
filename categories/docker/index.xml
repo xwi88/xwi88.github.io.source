@@ -10,7 +10,7 @@
     <pubDate>Thu, 17 Mar 2022 21:16:08 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/dockerfile-cheat-sheet-demo/</guid>
-    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer"><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
+    <description><![CDATA[<p>主要介绍 <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer "><code>Dockerfile</code></a> 文件内容组成，指令，镜像构建示例及操作。</p>]]></description>
 </item>
 <item>
     <title>Mac 使用 minikube 替换 Docker Desktop</title>
@@ -18,7 +18,7 @@
     <pubDate>Fri, 11 Mar 2022 21:27:21 &#43;0800</pubDate>
     <author>xwi88</author>
     <guid>https://xwi88.com/mac-minikube-replace-docker-desktop/</guid>
-    <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer">podman</a>。</p>]]></description>
+    <description><![CDATA[<p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer ">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer ">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer ">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer ">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer ">podman</a>。</p>]]></description>
 </item>
 </channel>
 </rss>
