@@ -38,8 +38,7 @@ enableEmoji = true
     hasCJKLanguage = false
     # default amount of posts in each pages
     paginate = 12
-    # [UA-XXXXXXXX-X] google analytics code
-    googleAnalytics = "G-78W9SMKZVE"
+    # [UA-XXXXXXXX-X] google analytics code (moved to [params.analytics.google])
     # copyright description used only for seo schema
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # Menu config
@@ -248,8 +247,7 @@ enableEmoji = true
     hasCJKLanguage = true
     # 默认每页列表显示的文章数目
     paginate = 12
-    # [UA-XXXXXXXX-X] 谷歌分析代号
-    googleAnalytics = "G-78W9SMKZVE"
+    # [UA-XXXXXXXX-X] 谷歌分析代号 (moved to [params.analytics.google])
     # 版权描述，仅仅用于 SEO
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     # 菜单配置
@@ -638,7 +636,7 @@ enableEmoji = true
     [params.page.mapbox]
       # access token of Mapbox GL JS
       # Mapbox GL JS 的 access token
-      accessToken = "pk.eyJ1IjoiZGlsbG9uenEiLCJhIjoiY2s2czd2M2x3MDA0NjNmcGxmcjVrZmc2cyJ9.aSjv2BNuZUfARvxRYjSVZQ"
+      accessToken = ""
       # style for the light theme
       # 浅色主题的地图样式
       lightStyle = "mapbox://styles/mapbox/light-v10?optimize=true"
@@ -711,8 +709,8 @@ enableEmoji = true
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
         # enable = true
-        appId = "DPCHoH6wcVVuj1oDKc0YbbKE-MdYXbMMI"
-        appKey = "SeriSQWEfQtASuwdOicQdK0h"
+        appId = ""
+        appKey = ""
         placeholder = "your commend ..."
         avatar = "mp"
         # meta= ""
@@ -985,7 +983,7 @@ enableEmoji = true
   # Google Analytics 相关隐私 (被 params.analytics.google 替代)
   [privacy.googleAnalytics]
     # ...
-  [privacy.twitter]
+  [privacy.x]
     enableDNT = true
   [privacy.youtube]
     privacyEnhanced = true
@@ -1009,5 +1007,6 @@ enableEmoji = true
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
-  taxonomyTerm = ["HTML"]
+  # Modern Hugo kinds (0.112+): `taxonomy` = taxonomy index (/tags/); `term` = single term page (/tags/go/)
+  taxonomy = ["HTML"]
+  term = ["HTML", "RSS"]

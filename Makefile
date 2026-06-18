@@ -11,6 +11,11 @@ $(info shell will use ${SHELL})
 #BASEDIR = $(shell pwd)
 BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 
+# LoveIt 0.2.10 requires Hugo extended <= ~0.119 (newer Hugo removed APIs the
+# theme uses). CI pins hugo-version '0.119.0' extended. Override locally, e.g.:
+#   make dev HUGO=~/bin/hugo119
+HUGO ?= hugo
+
 gitBranch = $(shell git symbolic-ref --short -q HEAD)
 
 ifeq ($(gitBranch),)
@@ -29,29 +34,36 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 default: dev
 
 publish: clean-public
-	@hugo -D
+	@$(HUGO)
 local:
-	@hugo server -w  -DF
+	@$(HUGO) server -w  -DF
 debug: uglifyjs dev
 dev: clean-public
-	@hugo server -w -e production -DF
+	@$(HUGO) server -w -e production -DF
 prod:
-	@hugo server -w -e production
+	@$(HUGO) server -w -e production
 run: prod
 
-# uglifyjs 3.15.2, shall not use npx babel will import npm module...; latest version, use theme.js in assets/js/theme.js, old is theme.min.js
-uglifyjs: 
-	@mkdir -p ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js
+# Re-minify the project copy of theme.js (optional dev utility).
+# Guarded: no-op unless both `uglifyjs` and src/js/theme.js exist.
+# Note: theme JS normally ships via the theme submodule (themes/LoveIt/assets/js),
+# so this project has no src/js/theme.js by default.
+uglifyjs:
+ifeq ($(shell command -v uglifyjs 2>/dev/null),)
+	@echo "uglifyjs: tool not installed (npm i -g uglify-js); skipping"
+else ifneq ($(wildcard ${BASEDIR}/src/js/theme.js),)
+	@mkdir -p ${BASEDIR}/assets/js
 	@uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.js -c -b
-	# @uglifyjs ${BASEDIR}/src/js/theme.js -o ${BASEDIR}/assets/js/theme.min.js -c -m --source-map "url=theme.min.js.map,names=false,filename=theme.js,base='${BASEDIR}/assets/js'"
-	# @npx babel ${BASEDIR}/src/js/theme.js --out-file ${BASEDIR}/assets/js/theme.min.js --source-maps
+else
+	@echo "uglifyjs: src/js/theme.js not found (theme JS ships via themes/LoveIt/assets/js); skipping"
+endif
 
 # dev & test use
 posts: posts-en posts-zh-cn
 posts-en:
-	@hugo new ${BASEDIR}/content/posts/local-test/auto-posts-$(shell date +'%s').en.md
+	@$(HUGO) new ${BASEDIR}/content/posts/local-test/auto-posts-$(shell date +'%s').en.md
 posts-zh-cn:
-	@hugo new ${BASEDIR}/content/posts/local-test/自动生成文档-$(shell date +'%s').zh-cn.md
+	@$(HUGO) new ${BASEDIR}/content/posts/local-test/自动生成文档-$(shell date +'%s').zh-cn.md
 clean-posts:
 	@rm -rf ${BASEDIR}/content/posts/local-test/*
 clean-public:
