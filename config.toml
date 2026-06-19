@@ -784,7 +784,7 @@ enableEmoji = true
         reactionsEnabled = "1"
         emitMetadata = "0"
         inputPosition = "bottom" # top
-        lazyLoading = false
+        lazyLoading = true # defer the comments iframe until scrolled into view (perf)
         lightTheme = "light"
         darkTheme = "dark"
     # xwi88 自定义配置 xwi88Cfg
