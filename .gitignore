@@ -24,3 +24,6 @@ hugo.linux
 # local dev test
 /content/posts/local-test/
 
+# auto-iterate session logs (skill output)
+/.auto-iterate/
+

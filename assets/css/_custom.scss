@@ -1,0 +1,21 @@
+// ==============================
+// Custom style (project-level; overrides theme's empty _custom.scss)
+// 自定义样式
+// ==============================
+
+// a11y skip-to-content link: off-screen until keyboard-focused (WCAG 2.4.1)
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: -9999px;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--global-background, #fff);
+    color: var(--global-font-color, #161209);
+    border-radius: 0 0 0.25rem 0;
+    font-weight: 600;
+
+    &:focus {
+        left: 0;
+    }
+}
