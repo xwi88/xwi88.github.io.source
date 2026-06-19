@@ -29,7 +29,8 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 .PHONY: default submodule submodule-status submodule-update submodule-update-remote submodule-sync submodule-init log \
 	publish dev prod run \
 	debug uglifyjs local \
-	posts post-en posts-zh-cn clean clean-posts clean-public
+	posts post-en posts-zh-cn clean clean-posts clean-public \
+	linkcheck
 
 default: dev
 
@@ -43,6 +44,11 @@ dev: clean-public
 prod:
 	@$(HUGO) server -w -e production
 run: prod
+
+# Verify every internal link in the built site resolves (QA). Builds first if needed.
+linkcheck:
+	@${HUGO} --quiet 2>/dev/null || true
+	@bash ${BASEDIR}/scripts/linkcheck.sh ${BASEDIR}/public
 
 # Re-minify the project copy of theme.js (optional dev utility).
 # Guarded: no-op unless both `uglifyjs` and src/js/theme.js exist.
