@@ -11,19 +11,24 @@
 ## Init and Run
 
 ```bash
-# init and update submodule
+# Prerequisites — Hugo extended 0.119.0.
+# The LoveIt 0.2.10 theme is INCOMPATIBLE with Hugo >= ~0.120 (removed APIs:
+# .Site.Author.name, the :filename permalink token, privacy.twitter...).
+# CI pins hugo-version '0.119.0' extended. If your default hugo is newer
+# (e.g. `brew install hugo` gives 0.16x), install a 0.119.0 extended binary
+# and pass it via HUGO= below.
+
+# init and update submodule (themes/LoveIt)
 make submodule-update
 
-# run with production
-make run
+# dev server (hugo server -e production -DF -w). Override HUGO if your default is too new:
+make dev HUGO=~/bin/hugo119        # or: make run HUGO=~/bin/hugo119
 
-# run with dev
-make dev
+# build to ./public (no -D: production does not ship drafts)
+make publish HUGO=~/bin/hugo119
 
-# publish
-make publish
-
-# update the copy theme.js and generate the theme.min.js and theme.min.js.map
+# (optional) re-minify the project theme.js copy — guarded, no-ops unless
+# both `uglifyjs` and src/js/theme.js exist (theme JS ships via the submodule)
 make uglifyjs
 ```
 

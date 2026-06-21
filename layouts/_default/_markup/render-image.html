@@ -1,0 +1,12 @@
+{{- /* Override theme hook: pass Alt=.Text so <img alt> is the meaningful caption
+     instead of falling back to the image src path (plugin/img.html: $alt := .Alt | default $src). */ -}}
+{{- if .Title -}}
+    <figure>
+        {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Caption" .Title "Linked" true "Resources" .Page.Resources | partial "plugin/img.html" -}}
+        <figcaption class="image-caption">
+            {{- .Title | safeHTML -}}
+        </figcaption>
+    </figure>
+{{- else -}}
+    {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Resources" .Page.Resources | partial "plugin/img.html" -}}
+{{- end -}}

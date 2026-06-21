@@ -1,0 +1,21 @@
+{{- $params := .Scratch.Get "params" -}}
+
+<meta name="Description" content="{{ $params.description | default .Site.Params.description }}">
+
+{{- template "_internal/opengraph.html" . -}}
+{{- template "_internal/twitter_cards.html" . -}}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+{{- /* theme-color: split by prefers-color-scheme so the mobile browser chrome
+     matches the site's light/dark mode (light = configured value, dark = LoveIt
+     dark background #292a2d). */ -}}
+{{- with .Site.Params.app.themeColor -}}
+    <meta name="theme-color" content="{{ . }}" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#292a2d" media="(prefers-color-scheme: dark)">
+{{- end -}}
+
+{{- with .Site.Params.app.tileColor -}}
+    <meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}

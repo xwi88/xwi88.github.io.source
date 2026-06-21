@@ -52,7 +52,6 @@
                     </span>
                     <span class="icp-splitter"></span><br class="icp-br"/>
                     <span class="icp">{{ $icp_ga.url | safeHTML }}</span>
-                {{/*  {{- end -}}  */}}
             </div>
 
             {{- /* Hugo and LoveIt */ -}}
@@ -109,7 +108,7 @@
                         vOffset: 0,         // canvas垂直偏移
                     },
                     mobile: {
-                        show: true,         // 是否在移动设备上显示
+                        show: false,        // 移动端不加载看板娘 (perf: 省掉 2 个同步 JS + 模型请求)
                         scale: 1,           // 移动设备上的缩放
                         motion: true,       // 移动设备是否开启重力感应
                     },
