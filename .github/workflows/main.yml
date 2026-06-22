@@ -11,18 +11,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Cancel superseded runs so concurrent pushes don't interleave writes to the same deploy targets
-concurrency:
-  group: ci-deploy
-  cancel-in-progress: true
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,7 +28,7 @@ jobs:
       - name: Hugo setup
         # You may pin to the exact commit or the version.
         # uses: peaceiris/actions-hugo@2e89aa66d0093e4cd14751b3028fc1a179452c2e
-        uses: peaceiris/actions-hugo@v3
+        uses: peaceiris/actions-hugo@v2
         with:
           # The Hugo version to download (if necessary) and use. Example: 0.58.2
           hugo-version: '0.119.0' # optional, default is latest
@@ -44,11 +37,11 @@ jobs:
       
       # build website
       - name: Build
-        run: hugo
+        run: hugo -D
       
       # push the generated content into the `main` branch.
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
           # deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           personal_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
@@ -58,7 +51,7 @@ jobs:
           full_commit_message: ${{ github.event.head_commit.message }}
       
       - name: Deploy_Gitee
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
           publish_dir: ./public
