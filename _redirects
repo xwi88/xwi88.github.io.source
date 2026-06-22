@@ -1,2 +1,4 @@
-/zh-cn/* /zh-cn/404.html 404
-/fr/*    /fr/404.html    404
+# Redirects (Netlify/Cloudflare Pages style; ignored by GitHub Pages & Gitee Pages).
+# zh-cn is the default language (no URL prefix) and fr is disabled, so there are
+# no /zh-cn/* or /fr/* pages — fall back to the single generated 404 page.
+/*  /404.html  404

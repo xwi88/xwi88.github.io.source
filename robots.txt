@@ -1,6 +1,7 @@
 User-agent: *
 
-Disallow: /images/
+# /images/ allowed (was Disallowed) so the OG/Twitter image and post images
+# can be indexed by image search and fetched by social crawlers.
 Disallow: /js/
 Disallow: /css/
 

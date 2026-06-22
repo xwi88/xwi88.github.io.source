@@ -1,1226 +1,444 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Mac 使用 minikube 替换 Docker Desktop - Coding Life Share</title><meta name="Description" content="MacOS 上使用 minikube 替换 Docker Desktop"><meta property="og:title" content="Mac 使用 minikube 替换 Docker Desktop" />
-<meta property="og:description" content="MacOS 上使用 minikube 替换 Docker Desktop" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-03-11T21:27:21+08:00" />
-<meta property="article:modified_time" content="2022-03-30T13:30:54+08:00" /><meta property="og:site_name" content="My cool site" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
-
-<meta name="twitter:title" content="Mac 使用 minikube 替换 Docker Desktop"/>
-<meta name="twitter:description" content="MacOS 上使用 minikube 替换 Docker Desktop"/>
-<meta name="application-name" content="XIN WANG blog">
-<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/mac-minikube-replace-docker-desktop/" /><link rel="prev" href="https://xwi88.com/git-common-config/" /><link rel="next" href="https://xwi88.com/makefile-shell-path-get/" /><link rel="stylesheet" href="/css/style.min.5dc6f12b946ef6f5c5bf767b1b5213ff0c7056f39154b7f4aa8ccf08fb10e3c7.css" integrity="sha256-XcbxK5Ru9vXFv3Z7G1IT/wxwVvORVLf0qozPCPsQ48c="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Mac 使用 minikube 替换 Docker Desktop",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"
-        },"genre": "posts","keywords": "docker, k8s, env","wordcount":  3385 ,
-        "url": "https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished": "2022-03-11T21:27:21+08:00","dateModified": "2022-03-30T13:30:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xwi88","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
-                    "width":  725 ,
-                    "height":  967 
-                }},"author": {
-                "@type": "Person",
-                "name": "xwi88"
-            },"description": "MacOS 上使用 minikube 替换 Docker Desktop"
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/mac-minikube-replace-docker-desktop/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/mac-minikube-replace-docker-desktop/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/docker/"><i class="far fa-folder fa-fw"></i>docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-30">2022-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3385 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;
-    
-
-    
-        
-
-        
-        
-            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
-                
-                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
-        
-    
-
-</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#术语说明">术语说明</a></li>
-    <li><a href="#环境要求">环境要求</a></li>
-    <li><a href="#环境安装">环境安装</a></li>
-    <li><a href="#检查安装">检查安装</a></li>
-    <li><a href="#drivers-说明">Drivers 说明</a>
-      <ul>
-        <li><a href="#linux"><em>Linux</em></a></li>
-        <li><a href="#macos"><strong>macOS</strong></a></li>
-        <li><a href="#windows">Windows</a></li>
-      </ul>
-    </li>
-    <li><a href="#配置命令">配置命令</a></li>
-    <li><a href="#快捷启动">快捷启动</a></li>
-    <li><a href="#高级启动">高级启动</a>
-      <ul>
-        <li><a href="#启动命令">启动命令</a></li>
-        <li><a href="#可能出现的问题">可能出现的问题</a></li>
-      </ul>
-    </li>
-    <li><a href="#启动后环境检查">启动后环境检查</a></li>
-    <li><a href="#镜像源修改">镜像源修改</a></li>
-    <li><a href="#dashboard">Dashboard</a></li>
-    <li><a href="#目录挂载">目录挂载</a>
-      <ul>
-        <li><a href="#driver-默认挂载路径">Driver 默认挂载路径</a></li>
-      </ul>
-    </li>
-    <li><a href="#本机应用启动"><strong>本机应用启动</strong></a>
-      <ul>
-        <li><a href="#文件或配置找不到"><strong>文件或配置找不到</strong></a></li>
-        <li><a href="#解决方案"><strong>解决方案</strong></a></li>
-      </ul>
-    </li>
-    <li><a href="#开机启动">开机启动</a>
-      <ul>
-        <li><a href="#仅挂载当前项目目录"><strong>仅挂载当前项目目录</strong></a></li>
-        <li><a href="#挂载整个工作目录"><strong>挂载整个工作目录</strong></a></li>
-        <li><a href="#挂载整个工作目录且后台运行"><em>挂载整个工作目录且后台运行</em></a></li>
-      </ul>
-    </li>
-    <li><a href="#注意事项"><strong>注意事项</strong></a></li>
-    <li><a href="#更多">更多</a></li>
-    <li><a href="#参考">参考</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p><strong>Docker</strong> 公司于 <strong><a href="https://www.docker.com/blog/updating-product-subscriptions/" target="_blank" rel="noopener noreffer ">2021-08-31 宣布</a></strong> <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer ">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer ">minikube</a>，<a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer ">Hyperkit</a>，<a href="https://podman.io/" target="_blank" rel="noopener noreffer ">podman</a>。</p>
-<blockquote>
-<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
-</blockquote>
-<h2 id="术语说明">术语说明</h2>
-<ul>
-<li><strong><a href="https://en.wikipedia.org/wiki/Docker,_Inc." target="_blank" rel="noopener noreffer ">Docker Inc</a></strong> 一家总部设在美国的公司，开发了一些开源和非开源软件，这让开发、测试和在容器中运行应用更容易。</li>
-<li><strong><a href="https://github.com/docker/engine" target="_blank" rel="noopener noreffer ">Docker Engine</a></strong> Docker 背后的核心技术。它是一个作为守护进程运行在 Linux 上的开源软件，使在 Linux 内核上运行容器成为可能。它负责容器的生命周期和容器可以访问的物理资源(计算、内存、存储)的隔离。这个引擎可以在物理或者虚拟机上运行，但是它只能在 Linux 内核上运行，也就是说，在任何 Linux 风格的操作系统上。理解这一点很重要。<strong>Docker 引擎只能在 Linux 上运行</strong>。</li>
-<li><strong><a href="https://github.com/docker/cli" target="_blank" rel="noopener noreffer ">Docker CLI</a></strong> <em>CLI</em> 通常被开发人员用来与 docker 引擎交互。这包括 <code>docker</code> 和 <code>docker-compose</code> 命令。再次强调，这是一款开源软件。</li>
-<li><strong><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreffer ">Docker Desktop</a></strong> 由于 Docker Engine 只能在 Linux 上运行，使用 Windows 和 macOS 进行软件开发的开发人员只有在启动运行 Linux 的虚拟机(VM)之后才能运行该引擎。这就是 Docker Desktop 的用武之地。Docker Desktop 是一个专有软件，它允许 Windows/macOS 开发者在开发环境中无缝地使用容器技术，而无需管理操作 VM 的复杂性和随之而来的所有细节(网络、虚拟化、 linux 知识等)。Docker Desktop 是为了在软件开发过程中使用而设计的，<em>它在类似于生产环境的容器中不起作用</em>，在这种环境中只有 <code>Docker Engine</code> 参与。</li>
-</ul>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">继续在 <strong>macOS</strong> 上运行和构建容器应用程序的方法是在 <code>Linux VM</code> 上运行 <code>Docker Engine</code>。</div>
-        </div>
-    </div>
-<h2 id="环境要求">环境要求</h2>
-<ul>
-<li>最少 2核</li>
-<li>最少 2GB 可用内存</li>
-<li>最少 20GB 可用磁盘空间</li>
-<li>网络连接</li>
-<li>容器或虚拟机管理器, 如: <strong><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong>, <strong><a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong>, Hyper-V, KVM, Parallels, <strong><a href="https://podman.io/" target="_blank" rel="noopener noreffer ">podman</a></strong>, <em><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreffer ">VirtualBox</a></em>, or VMware Fusion/Workstation</li>
-</ul>
-<h2 id="环境安装">环境安装</h2>
-<blockquote>
-<p>如果确定以后不需要在 <code>docker desktop</code> 中运行 image，请删除所有 <code>docker</code> <code>docker desktop</code> 相关的配置。</p>
-</blockquote>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><blockquote>
-<p>推荐 <a href="https://brew.sh/" target="_blank" rel="noopener noreffer ">Homebrew</a> 方式安装</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install docker
-</span></span><span class="line"><span class="cl">brew install docker-compose <span class="c1"># 根据需要，可选安装</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">brew install hyperkit
-</span></span><span class="line"><span class="cl">brew install minikube
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>如果通过 <em>brew</em> 安装 <code>minikube</code> 失败，可以尝试手动安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
-</span></span><span class="line"><span class="cl">sudo install minikube-darwin-amd64 /usr/local/bin/minikube
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>
-<h2 id="检查安装">检查安装</h2>
-<p>执行 <code>which minikube</code></p>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>brew 方式安装后执行 <code>which minikube</code>，如果失败可执行以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew unlink minikube
-</span></span><span class="line"><span class="cl">brew link minikube
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><em>remove the old minikube links and link the newly installed binary</em></p>
-</div>
-        </div>
-    </div>
-<h2 id="drivers-说明">Drivers 说明</h2>
-<blockquote>
-<p><code>minikube</code> 在 <code>mac/windows</code> 下启动需要依赖 <code>Linux VM</code>，这里也就是我们配置的 driver，如果配置 <code>--driver=docker</code> 则需要安装相应版本的 <code>Docker Desktop</code> 借助已安装的 <code>linux vm</code>。
-否则需要选择其他，具体支持的 drivers 参考如下：</p>
-</blockquote>
-<h3 id="linux"><em>Linux</em></h3>
-<ul>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - container-based (preferred)</li>
-<li>KVM2 - VM-based (preferred)</li>
-<li>VirtualBox - VM</li>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/none/" target="_blank" rel="noopener noreffer ">None</a></strong> - bare-metal</li>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/podman/" target="_blank" rel="noopener noreffer ">Podman</a></strong> - container (experimental)</li>
-<li>SSH - remote ssh</li>
-</ul>
-<h3 id="macos"><strong>macOS</strong></h3>
-<ul>
-<li><em><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></em> - VM + Container (preferred)</li>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperkit/" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong> - VM</li>
-<li>VirtualBox - VM</li>
-<li>Parallels - VM</li>
-<li>VMware Fusion - VM</li>
-<li>SSH - remote ssh</li>
-</ul>
-<h3 id="windows">Windows</h3>
-<ul>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperv/" target="_blank" rel="noopener noreffer ">Hyper-V</a></strong> - VM (preferred)</li>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - VM + Container (preferred)</li>
-<li>VirtualBox - VM</li>
-<li>VMware Workstation - VM</li>
-<li>SSH - remote ssh</li>
-</ul>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>如果配置了 <code>--driver=docker</code> 需要区分 <strong><code>standard</code>, <code>rootless</code></strong> docker</p>
-<blockquote>
-<p><strong>Standard Docker</strong></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># need: install Docker 18.09 or higher</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#       amd64 or arm64 system.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Start a cluster using the docker driver:</span>
-</span></span><span class="line"><span class="cl">minikube start --driver<span class="o">=</span>docker
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To make docker the default driver:</span>
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> driver docker
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p><strong>Rootless Docker</strong></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Requirements</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    Docker 20.10 or higher, see https://rootlesscontaine.rs/getting-started/docker/</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#    Cgroup v2 delegation, see https://rootlesscontaine.rs/getting-started/common/cgroup2/</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">dockerd-rootless-setuptool.sh install -f
-</span></span><span class="line"><span class="cl">docker context use rootless
-</span></span><span class="line"><span class="cl">minikube start --driver<span class="o">=</span>docker --container-runtime<span class="o">=</span>containerd
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>The <code>--container-runtime</code> flag must be set to <code>containerd</code> or <code>cri-o</code>.</p>
-</blockquote>
-</div>
-        </div>
-    </div>
-<blockquote>
-<p>更多 <code>drivers</code> 配置及用法请查看: <a href="https://minikube.sigs.k8s.io/docs/drivers/" target="_blank" rel="noopener noreffer ">minikube drivers</a></p>
-</blockquote>
-<h2 id="配置命令">配置命令</h2>
-<p><code>minikube config SUBCOMMAND [flags] [options]</code></p>
-<ul>
-<li><code>minikube config help</code></li>
-<li><code>minikube config defaults PROPERTY_NAME [flags]</code> <em>list displays all valid default settings for PROPERTY_NAME</em></li>
-<li><code>minikube config view [flags]</code> Display values currently set in the minikube config file.</li>
-<li><code>minikube config set PROPERTY_NAME PROPERTY_VALUE [flags]</code> <em>Sets an individual value in a minikube config file</em></li>
-<li><code>minikube config get PROPERTY_NAME [flags]</code> <em>Returns the value of PROPERTY_NAME from the minikube config file</em></li>
-<li><code>minikube config unset PROPERTY_NAME [flags]</code> <em>unsets PROPERTY_NAME from the minikube config file.</em></li>
-</ul>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><blockquote>
-<p><code>minikube config --help</code></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">config modifies minikube config files using subcommands like &#34;minikube config set driver kvm2&#34;
-</span></span><span class="line"><span class="cl">Configurable fields:
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> * driver
-</span></span><span class="line"><span class="cl"> * vm-driver
-</span></span><span class="line"><span class="cl"> * container-runtime
-</span></span><span class="line"><span class="cl"> * feature-gates
-</span></span><span class="line"><span class="cl"> * v
-</span></span><span class="line"><span class="cl"> * cpus
-</span></span><span class="line"><span class="cl"> * disk-size
-</span></span><span class="line"><span class="cl"> * host-only-cidr
-</span></span><span class="line"><span class="cl"> * memory
-</span></span><span class="line"><span class="cl"> * log<span class="nb">_</span>dir
-</span></span><span class="line"><span class="cl"> * kubernetes-version
-</span></span><span class="line"><span class="cl"> * iso-url
-</span></span><span class="line"><span class="cl"> * WantUpdateNotification
-</span></span><span class="line"><span class="cl"> * WantBetaUpdateNotification
-</span></span><span class="line"><span class="cl"> * ReminderWaitPeriodInHours
-</span></span><span class="line"><span class="cl"> * WantNoneDriverWarning
-</span></span><span class="line"><span class="cl"> * WantVirtualBoxDriverWarning
-</span></span><span class="line"><span class="cl"> * profile
-</span></span><span class="line"><span class="cl"> * bootstrapper
-</span></span><span class="line"><span class="cl"> * insecure-registry
-</span></span><span class="line"><span class="cl"> * hyperv-virtual-switch
-</span></span><span class="line"><span class="cl"> * disable-driver-mounts
-</span></span><span class="line"><span class="cl"> * cache
-</span></span><span class="line"><span class="cl"> * EmbedCerts
-</span></span><span class="line"><span class="cl"> * native-ssh
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Available Commands:
-</span></span><span class="line"><span class="cl">  defaults    Lists all valid default values for PROPERTY<span class="nb">_</span>NAME
-</span></span><span class="line"><span class="cl">  get         Gets the value of PROPERTY<span class="nb">_</span>NAME from the minikube config file
-</span></span><span class="line"><span class="cl">  set         Sets an individual value in a minikube config file
-</span></span><span class="line"><span class="cl">  unset       unsets an individual value in a minikube config file
-</span></span><span class="line"><span class="cl">  view        Display values currently set in the minikube config file
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage:
-</span></span><span class="line"><span class="cl">  minikube config SUBCOMMAND [flags] [options]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Use &#34;minikube &lt;command&gt; --help&#34; for more information about a given command.
-</span></span><span class="line"><span class="cl">Use &#34;minikube options&#34; for a list of global command-line options (applies to all commands).
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-        </div>
-    </div>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube config <span class="nb">set</span> driver hyperkit
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> cpus <span class="m">2</span>
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> memory 2000mb
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> disk-size 20gb
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># insecure-registry 测试未生效, 启动时指定!</span>
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> insecure-registry https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
-</span></span><span class="line"><span class="cl"><span class="c1"># minikube config set kubernetes-version &lt;&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># The name of the minikube VM being used. This can be set to allow having multiple instances of minikube independently. (default &#34;minikube&#34;)</span>
-</span></span><span class="line"><span class="cl">minikube config <span class="nb">set</span> profile
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-        </div>
-    </div>
-<h2 id="快捷启动">快捷启动</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start <span class="c1"># minikube start --container-runtime=docker</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Tell Docker CLI to talk to minikube&#39;s VM</span>
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Save IP to a hostname</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># echo &#34;`minikube ip` docker.local&#34; | sudo tee -a /etc/hosts &gt; /dev/null</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># control panel, must start minikube with cluster model, without flag --no-kubernetes</span>
-</span></span><span class="line"><span class="cl">minikube dashboard
-</span></span><span class="line"><span class="cl"><span class="c1"># stop kubernetes related</span>
-</span></span><span class="line"><span class="cl">minikube pause
-</span></span><span class="line"><span class="cl"><span class="c1"># test</span>
-</span></span><span class="line"><span class="cl">docker run hello-world
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="高级启动">高级启动</h2>
-<blockquote>
-<p><strong><a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">commands start</a></strong></p>
-</blockquote>
-<h3 id="启动命令">启动命令</h3>
-<ul>
-<li>某些配置更新后需要执行: <code>minikube delete</code> 然后重新启动</li>
-</ul>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p><code>minikube start --driver=hyperkit</code>  或 <code>minikube start --driver=docker</code> 或其他驱动</p>
-<p>推荐使用类似配置，后续不用进入 <code>minikube vm</code> 修改相关配置，主要配置：</p>
-<ul>
-<li><strong><code>--insecure-registry</code></strong></li>
-<li><em><code>--registry-mirror</code></em></li>
-<li><em><code>--mount</code></em> <strong>挂载本地主机目录到 <code>minikube vm</code></strong>
-<ul>
-<li>当前 MacOS 下，默认将挂载 <code>/Users:/minikube-host/</code></li>
-<li><strong>挂载路径最好保持完全一致，避免程序有路径依赖而无法正常启动</strong></li>
-<li>建议使用 <code>--mount-string</code> 按需挂载</li>
-</ul>
-</li>
-<li><strong><code>--mount-string</code></strong> 指定挂载目录</li>
-<li><strong><code>--no-kubernetes</code></strong></li>
-<li><strong><code>--cpus</code></strong></li>
-<li><strong><code>--memory</code></strong></li>
-<li><code>--image-mirror-country</code></li>
-</ul>
-<p><code>minikube start --no-kubernetes --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker</code></p>
-<p>如果要使用 minikube dashboard，可这样启动:
-<code>minikube start --cpus=2 --memory=2000mb \ --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
-<p><em>Tell Docker CLI to talk to minikube&rsquo;s VM:</em> <code>eval $(minikube docker-env)</code></p>
-<p><code>eval $(minikube docker-env)</code> 可以直接配置到对应 shell 如: <code>~/.zshrc</code> 或 <code>~/.bashrc</code> 中，以避免每次输入</p>
-</div>
-        </div>
-    </div>
-<h3 id="可能出现的问题">可能出现的问题</h3>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p><em>如果你在 <code>Docker Desktop</code> 基础上启动 <code>minikube</code>，直接借助它的 <code>vm</code> 及配置。由于资源限制，可能导致无法正常启动 <code>minikube</code></em></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">😄  minikube v1.24.0 on Darwin 12.2.1
-</span></span><span class="line"><span class="cl">✨  Using the docker driver based on existing profile
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">⛔  Docker Desktop only has 1986MiB available, you may encounter application deployment failures.
-</span></span><span class="line"><span class="cl">💡  Suggestion:
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    1. Click on &#34;Docker for Desktop&#34; menu icon
-</span></span><span class="line"><span class="cl">    2. Click &#34;Preferences&#34;
-</span></span><span class="line"><span class="cl">    3. Click &#34;Resources&#34;
-</span></span><span class="line"><span class="cl">    4. Increase &#34;Memory&#34; slider bar to 2.25 GB or higher
-</span></span><span class="line"><span class="cl">    5. Click &#34;Apply <span class="nb">&amp;</span> Restart&#34;
-</span></span><span class="line"><span class="cl">📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">❗  You cannot change the memory size for an existing minikube cluster. Please first delete the cluster.
-</span></span><span class="line"><span class="cl">👍  Starting minikube without Kubernetes minikube in cluster minikube
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p><code>minikube delete</code> <em>调整 docker 资源后，删除重建，重新启动即可</em></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">🔥  Deleting &#34;minikube&#34; in docker ...
-</span></span><span class="line"><span class="cl">🔥  Removing ~/.minikube/machines/minikube ...
-</span></span><span class="line"><span class="cl">💀  Removed all traces of the &#34;minikube&#34; cluster.
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-        </div>
-    </div>
-<h2 id="启动后环境检查">启动后环境检查</h2>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><blockquote>
-<p>启动命令: <code>minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">  minikube v1.24.0 on Darwin 10.15.7
-</span></span><span class="line"><span class="cl">    ▪ MINIKUBE<span class="nb">_</span>ACTIVE<span class="nb">_</span>DOCKERD=minikube
-</span></span><span class="line"><span class="cl">✨  Using the hyperkit driver based on user configuration
-</span></span><span class="line"><span class="cl">👍  Starting minikube without Kubernetes minikube in cluster minikube
-</span></span><span class="line"><span class="cl">🔥  Creating hyperkit VM (CPUs=2, Memory=2000MB, Disk=20480MB) ...
-</span></span><span class="line"><span class="cl">🏄  Done! minikube is ready without Kubernetes!
-</span></span><span class="line"><span class="cl">╭───────────────────────────────────────────────────────────────────────────────────────╮
-</span></span><span class="line"><span class="cl">│                                                                                       │
-</span></span><span class="line"><span class="cl">│                       💡  Things to try without Kubernetes ...                        │
-</span></span><span class="line"><span class="cl">│                                                                                       │
-</span></span><span class="line"><span class="cl">│    - &#34;minikube ssh&#34; to SSH into minikube&#39;s node.                                      │
-</span></span><span class="line"><span class="cl">│    - &#34;minikube docker-env&#34; to point your docker-cli to the docker inside minikube.    │
-</span></span><span class="line"><span class="cl">│    - &#34;minikube image&#34; to build images without docker.                                 │
-</span></span><span class="line"><span class="cl">│                                                                                       │
-</span></span><span class="line"><span class="cl">╰───────────────────────────────────────────────────────────────────────────────────────╯
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p><code>eval $(minikube docker-env)</code> <strong>让 Docker CLI 与 minikube&rsquo;s VM 交互</strong></p>
-</blockquote>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">Add this line to <code>.bash_profile</code> or <code>.zshrc</code> or &hellip; if you want to <em>use minikube&rsquo;s daemon</em> by default (or if you do not want to set this every time you open a new terminal).</div>
-        </div>
-    </div>
-<blockquote>
-<p><code>docker info</code> 查看我们现在终端的 docker 信息</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Kernel Version: 4.19.202
-</span></span><span class="line"><span class="cl"> Operating System: Buildroot 2021.02.4
-</span></span><span class="line"><span class="cl"> OSType: linux
-</span></span><span class="line"><span class="cl"> Architecture: x86<span class="nb">_</span>64
-</span></span><span class="line"><span class="cl"> CPUs: 2
-</span></span><span class="line"><span class="cl"> Total Memory: 1.894GiB
-</span></span><span class="line"><span class="cl"> Name: minikube
-</span></span><span class="line"><span class="cl"> ID: STNM:GBUS:PMHK:ASTU:BZHZ:WIEY:L6F3:YOMH:M432:S5XK:PAT5:IU2D
-</span></span><span class="line"><span class="cl"> Docker Root Dir: /var/lib/docker
-</span></span><span class="line"><span class="cl"> Debug Mode: false
-</span></span><span class="line"><span class="cl"> Registry: https://index.docker.io/v1/
-</span></span><span class="line"><span class="cl"> Labels:
-</span></span><span class="line"><span class="cl">  provider=hyperkit
-</span></span><span class="line"><span class="cl"> Experimental: false
-</span></span><span class="line"><span class="cl"> Insecure Registries:
-</span></span><span class="line"><span class="cl">  reg-mirror.qiniu.com
-</span></span><span class="line"><span class="cl">  docker.mirrors.ustc.edu.cn
-</span></span><span class="line"><span class="cl">  mirror.ccs.tencentyun.com
-</span></span><span class="line"><span class="cl">  10.96.0.0/12
-</span></span><span class="line"><span class="cl">  127.0.0.0/8
-</span></span><span class="line"><span class="cl"> Live Restore Enabled: false
-</span></span><span class="line"><span class="cl"> Product License: Community Engine
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>新打开一个终端查看本机(未卸载 docker desktop 机器，仅做对比) <code>docker info</code></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Kernel Version: 5.10.76-linuxkit
-</span></span><span class="line"><span class="cl">Operating System: Docker Desktop
-</span></span><span class="line"><span class="cl">OSType: linux
-</span></span><span class="line"><span class="cl">Architecture: x86<span class="nb">_</span>64
-</span></span><span class="line"><span class="cl">CPUs: 3
-</span></span><span class="line"><span class="cl">Total Memory: 4.083GiB
-</span></span><span class="line"><span class="cl">Name: docker-desktop
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">HTTP Proxy: http.docker.internal:3128
-</span></span><span class="line"><span class="cl"> HTTPS Proxy: http.docker.internal:3128
-</span></span><span class="line"><span class="cl"> Registry: https://index.docker.io/v1/
-</span></span><span class="line"><span class="cl"> Labels:
-</span></span><span class="line"><span class="cl"> Experimental: false
-</span></span><span class="line"><span class="cl"> Insecure Registries:
-</span></span><span class="line"><span class="cl">  127.0.0.0/8
-</span></span><span class="line"><span class="cl"> Registry Mirrors:
-</span></span><span class="line"><span class="cl">  https://registry-1.docker.io/
-</span></span><span class="line"><span class="cl">  https://hub-mirror.c.163.com/
-</span></span><span class="line"><span class="cl">  https://mirror.baidubce.com/
-</span></span><span class="line"><span class="cl">  https://registry.cn-hangzhou.aliyuncs.com/
-</span></span><span class="line"><span class="cl">  https://docker.mirrors.ustc.edu.cn/
-</span></span><span class="line"><span class="cl">  https://mirror.ccs.tencentyun.com/
-</span></span><span class="line"><span class="cl">  https://registry.docker-cn.com/
-</span></span><span class="line"><span class="cl">  https://reg-mirror.qiniu.com/
-</span></span><span class="line"><span class="cl">  https://dockerhub.azk8s.cn/
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div>
-        </div>
-    </div>
-<h2 id="镜像源修改">镜像源修改</h2>
-<blockquote>
-<p><strong>不建议进入 minikube 环境做此修改</strong>，建议在启动时指定参数进行配置: <code>minikube start --image-mirror-country='cn'</code> 等参数， 详见 <a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">minikube start</a> 或 <a href="#%e9%ab%98%e7%ba%a7%e5%90%af%e5%8a%a8" rel="">高级启动</a></p>
-</blockquote>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><blockquote>
-<p><code>minikube ssh</code>  连入 minikube node</p>
-<p><code>sudo mkdir -p /etc/docker</code> 创建 docker 目录</p>
-<p><code>vi /etc/docker/daemon.json</code> 修改配置</p>
-<p><code>daemon.json</code> <strong>daemon.json</strong> 配置</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">     <span class="nt">&#34;registry-mirrors&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://registry-1.docker.io&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://hub-mirror.c.163.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://mirror.baidubce.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://registry.cn-hangzhou.aliyuncs.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;http://f1361db2.m.daocloud.io&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://mirror.ccs.tencentyun.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://registry.docker-cn.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://reg-mirror.qiniu.com&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;https://dockerhub.azk8s.cn&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p><code>sudo systemctl daemon-reload</code></p>
-<p><code>sudo systemctl restart docker</code></p>
-</blockquote>
-</div>
-        </div>
-    </div>
-<h2 id="dashboard">Dashboard</h2>
-<p><code>minikube dashboard</code></p>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><blockquote>
-<p><code>minikube start --driver=hyperkit --cpus=2 --memory=2000mb --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p>
-<p><code>minikube dashboard</code></p>
-</blockquote>
-</div>
-        </div>
-    </div>
-<h2 id="目录挂载">目录挂载</h2>
-<blockquote>
-<p>This will start the mount daemon and automatically mount files into minikube.</p>
-</blockquote>
-<p><code>minikube mount &lt;local directory&gt;:&lt;host directory&gt;</code></p>
-<p><strong>映射/挂载关系</strong>: <code>本地主机 volumes</code>&lt;-&gt;<code>docker desktop VM volumes</code>&lt;-&gt;<code>docker container volumes</code></p>
-<h3 id="driver-默认挂载路径">Driver 默认挂载路径</h3>
-<p>Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Driver</th>
-<th style="text-align:left">OS</th>
-<th style="text-align:left">HostFolder</th>
-<th style="text-align:left">VM</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">VirtualBox</td>
-<td style="text-align:left">Linux</td>
-<td style="text-align:left">/home</td>
-<td style="text-align:left">/hosthome</td>
-</tr>
-<tr>
-<td style="text-align:left">VirtualBox</td>
-<td style="text-align:left">macOS</td>
-<td style="text-align:left">/Users</td>
-<td style="text-align:left">/Users</td>
-</tr>
-<tr>
-<td style="text-align:left">VirtualBox</td>
-<td style="text-align:left">Windows</td>
-<td style="text-align:left">C://Users</td>
-<td style="text-align:left">/c/Users</td>
-</tr>
-<tr>
-<td style="text-align:left">VMware Fusion</td>
-<td style="text-align:left">macOS</td>
-<td style="text-align:left">/Users</td>
-<td style="text-align:left">/mnt/hgfs/Users</td>
-</tr>
-<tr>
-<td style="text-align:left">KVM</td>
-<td style="text-align:left">Linux</td>
-<td style="text-align:left">Unsupported</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left">HyperKit</td>
-<td style="text-align:left">Linux</td>
-<td style="text-align:left">Unsupported (see NFS mounts)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><em>These mounts can be disabled by passing &ndash;disable-driver-mounts to minikube start.</em></p>
-<h2 id="本机应用启动"><strong>本机应用启动</strong></h2>
-<blockquote>
-<p>如果你使用了目录映射，则必须开启挂载，且一定要注意挂载路径，否则会出现文件或者配置找不到问题。</p>
-</blockquote>
-<h3 id="文件或配置找不到"><strong>文件或配置找不到</strong></h3>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>原因：</p>
-<ul>
-<li>使用 <code>docker desktop</code> 时，自动帮我们做了映射：<code>本地主机 volumes</code>&lt;-&gt;<code>docker desktop VM volumes</code>&lt;-&gt;<code>docker container volumes</code></li>
-<li>当我们使用 <code>minikube</code> 在本地运行 <code>docker run</code> 或 <code>docker-compose up</code> 实际相当于在 <code>minikube vm</code> 中运行，但是 <code>minikube vm</code> 中<strong>无本地本机的源码映射</strong></li>
-</ul>
-</div>
-        </div>
-    </div>
-<h3 id="解决方案"><strong>解决方案</strong></h3>
-<blockquote>
-<p><strong>在本地本机进行工作目录映射/挂载</strong>:</p>
-<ul>
-<li><code>minikube mount $HOME/workspace:$HOME/workspace</code></li>
-<li><strong>minikube vm 内部映射路径一定要注意: 挂载路径务必与实际路径保持一致</strong></li>
-<li><em>注意目录权限问题，正常挂载当前用户目录不涉及权限问题</em></li>
-<li>可设置挂载多个目录</li>
-</ul>
-</blockquote>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>可将你的源码放在一个统一的工作目录，这样方便挂载及代码查找，目录结构参考如下：</p>
-<ul>
-<li><code>$HOME/workspace</code> <strong>源码工作空间，可整个挂载</strong></li>
-<li><code>$HOME/workspace/git.company.com</code> <em>公司源码工作空间，仅公司代码</em></li>
-<li><code>$HOME/workspace/github.com</code> <em>github 源码工作空间</em></li>
-<li><code>$HOME/workspace/gitee.com</code></li>
-</ul>
-</div>
-        </div>
-    </div>
-<h2 id="开机启动">开机启动</h2>
-<blockquote>
-<p><code>--mount --mount-string=$HOME/workspace:$HOME/workspace</code> <em>可能存在问题，推荐启动后用命令 <code>minikube mount</code> 挂载</em></p>
-</blockquote>
-<h3 id="仅挂载当前项目目录"><strong>仅挂载当前项目目录</strong></h3>
-<ul>
-<li>优: 挂载目录少，占空间较小</li>
-<li>缺: 如果切换项目需要重新挂载，太过麻烦</li>
-</ul>
-<blockquote>
-<p><strong>尽量挂载整个工作目录(注意控制规模)，切换项目不用额外操作</strong></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>20gb <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="挂载整个工作目录"><strong>挂载整个工作目录</strong></h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># issues here {单独 --mount 将挂载: /Users:/minikube-host/; --mount-string 仅挂载指定目录，此时不需要添加 --mount， 推荐方式}</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>20gb <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="挂载整个工作目录且后台运行"><em>挂载整个工作目录且后台运行</em></h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#minikube delete</span>
-</span></span><span class="line"><span class="cl">minikube start --no-kubernetes --driver<span class="o">=</span>hyperkit --cpus<span class="o">=</span><span class="m">2</span> --memory<span class="o">=</span>2gb --disk-size<span class="o">=</span>40gb <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--image-mirror-country<span class="o">=</span>cn <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--registry-mirror<span class="o">=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
-</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span><span class="line"><span class="cl">nohup minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace <span class="p">&amp;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="注意事项"><strong>注意事项</strong></h2>
-<ul>
-<li>minikube 启动后配置 <code>eval $(minikube docker-env)</code></li>
-<li><em>minikube 启动后挂载目录</em> <a href="#%e6%9c%ac%e6%9c%ba%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8" rel="">应用启动目录挂载问题</a></li>
-<li>启动时指定 <code>--driver</code>，如果是 <code>docker</code> 务必确保 <code>docker daemon</code> 已运行</li>
-<li>如果启动参数 mount 设置错误，则需要 <code>minikube mount --kill</code>，且 <code>minikube vm</code> 移出相应目录</li>
-<li><code>minikube delete 不用每次都运行</code></li>
-</ul>
-<h2 id="更多">更多</h2>
-<ul>
-<li><strong><a href="https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/" target="_blank" rel="noopener noreffer ">Using minikube as Docker Desktop Replacement</a></strong></li>
-<li><a href="https://minikube.sigs.k8s.io/docs/handbook/registry/" target="_blank" rel="noopener noreffer ">How to interact with registries</a></li>
-<li><a href="https://minikube.sigs.k8s.io/docs/commands/image/#minikube-image-build" target="_blank" rel="noopener noreffer ">minikube-image-build</a></li>
-<li><a href="https://github.com/containerd/containerd" target="_blank" rel="noopener noreffer ">containerd</a></li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a href="https://dhwaneetbhatt.com/blog/run-docker-without-docker-desktop-on-macos" target="_blank" rel="noopener noreffer ">run-docker-without-docker-desktop-on-macos</a></li>
-<li><a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer ">minikube docs</a></li>
-</ul></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-03-30&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/7e8fd3e0d5750b0df0689efda748b361abd70caf" target="_blank" title="commit by xwi88(278810732@qq.com) 7e8fd3e0d5750b0df0689efda748b361abd70caf: update posts">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>7e8fd3e</a></span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/mac-minikube-replace-docker-desktop/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/" data-title="Mac 使用 minikube 替换 Docker Desktop" data-via="xwi88" data-hashtags="docker,k8s,env"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/" data-title="Mac 使用 minikube 替换 Docker Desktop"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/mac-minikube-replace-docker-desktop/" data-title="Mac 使用 minikube 替换 Docker Desktop"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">docker</a>,&nbsp;<a href="/tags/k8s/">k8s</a>,&nbsp;<a href="/tags/env/">env</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/git-common-config/" class="prev" rel="prev" title="Git 常用命令及配置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Git 常用命令及配置</a>
-            <a href="/makefile-shell-path-get/" class="next" rel="next" title="Makefile shell 中绝对路径的正确处理">Makefile shell 中绝对路径的正确处理<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="giscus" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-container">
-    
-        
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-
-    
-        
-            <section>
-                
-                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
-                        
-                        <span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-
-                
-                    &nbsp;|&nbsp;              
-                
-
-                
-                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
-                        
-                        <span id="busuanzi_value_site_uv"></span>
-                    </span>
-                
-            </section>
-        
-
-        
-        
-    
-
-</div>
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
-                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span>
-                    <span class="icp-splitter">&nbsp;|&nbsp;</span>
-                    <span class="icp">
-                        
-                            <img src="/images/beian.png" width="16" height="19" align="center">
-                        
-                    </span>
-                    <span class="icp-splitter"></span><br class="icp-br"/>
-                    <span class="icp"><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel="noreferrer" target="_blank">京公网安备11010602200802</a></span>
-                
-            </div></div><script>
-                var _hmt = _hmt || [];
-                (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
-                var s = document.getElementsByTagName("script")[0]; 
-                s.parentNode.insertBefore(hm, s);
-                })();
-            </script>
-            
-            
-            
-
-            
-
-            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
-            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
-
-            <script type="text/javascript">
-                L2Dwidget.init({
-                    model: {
-                        scale: 1,
-                        hHeadPos: 0.5,
-                        vHeadPos: 0.618,
-                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
-                    },
-                    display: {
-                        superSample: 1,     
-                        width: 120,         
-                        height: 300,        
-                        position: 'left',   
-                        hOffset: 0,         
-                        vOffset: 0,         
-                    },
-                    mobile: {
-                        show: true,         
-                        scale: 1,           
-                        motion: true,       
-                    },
-                    react: {
-                        opacityDefault: 1,  
-                        opacityOnHover: 1,  
-                    },
-                });
-            </script></footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOG7xEcs4CN-KB","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"xwi88/hugo-comment","repoId":"R_kgDOG7xEcg"}},"lightgallery":true,"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js" integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type="text/javascript">
-            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
-            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
-        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
-</html>
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Mac 使用 minikube 替换 Docker Desktop - Coding Life Share</title><meta name=Description content="MacOS 上使用 minikube 替换 Docker Desktop"><meta property="og:title" content="Mac 使用 minikube 替换 Docker Desktop"><meta property="og:description" content="MacOS 上使用 minikube 替换 Docker Desktop"><meta property="og:type" content="article"><meta property="og:url" content="https://xwi88.com/mac-minikube-replace-docker-desktop/"><meta property="og:image" content="https://xwi88.com/images/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-03-11T21:27:21+08:00"><meta property="article:modified_time" content="2022-03-30T13:30:54+08:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://xwi88.com/images/avatar.jpg"><meta name=twitter:title content="Mac 使用 minikube 替换 Docker Desktop"><meta name=twitter:description content="MacOS 上使用 minikube 替换 Docker Desktop"><meta name=application-name content="XIN WANG blog"><meta name=apple-mobile-web-app-title content="XIN WANG blog"><meta name=theme-color content="#ffffff" media="(prefers-color-scheme: light)"><meta name=theme-color content="#292a2d" media="(prefers-color-scheme: dark)"><meta name=msapplication-TileColor content="#da532c"><link rel=preconnect href=https://cdn.jsdelivr.net crossorigin><link rel=dns-prefetch href=https://hm.baidu.com><link rel=dns-prefetch href=https://busuanzi.ibruce.info><link rel=dns-prefetch href=https://giscus.app><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://xwi88.com/mac-minikube-replace-docker-desktop/><link rel=alternate hreflang=zh-cn href=https://xwi88.com/mac-minikube-replace-docker-desktop/><link rel=prev href=https://xwi88.com/git-common-config/><link rel=next href=https://xwi88.com/makefile-shell-path-get/><link rel=stylesheet href=/css/style.min.503761a687d156788fdcfd7bdadf42b5c1ce902ef56ab4bc09a2108173abdcda.css integrity="sha256-UDdhpofRVniP3P172t9CtcHOkC71arS8CaIQgXOr3No="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Mac 使用 minikube 替换 Docker Desktop","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/"},"genre":"posts","keywords":"docker, k8s, env","wordcount":3385,"url":"https:\/\/xwi88.com\/mac-minikube-replace-docker-desktop\/","datePublished":"2022-03-11T21:27:21+08:00","dateModified":"2022-03-30T13:30:54+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xwi88","logo":{"@type":"ImageObject","url":"https:\/\/xwi88.com\/images\/avatar.jpg","width":725,"height":967}},"author":{"@type":"Person","name":"xwi88"},"description":"MacOS 上使用 minikube 替换 Docker Desktop"}</script></head><body data-header-desktop=fixed data-header-mobile=auto><a class=skip-link href=#main-content>跳到主内容</a><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/categories/documentation/>文档 </a><a class=menu-item href=/favorite/>收藏夹 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop aria-label=搜索>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title=选择语言><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/mac-minikube-replace-docker-desktop/ selected>简体中文</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile aria-label=搜索>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/categories/documentation/ title>文档</a><a class=menu-item href=/favorite/ title>收藏夹</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title=选择语言><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/mac-minikube-replace-docker-desktop/ selected>简体中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main id=main-content tabindex=-1><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mac 使用 minikube 替换 Docker Desktop</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/xwi88 title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>xwi88</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/docker/><i class="far fa-folder fa-fw"></i>docker</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-03-11>2022-03-11</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-03-30>2022-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 3385 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 7 分钟&nbsp;
+<span id=busuanzi_container_value_page_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_page_pv></span>&nbsp;次阅读</span></div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#术语说明>术语说明</a></li><li><a href=#环境要求>环境要求</a></li><li><a href=#环境安装>环境安装</a></li><li><a href=#检查安装>检查安装</a></li><li><a href=#drivers-说明>Drivers 说明</a><ul><li><a href=#linux><em>Linux</em></a></li><li><a href=#macos><strong>macOS</strong></a></li><li><a href=#windows>Windows</a></li></ul></li><li><a href=#配置命令>配置命令</a></li><li><a href=#快捷启动>快捷启动</a></li><li><a href=#高级启动>高级启动</a><ul><li><a href=#启动命令>启动命令</a></li><li><a href=#可能出现的问题>可能出现的问题</a></li></ul></li><li><a href=#启动后环境检查>启动后环境检查</a></li><li><a href=#镜像源修改>镜像源修改</a></li><li><a href=#dashboard>Dashboard</a></li><li><a href=#目录挂载>目录挂载</a><ul><li><a href=#driver-默认挂载路径>Driver 默认挂载路径</a></li></ul></li><li><a href=#本机应用启动><strong>本机应用启动</strong></a><ul><li><a href=#文件或配置找不到><strong>文件或配置找不到</strong></a></li><li><a href=#解决方案><strong>解决方案</strong></a></li></ul></li><li><a href=#开机启动>开机启动</a><ul><li><a href=#仅挂载当前项目目录><strong>仅挂载当前项目目录</strong></a></li><li><a href=#挂载整个工作目录><strong>挂载整个工作目录</strong></a></li><li><a href=#挂载整个工作目录且后台运行><em>挂载整个工作目录且后台运行</em></a></li></ul></li><li><a href=#注意事项><strong>注意事项</strong></a></li><li><a href=#更多>更多</a></li><li><a href=#参考>参考</a></li></ul></nav></div></div><div class=content id=content><p><strong>Docker</strong> 公司于 <strong><a href=https://www.docker.com/blog/updating-product-subscriptions/ target=_blank rel="noopener noreffer">2021-08-31 宣布</a></strong> <a href=https://www.docker.com/products/docker-desktop target=_blank rel="noopener noreffer">Docker Desktop</a> 对大型组织来说将不再是一个免费产品。为此我们需要寻找一个可以方便替换 <code>Docker Desktop</code> 且对我们工作影响较小的工具，如 <a href=https://minikube.sigs.k8s.io/docs/ target=_blank rel="noopener noreffer">minikube</a>，<a href=https://github.com/moby/hyperkit target=_blank rel="noopener noreffer">Hyperkit</a>，<a href=https://podman.io/ target=_blank rel="noopener noreffer">podman</a>。</p><blockquote><p><strong>版权声明</strong>：本文为博主 <strong><a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">xwi88</a></strong> 的原创文章，遵循 <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel="noopener noreffer">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">https://github.com/xwi88</a></p></blockquote><h2 id=术语说明>术语说明</h2><ul><li><strong><a href=https://en.wikipedia.org/wiki/Docker,_Inc. target=_blank rel="noopener noreffer">Docker Inc</a></strong> 一家总部设在美国的公司，开发了一些开源和非开源软件，这让开发、测试和在容器中运行应用更容易。</li><li><strong><a href=https://github.com/docker/engine target=_blank rel="noopener noreffer">Docker Engine</a></strong> Docker 背后的核心技术。它是一个作为守护进程运行在 Linux 上的开源软件，使在 Linux 内核上运行容器成为可能。它负责容器的生命周期和容器可以访问的物理资源(计算、内存、存储)的隔离。这个引擎可以在物理或者虚拟机上运行，但是它只能在 Linux 内核上运行，也就是说，在任何 Linux 风格的操作系统上。理解这一点很重要。<strong>Docker 引擎只能在 Linux 上运行</strong>。</li><li><strong><a href=https://github.com/docker/cli target=_blank rel="noopener noreffer">Docker CLI</a></strong> <em>CLI</em> 通常被开发人员用来与 docker 引擎交互。这包括 <code>docker</code> 和 <code>docker-compose</code> 命令。再次强调，这是一款开源软件。</li><li><strong><a href=https://www.docker.com/products/docker-desktop target=_blank rel="noopener noreffer">Docker Desktop</a></strong> 由于 Docker Engine 只能在 Linux 上运行，使用 Windows 和 macOS 进行软件开发的开发人员只有在启动运行 Linux 的虚拟机(VM)之后才能运行该引擎。这就是 Docker Desktop 的用武之地。Docker Desktop 是一个专有软件，它允许 Windows/macOS 开发者在开发环境中无缝地使用容器技术，而无需管理操作 VM 的复杂性和随之而来的所有细节(网络、虚拟化、 linux 知识等)。Docker Desktop 是为了在软件开发过程中使用而设计的，<em>它在类似于生产环境的容器中不起作用</em>，在这种环境中只有 <code>Docker Engine</code> 参与。</li></ul><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>继续在 <strong>macOS</strong> 上运行和构建容器应用程序的方法是在 <code>Linux VM</code> 上运行 <code>Docker Engine</code>。</div></div></div><h2 id=环境要求>环境要求</h2><ul><li>最少 2核</li><li>最少 2GB 可用内存</li><li>最少 20GB 可用磁盘空间</li><li>网络连接</li><li>容器或虚拟机管理器, 如: <strong><a href=https://docs.docker.com/get-docker/ target=_blank rel="noopener noreffer">Docker</a></strong>, <strong><a href=https://github.com/moby/hyperkit target=_blank rel="noopener noreffer">Hyperkit</a></strong>, Hyper-V, KVM, Parallels, <strong><a href=https://podman.io/ target=_blank rel="noopener noreffer">podman</a></strong>, <em><a href=https://www.virtualbox.org/ target=_blank rel="noopener noreffer">VirtualBox</a></em>, or VMware Fusion/Workstation</li></ul><h2 id=环境安装>环境安装</h2><blockquote><p>如果确定以后不需要在 <code>docker desktop</code> 中运行 image，请删除所有 <code>docker</code> <code>docker desktop</code> 相关的配置。</p></blockquote><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p>推荐 <a href=https://brew.sh/ target=_blank rel="noopener noreffer">Homebrew</a> 方式安装</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew install docker
+</span></span><span class=line><span class=cl>brew install docker-compose <span class=c1># 根据需要，可选安装</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>brew install hyperkit
+</span></span><span class=line><span class=cl>brew install minikube
+</span></span></code></pre></td></tr></table></div></div><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>如果通过 <em>brew</em> 安装 <code>minikube</code> 失败，可以尝试手动安装</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+</span></span><span class=line><span class=cl>sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+</span></span></code></pre></td></tr></table></div></div></div></div></div></div></div></div><h2 id=检查安装>检查安装</h2><p>执行 <code>which minikube</code></p><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>brew 方式安装后执行 <code>which minikube</code>，如果失败可执行以下命令</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>brew unlink minikube
+</span></span><span class=line><span class=cl>brew link minikube
+</span></span></code></pre></td></tr></table></div></div><p><em>remove the old minikube links and link the newly installed binary</em></p></div></div></div><h2 id=drivers-说明>Drivers 说明</h2><blockquote><p><code>minikube</code> 在 <code>mac/windows</code> 下启动需要依赖 <code>Linux VM</code>，这里也就是我们配置的 driver，如果配置 <code>--driver=docker</code> 则需要安装相应版本的 <code>Docker Desktop</code> 借助已安装的 <code>linux vm</code>。
+否则需要选择其他，具体支持的 drivers 参考如下：</p></blockquote><h3 id=linux><em>Linux</em></h3><ul><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/docker/ target=_blank rel="noopener noreffer">Docker</a></strong> - container-based (preferred)</li><li>KVM2 - VM-based (preferred)</li><li>VirtualBox - VM</li><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/none/ target=_blank rel="noopener noreffer">None</a></strong> - bare-metal</li><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/podman/ target=_blank rel="noopener noreffer">Podman</a></strong> - container (experimental)</li><li>SSH - remote ssh</li></ul><h3 id=macos><strong>macOS</strong></h3><ul><li><em><a href=https://minikube.sigs.k8s.io/docs/drivers/docker/ target=_blank rel="noopener noreffer">Docker</a></em> - VM + Container (preferred)</li><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/hyperkit/ target=_blank rel="noopener noreffer">Hyperkit</a></strong> - VM</li><li>VirtualBox - VM</li><li>Parallels - VM</li><li>VMware Fusion - VM</li><li>SSH - remote ssh</li></ul><h3 id=windows>Windows</h3><ul><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/hyperv/ target=_blank rel="noopener noreffer">Hyper-V</a></strong> - VM (preferred)</li><li><strong><a href=https://minikube.sigs.k8s.io/docs/drivers/docker/ target=_blank rel="noopener noreffer">Docker</a></strong> - VM + Container (preferred)</li><li>VirtualBox - VM</li><li>VMware Workstation - VM</li><li>SSH - remote ssh</li></ul><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>如果配置了 <code>--driver=docker</code> 需要区分 <strong><code>standard</code>, <code>rootless</code></strong> docker</p><blockquote><p><strong>Standard Docker</strong></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># need: install Docker 18.09 or higher</span>
+</span></span><span class=line><span class=cl><span class=c1>#       amd64 or arm64 system.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Start a cluster using the docker driver:</span>
+</span></span><span class=line><span class=cl>minikube start --driver<span class=o>=</span>docker
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># To make docker the default driver:</span>
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> driver docker
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>Rootless Docker</strong></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Requirements</span>
+</span></span><span class=line><span class=cl><span class=c1>#    Docker 20.10 or higher, see https://rootlesscontaine.rs/getting-started/docker/</span>
+</span></span><span class=line><span class=cl><span class=c1>#    Cgroup v2 delegation, see https://rootlesscontaine.rs/getting-started/common/cgroup2/</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>dockerd-rootless-setuptool.sh install -f
+</span></span><span class=line><span class=cl>docker context use rootless
+</span></span><span class=line><span class=cl>minikube start --driver<span class=o>=</span>docker --container-runtime<span class=o>=</span>containerd
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>The <code>--container-runtime</code> flag must be set to <code>containerd</code> or <code>cri-o</code>.</p></blockquote></div></div></div><blockquote><p>更多 <code>drivers</code> 配置及用法请查看: <a href=https://minikube.sigs.k8s.io/docs/drivers/ target=_blank rel="noopener noreffer">minikube drivers</a></p></blockquote><h2 id=配置命令>配置命令</h2><p><code>minikube config SUBCOMMAND [flags] [options]</code></p><ul><li><code>minikube config help</code></li><li><code>minikube config defaults PROPERTY_NAME [flags]</code> <em>list displays all valid default settings for PROPERTY_NAME</em></li><li><code>minikube config view [flags]</code> Display values currently set in the minikube config file.</li><li><code>minikube config set PROPERTY_NAME PROPERTY_VALUE [flags]</code> <em>Sets an individual value in a minikube config file</em></li><li><code>minikube config get PROPERTY_NAME [flags]</code> <em>Returns the value of PROPERTY_NAME from the minikube config file</em></li><li><code>minikube config unset PROPERTY_NAME [flags]</code> <em>unsets PROPERTY_NAME from the minikube config file.</em></li></ul><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>minikube config --help</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>config modifies minikube config files using subcommands like &#34;minikube config set driver kvm2&#34;
+</span></span><span class=line><span class=cl>Configurable fields:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> * driver
+</span></span><span class=line><span class=cl> * vm-driver
+</span></span><span class=line><span class=cl> * container-runtime
+</span></span><span class=line><span class=cl> * feature-gates
+</span></span><span class=line><span class=cl> * v
+</span></span><span class=line><span class=cl> * cpus
+</span></span><span class=line><span class=cl> * disk-size
+</span></span><span class=line><span class=cl> * host-only-cidr
+</span></span><span class=line><span class=cl> * memory
+</span></span><span class=line><span class=cl> * log<span class=nb>_</span>dir
+</span></span><span class=line><span class=cl> * kubernetes-version
+</span></span><span class=line><span class=cl> * iso-url
+</span></span><span class=line><span class=cl> * WantUpdateNotification
+</span></span><span class=line><span class=cl> * WantBetaUpdateNotification
+</span></span><span class=line><span class=cl> * ReminderWaitPeriodInHours
+</span></span><span class=line><span class=cl> * WantNoneDriverWarning
+</span></span><span class=line><span class=cl> * WantVirtualBoxDriverWarning
+</span></span><span class=line><span class=cl> * profile
+</span></span><span class=line><span class=cl> * bootstrapper
+</span></span><span class=line><span class=cl> * insecure-registry
+</span></span><span class=line><span class=cl> * hyperv-virtual-switch
+</span></span><span class=line><span class=cl> * disable-driver-mounts
+</span></span><span class=line><span class=cl> * cache
+</span></span><span class=line><span class=cl> * EmbedCerts
+</span></span><span class=line><span class=cl> * native-ssh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Available Commands:
+</span></span><span class=line><span class=cl>  defaults    Lists all valid default values for PROPERTY<span class=nb>_</span>NAME
+</span></span><span class=line><span class=cl>  get         Gets the value of PROPERTY<span class=nb>_</span>NAME from the minikube config file
+</span></span><span class=line><span class=cl>  set         Sets an individual value in a minikube config file
+</span></span><span class=line><span class=cl>  unset       unsets an individual value in a minikube config file
+</span></span><span class=line><span class=cl>  view        Display values currently set in the minikube config file
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Usage:
+</span></span><span class=line><span class=cl>  minikube config SUBCOMMAND [flags] [options]
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Use &#34;minikube &lt;command&gt; --help&#34; for more information about a given command.
+</span></span><span class=line><span class=cl>Use &#34;minikube options&#34; for a list of global command-line options (applies to all commands).
+</span></span></code></pre></td></tr></table></div></div></div></div></div><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>minikube config <span class=nb>set</span> driver hyperkit
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> cpus <span class=m>2</span>
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> memory 2000mb
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> disk-size 20gb
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># insecure-registry 测试未生效, 启动时指定!</span>
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> insecure-registry https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class=line><span class=cl><span class=c1># minikube config set kubernetes-version &lt;&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># The name of the minikube VM being used. This can be set to allow having multiple instances of minikube independently. (default &#34;minikube&#34;)</span>
+</span></span><span class=line><span class=cl>minikube config <span class=nb>set</span> profile
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=快捷启动>快捷启动</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>minikube start <span class=c1># minikube start --container-runtime=docker</span>
+</span></span><span class=line><span class=cl><span class=c1># Tell Docker CLI to talk to minikube&#39;s VM</span>
+</span></span><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=c1># Save IP to a hostname</span>
+</span></span><span class=line><span class=cl><span class=c1># echo &#34;`minikube ip` docker.local&#34; | sudo tee -a /etc/hosts &gt; /dev/null</span>
+</span></span><span class=line><span class=cl><span class=c1># control panel, must start minikube with cluster model, without flag --no-kubernetes</span>
+</span></span><span class=line><span class=cl>minikube dashboard
+</span></span><span class=line><span class=cl><span class=c1># stop kubernetes related</span>
+</span></span><span class=line><span class=cl>minikube pause
+</span></span><span class=line><span class=cl><span class=c1># test</span>
+</span></span><span class=line><span class=cl>docker run hello-world
+</span></span></code></pre></td></tr></table></div></div><h2 id=高级启动>高级启动</h2><blockquote><p><strong><a href=https://minikube.sigs.k8s.io/docs/commands/start/ target=_blank rel="noopener noreffer">commands start</a></strong></p></blockquote><h3 id=启动命令>启动命令</h3><ul><li>某些配置更新后需要执行: <code>minikube delete</code> 然后重新启动</li></ul><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><code>minikube start --driver=hyperkit</code> 或 <code>minikube start --driver=docker</code> 或其他驱动</p><p>推荐使用类似配置，后续不用进入 <code>minikube vm</code> 修改相关配置，主要配置：</p><ul><li><strong><code>--insecure-registry</code></strong></li><li><em><code>--registry-mirror</code></em></li><li><em><code>--mount</code></em> <strong>挂载本地主机目录到 <code>minikube vm</code></strong><ul><li>当前 MacOS 下，默认将挂载 <code>/Users:/minikube-host/</code></li><li><strong>挂载路径最好保持完全一致，避免程序有路径依赖而无法正常启动</strong></li><li>建议使用 <code>--mount-string</code> 按需挂载</li></ul></li><li><strong><code>--mount-string</code></strong> 指定挂载目录</li><li><strong><code>--no-kubernetes</code></strong></li><li><strong><code>--cpus</code></strong></li><li><strong><code>--memory</code></strong></li><li><code>--image-mirror-country</code></li></ul><p><code>minikube start --no-kubernetes --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com --mount /var/lib/minikube:/var/lib/docker</code></p><p>如果要使用 minikube dashboard，可这样启动:
+<code>minikube start --cpus=2 --memory=2000mb \ --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p><p><em>Tell Docker CLI to talk to minikube&rsquo;s VM:</em> <code>eval $(minikube docker-env)</code></p><p><code>eval $(minikube docker-env)</code> 可以直接配置到对应 shell 如: <code>~/.zshrc</code> 或 <code>~/.bashrc</code> 中，以避免每次输入</p></div></div></div><h3 id=可能出现的问题>可能出现的问题</h3><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><em>如果你在 <code>Docker Desktop</code> 基础上启动 <code>minikube</code>，直接借助它的 <code>vm</code> 及配置。由于资源限制，可能导致无法正常启动 <code>minikube</code></em></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>😄  minikube v1.24.0 on Darwin 12.2.1
+</span></span><span class=line><span class=cl>✨  Using the docker driver based on existing profile
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>⛔  Docker Desktop only has 1986MiB available, you may encounter application deployment failures.
+</span></span><span class=line><span class=cl>💡  Suggestion:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    1. Click on &#34;Docker for Desktop&#34; menu icon
+</span></span><span class=line><span class=cl>    2. Click &#34;Preferences&#34;
+</span></span><span class=line><span class=cl>    3. Click &#34;Resources&#34;
+</span></span><span class=line><span class=cl>    4. Increase &#34;Memory&#34; slider bar to 2.25 GB or higher
+</span></span><span class=line><span class=cl>    5. Click &#34;Apply <span class=nb>&amp;</span> Restart&#34;
+</span></span><span class=line><span class=cl>📘  Documentation: https://docs.docker.com/docker-for-mac/#resources
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>❗  You cannot change the memory size for an existing minikube cluster. Please first delete the cluster.
+</span></span><span class=line><span class=cl>👍  Starting minikube without Kubernetes minikube in cluster minikube
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>minikube delete</code> <em>调整 docker 资源后，删除重建，重新启动即可</em></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>🔥  Deleting &#34;minikube&#34; in docker ...
+</span></span><span class=line><span class=cl>🔥  Removing ~/.minikube/machines/minikube ...
+</span></span><span class=line><span class=cl>💀  Removed all traces of the &#34;minikube&#34; cluster.
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=启动后环境检查>启动后环境检查</h2><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p>启动命令: <code>minikube start --no-kubernetes --insecure-registry=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>  minikube v1.24.0 on Darwin 10.15.7
+</span></span><span class=line><span class=cl>    ▪ MINIKUBE<span class=nb>_</span>ACTIVE<span class=nb>_</span>DOCKERD=minikube
+</span></span><span class=line><span class=cl>✨  Using the hyperkit driver based on user configuration
+</span></span><span class=line><span class=cl>👍  Starting minikube without Kubernetes minikube in cluster minikube
+</span></span><span class=line><span class=cl>🔥  Creating hyperkit VM (CPUs=2, Memory=2000MB, Disk=20480MB) ...
+</span></span><span class=line><span class=cl>🏄  Done! minikube is ready without Kubernetes!
+</span></span><span class=line><span class=cl>╭───────────────────────────────────────────────────────────────────────────────────────╮
+</span></span><span class=line><span class=cl>│                                                                                       │
+</span></span><span class=line><span class=cl>│                       💡  Things to try without Kubernetes ...                        │
+</span></span><span class=line><span class=cl>│                                                                                       │
+</span></span><span class=line><span class=cl>│    - &#34;minikube ssh&#34; to SSH into minikube&#39;s node.                                      │
+</span></span><span class=line><span class=cl>│    - &#34;minikube docker-env&#34; to point your docker-cli to the docker inside minikube.    │
+</span></span><span class=line><span class=cl>│    - &#34;minikube image&#34; to build images without docker.                                 │
+</span></span><span class=line><span class=cl>│                                                                                       │
+</span></span><span class=line><span class=cl>╰───────────────────────────────────────────────────────────────────────────────────────╯
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>eval $(minikube docker-env)</code> <strong>让 Docker CLI 与 minikube&rsquo;s VM 交互</strong></p></blockquote><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>Add this line to <code>.bash_profile</code> or <code>.zshrc</code> or &mldr; if you want to <em>use minikube&rsquo;s daemon</em> by default (or if you do not want to set this every time you open a new terminal).</div></div></div><blockquote><p><code>docker info</code> 查看我们现在终端的 docker 信息</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>Kernel Version: 4.19.202
+</span></span><span class=line><span class=cl> Operating System: Buildroot 2021.02.4
+</span></span><span class=line><span class=cl> OSType: linux
+</span></span><span class=line><span class=cl> Architecture: x86<span class=nb>_</span>64
+</span></span><span class=line><span class=cl> CPUs: 2
+</span></span><span class=line><span class=cl> Total Memory: 1.894GiB
+</span></span><span class=line><span class=cl> Name: minikube
+</span></span><span class=line><span class=cl> ID: STNM:GBUS:PMHK:ASTU:BZHZ:WIEY:L6F3:YOMH:M432:S5XK:PAT5:IU2D
+</span></span><span class=line><span class=cl> Docker Root Dir: /var/lib/docker
+</span></span><span class=line><span class=cl> Debug Mode: false
+</span></span><span class=line><span class=cl> Registry: https://index.docker.io/v1/
+</span></span><span class=line><span class=cl> Labels:
+</span></span><span class=line><span class=cl>  provider=hyperkit
+</span></span><span class=line><span class=cl> Experimental: false
+</span></span><span class=line><span class=cl> Insecure Registries:
+</span></span><span class=line><span class=cl>  reg-mirror.qiniu.com
+</span></span><span class=line><span class=cl>  docker.mirrors.ustc.edu.cn
+</span></span><span class=line><span class=cl>  mirror.ccs.tencentyun.com
+</span></span><span class=line><span class=cl>  10.96.0.0/12
+</span></span><span class=line><span class=cl>  127.0.0.0/8
+</span></span><span class=line><span class=cl> Live Restore Enabled: false
+</span></span><span class=line><span class=cl> Product License: Community Engine
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>新打开一个终端查看本机(未卸载 docker desktop 机器，仅做对比) <code>docker info</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>Kernel Version: 5.10.76-linuxkit
+</span></span><span class=line><span class=cl>Operating System: Docker Desktop
+</span></span><span class=line><span class=cl>OSType: linux
+</span></span><span class=line><span class=cl>Architecture: x86<span class=nb>_</span>64
+</span></span><span class=line><span class=cl>CPUs: 3
+</span></span><span class=line><span class=cl>Total Memory: 4.083GiB
+</span></span><span class=line><span class=cl>Name: docker-desktop
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>HTTP Proxy: http.docker.internal:3128
+</span></span><span class=line><span class=cl> HTTPS Proxy: http.docker.internal:3128
+</span></span><span class=line><span class=cl> Registry: https://index.docker.io/v1/
+</span></span><span class=line><span class=cl> Labels:
+</span></span><span class=line><span class=cl> Experimental: false
+</span></span><span class=line><span class=cl> Insecure Registries:
+</span></span><span class=line><span class=cl>  127.0.0.0/8
+</span></span><span class=line><span class=cl> Registry Mirrors:
+</span></span><span class=line><span class=cl>  https://registry-1.docker.io/
+</span></span><span class=line><span class=cl>  https://hub-mirror.c.163.com/
+</span></span><span class=line><span class=cl>  https://mirror.baidubce.com/
+</span></span><span class=line><span class=cl>  https://registry.cn-hangzhou.aliyuncs.com/
+</span></span><span class=line><span class=cl>  https://docker.mirrors.ustc.edu.cn/
+</span></span><span class=line><span class=cl>  https://mirror.ccs.tencentyun.com/
+</span></span><span class=line><span class=cl>  https://registry.docker-cn.com/
+</span></span><span class=line><span class=cl>  https://reg-mirror.qiniu.com/
+</span></span><span class=line><span class=cl>  https://dockerhub.azk8s.cn/
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=镜像源修改>镜像源修改</h2><blockquote><p><strong>不建议进入 minikube 环境做此修改</strong>，建议在启动时指定参数进行配置: <code>minikube start --image-mirror-country='cn'</code> 等参数， 详见 <a href=https://minikube.sigs.k8s.io/docs/commands/start/ target=_blank rel="noopener noreffer">minikube start</a> 或 <a href=#%e9%ab%98%e7%ba%a7%e5%90%af%e5%8a%a8 rel>高级启动</a></p></blockquote><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>minikube ssh</code> 连入 minikube node</p><p><code>sudo mkdir -p /etc/docker</code> 创建 docker 目录</p><p><code>vi /etc/docker/daemon.json</code> 修改配置</p><p><code>daemon.json</code> <strong>daemon.json</strong> 配置</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>     <span class=nt>&#34;registry-mirrors&#34;</span><span class=p>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://registry-1.docker.io&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://hub-mirror.c.163.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://mirror.baidubce.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://registry.cn-hangzhou.aliyuncs.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;http://f1361db2.m.daocloud.io&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://mirror.ccs.tencentyun.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://registry.docker-cn.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://reg-mirror.qiniu.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s2>&#34;https://dockerhub.azk8s.cn&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>sudo systemctl daemon-reload</code></p><p><code>sudo systemctl restart docker</code></p></blockquote></div></div></div><h2 id=dashboard>Dashboard</h2><p><code>minikube dashboard</code></p><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>minikube start --driver=hyperkit --cpus=2 --memory=2000mb --registry-mirror=https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com</code></p><p><code>minikube dashboard</code></p></blockquote></div></div></div><h2 id=目录挂载>目录挂载</h2><blockquote><p>This will start the mount daemon and automatically mount files into minikube.</p></blockquote><p><code>minikube mount &lt;local directory>:&lt;host directory></code></p><p><strong>映射/挂载关系</strong>: <code>本地主机 volumes</code>&lt;-><code>docker desktop VM volumes</code>&lt;-><code>docker container volumes</code></p><h3 id=driver-默认挂载路径>Driver 默认挂载路径</h3><p>Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:</p><table><thead><tr><th style=text-align:left>Driver</th><th style=text-align:left>OS</th><th style=text-align:left>HostFolder</th><th style=text-align:left>VM</th></tr></thead><tbody><tr><td style=text-align:left>VirtualBox</td><td style=text-align:left>Linux</td><td style=text-align:left>/home</td><td style=text-align:left>/hosthome</td></tr><tr><td style=text-align:left>VirtualBox</td><td style=text-align:left>macOS</td><td style=text-align:left>/Users</td><td style=text-align:left>/Users</td></tr><tr><td style=text-align:left>VirtualBox</td><td style=text-align:left>Windows</td><td style=text-align:left>C://Users</td><td style=text-align:left>/c/Users</td></tr><tr><td style=text-align:left>VMware Fusion</td><td style=text-align:left>macOS</td><td style=text-align:left>/Users</td><td style=text-align:left>/mnt/hgfs/Users</td></tr><tr><td style=text-align:left>KVM</td><td style=text-align:left>Linux</td><td style=text-align:left>Unsupported</td><td></td></tr><tr><td style=text-align:left>HyperKit</td><td style=text-align:left>Linux</td><td style=text-align:left>Unsupported (see NFS mounts)</td><td></td></tr></tbody></table><p><em>These mounts can be disabled by passing &ndash;disable-driver-mounts to minikube start.</em></p><h2 id=本机应用启动><strong>本机应用启动</strong></h2><blockquote><p>如果你使用了目录映射，则必须开启挂载，且一定要注意挂载路径，否则会出现文件或者配置找不到问题。</p></blockquote><h3 id=文件或配置找不到><strong>文件或配置找不到</strong></h3><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>原因：</p><ul><li>使用 <code>docker desktop</code> 时，自动帮我们做了映射：<code>本地主机 volumes</code>&lt;-><code>docker desktop VM volumes</code>&lt;-><code>docker container volumes</code></li><li>当我们使用 <code>minikube</code> 在本地运行 <code>docker run</code> 或 <code>docker-compose up</code> 实际相当于在 <code>minikube vm</code> 中运行，但是 <code>minikube vm</code> 中<strong>无本地本机的源码映射</strong></li></ul></div></div></div><h3 id=解决方案><strong>解决方案</strong></h3><blockquote><p><strong>在本地本机进行工作目录映射/挂载</strong>:</p><ul><li><code>minikube mount $HOME/workspace:$HOME/workspace</code></li><li><strong>minikube vm 内部映射路径一定要注意: 挂载路径务必与实际路径保持一致</strong></li><li><em>注意目录权限问题，正常挂载当前用户目录不涉及权限问题</em></li><li>可设置挂载多个目录</li></ul></blockquote><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>可将你的源码放在一个统一的工作目录，这样方便挂载及代码查找，目录结构参考如下：</p><ul><li><code>$HOME/workspace</code> <strong>源码工作空间，可整个挂载</strong></li><li><code>$HOME/workspace/git.company.com</code> <em>公司源码工作空间，仅公司代码</em></li><li><code>$HOME/workspace/github.com</code> <em>github 源码工作空间</em></li><li><code>$HOME/workspace/gitee.com</code></li></ul></div></div></div><h2 id=开机启动>开机启动</h2><blockquote><p><code>--mount --mount-string=$HOME/workspace:$HOME/workspace</code> <em>可能存在问题，推荐启动后用命令 <code>minikube mount</code> 挂载</em></p></blockquote><h3 id=仅挂载当前项目目录><strong>仅挂载当前项目目录</strong></h3><ul><li>优: 挂载目录少，占空间较小</li><li>缺: 如果切换项目需要重新挂载，太过麻烦</li></ul><blockquote><p><strong>尽量挂载整个工作目录(注意控制规模)，切换项目不用额外操作</strong></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#minikube delete</span>
+</span></span><span class=line><span class=cl>minikube start --no-kubernetes --driver<span class=o>=</span>hyperkit --cpus<span class=o>=</span><span class=m>2</span> --memory<span class=o>=</span>2gb --disk-size<span class=o>=</span>20gb <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--image-mirror-country<span class=o>=</span>cn <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--registry-mirror<span class=o>=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span>
+</span></span><span class=line><span class=cl>minikube mount <span class=si>${</span><span class=nv>PWD</span><span class=si>}</span>:<span class=si>${</span><span class=nv>PWD</span><span class=si>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=挂载整个工作目录><strong>挂载整个工作目录</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># issues here {单独 --mount 将挂载: /Users:/minikube-host/; --mount-string 仅挂载指定目录，此时不需要添加 --mount， 推荐方式}</span>
+</span></span><span class=line><span class=cl><span class=c1># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#minikube delete</span>
+</span></span><span class=line><span class=cl>minikube start --no-kubernetes --driver<span class=o>=</span>hyperkit --cpus<span class=o>=</span><span class=m>2</span> --memory<span class=o>=</span>2gb --disk-size<span class=o>=</span>20gb <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--image-mirror-country<span class=o>=</span>cn <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--registry-mirror<span class=o>=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span>
+</span></span><span class=line><span class=cl>minikube mount <span class=si>${</span><span class=nv>HOME</span><span class=si>}</span>/workspace:<span class=si>${</span><span class=nv>HOME</span><span class=si>}</span>/workspace
+</span></span></code></pre></td></tr></table></div></div><h3 id=挂载整个工作目录且后台运行><em>挂载整个工作目录且后台运行</em></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># --mount --mount-string=$HOME/workspace:$HOME/workspace</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#minikube delete</span>
+</span></span><span class=line><span class=cl>minikube start --no-kubernetes --driver<span class=o>=</span>hyperkit --cpus<span class=o>=</span><span class=m>2</span> --memory<span class=o>=</span>2gb --disk-size<span class=o>=</span>40gb <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--image-mirror-country<span class=o>=</span>cn <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>--registry-mirror<span class=o>=</span>https://docker.mirrors.ustc.edu.cn,https://reg-mirror.qiniu.com,https://mirror.ccs.tencentyun.com
+</span></span><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span>
+</span></span><span class=line><span class=cl>nohup minikube mount <span class=si>${</span><span class=nv>HOME</span><span class=si>}</span>/workspace:<span class=si>${</span><span class=nv>HOME</span><span class=si>}</span>/workspace <span class=p>&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=注意事项><strong>注意事项</strong></h2><ul><li>minikube 启动后配置 <code>eval $(minikube docker-env)</code></li><li><em>minikube 启动后挂载目录</em> <a href=#%e6%9c%ac%e6%9c%ba%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8 rel>应用启动目录挂载问题</a></li><li>启动时指定 <code>--driver</code>，如果是 <code>docker</code> 务必确保 <code>docker daemon</code> 已运行</li><li>如果启动参数 mount 设置错误，则需要 <code>minikube mount --kill</code>，且 <code>minikube vm</code> 移出相应目录</li><li><code>minikube delete 不用每次都运行</code></li></ul><h2 id=更多>更多</h2><ul><li><strong><a href=https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/ target=_blank rel="noopener noreffer">Using minikube as Docker Desktop Replacement</a></strong></li><li><a href=https://minikube.sigs.k8s.io/docs/handbook/registry/ target=_blank rel="noopener noreffer">How to interact with registries</a></li><li><a href=https://minikube.sigs.k8s.io/docs/commands/image/#minikube-image-build target=_blank rel="noopener noreffer">minikube-image-build</a></li><li><a href=https://github.com/containerd/containerd target=_blank rel="noopener noreffer">containerd</a></li></ul><h2 id=参考>参考</h2><ul><li><a href=https://dhwaneetbhatt.com/blog/run-docker-without-docker-desktop-on-macos target=_blank rel="noopener noreffer">run-docker-without-docker-desktop-on-macos</a></li><li><a href=https://minikube.sigs.k8s.io/docs/ target=_blank rel="noopener noreffer">minikube docs</a></li></ul></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2022-03-30&nbsp;<a class=git-hash href=https://github.com/xwi88/xwi88.github.io.source/commit/7e8fd3e0d5750b0df0689efda748b361abd70caf target=_blank title="commit by xwi88(278810732@qq.com) 7e8fd3e0d5750b0df0689efda748b361abd70caf: update posts">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>7e8fd3e</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/mac-minikube-replace-docker-desktop/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/ data-title="Mac 使用 minikube 替换 Docker Desktop" data-via=xwi88 data-hashtags=docker,k8s,env><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/ data-hashtag=docker><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Linkedin" data-sharer=linkedin data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/ data-title="Mac 使用 minikube 替换 Docker Desktop"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://xwi88.com/mac-minikube-replace-docker-desktop/ data-title="Mac 使用 minikube 替换 Docker Desktop"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/docker/>docker</a>,&nbsp;<a href=/tags/k8s/>k8s</a>,&nbsp;<a href=/tags/env/>env</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/git-common-config/ class=prev rel=prev title="Git 常用命令及配置"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Git 常用命令及配置</a>
+<a href=/makefile-shell-path-get/ class=next rel=next title="Makefile shell 中绝对路径的正确处理">Makefile shell 中绝对路径的正确处理<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=giscus class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>Giscus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-container><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section><span id=busuanzi_container_value_site_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_site_pv></span></span>
+&nbsp;|&nbsp;
+<span id=busuanzi_container_value_site_uv><i class="fa fa-user"></i>
+<span id=busuanzi_value_site_uv></span></span></section></div><div class=footer-line><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2026</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/xwi88 target=_blank>xwi88</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/>京ICP备2022005973号-1</a></span>
+<span class=icp-splitter>&nbsp;|&nbsp;</span>
+<span class=icp><img src=/images/beian.png width=16 height=19 align=center></span>
+<span class=icp-splitter></span><br class=icp-br><span class=icp><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel=noreferrer target=_blank>京公网安备11010602200802</a></span></div></div><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script><script type=text/javascript src=/js/L2Dwidget.min.js></script>
+<script type=text/javascript src=/js/L2Dwidget.0.min.js></script>
+<script type=text/javascript>L2Dwidget.init({model:{scale:1,hHeadPos:.5,vHeadPos:.618,jsonPath:"https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json"},display:{superSample:1,width:120,height:300,position:"left",hOffset:0,vOffset:0},mobile:{show:!1,scale:1,motion:!0},react:{opacityDefault:1,opacityOnHover:1}})</script></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:15},comment:{giscus:{category:"Announcements",categoryId:"DIC_kwDOG7xEcs4CN-KB",darkTheme:"dark",emitMetadata:"0",inputPosition:"bottom",lang:"zh-CN",lazyLoading:!0,lightTheme:"light",mapping:"pathname",reactionsEnabled:"1",repo:"xwi88/hugo-comment",repoId:"R_kgDOG7xEcg"}},lightgallery:!0,search:{algoliaAppID:"7QU1O7DMR5",algoliaIndex:"blog_index",algoliaSearchKey:"520c25090bf786368d0c1d0eaa14e57c",highlightTag:"em",maxResultLength:15,noResultsFound:"没有找到结果",snippetLength:55,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-78W9SMKZVE",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body></html>

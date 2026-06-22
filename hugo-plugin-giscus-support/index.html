@@ -1,414 +1,58 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Hugo Plugin Giscus Support - Coding Life Share</title><meta name="Description" content="Hugo 评论插件 giscus 的集成与支持"><meta property="og:title" content="Hugo Plugin Giscus Support" />
-<meta property="og:description" content="Hugo 评论插件 giscus 的集成与支持" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://xwi88.com/hugo-plugin-giscus-support/" /><meta property="og:image" content="https://xwi88.com/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-03-07T23:46:10+08:00" />
-<meta property="article:modified_time" content="2022-05-26T08:23:18+08:00" /><meta property="og:site_name" content="My cool site" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://xwi88.com/logo.png"/>
-
-<meta name="twitter:title" content="Hugo Plugin Giscus Support"/>
-<meta name="twitter:description" content="Hugo 评论插件 giscus 的集成与支持"/>
-<meta name="application-name" content="XIN WANG blog">
-<meta name="apple-mobile-web-app-title" content="XIN WANG blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://xwi88.com/hugo-plugin-giscus-support/" /><link rel="prev" href="https://xwi88.com/hugo-plugin-busuanzi/" /><link rel="next" href="https://xwi88.com/go-vcs-gvm/" /><link rel="stylesheet" href="/css/style.min.5dc6f12b946ef6f5c5bf767b1b5213ff0c7056f39154b7f4aa8ccf08fb10e3c7.css" integrity="sha256-XcbxK5Ru9vXFv3Z7G1IT/wxwVvORVLf0qozPCPsQ48c="><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Hugo Plugin Giscus Support",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/xwi88.com\/hugo-plugin-giscus-support\/"
-        },"genre": "posts","keywords": "hugo-plugin, github","wordcount":  747 ,
-        "url": "https:\/\/xwi88.com\/hugo-plugin-giscus-support\/","datePublished": "2022-03-07T23:46:10+08:00","dateModified": "2022-05-26T08:23:18+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": "xwi88","logo": {
-                    "@type": "ImageObject",
-                    "url": "https:\/\/xwi88.com\/images\/avatar.png",
-                    "width":  725 ,
-                    "height":  967 
-                }},"author": {
-                "@type": "Person",
-                "name": "xwi88"
-            },"description": "Hugo 评论插件 giscus 的集成与支持"
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/favorite/"> 收藏夹 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/hugo-plugin-giscus-support/" selected>简体中文</option></select>
-                </a></div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="Coding Life Share"><span class="header-title-pre"><i class='far fa-laugh-beam fa-fw'></i></span>xwi88&#39;s blog<span class="header-title-post"><i class='fa fa-book fa-fw'></i></span></a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/favorite/" title="">收藏夹</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/xwi88/xwi88.github.io" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/hugo-plugin-giscus-support/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hugo Plugin Giscus Support</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/xwi88" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xwi88</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hugo/"><i class="far fa-folder fa-fw"></i>hugo</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-26">2022-05-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 747 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;
-    
-
-    
-        
-
-        
-        
-            <span id="busuanzi_container_value_page_pv"><i class="far fa-eye fa-fw"></i>
-                
-                <span id="busuanzi_value_page_pv"></span>&nbsp;次阅读</span>
-        
-    
-
-</div>
-        </div><div class="details toc" id="toc-static"  kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#giscus-集成使用">giscus 集成使用</a>
-      <ul>
-        <li><a href="#介绍">介绍</a></li>
-        <li><a href="#配置">配置</a>
-          <ul>
-            <li><a href="#部分参数获取">部分参数获取</a></li>
-          </ul>
-        </li>
-        <li><a href="#主题修改支持-giscus">主题修改支持 <strong>giscus</strong></a></li>
-        <li><a href="#效果查看">效果查看</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>Hugo 评论插件用了几个感觉好用的还是 <strong>utterances</strong> 与 <strong>giscus</strong>，前者功能太过单，最新的基于 <em>github discussion</em> 的 <strong>giscus</strong> 使用体验非常不错。本文基于个人实验验证，旨在为需要的人提供方便。</p>
-<blockquote>
-<ul>
-<li><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></li>
-<li><a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">giscus 体验</a></li>
-</ul>
-</blockquote>
-<h2 id="giscus-集成使用">giscus 集成使用</h2>
-<blockquote>
-<ul>
-<li><a href="https://giscus.app" target="_blank" rel="noopener noreffer ">giscus</a></li>
-<li><a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus zh-CN</a></li>
-</ul>
-</blockquote>
-<h3 id="介绍">介绍</h3>
-<p>由 <a href="https://docs.github.com/en/discussions" target="_blank" rel="noopener noreffer ">GitHub Discussions</a> 驱动的评论系统。让访客借助 GitHub 在你的网站上留下评论和反应吧！本项目受 <a href="https://github.com/utterance/utterances" target="_blank" rel="noopener noreffer ">utterances</a> 强烈启发。</p>
-<ul>
-<li><a href="https://github.com/giscus/giscus" target="_blank" rel="noopener noreffer ">开源</a>。🌏</li>
-<li>无跟踪，无广告，永久免费。📡 🚫</li>
-<li>无需数据库。全部数据均储存在 GitHub Discussions 中。:octocat:</li>
-<li>支持自定义主题！🌗</li>
-<li>支持多种语言。🌐</li>
-<li><a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md" target="_blank" rel="noopener noreffer ">高度可配置</a>。🔧</li>
-<li>自动从 GitHub 拉取新评论与编辑。🔃</li>
-<li><a href="https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md" target="_blank" rel="noopener noreffer ">可自建服务</a>！🤳</li>
-</ul>
-<blockquote>
-<ul>
-<li>注意：</li>
-<li>giscus 仍处于活跃开发中。GitHub 也还在活跃地开发 <strong>Discussions</strong> 及其 API。因此，一些 giscus 的特性可能随时间损坏或改变。</li>
-</ul>
-</blockquote>
-<h3 id="配置">配置</h3>
-<blockquote>
-<p>要求</p>
-</blockquote>
-<ul>
-<li>此仓库是<strong>公开的</strong>，否则访客将无法查看 <em>discussion。</em></li>
-<li><strong>giscus app</strong> 已安装否则访客将无法评论和回应。</li>
-<li><strong>Discussions</strong> 功能已在你的仓库中<em>启用</em>。</li>
-</ul>
-<blockquote>
-<p>配置内容</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://giscus.app/client.js&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">=</span><span class="s2">&#34;[在此输入仓库]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[在此输入仓库 ID]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">=</span><span class="s2">&#34;[在此输入分类名]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[在此输入分类 ID]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">mapping</span><span class="o">=</span><span class="s2">&#34;pathname&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">reactions</span><span class="o">-</span><span class="nx">enabled</span><span class="o">=</span><span class="s2">&#34;1&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">emit</span><span class="o">-</span><span class="nx">metadata</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">input</span><span class="o">-</span><span class="nx">position</span><span class="o">=</span><span class="s2">&#34;bottom&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">theme</span><span class="o">=</span><span class="s2">&#34;light&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">lang</span><span class="o">=</span><span class="s2">&#34;zh-CN&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="kr">async</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>你可以在嵌入的页面中使用 <strong>.giscus</strong> 和 <strong>.giscus-frame</strong> 选择器来自定义容器布局</p>
-</blockquote>
-<h4 id="部分参数获取">部分参数获取</h4>
-<ul>
-<li><strong>repo-id</strong>, <strong>category-id</strong> <a href="https://docs.github.com/en/graphql/overview/explorer" target="_blank" rel="noopener noreffer ">github graphql api</a></li>
-<li><strong>category</strong> 一般为 <strong>Announcements</strong>, 或者根据需要选择其他的，务必保证与 <strong>category-id</strong> 一致！</li>
-<li><em>mapping</em> 根据你的需要填写，一般选择 <strong>pathname</strong></li>
-</ul>
-<p><figure><a class="lightgallery" href="/images/screen_img/github-graphql-discussion.png" title="github-graphql-discussion-query" data-thumbnail="/images/screen_img/github-graphql-discussion.png" data-sub-html="<h2>github graphql discussion query</h2><p>github-graphql-discussion-query</p>">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/images/screen_img/github-graphql-discussion.png"
-            data-srcset="/images/screen_img/github-graphql-discussion.png, /images/screen_img/github-graphql-discussion.png 1.5x, /images/screen_img/github-graphql-discussion.png 2x"
-            data-sizes="auto"
-            alt="/images/screen_img/github-graphql-discussion.png" width="1612" height="1212" />
-    </a><figcaption class="image-caption">github graphql discussion query</figcaption>
-    </figure></p>
-<blockquote>
-<p>经过以上步骤，我们就可以轻松的使用此插件了，但是如果要将其嵌入到当前使用的模板中还需要做一些特殊的处理。</p>
-</blockquote>
-<h3 id="主题修改支持-giscus">主题修改支持 <strong>giscus</strong></h3>
-<p>可以通过两种方式进行改造支持:</p>
-<ul>
-<li><strong>theme.js</strong> <em>JS 方式</em> <strong>需要重新编译 theme.js</strong> <em>具体参考项目文件</em> <code>Makefile</code> <code>make debug</code></li>
-<li><strong>comment.html</strong> 模板方式</li>
-</ul>
-<p><strong>js</strong> 方式更灵活一些。我们写了两种方式，<em>注释掉了模板插件方式修改</em>，对修改感兴趣的可以参考相应变更:</p>
-<ul>
-<li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>github</strong></li>
-<li><a href="https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>gitee</strong></li>
-</ul>
-<blockquote>
-<p>giscus iframe 主题配置异步修改: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer ">isetconfigmessage</a></p>
-</blockquote>
-<h3 id="效果查看">效果查看</h3>
-<ul>
-<li><a href="https://xwi88.com/" target="_blank" rel="noopener noreffer ">xwi88.com</a></li>
-<li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xiw88.com</a></li>
-</ul>
-<p><figure><a class="lightgallery" href="/images/screen_img/hugo_giscus_demo.png" title="hugo_giscus_demo" data-thumbnail="/images/screen_img/hugo_giscus_demo.png" data-sub-html="<h2>hugo giscus demo</h2><p>hugo_giscus_demo</p>">
-        <img
-            class="lazyload"
-            src="/svg/loading.min.svg"
-            data-src="/images/screen_img/hugo_giscus_demo.png"
-            data-srcset="/images/screen_img/hugo_giscus_demo.png, /images/screen_img/hugo_giscus_demo.png 1.5x, /images/screen_img/hugo_giscus_demo.png 2x"
-            data-sizes="auto"
-            alt="/images/screen_img/hugo_giscus_demo.png" width="1748" height="1670" />
-    </a><figcaption class="image-caption">hugo giscus demo</figcaption>
-    </figure></p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-05-26&nbsp;<a class="git-hash" href="https://github.com/xwi88/xwi88.github.io.source/commit/2eb8d96a76666ff57693ead667556148ba033ea4" target="_blank" title="commit by xwi88(278810732@qq.com) 2eb8d96a76666ff57693ead667556148ba033ea4: fetch giscus discussion config items by github graphql">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>2eb8d96</a></span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/hugo-plugin-giscus-support/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://xwi88.com/hugo-plugin-giscus-support/" data-title="Hugo Plugin Giscus Support" data-via="xwi88" data-hashtags="hugo-plugin,github"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://xwi88.com/hugo-plugin-giscus-support/" data-hashtag="hugo-plugin"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Linkedin" data-sharer="linkedin" data-url="https://xwi88.com/hugo-plugin-giscus-support/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://xwi88.com/hugo-plugin-giscus-support/" data-title="Hugo Plugin Giscus Support"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://xwi88.com/hugo-plugin-giscus-support/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://xwi88.com/hugo-plugin-giscus-support/" data-title="Hugo Plugin Giscus Support"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
-        </div>
-    </div>
-
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hugo-plugin/">hugo-plugin</a>,&nbsp;<a href="/tags/github/">github</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/hugo-plugin-busuanzi/" class="prev" rel="prev" title="Hugo 网站访问计数插件不蒜子集成"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hugo 网站访问计数插件不蒜子集成</a>
-            <a href="/go-vcs-gvm/" class="next" rel="next" title="Go 版本管理工具 gvm">Go 版本管理工具 gvm<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="giscus" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-container">
-    
-        
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    
-
-    
-        
-            <section>
-                
-                    <span id="busuanzi_container_value_site_pv"><i class="far fa-eye fa-fw"></i>
-                        
-                        <span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-
-                
-                    &nbsp;|&nbsp;              
-                
-
-                
-                    <span id="busuanzi_container_value_site_uv"><i class="fa fa-user"></i>
-                        
-                        <span id="busuanzi_value_site_uv"></span>
-                    </span>
-                
-            </section>
-        
-
-        
-        
-    
-
-</div>
-
-            <div class="footer-line"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/xwi88" target="_blank">xwi88</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
-                    <span class="icp"><a href="https://beian.miit.gov.cn/">京ICP备2022005973号-1</a></span>
-                    <span class="icp-splitter">&nbsp;|&nbsp;</span>
-                    <span class="icp">
-                        
-                            <img src="/images/beian.png" width="16" height="19" align="center">
-                        
-                    </span>
-                    <span class="icp-splitter"></span><br class="icp-br"/>
-                    <span class="icp"><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel="noreferrer" target="_blank">京公网安备11010602200802</a></span>
-                
-            </div></div><script>
-                var _hmt = _hmt || [];
-                (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820";
-                var s = document.getElementsByTagName("script")[0]; 
-                s.parentNode.insertBefore(hm, s);
-                })();
-            </script>
-            
-            
-            
-
-            
-
-            <script type="text/javascript" src="/js/L2Dwidget.min.js"></script>
-            <script type="text/javascript" src="/js/L2Dwidget.0.min.js"></script>
-
-            <script type="text/javascript">
-                L2Dwidget.init({
-                    model: {
-                        scale: 1,
-                        hHeadPos: 0.5,
-                        vHeadPos: 0.618,
-                        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json",  
-                    },
-                    display: {
-                        superSample: 1,     
-                        width: 120,         
-                        height: 300,        
-                        position: 'left',   
-                        hOffset: 0,         
-                        vOffset: 0,         
-                    },
-                    mobile: {
-                        show: true,         
-                        scale: 1,           
-                        motion: true,       
-                    },
-                    react: {
-                        opacityDefault: 1,  
-                        opacityOnHover: 1,  
-                    },
-                });
-            </script></footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":15},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOG7xEcs4CN-KB","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"xwi88/hugo-comment","repoId":"R_kgDOG7xEcg"}},"search":{"algoliaAppID":"7QU1O7DMR5","algoliaIndex":"blog_index","algoliaSearchKey":"520c25090bf786368d0c1d0eaa14e57c","highlightTag":"em","maxResultLength":15,"noResultsFound":"没有找到结果","snippetLength":55,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js" integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type="text/javascript">
-            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
-            gtag('config', 'G-78W9SMKZVE', { 'anonymize_ip': true });
-        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body>
-</html>
+<!doctype html><html lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Hugo Plugin Giscus Support - Coding Life Share</title><meta name=Description content="Hugo 评论插件 giscus 的集成与支持"><meta property="og:title" content="Hugo Plugin Giscus Support"><meta property="og:description" content="Hugo 评论插件 giscus 的集成与支持"><meta property="og:type" content="article"><meta property="og:url" content="https://xwi88.com/hugo-plugin-giscus-support/"><meta property="og:image" content="https://xwi88.com/images/avatar.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-03-07T23:46:10+08:00"><meta property="article:modified_time" content="2022-05-26T08:23:18+08:00"><meta property="og:site_name" content="My cool site"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://xwi88.com/images/avatar.jpg"><meta name=twitter:title content="Hugo Plugin Giscus Support"><meta name=twitter:description content="Hugo 评论插件 giscus 的集成与支持"><meta name=application-name content="XIN WANG blog"><meta name=apple-mobile-web-app-title content="XIN WANG blog"><meta name=theme-color content="#ffffff" media="(prefers-color-scheme: light)"><meta name=theme-color content="#292a2d" media="(prefers-color-scheme: dark)"><meta name=msapplication-TileColor content="#da532c"><link rel=preconnect href=https://cdn.jsdelivr.net crossorigin><link rel=dns-prefetch href=https://hm.baidu.com><link rel=dns-prefetch href=https://busuanzi.ibruce.info><link rel=dns-prefetch href=https://giscus.app><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://xwi88.com/hugo-plugin-giscus-support/><link rel=alternate hreflang=zh-cn href=https://xwi88.com/hugo-plugin-giscus-support/><link rel=prev href=https://xwi88.com/hugo-plugin-busuanzi/><link rel=next href=https://xwi88.com/go-vcs-gvm/><link rel=stylesheet href=/css/style.min.503761a687d156788fdcfd7bdadf42b5c1ce902ef56ab4bc09a2108173abdcda.css integrity="sha256-UDdhpofRVniP3P172t9CtcHOkC71arS8CaIQgXOr3No="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hugo Plugin Giscus Support","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xwi88.com\/hugo-plugin-giscus-support\/"},"genre":"posts","keywords":"hugo-plugin, github","wordcount":747,"url":"https:\/\/xwi88.com\/hugo-plugin-giscus-support\/","datePublished":"2022-03-07T23:46:10+08:00","dateModified":"2022-05-26T08:23:18+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xwi88","logo":{"@type":"ImageObject","url":"https:\/\/xwi88.com\/images\/avatar.jpg","width":725,"height":967}},"author":{"@type":"Person","name":"xwi88"},"description":"Hugo 评论插件 giscus 的集成与支持"}</script></head><body data-header-desktop=fixed data-header-mobile=auto><a class=skip-link href=#main-content>跳到主内容</a><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/categories/documentation/>文档 </a><a class=menu-item href=/favorite/>收藏夹 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop aria-label=搜索>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title=选择语言><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/hugo-plugin-giscus-support/ selected>简体中文</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile aria-label=搜索>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/categories/documentation/ title>文档</a><a class=menu-item href=/favorite/ title>收藏夹</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title=选择语言><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/hugo-plugin-giscus-support/ selected>简体中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main id=main-content tabindex=-1><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hugo Plugin Giscus Support</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://github.com/xwi88 title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>xwi88</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/hugo/><i class="far fa-folder fa-fw"></i>hugo</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-03-07>2022-03-07</time>&nbsp;<i class="far fa-calendar-check fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-05-26>2022-05-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;约 747 字&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;预计阅读 2 分钟&nbsp;
+<span id=busuanzi_container_value_page_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_page_pv></span>&nbsp;次阅读</span></div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#giscus-集成使用>giscus 集成使用</a><ul><li><a href=#介绍>介绍</a></li><li><a href=#配置>配置</a><ul><li><a href=#部分参数获取>部分参数获取</a></li></ul></li><li><a href=#主题修改支持-giscus>主题修改支持 <strong>giscus</strong></a></li><li><a href=#效果查看>效果查看</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>Hugo 评论插件用了几个感觉好用的还是 <strong>utterances</strong> 与 <strong>giscus</strong>，前者功能太过单，最新的基于 <em>github discussion</em> 的 <strong>giscus</strong> 使用体验非常不错。本文基于个人实验验证，旨在为需要的人提供方便。</p><blockquote><ul><li><em>blog theme</em>: <a href=https://github.com/xwi88/LoveIt.git target=_blank rel="noopener noreffer">LoveIt</a></li><li><a href=https://blog.xwi88.com target=_blank rel="noopener noreffer">giscus 体验</a></li></ul></blockquote><h2 id=giscus-集成使用>giscus 集成使用</h2><blockquote><ul><li><a href=https://giscus.app target=_blank rel="noopener noreffer">giscus</a></li><li><a href=https://giscus.app/zh-CN target=_blank rel="noopener noreffer">giscus zh-CN</a></li></ul></blockquote><h3 id=介绍>介绍</h3><p>由 <a href=https://docs.github.com/en/discussions target=_blank rel="noopener noreffer">GitHub Discussions</a> 驱动的评论系统。让访客借助 GitHub 在你的网站上留下评论和反应吧！本项目受 <a href=https://github.com/utterance/utterances target=_blank rel="noopener noreffer">utterances</a> 强烈启发。</p><ul><li><a href=https://github.com/giscus/giscus target=_blank rel="noopener noreffer">开源</a>。🌏</li><li>无跟踪，无广告，永久免费。📡 🚫</li><li>无需数据库。全部数据均储存在 GitHub Discussions 中。:octocat:</li><li>支持自定义主题！🌗</li><li>支持多种语言。🌐</li><li><a href=https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md target=_blank rel="noopener noreffer">高度可配置</a>。🔧</li><li>自动从 GitHub 拉取新评论与编辑。🔃</li><li><a href=https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md target=_blank rel="noopener noreffer">可自建服务</a>！🤳</li></ul><blockquote><ul><li>注意：</li><li>giscus 仍处于活跃开发中。GitHub 也还在活跃地开发 <strong>Discussions</strong> 及其 API。因此，一些 giscus 的特性可能随时间损坏或改变。</li></ul></blockquote><h3 id=配置>配置</h3><blockquote><p>要求</p></blockquote><ul><li>此仓库是<strong>公开的</strong>，否则访客将无法查看 <em>discussion。</em></li><li><strong>giscus app</strong> 已安装否则访客将无法评论和回应。</li><li><strong>Discussions</strong> 功能已在你的仓库中<em>启用</em>。</li></ul><blockquote><p>配置内容</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=o>&lt;</span><span class=nx>script</span> <span class=nx>src</span><span class=o>=</span><span class=s2>&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>repo</span><span class=o>=</span><span class=s2>&#34;[在此输入仓库]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>repo</span><span class=o>-</span><span class=nx>id</span><span class=o>=</span><span class=s2>&#34;[在此输入仓库 ID]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>category</span><span class=o>=</span><span class=s2>&#34;[在此输入分类名]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>category</span><span class=o>-</span><span class=nx>id</span><span class=o>=</span><span class=s2>&#34;[在此输入分类 ID]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>mapping</span><span class=o>=</span><span class=s2>&#34;pathname&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>reactions</span><span class=o>-</span><span class=nx>enabled</span><span class=o>=</span><span class=s2>&#34;1&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>emit</span><span class=o>-</span><span class=nx>metadata</span><span class=o>=</span><span class=s2>&#34;0&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>input</span><span class=o>-</span><span class=nx>position</span><span class=o>=</span><span class=s2>&#34;bottom&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>theme</span><span class=o>=</span><span class=s2>&#34;light&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>data</span><span class=o>-</span><span class=nx>lang</span><span class=o>=</span><span class=s2>&#34;zh-CN&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=nx>crossorigin</span><span class=o>=</span><span class=s2>&#34;anonymous&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=kr>async</span><span class=o>&gt;</span>
+</span></span><span class=line><span class=cl><span class=o>&lt;</span><span class=err>/script&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>你可以在嵌入的页面中使用 <strong>.giscus</strong> 和 <strong>.giscus-frame</strong> 选择器来自定义容器布局</p></blockquote><h4 id=部分参数获取>部分参数获取</h4><ul><li><strong>repo-id</strong>, <strong>category-id</strong> <a href=https://docs.github.com/en/graphql/overview/explorer target=_blank rel="noopener noreffer">github graphql api</a></li><li><strong>category</strong> 一般为 <strong>Announcements</strong>, 或者根据需要选择其他的，务必保证与 <strong>category-id</strong> 一致！</li><li><em>mapping</em> 根据你的需要填写，一般选择 <strong>pathname</strong></li></ul><p><figure><a class=lightgallery href=/images/screen_img/github-graphql-discussion.png title=github-graphql-discussion-query data-thumbnail=/images/screen_img/github-graphql-discussion.png data-sub-html="<h2>github graphql discussion query</h2><p>github-graphql-discussion-query</p>"><img class=lazyload src=/svg/loading.min.svg data-src=/images/screen_img/github-graphql-discussion.png data-srcset="/images/screen_img/github-graphql-discussion.png, /images/screen_img/github-graphql-discussion.png 1.5x, /images/screen_img/github-graphql-discussion.png 2x" data-sizes=auto alt=github-graphql-discussion-query width=1612 height=1212></a><figcaption class=image-caption>github graphql discussion query</figcaption></figure></p><blockquote><p>经过以上步骤，我们就可以轻松的使用此插件了，但是如果要将其嵌入到当前使用的模板中还需要做一些特殊的处理。</p></blockquote><h3 id=主题修改支持-giscus>主题修改支持 <strong>giscus</strong></h3><p>可以通过两种方式进行改造支持:</p><ul><li><strong>theme.js</strong> <em>JS 方式</em> <strong>需要重新编译 theme.js</strong> <em>具体参考项目文件</em> <code>Makefile</code> <code>make debug</code></li><li><strong>comment.html</strong> 模板方式</li></ul><p><strong>js</strong> 方式更灵活一些。我们写了两种方式，<em>注释掉了模板插件方式修改</em>，对修改感兴趣的可以参考相应变更:</p><ul><li><a href=https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c target=_blank rel="noopener noreffer">replace utterances by giscus</a> <strong>github</strong></li><li><a href=https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c target=_blank rel="noopener noreffer">replace utterances by giscus</a> <strong>gitee</strong></li></ul><blockquote><p>giscus iframe 主题配置异步修改: <a href=https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage target=_blank rel="noopener noreffer">isetconfigmessage</a></p></blockquote><h3 id=效果查看>效果查看</h3><ul><li><a href=https://xwi88.com/ target=_blank rel="noopener noreffer">xwi88.com</a></li><li><a href=https://blog.xwi88.com/ target=_blank rel="noopener noreffer">blog.xiw88.com</a></li></ul><p><figure><a class=lightgallery href=/images/screen_img/hugo_giscus_demo.png title=hugo_giscus_demo data-thumbnail=/images/screen_img/hugo_giscus_demo.png data-sub-html="<h2>hugo giscus demo</h2><p>hugo_giscus_demo</p>"><img class=lazyload src=/svg/loading.min.svg data-src=/images/screen_img/hugo_giscus_demo.png data-srcset="/images/screen_img/hugo_giscus_demo.png, /images/screen_img/hugo_giscus_demo.png 1.5x, /images/screen_img/hugo_giscus_demo.png 2x" data-sizes=auto alt=hugo_giscus_demo width=1748 height=1670></a><figcaption class=image-caption>hugo giscus demo</figcaption></figure></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2022-05-26&nbsp;<a class=git-hash href=https://github.com/xwi88/xwi88.github.io.source/commit/2eb8d96a76666ff57693ead667556148ba033ea4 target=_blank title="commit by xwi88(278810732@qq.com) 2eb8d96a76666ff57693ead667556148ba033ea4: fetch giscus discussion config items by github graphql">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>2eb8d96</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/hugo-plugin-giscus-support/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://xwi88.com/hugo-plugin-giscus-support/ data-title="Hugo Plugin Giscus Support" data-via=xwi88 data-hashtags=hugo-plugin,github><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://xwi88.com/hugo-plugin-giscus-support/ data-hashtag=hugo-plugin><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Linkedin" data-sharer=linkedin data-url=https://xwi88.com/hugo-plugin-giscus-support/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://xwi88.com/hugo-plugin-giscus-support/ data-title="Hugo Plugin Giscus Support"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 Reddit" data-sharer=reddit data-url=https://xwi88.com/hugo-plugin-giscus-support/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://xwi88.com/hugo-plugin-giscus-support/ data-title="Hugo Plugin Giscus Support"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/hugo-plugin/>hugo-plugin</a>,&nbsp;<a href=/tags/github/>github</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/hugo-plugin-busuanzi/ class=prev rel=prev title="Hugo 网站访问计数插件不蒜子集成"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Hugo 网站访问计数插件不蒜子集成</a>
+<a href=/go-vcs-gvm/ class=next rel=next title="Go 版本管理工具 gvm">Go 版本管理工具 gvm<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=giscus class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>Giscus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-container><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section><span id=busuanzi_container_value_site_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_site_pv></span></span>
+&nbsp;|&nbsp;
+<span id=busuanzi_container_value_site_uv><i class="fa fa-user"></i>
+<span id=busuanzi_value_site_uv></span></span></section></div><div class=footer-line><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2026</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/xwi88 target=_blank>xwi88</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/>京ICP备2022005973号-1</a></span>
+<span class=icp-splitter>&nbsp;|&nbsp;</span>
+<span class=icp><img src=/images/beian.png width=16 height=19 align=center></span>
+<span class=icp-splitter></span><br class=icp-br><span class=icp><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel=noreferrer target=_blank>京公网安备11010602200802</a></span></div></div><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script><script type=text/javascript src=/js/L2Dwidget.min.js></script>
+<script type=text/javascript src=/js/L2Dwidget.0.min.js></script>
+<script type=text/javascript>L2Dwidget.init({model:{scale:1,hHeadPos:.5,vHeadPos:.618,jsonPath:"https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json"},display:{superSample:1,width:120,height:300,position:"left",hOffset:0,vOffset:0},mobile:{show:!1,scale:1,motion:!0},react:{opacityDefault:1,opacityOnHover:1}})</script></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:15},comment:{giscus:{category:"Announcements",categoryId:"DIC_kwDOG7xEcs4CN-KB",darkTheme:"dark",emitMetadata:"0",inputPosition:"bottom",lang:"zh-CN",lazyLoading:!0,lightTheme:"light",mapping:"pathname",reactionsEnabled:"1",repo:"xwi88/hugo-comment",repoId:"R_kgDOG7xEcg"}},search:{algoliaAppID:"7QU1O7DMR5",algoliaIndex:"blog_index",algoliaSearchKey:"520c25090bf786368d0c1d0eaa14e57c",highlightTag:"em",maxResultLength:15,noResultsFound:"没有找到结果",snippetLength:55,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-78W9SMKZVE",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script></body></html>
