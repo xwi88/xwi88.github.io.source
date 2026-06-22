@@ -66,6 +66,9 @@ jobs:
           full_commit_message: ${{ github.event.head_commit.message }}
 
       - name: Rsync Deployments
+        # Best-effort: the tencent server (xwi88.com:65432) may be unreachable
+        # from GitHub Actions; don't let it block the gh-pages/gitee/algolia deploys.
+        continue-on-error: true
         uses: burnett01/rsync-deployments@5.2
         with:
           # The switches
