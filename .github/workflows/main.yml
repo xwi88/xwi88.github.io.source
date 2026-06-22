@@ -84,19 +84,45 @@ jobs:
           # The remote key passphrase
           # remote_key_pass: # optional, default is
       - name: Create or Update Algolia Index Record
-        # Best-effort: rxrw/algolia-index-uploader@v1 is unmaintained — its main.py
-        # imports algoliasearch.search_client, which the v4 SDK removed
-        # (ModuleNotFoundError). Don't block deploys on the search-index update.
+        # Replaces the unmaintained rxrw/algolia-index-uploader@v1 (broken by
+        # algoliasearch v4 removing `search_client`). Pins algoliasearch<3 (v2.x)
+        # and reindexes public/index.json via replace_all_objects.
+        # NOTE: ALGOLIA_APP_ID must match the frontend search app
+        # (config.toml params.search.algolia.appID = 7QU1O7DMR5) or search returns
+        # nothing. Best-effort: continue-on-error so a stale key won't block deploys.
         continue-on-error: true
-        uses: rxrw/algolia-index-uploader@v1
-        with:
-          # ID of this application in your Algolia account
-          algolia_index_id: PSXXZJM5GO
-          algolia_index_name: blog_index
-          # API key with write permissions to the index in your Algolia account
-          algolia_index_admin_key: ${{ secrets.ALGOLIA_API_KEY }}
-          # JSON record to write to this index (see https://www.algolia.com/doc/guides/sending-and-managing-data/prepare-your-data/#algolia-records for details)
-          index_path: ./public/index.json
+        env:
+          ALGOLIA_APP_ID: "7QU1O7DMR5"
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+          ALGOLIA_INDEX_NAME: "blog_index"
+          INDEX_PATH: "public/index.json"
+        run: |
+          pip install 'algoliasearch<3'
+          python - <<'PY'
+          import json, os, sys, traceback
+          try:
+              from algoliasearch.search_client import SearchClient
+              app_id  = os.environ["ALGOLIA_APP_ID"]
+              api_key = os.environ["ALGOLIA_API_KEY"]
+              index   = os.environ["ALGOLIA_INDEX_NAME"]
+              path    = os.environ.get("INDEX_PATH", "public/index.json")
+              with open(path) as f:
+                  records = json.load(f)
+              print("loaded %d records from %s" % (len(records), path))
+              client = SearchClient.create(app_id, api_key)
+              idx = client.init_index(index)
+              res = idx.replace_all_objects(records)
+              try:
+                  tid = res["taskID"] if isinstance(res, dict) else None
+                  if tid is not None:
+                      idx.wait_task(tid)
+              except Exception as we:
+                  print("(wait_task skipped: %s)" % we)
+              print("OK: reindexed %d records -> %s (app %s)" % (len(records), index, app_id))
+          except Exception:
+              traceback.print_exc()
+              sys.exit(1)
+          PY
 
   sync:
     needs: deploy
