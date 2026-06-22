@@ -84,6 +84,10 @@ jobs:
           # The remote key passphrase
           # remote_key_pass: # optional, default is
       - name: Create or Update Algolia Index Record
+        # Best-effort: rxrw/algolia-index-uploader@v1 is unmaintained — its main.py
+        # imports algoliasearch.search_client, which the v4 SDK removed
+        # (ModuleNotFoundError). Don't block deploys on the search-index update.
+        continue-on-error: true
         uses: rxrw/algolia-index-uploader@v1
         with:
           # ID of this application in your Algolia account
