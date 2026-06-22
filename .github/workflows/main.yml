@@ -92,7 +92,7 @@ jobs:
         # nothing. Best-effort: continue-on-error so a stale key won't block deploys.
         continue-on-error: true
         env:
-          ALGOLIA_APP_ID: "7QU1O7DMR5"
+          ALGOLIA_APP_ID: "PSXXZJM5GO"
           ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
           ALGOLIA_INDEX_NAME: "blog_index"
           INDEX_PATH: "public/index.json"
