@@ -1,0 +1,20 @@
+---
+title: "搜索 / Search"
+url: "/search/"
+description: "全站搜索 / Site-wide search"
+---
+
+<div id="pagefind-search"></div>
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  // Pagefind UI — client-side search over the build-time index (public/pagefind/).
+  // No external service / account. Chinese-aware (Unicode segmentation).
+  window.addEventListener('DOMContentLoaded', function () {
+    new PagefindUI({
+      element: '#pagefind-search',
+      showSubResults: true,
+      translations: { placeholder: '搜索文章 / Search posts…' }
+    });
+  });
+</script>

@@ -45,6 +45,14 @@ jobs:
       # build website
       - name: Build
         run: hugo
+
+      # build the static search index (Pagefind) into public/pagefind/.
+      # Replaces the deleted Algolia step (apps were NXDOMAIN). Chinese-aware.
+      - name: Build search index (Pagefind)
+        run: |
+          curl -fsSL -o /tmp/pf.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v1.5.2/pagefind-v1.5.2-x86_64-unknown-linux-musl.tar.gz
+          tar xzf /tmp/pf.tar.gz -C /tmp
+          /tmp/pagefind --site public
       
       # push the generated content into the `main` branch.
       - name: Deploy
@@ -83,62 +91,6 @@ jobs:
           remote_key: ${{ secrets.SITE_RSA_PRIVATE_KEY }} # shall not use root
           # The remote key passphrase
           # remote_key_pass: # optional, default is
-      - name: Create or Update Algolia Index Record
-        # Replaces the unmaintained rxrw/algolia-index-uploader@v1 (broken by
-        # algoliasearch v4 removing `search_client`). Pins algoliasearch<3 (v2.x)
-        # and reindexes public/index.json via replace_all_objects.
-        # NOTE: ALGOLIA_APP_ID must match the frontend search app
-        # (config.toml params.search.algolia.appID = 7QU1O7DMR5) or search returns
-        # nothing. Best-effort: continue-on-error so a stale key won't block deploys.
-        continue-on-error: true
-        env:
-          ALGOLIA_APP_ID: "PSXXZJM5GO"
-          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
-          ALGOLIA_INDEX_NAME: "blog_index"
-          INDEX_PATH: "public/index.json"
-        run: |
-          pip install 'algoliasearch<3'
-          python - <<'PY'
-          import json, os, sys, traceback
-          try:
-              from algoliasearch.search_client import SearchClient
-              app_id  = os.environ["ALGOLIA_APP_ID"]
-              # force IPv4 — some GH runners fail IPv6 egress to Algolia
-              import socket
-              try:
-                  import urllib3.util.connection as _u3c
-                  _u3c.allowed_gai_family = lambda: socket.AF_INET
-              except Exception:
-                  pass
-              # diagnostic: resolve + connect-test the app's Algolia hosts
-              for _h in ["%s-dsn.algolia.net" % app_id, "%s-1.algolianet.com" % app_id]:
-                  try:
-                      _infos = socket.getaddrinfo(_h, 443, type=socket.SOCK_STREAM)
-                      _s = socket.create_connection((_h, 443), timeout=8); _s.close()
-                      print("host %s -> %s CONNECT OK" % (_h, _infos[0][4][0]))
-                  except Exception as _e:
-                      print("host %s -> FAIL: %r" % (_h, _e))
-              api_key = os.environ["ALGOLIA_API_KEY"]
-              index   = os.environ["ALGOLIA_INDEX_NAME"]
-              path    = os.environ.get("INDEX_PATH", "public/index.json")
-              with open(path) as f:
-                  records = json.load(f)
-              print("loaded %d records from %s" % (len(records), path))
-              client = SearchClient.create(app_id, api_key)
-              idx = client.init_index(index)
-              res = idx.replace_all_objects(records)
-              try:
-                  tid = res["taskID"] if isinstance(res, dict) else None
-                  if tid is not None:
-                      idx.wait_task(tid)
-              except Exception as we:
-                  print("(wait_task skipped: %s)" % we)
-              print("OK: reindexed %d records -> %s (app %s)" % (len(records), index, app_id))
-          except Exception:
-              traceback.print_exc()
-              sys.exit(1)
-          PY
-
   sync:
     needs: deploy
     runs-on: ubuntu-latest

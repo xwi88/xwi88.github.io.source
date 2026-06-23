@@ -102,6 +102,14 @@ enableEmoji = true
         url = "/favorite/"
         title = ""
         weight = 5
+      [[languages.en.menu.main]]
+        identifier = "search"
+        pre = "<i class='fas fa-search fa-fw'></i>"
+        post = ""
+        name = ""
+        url = "/search/"
+        title = "Search"
+        weight = 8
     [languages.en.params]
       # site description
       description = "Tech Blog Share"
@@ -123,7 +131,7 @@ enableEmoji = true
         tileColor = "#da532c"
       # Search config
       [languages.en.params.search]
-        enable = true
+        enable = false   # Algolia apps deleted; site search moved to Pagefind (/search/)
         # type of search engine ("lunr", "algolia")
         type = "algolia"
         # max index length of the chunked content
@@ -309,6 +317,14 @@ enableEmoji = true
         url = "/favorite/"
         title = ""
         weight = 5
+      [[languages.zh-cn.menu.main]]
+        identifier = "search"
+        pre = "<i class='fas fa-search fa-fw'></i>"
+        post = ""
+        name = ""
+        url = "/search/"
+        title = "搜索"
+        weight = 8
     [languages.zh-cn.params]
       # 网站描述
       description = "技术 博客 分享"
@@ -330,7 +346,7 @@ enableEmoji = true
         tileColor = "#da532c"
       # 搜索配置
       [languages.zh-cn.params.search]
-        enable = true
+        enable = false   # Algolia apps deleted; site search moved to Pagefind (/search/)
         # 搜索引擎的类型 ("lunr", "algolia")
         type = "algolia"
         # 文章内容最长索引长度

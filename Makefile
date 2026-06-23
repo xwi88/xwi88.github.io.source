@@ -15,6 +15,9 @@ BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 # theme uses). CI pins hugo-version '0.119.0' extended. Override locally, e.g.:
 #   make dev HUGO=~/bin/hugo119
 HUGO ?= hugo
+# Pagefind builds the static search index (over public/). Override the binary:
+#   make publish HUGO=~/bin/hugo119 PAGEFIND=~/bin/pagefind
+PAGEFIND ?= pagefind
 
 gitBranch = $(shell git symbolic-ref --short -q HEAD)
 
@@ -36,6 +39,7 @@ default: dev
 
 publish: clean-public
 	@$(HUGO)
+	@$(PAGEFIND) --site ${BASEDIR}public
 local:
 	@$(HUGO) server -w  -DF
 debug: uglifyjs dev
