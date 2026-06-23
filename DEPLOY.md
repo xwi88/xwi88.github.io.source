@@ -14,7 +14,7 @@ locally use `~/bin/hugo119` or `make dev HUGO=~/bin/hugo119`.
 | gitee **mirror** (`xwi88/xwi88` content) | `sync` (git-mirror over SSH) | `GITEE_RSA_PRIVATE_KEY` + github deploy key | ✅ synced |
 | **xwi88.gitee.io** (gitee Pages rebuild) | `gitee-pages` | `GITEE_PASSWORD` | ⚠️ Gitee anti-bot blocks automation → manual deploy |
 | **xwi88.com** (tencent server) | `Rsync Deployments` (`continue-on-error`) | `SITE_RSA_PRIVATE_KEY` (SSH) | ⚠️ `xwi88.com:65432` times out from GH Actions |
-| **Algolia** search index | `Create or Update Algolia Index Record` (`continue-on-error`) | `ALGOLIA_API_KEY` + app ID | 🔴 app deleted (DNS NXDOMAIN) |
+| **Search** (Pagefind, static) | `Build search index (Pagefind)` (after hugo) | none (no account/key) | ✅ live at `/search/`, Chinese-aware |
 
 > `DEPLOY_ACCESS_TOKEN` is needed because the `Deploy` step pushes to a **different repo**
 > (`xwi88.github.io`); the default `GITHUB_TOKEN` can't cross repos. It is unrelated to custom
@@ -22,14 +22,11 @@ locally use `~/bin/hugo119` or `make dev HUGO=~/bin/hugo119`.
 
 ## Open action items (need your external action)
 
-### 🔴 Algolia — search broken site-wide
-Both app IDs are DNS NXDOMAIN = deleted: frontend `7QU1O7DMR5`, CI `PSXXZJM5GO`.
-1. Create an Algolia app → copy its **Application ID** + an **Admin API Key** (write perm).
-2. Set the app ID in **both** (must match, else search returns nothing):
-   - CI: `ALGOLIA_APP_ID` in `.github/workflows/main.yml`
-   - frontend: `params.search.algolia.appID` in `config.toml`
-3. `gh secret set ALGOLIA_API_KEY --repo xwi88/xwi88.github.io.source` → paste the admin key.
-4. Re-run the workflow → the custom reindex step (pinned `algoliasearch<3`) indexes all 285 records.
+### ✅ Search — fixed (Pagefind; was Algolia)
+Algolia apps were deleted (DNS NXDOMAIN), so search was replaced with **Pagefind** — static,
+no account/key, Chinese-aware. Live at `blog.xwi88.com/search/` (menu: 搜索/Search). Indexes
+post content (`data-pagefind-body` on `layouts/posts/single.html`); built by the CI
+`Build search index (Pagefind)` step + `make publish` (PAGEFIND var). **No action needed.**
 
 ### ⚠️ xwi88.com (tencent)
 `ssh xwi88.com -p 65432` times out from GitHub Actions. The `SITE_RSA_PRIVATE_KEY` loads fine —
