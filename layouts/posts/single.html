@@ -99,6 +99,7 @@
 
         {{- /* Content */ -}}
         <div class="content" id="content" data-pagefind-body>
+            <span data-pagefind-meta="title" hidden>{{ .Title }}</span>
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         </div>
 

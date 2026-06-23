@@ -19,3 +19,20 @@
         left: 0;
     }
 }
+
+// Pagefind search UI — theme to LoveIt (light + dark). LoveIt exposes
+// --global-font-color / --global-background (redefined under body[theme=dark]),
+// so text/background auto-adapt; border/tag are overridden per-theme.
+:root {
+    --pagefind-ui-text: var(--global-font-color);
+    --pagefind-ui-background: var(--global-background);
+    --pagefind-ui-font: var(--global-font-family);
+    --pagefind-ui-primary: var(--global-font-color);
+    --pagefind-ui-border: #e8e8e8;
+    --pagefind-ui-tag: #f0f0f0;
+    --pagefind-ui-border-radius: 5px;
+}
+body[theme="dark"] {
+    --pagefind-ui-border: #3b3d42;
+    --pagefind-ui-tag: #2f3035;
+}

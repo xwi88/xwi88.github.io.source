@@ -14,6 +14,8 @@ description: "全站搜索 / Site-wide search"
     new PagefindUI({
       element: '#pagefind-search',
       showSubResults: true,
+      pageSize: 10,
+      excerptLength: 15,
       translations: { placeholder: '搜索文章 / Search posts…' }
     });
   });
