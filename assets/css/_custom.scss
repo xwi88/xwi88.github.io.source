@@ -64,3 +64,137 @@ body[theme="dark"] {
     border-radius: 10px;
     box-shadow: 0 12px 50px rgba(0, 0, 0, 0.35);
 }
+
+// ===== 视觉打磨 (refinements layered on LoveIt; reversible) =====
+
+// smooth in-page scroll + keep anchors clear of the fixed header
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+
+// text-selection accent
+::selection {
+    background: rgba(45, 150, 209, 0.22);
+}
+body[theme="dark"] ::selection {
+    background: rgba(169, 169, 179, 0.28);
+}
+
+// article reading comfort (taller line-height helps CJK)
+.single .content {
+    line-height: 1.85;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+// inline + block code: rounded, comfortable padding
+.single .content code {
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    font-size: 0.875em;
+}
+.single .content pre {
+    border-radius: 8px;
+    padding: 1rem 1.15rem;
+    line-height: 1.6;
+}
+.single .content pre code {
+    padding: 0;
+    font-size: 0.85em;
+}
+
+// blockquote: accent left bar + soft background
+.single .content blockquote {
+    margin: 1.3em 0;
+    padding: 0.6em 1.2em;
+    border-left: 4px solid #2d96d1;
+    background: rgba(125, 125, 125, 0.06);
+    border-radius: 0 6px 6px 0;
+}
+body[theme="dark"] .single .content blockquote {
+    border-left-color: #5ab7e8;
+}
+
+// tables: clean borders + striped rows
+.single .content table {
+    border-collapse: collapse;
+    margin: 1.3em 0;
+}
+.single .content th,
+.single .content td {
+    border: 1px solid #e8e8e8;
+    padding: 0.5em 0.9em;
+}
+body[theme="dark"] .single .content th,
+body[theme="dark"] .single .content td {
+    border-color: #3b3d42;
+}
+.single .content thead th {
+    background: rgba(125, 125, 125, 0.08);
+}
+.single .content tbody tr:nth-child(even) {
+    background: rgba(125, 125, 125, 0.04);
+}
+
+// smooth link transitions
+.single .content a,
+.summary a {
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+// post-list cards: border + padding + hover lift/shadow
+.single.summary {
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.1rem;
+    border: 1px solid rgba(125, 125, 125, 0.18);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.single.summary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(45, 150, 209, 0.5);
+}
+body[theme="dark"] .single.summary {
+    border-color: rgba(169, 169, 179, 0.2);
+}
+body[theme="dark"] .single.summary:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+// ===== typography / format refinements =====
+
+// crisper text rendering
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// content headings: more breathing room between sections
+.single .content h2 {
+    margin-top: 1.8em;
+}
+.single .content h3 {
+    margin-top: 1.4em;
+}
+
+// content images: rounded corners
+.single .content img {
+    border-radius: 6px;
+}
+
+// cleaner horizontal rule
+.single .content hr {
+    border: 0;
+    border-top: 1px solid #e8e8e8;
+    margin: 2.5em 0;
+}
+body[theme="dark"] .single .content hr {
+    border-top-color: #3b3d42;
+}
+
+// list item spacing
+.single .content li {
+    margin: 0.35em 0;
+}
