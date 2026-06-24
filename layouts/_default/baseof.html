@@ -100,5 +100,44 @@
             });
         })();
         </script>
+
+        {{- /* reading-progress bar + image click-to-zoom (article images) */ -}}
+        <div id="reading-progress" aria-hidden="true"></div>
+        <script>
+        (function () {
+            // reading-progress bar (scroll position)
+            var bar = document.getElementById('reading-progress');
+            if (bar) {
+                var ticking = false;
+                window.addEventListener('scroll', function () {
+                    if (ticking) return;
+                    ticking = true;
+                    window.requestAnimationFrame(function () {
+                        var h = document.documentElement;
+                        var max = h.scrollHeight - h.clientHeight;
+                        bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+                        ticking = false;
+                    });
+                }, { passive: true });
+            }
+            // image click-to-zoom (article images)
+            var ov = document.createElement('div');
+            ov.id = 'img-zoom';
+            ov.hidden = true;
+            ov.title = '关闭 / Close';
+            ov.innerHTML = '<img alt="">';
+            ov.addEventListener('click', function () { ov.hidden = true; });
+            document.body.appendChild(ov);
+            document.addEventListener('click', function (e) {
+                var img = e.target.closest && e.target.closest('.single .content img');
+                if (img) {
+                    e.preventDefault();
+                    ov.querySelector('img').src = img.currentSrc || img.src;
+                    ov.hidden = false;
+                }
+            });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') ov.hidden = true; });
+        })();
+        </script>
     </body>
 </html>
