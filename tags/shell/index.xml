@@ -1,1 +1,59 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>shell - 标签 - Coding Life Share</title><link>https://xwi88.com/tags/shell/</link><description>shell - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 12 Mar 2022 09:15:14 +0800</lastBuildDate><atom:link href="https://xwi88.com/tags/shell/" rel="self" type="application/rss+xml"/><item><title>Makefile shell 中绝对路径的正确处理</title><link>https://xwi88.com/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/makefile-shell-path-get/</guid><description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>) 中绝对路径的处理。</p>]]></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>shell - 标签 - Coding Life Share</title><link>https://xwi88.com/tags/shell/</link><description>shell - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 12 Mar 2022 09:15:14 +0800</lastBuildDate><atom:link href="https://xwi88.com/tags/shell/" rel="self" type="application/rss+xml"/><item><title>Makefile shell 中绝对路径的正确处理</title><link>https://xwi88.com/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/makefile-shell-path-get/</guid><description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>) 中绝对路径的处理。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="makefile">Makefile</h2>
+<blockquote>
+<p>make version: <code>3.81</code></p>
+</blockquote>
+<p><code>BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">GNU Make 3.81
+</span></span><span class="line"><span class="cl">Copyright (C) 2006  Free Software Foundation, Inc.
+</span></span><span class="line"><span class="cl">This is free software; see the source for copying conditions.
+</span></span><span class="line"><span class="cl">There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+</span></span><span class="line"><span class="cl">PARTICULAR PURPOSE.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="linux-shell">Linux Shell</h2>
+<blockquote>
+<p>Bash version: <code>5.1</code></p>
+</blockquote>
+<ul>
+<li><code>DIR=$(cd $(dirname $0) &amp;&amp; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname $0); pwd)</code></li>
+<li><code>DIR=$(cd dirname $0; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname &quot;${BASH_SOURCE[0]}&quot;) &amp;&amp; pwd)</code></li>
+<li><code>ROOT_DIR=&quot;${DIR##*/}&quot;</code></li>
+<li><code>FILE_NAME=$(basename &quot;$0&quot;)</code></li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>BASH_SOURCE</code> 只适用于有 <strong>bash</strong> 环境</p>
+<blockquote>
+<p><code>cat /etc/shells</code> 本机支持 <code>shell</code> 查看</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h2 id="实例">实例</h2>
+<p>以上使用实例请参考: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
+<ul>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/scripts/docker-build.sh" target="_blank" rel="noopener noreffer ">docker-build.sh</a></li>
+</ul>]]></description></item></channel></rss>

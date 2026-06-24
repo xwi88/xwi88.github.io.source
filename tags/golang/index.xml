@@ -1,1 +1,572 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>golang - 标签 - Coding Life Share</title><link>https://xwi88.com/tags/golang/</link><description>golang - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 +0800</lastBuildDate><atom:link href="https://xwi88.com/tags/golang/" rel="self" type="application/rss+xml"/><item><title>Go OTP TOTP HOTP</title><link>https://xwi88.com/go-otp-totp-hotp/</link><pubDate>Sat, 22 Oct 2022 12:09:20 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-otp-totp-hotp/</guid><description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>。</p>]]></description></item><item><title>Go 程序常用 kill 信号及捕获</title><link>https://xwi88.com/go-kill-signal-catch/</link><pubDate>Wed, 16 Mar 2022 01:30:10 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-kill-signal-catch/</guid><description><![CDATA[<p>Go 程序常用 kill 信号及捕获， <em>MacOS</em> 下验证，基于 <code>go1.17.7</code>。</p>]]></description></item><item><title>Go 版本管理工具 gvm</title><link>https://xwi88.com/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>]]></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>golang - 标签 - Coding Life Share</title><link>https://xwi88.com/tags/golang/</link><description>golang - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 +0800</lastBuildDate><atom:link href="https://xwi88.com/tags/golang/" rel="self" type="application/rss+xml"/><item><title>Go OTP TOTP HOTP</title><link>https://xwi88.com/go-otp-totp-hotp/</link><pubDate>Sat, 22 Oct 2022 12:09:20 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-otp-totp-hotp/</guid><description><![CDATA[<p>越来越多的系统基于安全的考虑加入了多因素认证的功能，实现多因素认证有多种方案，<code>OTP</code>就是其中一种实现相对简单便捷的方案。本文简要介绍了相关概念，并基于 <code>go1.19.2</code> ，给出<code>totp</code>、<code>hotp</code>的使用示例，更多可参考 <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="概念">概念</h2>
+<ul>
+<li>OTP: One-Time Password.
+<ul>
+<li>一次性密码</li>
+</ul>
+</li>
+<li>TOTP: Time-based One-time Password Algorithm (TOTP) (RFC 6238): Time based OTP, the most commonly used method.
+<ul>
+<li>基于时间戳算法生成的一次性密码，使用最广泛</li>
+<li>基于私钥及当前时间生成</li>
+<li>一般每30秒或60秒产生一个新口令</li>
+<li>需要客户端与服务器保持较精确的时钟</li>
+</ul>
+</li>
+<li>HOTP: HMAC-based One-time Password Algorithm (HOTP) (RFC 4226): Counter based OTP, which TOTP is based upon.
+<ul>
+<li>基于<code>HMAC</code>算法生成的一次性密码</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用场景">使用场景</h2>
+<ul>
+<li>服务器登录动态密码验证（云服务器登录, 企业管理平台登录等）</li>
+<li>github, twitter, google 登录双因素认证</li>
+<li>公司内网代理登录双因素验证</li>
+<li>银行转账动态密码</li>
+<li>网银、网络游戏的实体动态口令牌</li>
+<li>双因素认证<code>2FA</code>，多因素认证<code>MFA</code>等</li>
+</ul>
+<h2 id="产品">产品</h2>
+<ul>
+<li>Microsoft 身份认证器: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
+<ul>
+<li>跨应用使用简单、快速且高度安全的双因素身份验证</li>
+<li>推荐个人使用 ☆☆☆☆☆</li>
+</ul>
+</li>
+<li>Google 身份验证器: <a href="https://github.com/google/google-authenticator" target="_blank" rel="noopener noreffer ">google-authenticator</a></li>
+<li>银行网盾令牌: 仅限绑定账户卡</li>
+<li>支持OTP的游戏厂商的安全防护应用: 仅限指定厂商产品</li>
+</ul>
+<h2 id="原理">原理</h2>
+<p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
+<ul>
+<li><code>K</code>: 秘钥串</li>
+<li><code>C</code>: 数字</li>
+<li><code>HMAC-SHA-1</code>: 使用SHA-1做HMAC</li>
+<li><code>Truncate</code>: 用于截取加密后的字符串</li>
+</ul>
+<blockquote>
+<p>对HMAC-SHA-1方式加密来说，Truncate实现如下</p>
+</blockquote>
+<ul>
+<li>HMAC-SHA-1加密后的长度得到一个20字节的密串</li>
+<li>取这个20字节的密串的最后一个字节，取这字节的低4位，作为截取加密串的下标偏移量</li>
+<li>按照下标偏移量开始，获取4个字节，按照大端方式组成一个整数</li>
+<li>截取这个整数的后6位或者8位转成字符串返回。</li>
+</ul>
+<h3 id="otp">OTP</h3>
+<ul>
+<li><code>C</code>: 数字，表示随机数</li>
+<li>其他参数与定义相同</li>
+</ul>
+<h3 id="totp">TOTP</h3>
+<ul>
+<li>
+<p><code>C</code>: 随机数，基于时间戳生成</p>
+<ul>
+<li><code>C = (T - T0) / T1</code></li>
+<li>T:  当前的时间戳</li>
+<li>T0: 起始时间，一般为0</li>
+<li>T1: 时间间隔，根据业务需要自定义
+<ul>
+<li>一般为 <strong>30</strong>，表示产生的口令<code>30s</code>有效</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>其他参数与定义相同</p>
+</li>
+<li>
+<p>一般散列函数使用<code>SHA2</code>, 即：基于<code>SHA-256</code> or <code>SHA-512</code> [SHA2] 的散列函数做事件同步验证</p>
+</li>
+</ul>
+<h3 id="hotp">HOTP</h3>
+<ul>
+<li><code>C</code>: 数字，表示随机数</li>
+<li>其他参数与定义相同</li>
+</ul>
+<h2 id="实现参考">实现参考</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">URL</th>
+<th style="text-align:left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">https://github.com/v8fg/kit4go</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">https://github.com/pquerna/otp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">pyotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">https://github.com/pyauth/pyotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">gotp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">https://github.com/xlzd/gotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">otplib</a></td>
+<td style="text-align:left">Node</td>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">https://github.com/yeojz/otplib</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">otphp</a></td>
+<td style="text-align:left">PHP</td>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">https://github.com/Spomky-Labs/otphp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">mintotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">https://github.com/susam/mintotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Erlang</td>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">https://github.com/erlang/otp</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用">使用</h2>
+<blockquote>
+<p><code>go get -u github.com/v8fg/kit4go</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/v8fg/kit4go/otp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">secret</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">RandomSecret</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// 生成10字节长度的 secret字符串，如: JBSWY3DPEHPK3PXP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// otp url
+</span></span></span><span class="line"><span class="cl"><span class="c1">// otpauth://totp/Twitter:@xwi88?issuer=Twitter&amp;secret=JJBFGV2ZGNCFARKIKBFTGUCYKA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">totpURL</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">GenerateURLTOTP</span><span class="p">(</span><span class="nx">otp</span><span class="p">.</span><span class="nx">KeyOpts</span><span class="p">{</span><span class="nx">Issuer</span><span class="p">:</span> <span class="s">&#34;Twitter&#34;</span><span class="p">,</span> <span class="nx">AccountName</span><span class="p">:</span> <span class="s">&#34;@xwi88&#34;</span><span class="p">,</span> <span class="nx">Secret</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;JJBFGV2ZGNCFARKIKBFTGUCYKA&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// now time: 2022-10-22 18:00:00 +0000 UTC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.Code(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">Code</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">)</span> <span class="c1">// 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCode(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCodeCustom(&#34;JBSWY3DPEHPK3PXP&#34;, now, nil) // 527484 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">TOTPCodeCustom</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">otp</span><span class="p">.</span><span class="nx">Opts</span><span class="p">{</span><span class="nx">Skew</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1">// 允许时间误差在 [Before(30s) ~ Present(30s) ~ After(30s)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// verify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTP</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">)</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTPCustom</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// true
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>更多示例可以查看源码 <code>otp/*_test.go</code> 文件</p>
+</blockquote>]]></description></item><item><title>Go 程序常用 kill 信号及捕获</title><link>https://xwi88.com/go-kill-signal-catch/</link><pubDate>Wed, 16 Mar 2022 01:30:10 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-kill-signal-catch/</guid><description><![CDATA[<p>Go 程序常用 kill 信号及捕获， <em>MacOS</em> 下验证，基于 <code>go1.17.7</code>。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="常用信号">常用信号</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Some of the more commonly used signals:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 1       HUP (hang up)
+</span></span><span class="line"><span class="cl"> 2       INT (interrupt)
+</span></span><span class="line"><span class="cl"> 3       QUIT (quit)
+</span></span><span class="line"><span class="cl"> 6       ABRT (abort)
+</span></span><span class="line"><span class="cl"> 9       KILL (non-catchable, non-ignorable kill)
+</span></span><span class="line"><span class="cl"> 14      ALRM (alarm clock)
+</span></span><span class="line"><span class="cl"> 15      TERM (software termination signal)
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 30      USR1 (user defined signal 1)
+</span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-code">Go Code</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">ch</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGHUP</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGQUIT</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGABRT</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGKILL</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGALRM</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGUSR1</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGUSR2</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGTERM</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGINT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sgName</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;receive kill signal [%v], ready to exit ...&#34;</span><span class="p">,</span> <span class="nx">sgName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// resource release and other deals
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;-</span><span class="nx">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>需要更便捷处理可以引入: <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
+</blockquote>
+<h2 id="kill-测试">kill 测试</h2>
+<blockquote>
+<p><em>宿主机上执行</em> <code>kill</code> 程序停止 <code>app</code> 运行，按照 <code>app</code> 运行环境分为：<strong>宿主环境</strong>，<strong>docker 环境</strong></p>
+</blockquote>
+<h3 id="宿主环境">宿主环境</h3>
+<p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">linux/unix kill 默认 <code>signal_number=15</code> <strong>TERM</strong></div>
+        </div>
+    </div>
+<p>经测试: <strong>可正常捕获且返回 0 的 signal</strong>:</p>
+<ul>
+<li><code>1, 2, 3, 6, 14, 15</code>, <strong><code>30, 31</code></strong></li>
+<li><code>HUP, INI, QUIT, ABRT, ALRM, TERM, USR1, USR2</code>
+<ul>
+<li><strong>不区分大小写</strong></li>
+<li><strong>可附加前缀 <code>SIG</code></strong>，同样<strong>不区分大小写</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="docker-环境">docker 环境</h3>
+<blockquote>
+<p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">docker kill 默认 <code>signal_number=9</code> <strong>KILL</strong></div>
+        </div>
+    </div>
+<p>经测试: <strong>可正常捕获且返回 0 的 signal</strong>:</p>
+<ul>
+<li><code>1, 2, 3, 6, 14, 15</code>, <strong><code>10, 12</code></strong>
+<ul>
+<li><strong>经测试，docker kill 时 传入 <code>10, 12</code> 才可被识别为 <code>USR1, USR2</code></strong></li>
+<li>原因暂时不明，<strong>不建议使用 <code>USR1</code>, <code>USR2</code></strong></li>
+</ul>
+</li>
+<li><code>HUP, INI, QUIT, ABRT, ALRM, TERM, USR1, USR2</code>
+<ul>
+<li><strong>不区分大小写</strong></li>
+<li><strong>可附加前缀 <code>SIG</code></strong>，同样<strong>不区分大小写</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="结论">结论</h2>
+<blockquote>
+<p>经过以上测试，<strong>常用可正常捕获无差异性且返回 0 的 signal</strong>: <code>1, 2, 3, 6, 14, 15</code></p>
+</blockquote>
+<p>根据信号表示意义，我们推荐程序使用</p>
+<ul>
+<li>2 <strong>SIGINT</strong>  <strong>触发: <code>CTRL+C</code> 或 <code>kill -2</code></strong></li>
+<li>15 <strong>SIGTERM</strong></li>
+</ul>
+<h2 id="优雅停止服务">优雅停止服务</h2>
+<ol>
+<li>执行 kill 发送信号 <code>-15/-TERM/-SIGTERM</code></li>
+<li>程序捕获信号后<strong>节点摘除</strong>, <strong>释放资源</strong>，<em>停止程序</em></li>
+<li>间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 <code>kill -9/-KILL/-SIGKILL</code></li>
+</ol>
+<h2 id="k8s-优雅停止服务">k8s 优雅停止服务</h2>
+<ol>
+<li><strong>节点摘除</strong></li>
+<li><code>preStop hook</code> <em>可设置延迟时间，用于处理进入流量</em></li>
+<li>发送 kill 信号 <code>-15/-TERM/-SIGTERM</code></li>
+<li>程序捕获信号<strong>释放资源</strong>，<em>停止程序</em></li>
+<li>超时强制关闭处理 <code>kill -9/-KILL/-SIGKILL</code>
+<ul>
+<li>默认 30s</li>
+<li>pod: <code>terminationGracePeriodSecond</code> 修改</li>
+</ul>
+</li>
+</ol>
+<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<ul>
+<li>当前 <code>Docker Compose version 2.2.2</code></li>
+</ul>
+<p><code>docker-compose</code> 启动 <code>CTRL+C</code> 退出失败，强制退出: <code>CTRL+\</code></p>]]></description></item><item><title>Go 版本管理工具 gvm</title><link>https://xwi88.com/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>
+<h2 id="安装">安装</h2>
+<h3 id="mac-os-x-requirements">Mac OS X Requirements</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl"># Mac OS X Requirements
+</span></span><span class="line"><span class="cl">xcode-select --install
+</span></span><span class="line"><span class="cl">brew update
+</span></span><span class="line"><span class="cl">brew install mercurial
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-gvm">安装 gvm</h3>
+<blockquote>
+<p><a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener noreffer ">gvm</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># zsh</span>
+</span></span><span class="line"><span class="cl">zsh &lt; &lt;<span class="o">(</span>curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bash use, choose one!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>安装成功，会在家目录下增加 <strong>.gvm</strong> 的隐藏目录，并且在 <em>.bashrc</em> 或者 <em>.zshrc</em> 文件最底部增加一行如下内容</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[[ -s &#34;$HOME/.gvm/scripts/gvm&#34; ]] &amp;&amp; source &#34;$HOME/.gvm/scripts/gvm&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># shall set GO_SOURCE_URL to speed binary install
+</span></span><span class="line"><span class="cl">export GO_SOURCE_URL=https://github.com/golang/go
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>如果想同时支持多个 <code>shell</code> 环境，可手动复制上述内容到<em>相应</em> <strong>shell</strong> 配置文件!</p>
+</blockquote>
+<h3 id="go-环境配置">Go 环境配置</h3>
+<p>通过 <code>gvm use &lt;version&gt;</code> 切换 <code>go version</code>, 会改变部分环境变量，如:</p>
+<ul>
+<li><code>GOMODCACHE=&quot;$HOME/.gvm/pkgsets/go1.17.7/global/pkg/mod&quot;</code></li>
+<li><code>GOPATH=&quot;$HOME/.gvm/pkgsets/go1.17.7/global&quot;</code></li>
+</ul>
+<p>gvm 与上述环境变量相关的命令有: <code>linkthis</code>, <code>pkgset</code>, <code>pkgenv</code>
+为了降低环境变化对开发等的影响可固定<code>GOPATH</code> 等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># shall set GO_SOURCE_URL to speed source install</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># default https://go.googlesource.com/go</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GO_SOURCE_URL</span><span class="o">=</span>https://github.com/golang/go
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># if use gvm, shall set some go env after gvm init statements</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># export GO111MODULE=on</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/go&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GOPATH</span><span class="s2">/bin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GOBIN</span><span class="s2">:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,https://goproxy.io/,https://mirrors.aliyun.com/goproxy/,https://gocenter.io/,https://proxy.golang.org,direct
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gvm-用法"><strong>gvm</strong> 用法</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage: gvm <span class="o">[</span>command<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  GVM is the Go Version Manager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  version    - print the gvm version number
+</span></span><span class="line"><span class="cl">  get        - gets the latest code <span class="o">(</span><span class="k">for</span> debugging<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  use        - <span class="k">select</span> a go version to use <span class="o">(</span>--default to <span class="nb">set</span> permanently<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  diff       - view changes to Go root
+</span></span><span class="line"><span class="cl">  <span class="nb">help</span>       - display this usage text
+</span></span><span class="line"><span class="cl">  implode    - completely remove gvm
+</span></span><span class="line"><span class="cl">  install    - install go versions
+</span></span><span class="line"><span class="cl">  uninstall  - uninstall go versions
+</span></span><span class="line"><span class="cl">  cross      - install go cross compilers
+</span></span><span class="line"><span class="cl">  linkthis   - link this directory into GOPATH
+</span></span><span class="line"><span class="cl">  list       - list installed go versions
+</span></span><span class="line"><span class="cl">  listall    - list available versions
+</span></span><span class="line"><span class="cl">  <span class="nb">alias</span>      - manage go version aliases
+</span></span><span class="line"><span class="cl">  pkgset     - manage go packages sets
+</span></span><span class="line"><span class="cl">  pkgenv     - edit the environment <span class="k">for</span> a package <span class="nb">set</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gvm-install"><strong>gvm install</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage: gvm install <span class="o">[</span>version<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    -s,  --source<span class="o">=</span>SOURCE      Install Go from specified source.
+</span></span><span class="line"><span class="cl">    -n,  --name<span class="o">=</span>NAME          Override the default name <span class="k">for</span> this version.
+</span></span><span class="line"><span class="cl">    -pb, --with-protobuf      Install Go protocol buffers.
+</span></span><span class="line"><span class="cl">    -b,  --with-build-tools   Install package build tools.
+</span></span><span class="line"><span class="cl">    -B,  --binary             Only install from binary.
+</span></span><span class="line"><span class="cl">         --prefer-binary      Attempt a binary install, falling back to source.
+</span></span><span class="line"><span class="cl">    -h,  --help               Display this message.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="简单使用">简单使用</h3>
+<blockquote>
+<p><code>gvm use</code> <em>- select a go version to use (&ndash;default to set permanently)</em></p>
+</blockquote>
+<ul>
+<li>gvm install go1.16.14 -B # 如果机器没有 pre installed go version</li>
+<li>gvm install go1.17.7</li>
+<li>gvm use go1.17.7 [&ndash;default]</li>
+<li>gvm uninstall go1.17.7</li>
+<li><em>gvm install go1.17.7 &ndash;source=https://xxx@github.com/xxx/go</em></li>
+<li><em>gvm install go1.17.7 -s=https://godoc.org/golang.org/dl/go1.17.7</em></li>
+<li><em>gvm implode</em> <strong>卸载 gvm</strong></li>
+</ul>
+<h2 id="示例">示例</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># gvm list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gvm gos <span class="o">(</span>installed<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   go1.16.14
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; go1.17.7
+</span></span><span class="line"><span class="cl">   go1.18rc1
+</span></span><span class="line"><span class="cl">   system
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>

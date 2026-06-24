@@ -1,1 +1,1622 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>git - 分类 - Coding Life Share</title><link>https://xwi88.com/categories/git/</link><description>git - 分类 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 10 Mar 2022 21:31:19 +0800</lastBuildDate><atom:link href="https://xwi88.com/categories/git/" rel="self" type="application/rss+xml"/><item><title>Git 常用命令及配置</title><link>https://xwi88.com/git-common-config/</link><pubDate>Thu, 10 Mar 2022 21:31:19 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-common-config/</guid><description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer ">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer "><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>]]></description></item><item><title>Git 使用 GPG 对提交进行签名认证</title><link>https://xwi88.com/git-sign-tags-commits-with-gpg/</link><pubDate>Wed, 09 Mar 2022 12:31:34 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid><description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer ">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer ">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>]]></description></item><item><title>Git 克隆非常慢问题的解决</title><link>https://xwi88.com/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-clone-slowly-solve/</guid><description>&lt;p>对于经常使用 github 的人来说，当我们进行 clone, fetch, pull, push 等等操作时，如果总是出现莫名的超时或者非常慢这是很让人捉急的，会严重影响效率，为此本文给出了几种解决方案。&lt;/p></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>git - 分类 - Coding Life Share</title><link>https://xwi88.com/categories/git/</link><description>git - 分类 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 10 Mar 2022 21:31:19 +0800</lastBuildDate><atom:link href="https://xwi88.com/categories/git/" rel="self" type="application/rss+xml"/><item><title>Git 常用命令及配置</title><link>https://xwi88.com/git-common-config/</link><pubDate>Thu, 10 Mar 2022 21:31:19 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-common-config/</guid><description><![CDATA[<p>分享一下这些年我常用的 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer ">git</a> [gɪt] 配置。以下内容基于当前版本 <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer "><code>2.34.1</code></a>，如出现不一致可先升级自己的版本！</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="账户基本配置">账户基本配置</h2>
+<blockquote>
+<p><code>--global</code> <em>表示全局配置</em>，<strong>非全局配置需要在具体 git 项目目录下面设置</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global user.name [your_name]</code></li>
+<li><code>git config --global user.email [your_email]</code></li>
+<li><code>git config --global --list</code> <strong>全局 git 配置查看</strong></li>
+<li><code>git config --list</code> <em>项目 git 配置查看</em></li>
+</ul>
+<h3 id="签名提交设置">签名提交设置</h3>
+<blockquote>
+<p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
+</blockquote>
+<ul>
+<li><code>git config --global user.signingkey [KeyID]</code></li>
+<li><code>git config --global commit.gpgsign true</code></li>
+</ul>
+<p>可参考: <a href="/git-sign-tags-commits-with-gpg/" rel="">Git 使用 GPG 对提交进行签名认证</a> 进行设置</p>
+<h2 id="密码存储">密码存储</h2>
+<blockquote>
+<p>为了避免每次都要输入密码，我们需要让机器记住密码。<em>MacOS</em> 会借助 <strong>keychain Access</strong> 存储你的密码及其他凭证。</p>
+</blockquote>
+<ul>
+<li><code>git config --global credential.helper store</code> <strong>设置本机永久保存你的密码或凭证</strong></li>
+<li><code>git config --global credential.helper 'cache --timeout=300'</code> <em>保存密码 300s</em></li>
+</ul>
+<blockquote>
+<p><strong>更多内容见</strong>:</p>
+<ul>
+<li><a href="https://git-scm.com/docs/gitcredentials" target="_blank" rel="noopener noreffer ">gitcredentials</a></li>
+<li><a href="https://git-scm.com/docs/git-credential-cache" target="_blank" rel="noopener noreffer ">git-credential-cache</a></li>
+</ul>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>如果你开启了多因素认证，则需要使用 <strong>Personal Token</strong> 之类的代替密码输入。</p>
+<ul>
+<li>github 设置路径: <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreffer ">Settings Developer settings</a>-&gt;<strong>Personal access tokens</strong>-&gt;<em>Generate new token</em></li>
+</ul>
+</blockquote>
+<p><strong>Personal access tokens</strong> 📢</p>
+<ul>
+<li><strong>只有生成的时候可见，注意保存</strong></li>
+<li><strong>务必注意权限及过期时间设置</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="密码清除">密码清除</h2>
+<blockquote>
+<p>密码改变或过期后请务必清除存储的密码，否则可能造成<code>登录失败</code>，<code>无权限登录</code>等问题</p>
+</blockquote>
+<ul>
+<li><code>git config --system --unset credential.helper</code></li>
+<li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>或设置一个极短的过期时间，清除缓存密码</em></li>
+<li><code>git config --global credential.helper store</code> <strong>重新开启密码存储</strong></li>
+</ul>
+<h2 id="日志输出美化">日志输出美化</h2>
+<blockquote>
+<p>原始的 <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> 太过简陋不方便查看更具体的信息，我们需要对其进行格式化，借助 <code>git alias</code> 可以很方便的定义我们自己的 <em>git log</em> 命令，<strong>请务必不要覆盖掉 <code>git</code> 自带的命令</strong>。</p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>我常用的 <em>git log</em> 配置如下</p>
+<blockquote>
+<p><code>git config --global alias.lg &quot;log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你需要查看 <strong>gpg</strong> 签名信息可以如下配置:</p>
+<blockquote>
+<p><code>git config --global alias.lsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>更详细签名信息可如下配置：</p>
+<blockquote>
+<p><code>git config --global alias.llsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git llsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>C739E6A64E102CD0 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>务必指定输出日志条数</strong></li>
+<li><strong>务必不要配置的过于复杂，可能会导致输出较慢</strong></li>
+<li><strong>如果使用 <code>gpg 签名</code>，务必保证你不要有太多个 <code>gpg key</code></strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="基本命令">基本命令</h2>
+<blockquote>
+<p>关于命令更多细节，可通过 <code>git &lt;command&gt; --help</code> 查看</p>
+</blockquote>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...]</code>  <strong>添加文件到 <code>Index</code></strong>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...] -n</code> <strong>显示命令执行后结果，不真正执行</strong></li>
+</ul>
+</li>
+<li><code>git status -s</code> 当前分支状态查看，显示文件在工作目录与暂存区不同状态：<code>修改</code>，<code>未添加 Index</code>，<code>暂存但未提交</code></li>
+<li><code>git diff</code>
+<ul>
+<li><code>git diff [&lt;path&gt;...]</code> 比较工作目录文件和暂存区文件差异</li>
+<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> 比较 commits 之间差异</li>
+<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> 比较暂存区和版本库差异</li>
+</ul>
+</li>
+<li><code>git commit</code> 暂存区变动提交到本地仓库
+<ul>
+<li><code>git commit -m &lt;message&gt;</code> 提交到本地仓库</li>
+<li><code>git commit -S -m &lt;message&gt;</code> <strong>签名</strong>并提交到本地仓库，需要配置你的签名 <strong>GPG key</strong></li>
+<li><code>git commit -a -m</code> 添加并提交全部变动到本地仓库，跳过了 <code>git add</code>，一般请勿执行此操作</li>
+<li><code>git commit --amend</code> 重新提交最近的提交，用于最近提交的<strong>提交日志信息修改</strong>或变动追加，<strong>请勿连续此操作</strong>，<strong>已推送远程仓库提交请避免此操作</strong></li>
+</ul>
+</li>
+<li><code>git reset</code> 变更撤销，具体见 <a href="#checkout-%e4%b8%8e-reset" rel="">checkout 与 reset</a></li>
+<li><code>git rm</code> 从暂存区和工作目录删除文件</li>
+<li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>文件的重定向</em>，相当于：<code>mv old new</code> , <code>git add</code> 新文件 和 <code>git rm</code> 旧文件</li>
+</ul>
+<h2 id="分支操作">分支操作</h2>
+<h3 id="远程分支地址设置">远程分支地址设置</h3>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code> 远程仓库地址配置</li>
+<li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> 远程仓库地址名修改</li>
+<li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> 远程仓库地址修改</li>
+</ul>
+<h3 id="代码下载-clone">代码下载 clone</h3>
+<ul>
+<li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> 单分支下载</li>
+<li><code>git clone &lt;url&gt; [dir]</code></li>
+</ul>
+<h3 id="代码拉取与同步">代码拉取与同步</h3>
+<ul>
+<li><code>git fetch --all</code> || <code>git merge</code> 仅拉取代码到<strong>本地远程分支</strong> 如 <code>origin/main</code>, <code>upstream/main</code> 等，不直接合并到相应本地分支，在需要时同步合并</li>
+<li><code>git pull</code> 拉取并合并远程分支代码到当前分支，一般情况不建议直接此操作，除非你很明确可能产生的后果</li>
+<li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> 主要用于本地新建分支与指定远程分支间的跟踪，<strong>一般用于新分支首次推送</strong></li>
+</ul>
+<h3 id="checkout-与-reset">checkout 与 reset</h3>
+<ul>
+<li><code>git chekout</code></li>
+<li><code>git reset</code></li>
+<li><code>git revert</code> <strong>cli 不常用</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Git Command</th>
+<th style="text-align:left">Scope</th>
+<th style="text-align:left">Common use cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Discard commits in a private branch or throw away uncommited changes</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Unstage a file</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Switch between branches or inspect old snapshots</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Discard changes in the working directory</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Undo commits in a public branch</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">(N/A)</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>--soft</code> The staged snapshot and working directory are not altered in any way.</p>
+<p><code>--mixed</code> The staged snapshot is updated to match the specified commit, but the working directory is not affected. This is the default option.</p>
+<p><code>--hard</code> The staged snapshot and the working directory are both updated to match the specified commit.</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="代码合并提交">代码合并提交</h3>
+<blockquote>
+<p>多人或大规模团队协作情况下，请务必掌握并使用 <code>git rebase</code> 进行操作，且要保证各自分支相比 <strong>base</strong> 分支有<strong>最小的 commits 数量</strong>，便于各自 <strong>rebase</strong> 及冲突解决。</p>
+<p>如果你提交了 <code>PR</code> 或 <code>MR</code>，<strong>reviewers</strong> 审查前，请务必保证你提交的分支相较 <strong>base</strong> 是 <code>Fast-Forward</code> 的，禁止在界面直接进行 <strong>Rebase</strong></p>
+</blockquote>
+<ul>
+<li><code>git rebase</code> <strong>慎重操作</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">演示，请点击</a></li>
+<li><code>git merge</code> <del><strong>不建议此操作</strong></del></li>
+</ul>
+<h3 id="分支推送与删除">分支推送与删除</h3>
+<ul>
+<li><code>git push</code> 当前分支推送，需要与远程分支建立追踪；首次推送，请使用 <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
+<li><code>git push -f</code> 强制推送当前分支到对应远程仓库</li>
+<li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> 推送空分支到远程仓库，即<strong>删除远程仓库对应分支</strong></li>
+<li><code>git branch -d</code> 本地分支删除</li>
+</ul>
+<h2 id="撤销设置项">撤销设置项</h2>
+<blockquote>
+<p><strong>Remove the line matching the key from config file.</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global --unset [key]</code> 全局配置中删除</li>
+<li><code>git config --unset [key]</code> 项目配置中删除</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>全局配种中删除误操作创建项</em></p>
+<p><code>git config --global --unset alias.llg</code></p>
+</div>
+        </div>
+    </div>
+<h2 id="配置文件编辑">配置文件编辑</h2>
+<ul>
+<li><code>git config --global -e</code> 全局配置文件编辑，文件位置: <code>~/.gitconfig</code></li>
+<li><code>git config -e</code> 项目配置文件编辑，文件位置: <code>.git/config</code></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting" target="_blank" rel="noopener noreffer ">Git-Commands-Basic-Snapshotting</a></li>
+<li><a href="/git-sign-tags-commits-with-gpg/" rel="">Git 使用 GPG 对提交进行签名认证</a></li>
+</ul>]]></description></item><item><title>Git 使用 GPG 对提交进行签名认证</title><link>https://xwi88.com/git-sign-tags-commits-with-gpg/</link><pubDate>Wed, 09 Mar 2022 12:31:34 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-sign-tags-commits-with-gpg/</guid><description><![CDATA[<p>使用 <em><a href="https://gnupg.org/" target="_blank" rel="noopener noreffer ">GPG</a></em> 或 <em><a href="https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo" target="_blank" rel="noopener noreffer ">S/MIME</a></em>，可以在本地对 <em>tag</em> 或 <em>commit</em> 进行签名。这些 <em>tag</em> 或 <em>commit</em> 在 <em>GitHub</em> 上被标记为可信的，这样其他人就可以确信这些更改来自一个可信的来源。</p>
+<blockquote>
+<p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="开启-vigilant-模式">开启 vigilant 模式</h2>
+<p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer ">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推送一个声明是你的提交，但实际上不是。</p>
+<blockquote>
+<p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer ">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
+</blockquote>
+<h2 id="gpg-command">GPG Command</h2>
+<h3 id="man-gpg"><strong>man gpg</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.34
+</span></span><span class="line"><span class="cl">libgcrypt 1.9.4
+</span></span><span class="line"><span class="cl">Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2022</span> g10 Code GmbH
+</span></span><span class="line"><span class="cl">License GNU GPL-3.0-or-later &lt;https://gnu.org/licenses/gpl.html&gt;
+</span></span><span class="line"><span class="cl">This is free software: you are free to change and redistribute it.
+</span></span><span class="line"><span class="cl">There is NO WARRANTY, to the extent permitted by law.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Home: ~/.gnupg
+</span></span><span class="line"><span class="cl">Supported algorithms:
+</span></span><span class="line"><span class="cl">Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+</span></span><span class="line"><span class="cl">Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+</span></span><span class="line"><span class="cl">        CAMELLIA128, CAMELLIA192, CAMELLIA256
+</span></span><span class="line"><span class="cl">Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+</span></span><span class="line"><span class="cl">Compression: Uncompressed, ZIP, ZLIB, BZIP2
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Syntax: gpg <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>files<span class="o">]</span>
+</span></span><span class="line"><span class="cl">Sign, check, encrypt or decrypt
+</span></span><span class="line"><span class="cl">Default operation depends on the input data
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> -s, --sign                         make a signature
+</span></span><span class="line"><span class="cl">     --clear-sign                   make a clear text signature
+</span></span><span class="line"><span class="cl"> -b, --detach-sign                  make a detached signature
+</span></span><span class="line"><span class="cl"> -e, --encrypt                      encrypt data
+</span></span><span class="line"><span class="cl"> -c, --symmetric                    encryption only with symmetric cipher
+</span></span><span class="line"><span class="cl"> -d, --decrypt                      decrypt data <span class="o">(</span>default<span class="o">)</span>
+</span></span><span class="line"><span class="cl">     --verify                       verify a signature
+</span></span><span class="line"><span class="cl"> -k, --list-keys                    list keys
+</span></span><span class="line"><span class="cl">     --list-signatures              list keys and signatures
+</span></span><span class="line"><span class="cl">     --check-signatures             list and check key signatures
+</span></span><span class="line"><span class="cl">     --fingerprint                  list keys and fingerprints
+</span></span><span class="line"><span class="cl"> -K, --list-secret-keys             list secret keys
+</span></span><span class="line"><span class="cl">     --generate-key                 generate a new key pair
+</span></span><span class="line"><span class="cl">     --quick-generate-key           quickly generate a new key pair
+</span></span><span class="line"><span class="cl">     --quick-add-uid                quickly add a new user-id
+</span></span><span class="line"><span class="cl">     --quick-revoke-uid             quickly revoke a user-id
+</span></span><span class="line"><span class="cl">     --quick-set-expire             quickly <span class="nb">set</span> a new expiration date
+</span></span><span class="line"><span class="cl">     --full-generate-key            full featured key pair generation
+</span></span><span class="line"><span class="cl">     --generate-revocation          generate a revocation certificate
+</span></span><span class="line"><span class="cl">     --delete-keys                  remove keys from the public keyring
+</span></span><span class="line"><span class="cl">     --delete-secret-keys           remove keys from the secret keyring
+</span></span><span class="line"><span class="cl">     --quick-sign-key               quickly sign a key
+</span></span><span class="line"><span class="cl">     --quick-lsign-key              quickly sign a key locally
+</span></span><span class="line"><span class="cl">     --quick-revoke-sig             quickly revoke a key signature
+</span></span><span class="line"><span class="cl">     --sign-key                     sign a key
+</span></span><span class="line"><span class="cl">     --lsign-key                    sign a key locally
+</span></span><span class="line"><span class="cl">     --edit-key                     sign or edit a key
+</span></span><span class="line"><span class="cl">     --change-passphrase            change a passphrase
+</span></span><span class="line"><span class="cl">     --export                       <span class="nb">export</span> keys
+</span></span><span class="line"><span class="cl">     --send-keys                    <span class="nb">export</span> keys to a keyserver
+</span></span><span class="line"><span class="cl">     --receive-keys                 import keys from a keyserver
+</span></span><span class="line"><span class="cl">     --search-keys                  search <span class="k">for</span> keys on a keyserver
+</span></span><span class="line"><span class="cl">     --refresh-keys                 update all keys from a keyserver
+</span></span><span class="line"><span class="cl">     --import                       import/merge keys
+</span></span><span class="line"><span class="cl">     --card-status                  print the card status
+</span></span><span class="line"><span class="cl">     --edit-card                    change data on a card
+</span></span><span class="line"><span class="cl">     --change-pin                   change a card<span class="err">&#39;</span>s PIN
+</span></span><span class="line"><span class="cl">     --update-trustdb               update the trust database
+</span></span><span class="line"><span class="cl">     --print-md                     print message digests
+</span></span><span class="line"><span class="cl">     --server                       run in server mode
+</span></span><span class="line"><span class="cl">     --tofu-policy VALUE            <span class="nb">set</span> the TOFU policy <span class="k">for</span> a key
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the diagnostic output:
+</span></span><span class="line"><span class="cl"> -v, --verbose                      verbose
+</span></span><span class="line"><span class="cl"> -q, --quiet                        be somewhat more quiet
+</span></span><span class="line"><span class="cl">     --options FILE                 <span class="nb">read</span> options from FILE
+</span></span><span class="line"><span class="cl">     --log-file FILE                write server mode logs to FILE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the configuration:
+</span></span><span class="line"><span class="cl">     --default-key NAME             use NAME as default secret key
+</span></span><span class="line"><span class="cl">     --encrypt-to NAME              encrypt to user ID NAME as well
+</span></span><span class="line"><span class="cl">     --group SPEC                   <span class="nb">set</span> up email aliases
+</span></span><span class="line"><span class="cl">     --openpgp                      use strict OpenPGP behavior
+</span></span><span class="line"><span class="cl"> -n, --dry-run                      <span class="k">do</span> not make any changes
+</span></span><span class="line"><span class="cl"> -i, --interactive                  prompt before overwriting
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling the output:
+</span></span><span class="line"><span class="cl"> -a, --armor                        create ascii armored output
+</span></span><span class="line"><span class="cl"> -o, --output FILE                  write output to FILE
+</span></span><span class="line"><span class="cl">     --textmode                     use canonical text mode
+</span></span><span class="line"><span class="cl"> -z N                               <span class="nb">set</span> compress level to N <span class="o">(</span><span class="m">0</span> disables<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options controlling key import and export:
+</span></span><span class="line"><span class="cl">     --auto-key-locate MECHANISMS   use MECHANISMS to locate keys by mail address
+</span></span><span class="line"><span class="cl">     --disable-dirmngr              disable all access to the dirmngr
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options to specify keys:
+</span></span><span class="line"><span class="cl"> -r, --recipient USER-ID            encrypt <span class="k">for</span> USER-ID
+</span></span><span class="line"><span class="cl"> -u, --local-user USER-ID           use USER-ID to sign or decrypt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">(</span>See the man page <span class="k">for</span> a <span class="nb">complete</span> listing of all commands and options<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Examples:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> -se -r Bob <span class="o">[</span>file<span class="o">]</span>          sign and encrypt <span class="k">for</span> user Bob
+</span></span><span class="line"><span class="cl"> --clear-sign <span class="o">[</span>file<span class="o">]</span>        make a clear text signature
+</span></span><span class="line"><span class="cl"> --detach-sign <span class="o">[</span>file<span class="o">]</span>       make a detached signature
+</span></span><span class="line"><span class="cl"> --list-keys <span class="o">[</span>names<span class="o">]</span>        show keys
+</span></span><span class="line"><span class="cl"> --fingerprint <span class="o">[</span>names<span class="o">]</span>      show fingerprints
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please report bugs to &lt;https://bugs.gnupg.org&gt;.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gpg-shell-command"><strong>gpg shell command</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg&gt; <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">quit        quit this menu
+</span></span><span class="line"><span class="cl">save        save and quit
+</span></span><span class="line"><span class="cl"><span class="nb">help</span>        show this <span class="nb">help</span>
+</span></span><span class="line"><span class="cl">fpr         show key fingerprint
+</span></span><span class="line"><span class="cl">grip        show the keygrip
+</span></span><span class="line"><span class="cl">list        list key and user IDs
+</span></span><span class="line"><span class="cl">uid         <span class="k">select</span> user ID N
+</span></span><span class="line"><span class="cl">key         <span class="k">select</span> subkey N
+</span></span><span class="line"><span class="cl">check       check signatures
+</span></span><span class="line"><span class="cl">sign        sign selected user IDs <span class="o">[</span>* see below <span class="k">for</span> related commands<span class="o">]</span>
+</span></span><span class="line"><span class="cl">lsign       sign selected user IDs locally
+</span></span><span class="line"><span class="cl">tsign       sign selected user IDs with a trust signature
+</span></span><span class="line"><span class="cl">nrsign      sign selected user IDs with a non-revocable signature
+</span></span><span class="line"><span class="cl">deluid      delete selected user IDs
+</span></span><span class="line"><span class="cl">delkey      delete selected subkeys
+</span></span><span class="line"><span class="cl">delsig      delete signatures from the selected user IDs
+</span></span><span class="line"><span class="cl">pref        list preferences <span class="o">(</span>expert<span class="o">)</span>
+</span></span><span class="line"><span class="cl">showpref    list preferences <span class="o">(</span>verbose<span class="o">)</span>
+</span></span><span class="line"><span class="cl">trust       change the ownertrust
+</span></span><span class="line"><span class="cl">revsig      revoke signatures on the selected user IDs
+</span></span><span class="line"><span class="cl"><span class="nb">enable</span>      <span class="nb">enable</span> key
+</span></span><span class="line"><span class="cl">disable     disable key
+</span></span><span class="line"><span class="cl">showphoto   show selected photo IDs
+</span></span><span class="line"><span class="cl">clean       compact unusable user IDs and remove unusable signatures from key
+</span></span><span class="line"><span class="cl">minimize    compact unusable user IDs and remove all signatures from key
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">* The <span class="s1">&#39;sign&#39;</span> <span class="nb">command</span> may be prefixed with an <span class="s1">&#39;l&#39;</span> <span class="k">for</span> <span class="nb">local</span> signatures <span class="o">(</span>lsign<span class="o">)</span>,
+</span></span><span class="line"><span class="cl">  a <span class="s1">&#39;t&#39;</span> <span class="k">for</span> trust signatures <span class="o">(</span>tsign<span class="o">)</span>, an <span class="s1">&#39;nr&#39;</span> <span class="k">for</span> non-revocable signatures
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>nrsign<span class="o">)</span>, or any combination thereof <span class="o">(</span>ltsign, tnrsign, etc.<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href="https://www.gnupg.org/download/" target="_blank" rel="noopener noreffer ">GnuPG&rsquo;s Download page</a>.</div>
+        </div>
+    </div>
+<h3 id="已存在-gpg-keys"><em>已存在 GPG keys</em></h3>
+<p><code>gpg --list-secret-keys --keyid-format=long</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">~/.gnupg/pubring.kbx
+</span></span><span class="line"><span class="cl">-----------------------------------
+</span></span><span class="line"><span class="cl">sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class="line"><span class="cl">      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><em>the GPG key ID</em>: <strong>325ACD1FD3B6AA80</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="新生成-gpg-key">新生成 <em>GPG key</em></h3>
+<blockquote>
+<p>如果当前已存在旧的 GPG key 可不必重新生成!</p>
+</blockquote>
+<p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>github</em> 支持的用于生成 <em>gpg key</em> 的算法</p>
+<ul>
+<li><strong>RSA</strong></li>
+<li>ElGamal</li>
+<li>DSA</li>
+<li>ECDH</li>
+<li>ECDSA</li>
+<li>EdDSA</li>
+</ul>
+</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p>
+<ul>
+<li>Real name: <code>tmp_gpg</code></li>
+<li>Email address: <code>278810732@qq.com</code></li>
+</ul>
+<p>You selected this <strong>USER-ID</strong>:
+&ldquo;tmp_gpg <a href="mailto:278810732@qq.com" rel="">278810732@qq.com</a>&rdquo;</p>
+<ul>
+<li>Change (N)ame, (E)mail, or (O)kay/(Q)uit? <code>O</code></li>
+</ul>
+<p>We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.</p>
+<p>Note that this key cannot be used for encryption.  You may want to use
+the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">pub   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class="line"><span class="cl">uid                      tmp_gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="最新-gpg-keys">最新 <em>GPG keys</em></h3>
+<p><code>gpg --list-secret-keys --keyid-format=long</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">-----------------------------------
+</span></span><span class="line"><span class="cl">sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class="line"><span class="cl">      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sec   rsa4096/FE47519758053257 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="导出-gpg-key">导出 <em>GPG key</em></h3>
+<ul>
+<li><code>gpg --armor --export FE47519758053257</code></li>
+<li>或 <code>gpg -a -o --export FE47519758053257</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">-----BEGIN PGP PUBLIC KEY BLOCK-----
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-----END PGP PUBLIC KEY BLOCK-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>导出 <em>gpg public key</em> 到指定位置:</p>
+<ul>
+<li><code>gpg --export --armor [uid] &gt; gpgkey.pub.asc</code> <strong>导出到文件</strong> <em>uid: keyID/name/email</em></li>
+<li><code>gpg --keyserver [keyserverAddress] --send-keys keyIDs</code> <em>导出到指定 key server</em></li>
+<li><code>gpg --send-keys keyIDs</code> <strong>导出到默认 key server</strong></li>
+</ul>
+<blockquote>
+<p><strong>导出到默认 key server 输出</strong></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="查找-gpg-key">查找 <em>GPG key</em></h3>
+<blockquote>
+<p><strong>keyIDs</strong> 可以为: <em>name</em>, <strong>keyID</strong>, <em>email</em></p>
+</blockquote>
+<ul>
+<li><code>gpg --keyserver keyserverAddress --search-keys keyIDs</code></li>
+<li><code>gpg --search-keys keyIDs</code> <strong>默认 key server 查找</strong></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --search-keys xwi88</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;xwi88&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --search-keys 90684042688CB9BE</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;90684042688CB9BE&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --search-keys 278810732@qq.com</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class="line"><span class="cl">Keys 1-1 of 1 for &#34;278810732@qq.com&#34;.  Enter number(s), N)ext, or Q)uit &gt; y
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="导入-gpg-key">导入 <em>GPG key</em></h3>
+<blockquote>
+<p><strong>key server 导入</strong> 如果不指定地址则默认从 <code>hkps://keyserver.ubuntu.com</code> 导入, <strong>地址可能会不同，此为本机输出</strong></p>
+</blockquote>
+<ul>
+<li><code>gpg --import [GPG public key]</code> <em>文件导入</em></li>
+<li><code>gpg --keyserver [keyserverAddress] --recv-keys keyIDs</code>  <em>key server 导入</em></li>
+<li><code>gpg --recv-keys keyIDs</code> <strong>默认 key server 导入</strong></li>
+<li><code>gpg --refresh-keys</code> <em>从 key server 更新所有 keys</em></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --recv-keys 90684042688CB9BE</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 90684042688CB9BE: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="私钥备份导出与导入">私钥备份导出与导入</h3>
+<blockquote>
+<p>主要用于: <strong>个人多机共享</strong></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>私钥禁止上传 key server</strong></li>
+<li><strong>请通过安全的方式备份存储私钥文件</strong></li>
+<li><em>私钥文件权限</em>: <code>600</code></li>
+<li><em>公钥文件权限</em>: <code>644</code></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h4 id="私钥导出">私钥导出</h4>
+<p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg -K</code> 本机私钥查看</p>
+<p><code>gpg -a -o test_secKey.asc --export-secret-keys 1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80</code> 私钥导出</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h4 id="私钥导入">私钥导入</h4>
+<p><code>gpg --import secKeyFile</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --import test_secKey.asc</code> 私钥导入，与公钥导入一样操作</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg -K</code> 本机私钥查看</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="秘钥回收"><strong>秘钥回收</strong></h3>
+<p><em>当重新生成秘钥对后，如果其他的秘钥对不再使用，需要立即发布秘钥回收证书，声明以前的公钥不再生效，防止被恶意使用。</em></p>
+<blockquote>
+<p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p>
+<p><code>gpg --import test_revoke.asc</code> 导入回收证书</p>
+<p><code>gpg --send-keys keyID</code> 发送回收证书到服务器，声明原 <em>GPG Key</em> 作废</p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --output test_revoke.asc --gen-revoke 325ACD1FD3B6AA80</code></p>
+<p>或 <code>gpg --output test_revoke.asc --generate-revocation 325ACD1FD3B6AA80</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/325ACD1FD3B6AA80 2022-03-07 xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Create a revocation certificate for this key? (y/N) y
+</span></span><span class="line"><span class="cl">Please select the reason for the revocation:
+</span></span><span class="line"><span class="cl">  0 = No reason specified
+</span></span><span class="line"><span class="cl">  1 = Key has been compromised
+</span></span><span class="line"><span class="cl">  2 = Key is superseded
+</span></span><span class="line"><span class="cl">  3 = Key is no longer used
+</span></span><span class="line"><span class="cl">  Q = Cancel
+</span></span><span class="line"><span class="cl">(Probably you want to select 1 here)
+</span></span><span class="line"><span class="cl">Your decision? 3
+</span></span><span class="line"><span class="cl">Enter an optional description; end it with an empty line:
+</span></span><span class="line"><span class="cl">&gt; 
+</span></span><span class="line"><span class="cl">Reason for revocation: Key is no longer used
+</span></span><span class="line"><span class="cl">(No description given)
+</span></span><span class="line"><span class="cl">Is this okay? (y/N) y
+</span></span><span class="line"><span class="cl">ASCII armored output forced.
+</span></span><span class="line"><span class="cl">Revocation certificate created.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please move it to a medium which you can hide away; if Mallory gets
+</span></span><span class="line"><span class="cl">access to this certificate he can use it to make your key unusable.
+</span></span><span class="line"><span class="cl">It is smart to print this certificate and store it away, just in case
+</span></span><span class="line"><span class="cl">your media become unreadable.  But have some caution:  The print system of
+</span></span><span class="line"><span class="cl">your machine might store the data and make it available to others!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --import test_revoke.asc</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; revocation certificate imported
+</span></span><span class="line"><span class="cl">gpg: Total number processed: 1
+</span></span><span class="line"><span class="cl">gpg:    new key revocations: 1
+</span></span><span class="line"><span class="cl">gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+</span></span><span class="line"><span class="cl">gpg: depth: 0  valid:   3  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 3u
+</span></span><span class="line"><span class="cl">gpg: next trustdb check due at 2024-03-06
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>gpg --send-keys 325ACD1FD3B6AA80</code></p>
+<p><code>gpg --search-keys 325ACD1FD3B6AA80</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gpg: data source: https://162.213.33.8:443
+</span></span><span class="line"><span class="cl">gpg: key &#34;325ACD1FD3B6AA80&#34; not found on keyserver
+</span></span><span class="line"><span class="cl">gpg: keyserver search failed: Not found
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="秘钥删除">秘钥删除</h3>
+<ul>
+<li><code>gpg --delete-secret-keys keyID</code> <strong>需要先删除</strong></li>
+<li><code>gpg --delete-keys keyID</code></li>
+</ul>
+<h2 id="重启-gpg-agent">重启 GPG Agent</h2>
+<blockquote>
+<p>GPG会在需要时重新启动它</p>
+</blockquote>
+<p><code>gpgconf --kill gpg-agent</code></p>
+<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
+<h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
+<blockquote>
+<ul>
+<li>
+<p>复制你要使用的 <strong>GPG key</strong>, <em>beginning with</em> <strong>&mdash;&ndash;BEGIN PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong> and <em>ending with</em> <strong>&mdash;&ndash;END PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong></p>
+</li>
+<li>
+<p>粘贴到 <em>github</em> 相应位置: <strong>Settings</strong>-&gt;<strong>SSH and GPG keys</strong>-&gt;<strong>GPG keys</strong>，如已经存在相应 <em>key</em> 可忽略，不存在新建后粘贴即可!</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
+<blockquote>
+<p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <strong>local</strong> 替换 <del>&ndash;global</del></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># global config</span>
+</span></span><span class="line"><span class="cl">git config --global user.signingkey 325ACD1FD3B6AA80
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</span>
+</span></span><span class="line"><span class="cl">git config --global commit.gpgsign <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提交带签名的-commit">提交带签名的 commit</h3>
+<p><code>git commit -S -m &quot;your commit message&quot;</code></p>
+<blockquote>
+<p>如果你设置了默认对提交进行签名，也可以如下操作</p>
+<p><code>git commit -m &quot;your commit message&quot;</code></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>如果你使用的 <strong>GPG key</strong> 使用了 <em>GPG key passphrase</em>, 则你进行提交的时候需要输入你的 <em>passphrase</em>.</p>
+<p>你可以选择存储 <strong>GPG key passphrase</strong> 来避免每次的签名 <em>passphrase</em> 输入:</p>
+<ul>
+<li>Mac users, <strong><a href="https://gpgtools.org/" target="_blank" rel="noopener noreffer ">GPG Suite</a></strong> 可以将你的 <em>GPG key passphrase</em> 存储在 <strong>Mac OS Keychain</strong></li>
+<li>Windows users, <strong><a href="https://www.gpg4win.org/" target="_blank" rel="noopener noreffer ">Gpg4win</a></strong></li>
+<li>Manually 配置 <strong><a href="http://linux.die.net/man/1/gpg-agent" target="_blank" rel="noopener noreffer ">gpg-agent</a></strong> 来存储</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="sign-tag">sign tag</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># sign a tag</span>
+</span></span><span class="line"><span class="cl">git tag -s my_tag
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># verify your signed tag </span>
+</span></span><span class="line"><span class="cl">git tag -v my_tag
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提交签名查看">提交签名查看</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer ">git log usage</a></li>
+<li><em>git version</em> <strong>2.34.1</strong></li>
+</ul>
+</blockquote>
+<p><code>git log --show-signature</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>格式化日志查看签名，可自定义配置查看 log</p>
+</blockquote>
+<p><code>git log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G fb56816 - fixed rsync dir <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>325ACD1FD3B6AA80 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 63d6ec2 - fixed rsync deploy <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>325ACD1FD3B6AA80 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* N 1ac5368 - workflow add remote deploy <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span> trust:undefined<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E 289ae51 - add domain ICP info <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E f0e44bd - switch comment store repo:x <span class="o">(</span><span class="m">2</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E fbd5778 - fixed giscus issue <span class="o">(</span><span class="m">3</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span><span class="line"><span class="cl">* E 5fa8d41 - replace utterances by giscus <span class="o">(</span><span class="m">3</span> days ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> <span class="o">[</span>EEA29F407613E698 trust:<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>G</strong>: for a good (valid) signature</li>
+<li>B: for a bad signature</li>
+<li>U: for a good signature with unknown validity</li>
+<li>X: for a good signature that has expired</li>
+<li>Y: for a good signature made by an expired key</li>
+<li>R: for a good signature made by a revoked key</li>
+<li><strong>E</strong>: if the signature cannot be checked (e.g. missing key)</li>
+<li><em>N</em>: for no signature</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="本地签名校验问题"><strong>本地签名校验问题</strong></h3>
+<p>通过命令 <code>git log --show-signature</code> 查看提交签名信息时可能会出现如下信息:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">commit e39e0920b68648b0751b7f91fffdd07080391945 (HEAD -&gt; main, origin/main, origin/HEAD)
+</span></span><span class="line"><span class="cl">gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class="line"><span class="cl">gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">gpg: Can&#39;t check signature: No public key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>也可通过命令 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code> 校验指定提交签名是否合法</p>
+</blockquote>
+<p><strong>出现上述现象原因是因为你当前代码不存在对应 <code>commits</code> 使用的 <code>gpg public key</code>。我们可以通过导入对应提交者 <code>gpg public keys</code> 的方法解决。</strong></p>
+<h3 id="缺失-gpg-keys-导入认证"><strong>缺失 gpg keys</strong> 导入认证</h3>
+<p>为了准确获取完整提交的签名校验信息，我们需要对缺失 <strong>public keys</strong> 进行导入。我们的实验导入源参考如下：</p>
+<ul>
+<li><code>https://github.com/&lt;username&gt;.gpg</code> <em>需要你在 github 进行 GPG keys 上传配置</em></li>
+<li><code>hkps://keyserver.ubuntu.com</code> <em>需要你进行了 keys 上传</em></li>
+</ul>
+<blockquote>
+<p>对导入的 <em>public key</em> 进行认证</p>
+</blockquote>
+<ul>
+<li><code>gpg --list-keys --keyid-format=long</code> 找到你要认证的 key</li>
+<li><code>gpg --lsign-key [GPG key ID]</code> <em>local sign</em></li>
+<li><code>gpg --edit-key [GPG key ID]</code> <em>local sign 与此处理选择一个即可</em></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><strong>从 github 导入我们本地缺失的 public key</strong> <code>gpg --keyserver https://github.com/xwi88.gpg --recv-keys 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p>
+<p><strong>认证 key</strong> <code>gpg --lsign-key 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p>
+<p><strong>查看认证key状态</strong> <code>gpg --list-keys --keyid-format=long</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">pub   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid                 [  full  ] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>再次校验我们的提交 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class="line"><span class="cl">gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">gpg: Good signature from &#34;xwi88 &lt;278810732@qq.com&gt;&#34; [full]
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="github-gpg-public-key-导入">Github GPG public key 导入</h2>
+<blockquote>
+<p><a href="https://github.com/web-flow.gpg" target="_blank" rel="noopener noreffer ">github public GPG key for web-flow</a></p>
+</blockquote>
+<ol>
+<li><code>curl https://github.com/web-flow.gpg | gpg --import</code> <strong>import github public gpg key</strong></li>
+<li><code>gpg --edit-key noreply@github.com trust quit</code> <strong>trust and save, you choose: <code>4</code></strong></li>
+<li><code>gpg --lsign-key noreply@github.com</code> <em>sign selected user IDs locally</em></li>
+</ol>
+<h2 id="gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></h2>
+<p><code>gpg --edit-key [GPG key ID]</code></p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">uid           [ultimate] tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><em>此处 GPG key 为重新生成的，仅供演示使用</em></p>
+</blockquote>
+<p><code>gpg --edit-key CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</code></p>
+<blockquote>
+<p>关键输出如下</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/73758EF02856F877
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2024-03-08  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入 <code>expire</code> 进行过期日期更新</p>
+<blockquote>
+<p>gpg&gt; <code>expire</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Changing expiration time for the primary key.
+</span></span><span class="line"><span class="cl">Please specify how long the key should be valid.
+</span></span><span class="line"><span class="cl">         0 = key does not expire
+</span></span><span class="line"><span class="cl">      &lt;n&gt;  = key expires in n days
+</span></span><span class="line"><span class="cl">      &lt;n&gt;w = key expires in n weeks
+</span></span><span class="line"><span class="cl">      &lt;n&gt;m = key expires in n months
+</span></span><span class="line"><span class="cl">      &lt;n&gt;y = key expires in n years
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Key is valid for? (0) <code>180d</code></p>
+</blockquote>
+<p>Key expires at Mon Sep  5 21:48:04 2022 CST</p>
+<blockquote>
+<p>Is this correct? (y/N) <code>y</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>gpg&gt; <code>trust</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Please decide how far you trust this user to correctly verify other users&#39; keys
+</span></span><span class="line"><span class="cl">(by looking at passports, checking fingerprints from different sources, etc.)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  1 = I don&#39;t know or won&#39;t say
+</span></span><span class="line"><span class="cl">  2 = I do NOT trust
+</span></span><span class="line"><span class="cl">  3 = I trust marginally
+</span></span><span class="line"><span class="cl">  4 = I trust fully
+</span></span><span class="line"><span class="cl">  5 = I trust ultimately
+</span></span><span class="line"><span class="cl">  m = back to the main menu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Your decision? <code>5</code></p>
+<p>Do you really want to set this key to ultimate trust? (y/N) <code>y</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class="line"><span class="cl">     trust: ultimate      validity: ultimate
+</span></span><span class="line"><span class="cl">[ultimate] (1). tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>gpg&gt; <code>save</code></p>
+<p><code>gpg --list-secret-keys --keyid-format=long</code> 验证过期时间是否更新</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sec   rsa4096/13431F2AC47C4AE0 2022-03-09 [SC] [expires: 2022-09-05]
+</span></span><span class="line"><span class="cl">      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="gpg-sign-key-重新绑定">GPG sign key 重新绑定</h2>
+<blockquote>
+<p><strong>以下设置如无需要，请勿更新</strong></p>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<ul>
+<li>
+<p><strong>以下设置如无需要请勿更新</strong></p>
+</li>
+<li>
+<p><em>单项目</em>更新可选 <strong>local</strong> 替换 <del>&ndash;global</del></p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>git config --global commit.gpgSign true</code></li>
+<li><code>git config --global user.signingKey 13431F2AC47C4AE0</code></li>
+</ul>
+<p>如有变动，请同步更新你的 <strong>git</strong> 仓库 <strong>GPG key</strong></p>
+</div>
+        </div>
+    </div>
+<h2 id="gpg-keys-删除"><em>GPG keys 删除</em></h2>
+<ul>
+<li><code>gpg --delete-secret-key [uid]</code></li>
+<li><code>gpg --delete-secret-key [uid1] [uid2]</code></li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><strong>非必要不删除</strong>，如果是因为过期则直接选择进行<strong>续期操作</strong>即可</p>
+<p><em>tmp_gpg 对应的 uid</em> 输入， 可以是以下任一个，请使用 <em>GPG key ID</em>:</p>
+<ul>
+<li><em>tmp_gpg</em></li>
+<li><strong>13431F2AC47C4AE0</strong></li>
+<li><em>CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</em></li>
+</ul>
+</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>gpg --delete-secret-key 13431F2AC47C4AE0</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec  rsa4096/13431F2AC47C4AE0 2022-03-09 tmp<span class="nb">_</span>gpg<span class="nb">_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Delete this key from the keyring? (y/N) <code>y</code></p>
+<p>This is a secret key! - really delete? (y/N) <code>y</code></p>
+</blockquote>
+<p>验证删除是否成功：<code>gpg --list-secret-keys</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class="line"><span class="cl">      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class="line"><span class="cl">uid           [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification" target="_blank" rel="noopener noreffer ">managing-commit-signature-verification</a></li>
+<li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification" target="_blank" rel="noopener noreffer ">S/MIME commit signature verification</a></li>
+<li><a href="https://www.hifis.net/tutorial/2020/04/15/smime-signing-git-commits.html" target="_blank" rel="noopener noreffer ">smime-signing-git-commits</a></li>
+</ul>]]></description></item><item><title>Git 克隆非常慢问题的解决</title><link>https://xwi88.com/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-clone-slowly-solve/</guid><description><![CDATA[<p>对于经常使用 github 的人来说，当我们进行 clone, fetch, pull, push 等等操作时，如果总是出现莫名的超时或者非常慢这是很让人捉急的，会严重影响效率，为此本文给出了几种解决方案。</p>
+<p>造成上述情况的原因是多方面的，最大的可能就是网络被限制了, 如: <code>github.global.ssl.fastly.net</code>。</p>
+<blockquote>
+<p>以项目 <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> clone 为例: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
+</blockquote>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="github-镜像仓库">Github 镜像仓库</h3>
+<ul>
+<li><strong>浏览器搜索获取镜像地址替换后下载</strong>
+<ul>
+<li><code>https://hub.fastgit.org</code> (不保证可用)</li>
+<li><code>https://github.91chi.fun</code> (不保证可用)</li>
+</ul>
+</li>
+<li>浏览器安装插件: <strong>github 加速器</strong>, 通过此插件获取加速地址后 clone</li>
+<li><em>通过其他 git 存储库进行镜像 clone</em></li>
+<li><em>浏览器直接下载 zip</em></li>
+</ul>
+<h3 id="代理加速">代理加速</h3>
+<ul>
+<li><strong>proxy</strong> <em>不太推荐</em></li>
+<li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>推荐方案</strong>)</li>
+<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
+</ul>
+<h4 id="fastgithub">FastGithub</h4>
+<blockquote>
+<p>github 加速神器: 解决 github 打不开,用户头像无法加载,releases 无法上传下载, git-clone, git-pull, git-push 失败等问题。</p>
+</blockquote>
+<h5 id="功能">功能</h5>
+<ul>
+<li>提供域名的纯净 IP 解析；</li>
+<li>提供 IP 测速并选择最快的 IP；</li>
+<li>提供域名的 tls 连接自定义配置；</li>
+<li>google 的 CDN 资源替换，解决大量国外网站无法加载 js 和 cs s的问题；</li>
+</ul>
+<h5 id="安装配置">安装配置</h5>
+<blockquote>
+<ul>
+<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
+<li><a href="https://github.com/dotnetcore/fastgithub/releases" target="_blank" rel="noopener noreffer ">github-release</a></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># linux-x64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## terminal start</span>
+</span></span><span class="line"><span class="cl">sudo ./fastgithub
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## service start</span>
+</span></span><span class="line"><span class="cl">sudo ./fastgithub start // 以systemd服务安装并启动
+</span></span><span class="line"><span class="cl">sudo ./fastgithub stop  // 以systemd服务卸载并删除
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># macOS-x64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 1. start fastgithub</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 2. install cacert/fastgithub.cer and set trustt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 证书验证</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 若 git 操作提示 SSL certificate problem</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 需要关闭 git 的证书验证：git config --global http.sslverify false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="安全性及合法性说明">安全性及合法性说明</h5>
+<blockquote>
+<p>以下内容摘录自 <a href="https://github.com/dotnetcore/FastGithub.README.md" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
+</blockquote>
+<p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
+<p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
+<h3 id="hosts-修改">Hosts 修改</h3>
+<blockquote>
+<p>主要是借助 <code>nslookup</code> or <code>dig</code> 获取域名对应的可访问 ip, 然后在 hosts 文件中加上 <code>ip–&gt;domain</code> 的映射，刷新 DNS 缓存便可。</p>
+</blockquote>
+<p>hosts 文件是 Linux 系统中一个负责 IP 地址与域名快速解析的文件,以 ASCII 格式保存在 /etc 目录下,文件名为 hosts (不同的 Linux 版本,这个配置文件也可能不同.比如 Debian 的对应文件是 /etc/hostname) hosts 文件包含了 IP 地址和主机名之间的映射,还包括主机名的别名.在没有域名服务器的情况下,系统上的所有网络程序都通过查询该文件来解析对应于某个主机名的 IP 地址,否则就需要使用 DNS 服务程序来解决.通常可以将常用的域名和 IP 地址映射加入到 hosts 文件中,实现快速方便的访问.</p>
+<blockquote>
+<ul>
+<li><code>nslookup github.global.ssl.fastly.net</code></li>
+<li><code>nslookup github.com</code></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vi /etc/hosts</span>
+</span></span><span class="line"><span class="cl">xxx github.global.ssl.fastly.net
+</span></span><span class="line"><span class="cl">xx github.com 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># refresh DNS cache</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># linux</span>
+</span></span><span class="line"><span class="cl">sudo /etc/init.d/networking restart
+</span></span><span class="line"><span class="cl"><span class="c1"># or nscd -i hosts</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># arch linux</span>
+</span></span><span class="line"><span class="cl">/etc/rc.d/nscd restart
+</span></span><span class="line"><span class="cl"><span class="c1">## macos</span>
+</span></span><span class="line"><span class="cl">lookupd -flushcache
+</span></span><span class="line"><span class="cl"><span class="c1"># dscacheutil -flushcache</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>
