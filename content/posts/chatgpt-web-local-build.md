@@ -10,7 +10,6 @@ description: "ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGP
 tags: ["chatgpt", "ai"]
 categories: ["ai"]
 
-lightgallery: true
 toc:
   auto: true
 ---

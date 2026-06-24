@@ -11,7 +11,6 @@ description: "Git 克隆非常慢问题的解决"
 tags: ["git", "dev_ops"]
 categories: ["git"]
 
-lightgallery: true
 
 toc:
   auto: false

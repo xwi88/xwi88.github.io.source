@@ -10,7 +10,6 @@ description: "docker 相关命令备忘参考"
 tags: ["docker", "cheat-sheet"]
 categories: ["documentation"]
 
-lightgallery: true
 toc:
   auto: false
   enable: true

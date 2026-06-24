@@ -4,7 +4,6 @@ date: 2022-02-28T00:00:00+08:00
 lastmod: 2022-10-22T12:20:00+08:00
 draft: false
 
-lightgallery: true
 
 math:
   enable: true

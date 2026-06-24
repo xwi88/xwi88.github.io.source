@@ -2,7 +2,7 @@
      instead of falling back to the image src path (plugin/img.html: $alt := .Alt | default $src). */ -}}
 {{- if .Title -}}
     <figure>
-        {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Caption" .Title "Linked" true "Resources" .Page.Resources | partial "plugin/img.html" -}}
+        {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Caption" .Title "Linked" false "Resources" .Page.Resources | partial "plugin/img.html" -}}
         <figcaption class="image-caption">
             {{- .Title | safeHTML -}}
         </figcaption>

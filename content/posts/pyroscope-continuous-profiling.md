@@ -10,7 +10,6 @@ description: "Pyroscope Go 性能数据持续收集分析"
 tags: ["go", "profiling"]
 categories: ["go"]
 
-lightgallery: true
 toc:
   auto: false
 ---

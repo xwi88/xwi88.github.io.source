@@ -263,3 +263,21 @@ body[theme="dark"] #reading-progress {
     color: rgba(128, 128, 128, 0.75);
     font-variant-numeric: tabular-nums;
 }
+
+// keyboard focus ring (a11y) — visible only for keyboard nav, not mouse clicks
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid #2d96d1;
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+body[theme="dark"] a:focus-visible,
+body[theme="dark"] button:focus-visible,
+body[theme="dark"] input:focus-visible,
+body[theme="dark"] [tabindex]:focus-visible {
+    outline-color: #5ab7e8;
+}

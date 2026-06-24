@@ -9,7 +9,6 @@ description: "国内开源软件镜像站收集及常用推荐"
 tags: ["mirror", "resources"]
 categories: ["documentation"]
 
-lightgallery: true
 toc:
   auto: true
   enable: false

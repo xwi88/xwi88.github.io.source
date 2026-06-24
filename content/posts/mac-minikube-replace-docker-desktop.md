@@ -10,7 +10,6 @@ description: "MacOS 上使用 minikube 替换 Docker Desktop"
 tags: ["docker", "k8s", "env"]
 categories: ["docker"]
 
-lightgallery: true
 toc:
   auto: false
 ---

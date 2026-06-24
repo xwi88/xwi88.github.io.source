@@ -10,7 +10,6 @@ description: "Makefile shell 中绝对路径的正确处理"
 tags: ["shell", "linux"]
 categories: ["linux"]
 
-lightgallery: true
 toc:
   auto: false
 ---

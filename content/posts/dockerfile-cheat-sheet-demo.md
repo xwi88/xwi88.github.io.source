@@ -10,7 +10,6 @@ description: "dockerfile 指令小抄与镜像构建示例"
 tags: ["docker"]
 categories: ["docker"]
 
-lightgallery: true
 toc:
   auto: true
 ---

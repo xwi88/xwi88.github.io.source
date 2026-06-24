@@ -11,7 +11,6 @@ description: "Git Clone Slowly Solve"
 tags: ["git", "dev_ops"]
 categories: ["git"]
 
-lightgallery: true
 
 toc:
   auto: false

@@ -10,7 +10,6 @@ description: "我的常用 git 命令及配置"
 tags: ["git", "env"]
 categories: ["git"]
 
-lightgallery: true
 toc:
   auto: false
 ---

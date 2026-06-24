@@ -10,7 +10,6 @@ description: "Go 动态令牌 otp totp hotp"
 tags: ["go", "golang", "otp", "security"]
 categories: ["go"]
 
-lightgallery: true
 toc:
   auto: false
 ---

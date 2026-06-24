@@ -3,7 +3,6 @@ title: "超实用收藏"
 draft: false
 comment: false
 
-lightgallery: true
 
 math:
   enable: true
