@@ -303,3 +303,32 @@ body[theme="dark"] [tabindex]:focus-visible {
 .error-links a {
     margin: 0 0.2em;
 }
+
+// thin themed scrollbar (modern, works in webkit + firefox)
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.6);
+}
+
+// content images: signal click-to-zoom (cursor + subtle hover scale)
+.single .content img {
+    transition: transform 0.2s ease;
+    cursor: zoom-in;
+}
+.single .content img:hover {
+    transform: scale(1.02);
+}
