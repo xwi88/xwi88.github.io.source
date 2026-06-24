@@ -47,5 +47,58 @@
 
         {{- /* Load JavaScript scripts and CSS */ -}}
         {{- partial "assets.html" . -}}
+
+        {{- /* Ctrl/Cmd+K search modal (Pagefind). Hidden by default; lazy-loads
+             pagefind-ui only on first open, so other pages pay nothing. */ -}}
+        <div id="pf-modal" hidden>
+            <div id="pf-modal-box" role="dialog" aria-modal="true" aria-label="搜索 / Search">
+                <div id="pf-modal-search"></div>
+            </div>
+        </div>
+        <script>
+        (function () {
+            var modal = document.getElementById('pf-modal');
+            if (!modal) return;
+            var ready = false;
+            function close() { modal.hidden = true; }
+            function open() {
+                modal.hidden = false;
+                if (!ready) { loadPagefind(); } else { focusInput(); }
+            }
+            function loadPagefind() {
+                var css = document.createElement('link');
+                css.rel = 'stylesheet'; css.href = '/pagefind/pagefind-ui.css';
+                document.head.appendChild(css);
+                var js = document.createElement('script');
+                js.src = '/pagefind/pagefind-ui.js';
+                js.onload = function () {
+                    try {
+                        if (window.PagefindUI) {
+                            new PagefindUI({
+                                element: '#pf-modal-search', showSubResults: true,
+                                pageSize: 8, excerptLength: 12,
+                                translations: { placeholder: '搜索文章 / Search posts…' }
+                            });
+                            ready = true; focusInput();
+                        }
+                    } catch (e) { console.warn('Pagefind modal init failed:', e); }
+                };
+                document.body.appendChild(js);
+            }
+            function focusInput() { var i = modal.querySelector('input'); if (i) i.focus(); }
+            document.addEventListener('keydown', function (e) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+                    e.preventDefault(); modal.hidden ? open() : close();
+                } else if (e.key === 'Escape' && !modal.hidden) { close(); }
+            });
+            modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+            document.querySelectorAll('a[href="/search/"]').forEach(function (a) {
+                a.addEventListener('click', function (e) {
+                    if (location.pathname.replace(/\/$/, '') === '/search') return;
+                    e.preventDefault(); open();
+                });
+            });
+        })();
+        </script>
     </body>
 </html>

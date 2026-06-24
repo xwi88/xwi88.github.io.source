@@ -5,6 +5,9 @@ description: "全站搜索 / Site-wide search"
 ---
 
 <div id="pagefind-search"></div>
+
+> 💡 **Tip**:任意页面按 **Ctrl/Cmd + K** 可直接唤出搜索(无需进本页)。
+
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="/pagefind/pagefind-ui.js"></script>
 <script>
