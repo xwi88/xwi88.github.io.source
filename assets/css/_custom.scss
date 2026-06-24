@@ -281,3 +281,25 @@ body[theme="dark"] input:focus-visible,
 body[theme="dark"] [tabindex]:focus-visible {
     outline-color: #5ab7e8;
 }
+
+// code block language label (top-right corner)
+.single .content .highlight {
+    position: relative;
+}
+.code-lang-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.1em 0.6em;
+    font-size: 0.75em;
+    color: rgba(128, 128, 128, 0.75);
+    background: rgba(128, 128, 128, 0.10);
+    border-radius: 0 8px 0 4px;
+    pointer-events: none;
+    text-transform: lowercase;
+}
+
+// 404 page links
+.error-links a {
+    margin: 0 0.2em;
+}

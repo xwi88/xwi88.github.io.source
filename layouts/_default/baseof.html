@@ -137,6 +137,17 @@
                 }
             });
             document.addEventListener('keydown', function (e) { if (e.key === 'Escape') ov.hidden = true; });
+            // code block language label (top-right of each highlighted block)
+            document.querySelectorAll('.single .content .highlight').forEach(function (h) {
+                var code = h.querySelector('code[data-lang]') || h.querySelector('code[class*="language-"]');
+                var lang = code && (code.getAttribute('data-lang') || (code.className.match(/language-([a-z0-9]+)/) || [])[1]);
+                if (lang) {
+                    var label = document.createElement('span');
+                    label.className = 'code-lang-label';
+                    label.textContent = lang;
+                    h.appendChild(label);
+                }
+            });
         })();
         </script>
     </body>

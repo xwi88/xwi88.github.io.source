@@ -1,0 +1,26 @@
+{{- define "title" }}
+    {{- T "pageNotFound" | printf "404 %v" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+    {{- $zh := eq .Site.Language.Lang "zh-cn" -}}
+    <div class="page" id="content-404">
+        <h1 id="error-emoji"></h1>
+        <p class="error-text">{{- T "pageNotFoundText" -}}</p>
+        <p class="error-links">
+            <a href="{{ .Site.Home.RelPermalink }}"><i class="fas fa-home fa-fw"></i> {{ if $zh }}主页{{ else }}Home{{ end }}</a>
+            &nbsp;|&nbsp;
+            <a href="/posts/"><i class="fas fa-list fa-fw"></i> {{ if $zh }}所有文章{{ else }}Posts{{ end }}</a>
+            &nbsp;|&nbsp;
+            <a href="/archives/"><i class="fas fa-archive fa-fw"></i> {{ if $zh }}归档{{ else }}Archives{{ end }}</a>
+            &nbsp;|&nbsp;
+            <a href="/search/"><i class="fas fa-search fa-fw"></i> {{ if $zh }}搜索{{ else }}Search{{ end }}</a>
+        </p>
+    </div>
+    <script type="text/javascript">
+        (function() {
+            var emojiArray = ['\\(o_o)/', '(˚Δ˚)b', '(^-^*)', '(≥o≤)', '(^_^)b', '(·_·)','(=\'X\'=)', '(>_<)', '(;-;)'];
+            document.getElementById('error-emoji').appendChild(document.createTextNode(emojiArray[Math.floor(Math.random() * emojiArray.length)]));
+        })();
+    </script>
+{{- end -}}
