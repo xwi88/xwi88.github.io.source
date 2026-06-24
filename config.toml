@@ -55,6 +55,14 @@ enableEmoji = true
         title = ""
         weight = 1
       [[languages.en.menu.main]]
+        identifier = "archives"
+        pre = ""
+        post = ""
+        name = "Archives"
+        url = "/archives/"
+        title = ""
+        weight = 2
+      [[languages.en.menu.main]]
         identifier = "tags"
         pre = ""
         post = ""
@@ -270,6 +278,14 @@ enableEmoji = true
         url = "/posts/"
         title = ""
         weight = 1
+      [[languages.zh-cn.menu.main]]
+        identifier = "archives"
+        pre = ""
+        post = ""
+        name = "归档"
+        url = "/archives/"
+        title = ""
+        weight = 2
       [[languages.zh-cn.menu.main]]
         identifier = "tags"
         pre = ""

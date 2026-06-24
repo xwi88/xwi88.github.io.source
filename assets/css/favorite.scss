@@ -23,19 +23,20 @@
 }
 
 .section {
-	background: #fff;
+	background: var(--global-background, #fff);
+	border: 1px solid rgba(128, 128, 128, 0.18);
 	margin-bottom: 15px;
 	border-radius: 10px;
 }
 
 .section .section-name {
 	padding: 5px 5px;
-	border-bottom: 2px solid #f1f4f9;
+	border-bottom: 2px solid rgba(128, 128, 128, 0.18);
 	line-height: 16px;
 }
 
 .section .section-name strong {
-	color: #3c3c3c;
+	color: var(--global-font-color, #3c3c3c);
 	font-weight: bold;
 	font-size: 16px;
 	position: relative;
@@ -70,7 +71,7 @@
 }
 
 .section .item a:hover {
-	background-color: #f2f8fd;
+	background-color: rgba(128, 128, 128, 0.10);
 }
 
 .section .item a img {
@@ -82,7 +83,7 @@
 
 .section .item a .item-name {
 	margin-left: 25px;
-	color: #3c3c3c;
+	color: var(--global-font-color, #3c3c3c);
 	font-size: 15px;
 	white-space: nowrap;
 	height: 20px;

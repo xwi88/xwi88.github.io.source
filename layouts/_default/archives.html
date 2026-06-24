@@ -1,0 +1,23 @@
+{{- define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end -}}
+
+{{- define "content" -}}
+<article class="page single">
+    <h1 class="single-title animate__animated animate__flipInX">{{ .Title }}</h1>
+    <div class="content" id="content" data-pagefind-body>
+        {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+        {{- range $posts.GroupByDate "2006" -}}
+        <div class="archives-year">
+            <h2>{{ .Key }}<span class="archives-count"> ({{ len .Pages }})</span></h2>
+            <ul class="archives-list">
+                {{- range .Pages -}}
+                <li>
+                    <span class="archives-date">{{ .PublishDate.Format "01-02" }}</span>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </li>
+                {{- end -}}
+            </ul>
+        </div>
+        {{- end -}}
+    </div>
+</article>
+{{- end -}}

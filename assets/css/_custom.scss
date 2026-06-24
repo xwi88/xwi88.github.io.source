@@ -236,3 +236,30 @@ body[theme="dark"] #reading-progress {
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     }
 }
+
+// archives page (chronological post list)
+.archives-year {
+    margin-top: 1.6em;
+}
+.archives-year h2 {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    padding-bottom: 0.3em;
+}
+.archives-count {
+    font-size: 0.7em;
+    color: rgba(128, 128, 128, 0.7);
+    font-weight: normal;
+}
+.archives-list {
+    list-style: none;
+    padding-left: 0;
+}
+.archives-list li {
+    padding: 0.3em 0;
+}
+.archives-date {
+    display: inline-block;
+    width: 3em;
+    color: rgba(128, 128, 128, 0.75);
+    font-variant-numeric: tabular-nums;
+}
