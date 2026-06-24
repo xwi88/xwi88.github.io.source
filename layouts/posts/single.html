@@ -100,6 +100,8 @@
         {{- /* Content */ -}}
         <div class="content" id="content" data-pagefind-body>
             <span data-pagefind-meta="title" hidden>{{ .Title }}</span>
+            {{- range .Params.categories }}<span data-pagefind-filter="分类" hidden>{{ . }}</span>{{ end -}}
+            {{- range .Params.tags }}<span data-pagefind-filter="标签" hidden>{{ . }}</span>{{ end -}}
             {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
         </div>
 
