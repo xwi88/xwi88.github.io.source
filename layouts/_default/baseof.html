@@ -148,6 +148,12 @@
                     h.appendChild(label);
                 }
             });
+            // register service worker (PWA: offline reading + installable)
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/sw.js').catch(function () {});
+                });
+            }
         })();
         </script>
     </body>
