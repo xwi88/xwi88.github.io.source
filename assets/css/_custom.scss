@@ -363,3 +363,38 @@ html {
     color: rgba(128, 128, 128, 0.75);
     font-variant-numeric: tabular-nums;
 }
+
+// a11y: respect prefers-reduced-motion (disable animations/transitions)
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// print: clean article for print / save-as-PDF (hide chrome)
+@media print {
+    #header-desktop,
+    #header-mobile,
+    footer.footer,
+    .toc,
+    #fixed-buttons,
+    #pf-modal,
+    #reading-progress,
+    .related-posts,
+    .post-info,
+    .post-nav,
+    #view-comments,
+    .comment,
+    .skip-link {
+        display: none !important;
+    }
+    .single .content {
+        max-width: 100%;
+    }
+    a {
+        color: inherit;
+    }
+}
