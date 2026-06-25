@@ -3,6 +3,18 @@
 // 自定义样式
 // ==============================
 
+// LoveIt 暗色用的是硬编码 body[theme=dark]{background-color},没重定义这些 CSS 变量;
+// 在此显式定义,让所有 var(--global-background)/var(--global-font-color) 用法
+// (favorite 卡片、搜索弹窗、skip-link)在暗色下正确翻转。
+:root {
+    --global-background: #ffffff;
+    --global-font-color: #161209;
+}
+body[theme="dark"] {
+    --global-background: #292a2d;
+    --global-font-color: #a9a9b3;
+}
+
 // a11y skip-to-content link: off-screen until keyboard-focused (WCAG 2.4.1)
 .skip-link {
     position: absolute;

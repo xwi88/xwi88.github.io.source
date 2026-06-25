@@ -95,6 +95,14 @@ enableEmoji = true
         title = ""
         weight = 6
       [[languages.en.menu.main]]
+        identifier = "resume"
+        pre = ""
+        post = ""
+        name = "Resume"
+        url = "/resume/"
+        title = ""
+        weight = 6
+      [[languages.en.menu.main]]
         identifier = "github"
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
@@ -315,6 +323,14 @@ enableEmoji = true
         post = ""
         name = "关于"
         url = "/about/"
+        title = ""
+        weight = 6
+      [[languages.zh-cn.menu.main]]
+        identifier = "resume"
+        pre = ""
+        post = ""
+        name = "简历"
+        url = "/resume/"
         title = ""
         weight = 6
       [[languages.zh-cn.menu.main]]
