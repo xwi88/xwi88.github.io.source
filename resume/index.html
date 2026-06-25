@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>王鑫 - Go高级研发工程师</title>
+<style>
+/* ===== CSS Variables & Theme System ===== */
+:root { --transition: 0.35s cubic-bezier(.4,0,.2,1); }
+
+[data-theme="executive"] {
+  --bg: #f8f9fb; --bg-card: #ffffff; --bg-card-alt: #f5f6f8;
+  --bg-hover: #eef0f4; --border: #e2e4e8;
+  --text: #2d3748; --text-sub: #4a5568; --text-muted: #a0aec0;
+  --accent: #4c6ef5; --accent-sub: #6c8ff5; --accent2: #e53e3e;
+  --accent3: #38b2ac; --accent4: #48bb78; --accent5: #d69e2e;
+  --header-bg: linear-gradient(135deg, #2d3748 0%, #4a5568 60%, #2d3748 100%);
+  --header-text: #ffffff; --header-sub: #a0b4cc;
+  --section-bg: #ffffff; --section-border: #e8eaee;
+  --tag-bg: #f0f2f7; --tag-border: #d0d5e0;
+  --code-bg: #f5f6f8; --shadow: 0 1px 6px rgba(0,0,0,0.04);
+  --card-glow: none;
+}
+
+[data-theme="obsidian"] {
+  --bg: #121218; --bg-card: #1a1a22; --bg-card-alt: #22222c;
+  --bg-hover: #2a2a36; --border: rgba(255,255,255,0.08);
+  --text: #e0e0e8; --text-sub: #b0b0bc; --text-muted: #70707c;
+  --accent: #7c83f8; --accent-sub: #9ca1fa; --accent2: #f06c9c;
+  --accent3: #5ee0d0; --accent4: #5cd8a0; --accent5: #f0b840;
+  --header-bg: linear-gradient(135deg, #0e0e1a 0%, #1e1e3a 50%, #101828 100%);
+  --header-text: #ffffff; --header-sub: #b0b8e8;
+  --section-bg: #161620; --section-border: rgba(255,255,255,0.06);
+  --tag-bg: rgba(255,255,255,0.06); --tag-border: rgba(255,255,255,0.12);
+  --code-bg: #22222c; --shadow: 0 4px 20px rgba(0,0,0,0.5);
+  --card-glow: 0 0 30px rgba(99,102,241,0.05);
+}
+
+[data-theme="arctic"] {
+  --bg: #f8fafc; --bg-card: #ffffff; --bg-card-alt: #f0f3f8;
+  --bg-hover: #e4e9f2; --border: #d0d6e0;
+  --text: #0f172a; --text-sub: #3a4558; --text-muted: #7a8598;
+  --accent: #3b5998; --accent-sub: #4a6bb5; --accent2: #c4365a;
+  --accent3: #1a8a8a; --accent4: #2e7d50; --accent5: #c47e1a;
+  --header-bg: linear-gradient(135deg, #1a2a44 0%, #2a4a7a 100%);
+  --header-text: #ffffff; --header-sub: #b0c8e8;
+  --section-bg: #ffffff; --section-border: #d0d6e0;
+  --tag-bg: #e4e9f2; --tag-border: #b0b8cc;
+  --code-bg: #f0f3f8; --shadow: 0 2px 10px rgba(0,0,0,0.06);
+  --card-glow: none;
+}
+
+[data-theme="emerald"] {
+  --bg: #f2f8f2; --bg-card: #ffffff; --bg-card-alt: #e6f2e6;
+  --bg-hover: #d0e8d0; --border: #b8d8b8;
+  --text: #1a2e1a; --text-sub: #2e4a2e; --text-muted: #6a9a6a;
+  --accent: #1a6a3a; --accent-sub: #2a8a4a; --accent2: #8a2a6a;
+  --accent3: #1a6a8a; --accent4: #2a7a5a; --accent5: #8a7a1a;
+  --header-bg: linear-gradient(135deg, #0a2a16 0%, #1a4a2a 100%);
+  --header-text: #ffffff; --header-sub: #90d8a8;
+  --section-bg: #ffffff; --section-border: #b8d8b8;
+  --tag-bg: #dcecdc; --tag-border: #a0c8a0;
+  --code-bg: #f0f6f0; --shadow: 0 2px 10px rgba(0,0,0,0.06);
+  --card-glow: none;
+}
+
+[data-theme="slate"] {
+  --bg: #1e2028; --bg-card: #282a34; --bg-card-alt: #2e3040;
+  --bg-hover: #363848; --border: rgba(255,255,255,0.08);
+  --text: #dcdce4; --text-sub: #a8a8b8; --text-muted: #68687a;
+  --accent: #60a0d0; --accent-sub: #78b0e0; --accent2: #e07090;
+  --accent3: #50c8b0; --accent4: #a0b840; --accent5: #e0a050;
+  --header-bg: linear-gradient(135deg, #181820 0%, #2a3040 100%);
+  --header-text: #ffffff; --header-sub: #a0b8d0;
+  --section-bg: #222430; --section-border: rgba(255,255,255,0.06);
+  --tag-bg: rgba(255,255,255,0.06); --tag-border: rgba(255,255,255,0.1);
+  --code-bg: #2a2c38; --shadow: 0 4px 20px rgba(0,0,0,0.4);
+  --card-glow: 0 0 20px rgba(96,160,208,0.05);
+}
+
+[data-theme="coral"] {
+  --bg: #faf5f2; --bg-card: #ffffff; --bg-card-alt: #f8f0ea;
+  --bg-hover: #f0e4da; --border: #e0d0c4;
+  --text: #2a1a10; --text-sub: #4a3a2a; --text-muted: #9a8a7a;
+  --accent: #c44e2e; --accent-sub: #d86a4a; --accent2: #8a3060;
+  --accent3: #2a7a8a; --accent4: #3a7a3a; --accent5: #b88a20;
+  --header-bg: linear-gradient(135deg, #3a1a0a 0%, #6a2a1a 100%);
+  --header-text: #ffffff; --header-sub: #e8b8a0;
+  --section-bg: #ffffff; --section-border: #e0d0c4;
+  --tag-bg: #f0e4da; --tag-border: #d8c4b4;
+  --code-bg: #faf5f0; --shadow: 0 2px 10px rgba(0,0,0,0.06);
+  --card-glow: none;
+}
+
+[data-theme="minimal"] {
+  --bg: #ffffff; --bg-card: #ffffff; --bg-card-alt: #f8f8f8;
+  --bg-hover: #f0f0f0; --border: #e0e0e0;
+  --text: #1a1a1a; --text-sub: #4a4a4a; --text-muted: #9a9a9a;
+  --accent: #1a1a1a; --accent-sub: #3a3a3a; --accent2: #a01a1a;
+  --accent3: #1a5a9a; --accent4: #1a7a3a; --accent5: #9a6a1a;
+  --header-bg: #1a1a1a;
+  --header-text: #ffffff; --header-sub: #c0c0c0;
+  --section-bg: #ffffff; --section-border: #e0e0e0;
+  --tag-bg: #f0f0f0; --tag-border: #d0d0d0;
+  --code-bg: #f8f8f8; --shadow: 0 1px 4px rgba(0,0,0,0.04);
+  --card-glow: none;
+}
+
+[data-theme="ocean"] {
+  --bg: #f0f4f8; --bg-card: #ffffff; --bg-card-alt: #e4ecf4;
+  --bg-hover: #d0dce8; --border: #b8c8d8;
+  --text: #0a1a2a; --text-sub: #2a3a4a; --text-muted: #6a7a8a;
+  --accent: #0a4a7a; --accent-sub: #1a5a8a; --accent2: #7a2a6a;
+  --accent3: #0a8a7a; --accent4: #2a6a2a; --accent5: #8a6a1a;
+  --header-bg: linear-gradient(135deg, #0a1a30 0%, #1a3a5a 100%);
+  --header-text: #ffffff; --header-sub: #8ab8e0;
+  --section-bg: #ffffff; --section-border: #b8c8d8;
+  --tag-bg: #dce8f4; --tag-border: #a0b4cc;
+  --code-bg: #eef2f8; --shadow: 0 2px 10px rgba(0,0,0,0.06);
+  --card-glow: none;
+}
+
+/* ===== Base ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.75; font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+}
+.container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+/* ===== Theme Switcher ===== */
+.theme-bar {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  display: flex; gap: 6px; padding: 6px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 28px; box-shadow: var(--shadow);
+  transition: background var(--transition), border var(--transition);
+}
+.theme-btn {
+  width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent;
+  cursor: pointer; transition: all 0.2s; position: relative;
+}
+.theme-btn:hover { transform: scale(1.15); }
+.theme-btn.active { border-color: var(--accent); box-shadow: 0 0 8px rgba(99,102,241,0.3); }
+.theme-btn[data-t="executive"] { background: linear-gradient(135deg, #f5f5f0, #2c3e50); }
+.theme-btn[data-t="obsidian"] { background: linear-gradient(135deg, #121218, #1e1e3a); }
+.theme-btn[data-t="arctic"] { background: linear-gradient(135deg, #f8fafc, #1a2a44); }
+.theme-btn[data-t="emerald"] { background: linear-gradient(135deg, #f2f8f2, #0a2a16); }
+.theme-btn[data-t="slate"] { background: linear-gradient(135deg, #1e2028, #363848); }
+.theme-btn[data-t="coral"] { background: linear-gradient(135deg, #faf5f2, #6a2a1a); }
+.theme-btn[data-t="ocean"] { background: linear-gradient(135deg, #f0f4f8, #1a3a5a); }
+.theme-btn[data-t="minimal"] { background: linear-gradient(135deg, #fff, #1a1a1a); }
+
+/* ===== Header ===== */
+.header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-radius: 16px; padding: 56px 48px 48px;
+  margin-bottom: 20px; position: relative; overflow: hidden;
+  transition: background var(--transition);
+}
+.header::before {
+  content: ''; position: absolute;
+  top: -140px; right: -80px; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.header::after {
+  content: ''; position: absolute;
+  bottom: -100px; left: -60px; width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(236,72,153,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.header-inner { position: relative; z-index: 1; }
+.name {
+  font-size: 40px; font-weight: 800;
+  letter-spacing: 6px; margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 16px; color: var(--header-sub);
+  font-weight: 500; letter-spacing: 2px; margin-bottom: 28px;
+}
+.contact-row {
+  display: flex; flex-wrap: wrap; gap: 24px;
+  font-size: 15px; color: rgba(255,255,255,0.7);
+}
+.contact-row a { color: var(--header-sub); text-decoration: none; }
+.contact-row a:hover { text-decoration: underline; }
+.contact-item { display: inline-flex; align-items: center; gap: 6px; }
+
+/* === Metric Bar === */
+.metric-row {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px;
+}
+.metric {
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px; padding: 12px 20px; text-align: center;
+  flex: 1; min-width: 100px; backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.metric:hover { background: rgba(255,255,255,0.16); }
+.metric-val {
+  font-size: 22px; font-weight: 700; color: #fff;
+  letter-spacing: 1px;
+}
+.metric-label {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  margin-top: 2px; letter-spacing: 0.5px;
+}
+
+/* ===== Section ===== */
+.section {
+  background: var(--section-bg);
+  border: 1px solid var(--section-border);
+  border-radius: 14px;
+  padding: 32px 40px; margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: background var(--transition), border var(--transition);
+}
+.section-head {
+  font-size: 18px; font-weight: 700; margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text); padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+.section:nth-of-type(1) .section-head { border-left-color: #f59e0b; }
+.section:nth-of-type(2) .section-head { border-left-color: #6366f1; }
+.section:nth-of-type(3) .section-head { border-left-color: #0ea5e9; }
+.section:nth-of-type(4) .section-head { border-left-color: #10b981; }
+@media print {
+  .section:nth-of-type(1) .section-head,
+  .section:nth-of-type(2) .section-head,
+  .section:nth-of-type(3) .section-head,
+  .section:nth-of-type(4) .section-head { border-left-width: 2px; }
+}
+.section-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.section-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.section:nth-of-type(1) .section-icon { background: rgba(245,158,11,0.15); color: #d97706; }
+.section:nth-of-type(2) .section-icon { background: rgba(99,102,241,0.15); color: #6366f1; }
+.section:nth-of-type(3) .section-icon { background: rgba(14,165,233,0.15); color: #0284c7; }
+.section:nth-of-type(4) .section-icon { background: rgba(16,185,129,0.15); color: #059669; }
+
+/* ===== Highlights Grid ===== */
+.hl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hl-card {
+  background: var(--bg-card-alt); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 22px;
+  transition: all var(--transition);
+}
+.hl-card:hover {
+  border-color: var(--accent); box-shadow: var(--card-glow);
+  transform: translateY(-2px);
+}
+.hl-tag {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 4px; margin-bottom: 8px;
+}
+.hl-tag.purple { background: rgba(99,102,241,0.12); color: #5b6abf; }
+.hl-tag.rose { background: rgba(236,72,153,0.12); color: #c0547a; }
+.hl-tag.amber { background: rgba(245,158,11,0.14); color: #b8860b; }
+.hl-tag.green { background: rgba(16,185,129,0.12); color: #0d9668; }
+.hl-body { font-size: 13.5px; color: var(--text-sub); line-height: 1.65; }
+.hl-body strong { color: var(--text); }
+
+/* ===== Tech Grid ===== */
+.tech-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+}
+.tech-item {
+  background: var(--bg-card-alt); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+  transition: all var(--transition);
+}
+.tech-item:hover {
+  border-color: var(--accent-sub);
+  background: var(--bg-hover);
+}
+.tech-cat {
+  font-size: 11px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 5px; font-weight: 500;
+}
+.tech-val {
+  font-size: 13px; color: var(--text); font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ===== Experience ===== */
+.exp {
+  padding: 22px 0; border-bottom: 1px solid var(--border);
+  transition: border var(--transition);
+}
+.exp:last-child { border-bottom: none; padding-bottom: 0; }
+.exp:first-child { padding-top: 0; }
+.exp-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; flex-wrap: wrap; gap: 6px 16px;
+  margin-bottom: 6px;
+}
+.exp-company { font-size: 16px; font-weight: 700; color: var(--text); }
+.exp-role { font-size: 13px; color: var(--accent-sub); font-weight: 500; margin-top: 2px; }
+.exp-date {
+  font-size: 12px; color: var(--text-muted);
+  background: var(--bg-card-alt); padding: 3px 14px;
+  border-radius: 14px; border: 1px solid var(--border);
+  white-space: nowrap; flex-shrink: 0;
+  transition: background var(--transition);
+}
+.exp-desc { font-size: 14px; color: var(--text-sub); margin-bottom: 10px; }
+.exp-list { list-style: none; }
+.exp-list li {
+  position: relative; padding-left: 16px; margin-bottom: 6px;
+  font-size: 13.5px; color: var(--text-sub); line-height: 1.65;
+}
+.exp-list li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+}
+.exp-list li strong { color: var(--text); font-weight: 600; }
+
+/* ===== Timeline Indicator ===== */
+.exp-top::before {
+  content: ''; position: absolute; left: -6px; top: 8px;
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 2px solid var(--accent); background: var(--bg);
+  transition: all var(--transition);
+}
+.exp { position: relative; padding-left: 12px; border-left: 2px solid var(--border); }
+
+/* ===== Education ===== */
+.edu-school { font-size: 16px; font-weight: 600; color: var(--text); }
+.edu-detail { font-size: 14px; color: var(--text-sub); }
+
+/* ===== Philosophy ===== */
+.philosophy { display: flex; flex-direction: column; gap: 14px; }
+.phi-card {
+  background: var(--bg-card-alt); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 20px;
+  transition: all var(--transition);
+}
+.phi-card:hover { border-color: var(--accent); }
+.phi-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.phi-body { font-size: 13px; color: var(--text-sub); line-height: 1.7; }
+.phi-body strong { color: var(--text); }
+.collapsible-head { user-select: none; }
+.collapse-toggle { font-size: 12px; opacity: 0.5; margin-left: 8px; }
+.phi-section { overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease; max-height: 600px; opacity: 1; }
+.phi-section.collapsed { max-height: 0; opacity: 0; }
+.phi-teaser {
+  font-size: 13px; color: var(--text-sub); padding: 10px 14px;
+  background: var(--bg-card-alt); border: 1px dashed var(--border);
+  border-radius: 8px; cursor: pointer; text-align: center;
+  margin-bottom: 8px; transition: opacity 0.25s;
+}
+.phi-teaser.hidden { display: none; }
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center; padding: 20px;
+  font-size: 12px; color: var(--text-muted); letter-spacing: 2px;
+}
+
+/* ===== Back to Top ===== */
+.back-top {
+  position: fixed; bottom: 24px; right: 24px; z-index: 99;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  border: none; cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s, background var(--transition);
+  pointer-events: none;
+}
+.back-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-top:hover { background: var(--accent-sub); transform: translateY(-2px); }
+
+/* ===== Tooltips ===== */
+abbr[data-tip] {
+  text-decoration: none; border-bottom: 1px dotted var(--text-muted);
+  cursor: help; position: relative;
+}
+abbr[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; bottom: 100%; left: 50%;
+  transform: translateX(-50%);
+  background: var(--text); color: var(--bg);
+  font-size: 11px; font-weight: 400;
+  padding: 4px 10px; border-radius: 6px;
+  white-space: nowrap; z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  pointer-events: none;
+  animation: tipIn 0.15s ease;
+}
+@keyframes tipIn { from { opacity: 0; transform: translateX(-50%) translateY(4px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* ===== Print ===== */
+/* ===== Print — A4 优化 ===== */
+@page {
+  size: A4;
+  margin: 10mm 12mm;
+}
+@media print {
+  html, body { background: #fff !important; color: #1a1a1a !important; font-size: 11px; }
+  .theme-bar { display: none !important; }
+  .container { padding: 0; max-width: 100%; }
+  .header {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    padding: 24px 0 20px; margin-bottom: 10px; border-radius: 0;
+  }
+  .header::before, .header::after { display: none; }
+  .name { font-size: 26px; letter-spacing: 4px; margin-bottom: 4px; }
+  .subtitle { font-size: 12px; margin-bottom: 16px; }
+  .contact-row { font-size: 10px; gap: 12px; color: #555 !important; }
+  .contact-row a { color: #333 !important; }
+  .metric-row { gap: 5px; margin-top: 14px; }
+  .metric { min-width: 0; flex: 1; padding: 6px 8px; border: 1px solid #ccc; }
+  .metric-val { font-size: 15px; color: #1a1a1a !important; }
+  .metric-label { font-size: 9px; color: #666 !important; }
+  .section {
+    box-shadow: none; border: none; border-top: 1.5px solid #333;
+    page-break-inside: avoid; padding: 12px 0; margin-bottom: 6px;
+    border-radius: 0; background: transparent !important;
+  }
+  .section-head {
+    font-size: 13px; margin-bottom: 10px; letter-spacing: 1px;
+    text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid #ddd;
+  }
+  .section-icon { display: none; }
+  .section:nth-of-type(1) .section-icon,
+  .section:nth-of-type(2) .section-icon,
+  .section:nth-of-type(3) .section-icon,
+  .section:nth-of-type(4) .section-icon { display: none; }
+  .hl-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hl-card { border: 1px solid #ddd; padding: 10px 12px; background: #fafafa !important; }
+  .hl-card:hover { transform: none; box-shadow: none; border-color: #ddd; }
+  .hl-tag { font-size: 9px; padding: 1px 6px; }
+  .hl-body { font-size: 10.5px; line-height: 1.55; }
+  .tech-grid { grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #ddd; }
+  .tech-item { border: none; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 7px 8px; background: transparent !important; }
+  .tech-item:nth-child(4n) { border-right: none; }
+  .tech-item:nth-child(n+5) { border-bottom: none; }
+  .tech-item:hover { transform: none; box-shadow: none; background: transparent !important; }
+  .tech-cat { font-size: 8px; }
+  .tech-val { font-size: 10px; }
+  .exp { padding-left: 10px; padding-top: 10px; padding-bottom: 10px; border-left: 1.5px solid #ccc; }
+  .exp-top::before { width: 6px; height: 6px; border: 1.5px solid #333; background: #fff !important; }
+  .exp-company { font-size: 12.5px; }
+  .exp-role { font-size: 10.5px; margin-top: 1px; }
+  .exp-date { font-size: 9.5px; padding: 1px 6px; border: 1px solid #ccc; }
+  .exp-desc { font-size: 10.5px; margin-bottom: 4px; }
+  .exp-list li { font-size: 10.5px; padding-left: 12px; margin-bottom: 3px; line-height: 1.5; }
+  .exp-list li::before { width: 3px; height: 3px; top: 7px; }
+  .edu-school { font-size: 12.5px; }
+  .edu-detail { font-size: 11px; }
+  .phi-card { border: 1px solid #ddd; padding: 8px 12px; background: #fafafa !important; }
+  .phi-title { font-size: 10px; }
+  .phi-body { font-size: 10px; line-height: 1.5; }
+  .phi-section { max-height: none !important; opacity: 1 !important; }
+  .collapse-toggle, .phi-teaser { display: none !important; }
+  abbr[data-tip] { border-bottom: none; }
+  abbr[data-tip]:hover::after { display: none; }
+  .footer { font-size: 9px; padding: 6px; }
+  .footer span { display: none; }
+  .back-top { display: none !important; }
+}
+
+/* ===== Tablet (768px) ===== */
+@media (max-width: 768px) and (min-width: 641px) {
+  .container { padding: 16px 12px; }
+  .header { padding: 44px 32px 36px; }
+  .name { font-size: 34px; }
+  .section { padding: 28px 28px; }
+  .tech-grid { grid-template-columns: repeat(4, 1fr); }
+  .hl-grid { grid-template-columns: 1fr 1fr; }
+  .metric-row { gap: 10px; }
+  .metric { min-width: 90px; }
+}
+
+/* ===== Mobile (640px) ===== */
+@media (max-width: 640px) {
+  .container { padding: 10px 8px; }
+  .header { padding: 36px 20px 28px; border-radius: 12px; }
+  .header::before { width: 280px; height: 280px; }
+  .header::after { width: 200px; height: 200px; }
+  .name { font-size: 30px; letter-spacing: 3px; }
+  .subtitle { font-size: 13px; letter-spacing: 1px; }
+  .contact-row { gap: 10px; font-size: 12px; flex-direction: column; }
+  .contact-item { justify-content: flex-start; }
+  .metric-row { gap: 8px; flex-wrap: wrap; }
+  .metric { min-width: 0; flex: 1 1 calc(33% - 6px); padding: 10px 8px; }
+  .metric-val { font-size: 18px; }
+  .metric-label { font-size: 10px; }
+  .section { padding: 20px 16px; border-radius: 10px; margin-bottom: 12px; }
+  .section-head { font-size: 16px; margin-bottom: 16px; }
+  .section-icon { width: 28px; height: 28px; font-size: 14px; }
+  .tech-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .tech-item { padding: 12px 14px; }
+  .tech-cat { font-size: 10px; }
+  .tech-val { font-size: 12.5px; }
+  .hl-grid { grid-template-columns: 1fr; gap: 10px; }
+  .hl-card { padding: 16px 18px; }
+  .hl-body { font-size: 13px; }
+  .exp { padding-left: 10px; }
+  .exp-top::before { width: 8px; height: 8px; }
+  .exp-company { font-size: 15px; }
+  .exp-role { font-size: 12.5px; }
+  .exp-date { font-size: 11px; }
+  .exp-desc { font-size: 13px; }
+  .exp-list li { font-size: 13px; padding-left: 14px; margin-bottom: 5px; }
+  .exp-top { flex-direction: column; gap: 4px; }
+  .exp-date { align-self: flex-start; }
+  .edu-school { font-size: 15px; }
+  .footer { font-size: 11px; }
+}
+
+/* ===== Small Phone (400px) ===== */
+@media (max-width: 400px) {
+  .container { padding: 6px 4px; }
+  .header { padding: 28px 14px 22px; }
+  .name { font-size: 26px; letter-spacing: 2px; }
+  .metric-row { gap: 6px; }
+  .metric { padding: 8px 6px; flex: 1 1 calc(50% - 4px); }
+  .metric-val { font-size: 16px; }
+  .section { padding: 16px 12px; }
+  .tech-grid { grid-template-columns: 1fr; }
+  .tech-item { padding: 10px 12px; }
+  .exp-company { font-size: 14px; }
+  .exp-list li { font-size: 12.5px; }
+}
+</style>
+</head>
+<body data-theme="executive"><div id="back-to-blog" style="position:fixed;top:0;left:0;z-index:9999;padding:8px 16px;background:rgba(0,0,0,.72);border-radius:0 0 8px 0;font-family:system-ui,-apple-system,sans-serif;backdrop-filter:blur(4px);"><a href="/" style="color:#fff;text-decoration:none;font-size:14px;font-weight:600;">&#8592; 返回博客 / Back to blog</a></div>
+
+<!-- Theme Switcher -->
+<div class="theme-bar" id="themeBar">
+  <div class="theme-btn" data-t="executive" title="商务 (Executive)"></div>
+  <div class="theme-btn" data-t="obsidian" title="黑曜石 (Obsidian)"></div>
+  <div class="theme-btn" data-t="arctic" title="极光 (Arctic)"></div>
+  <div class="theme-btn" data-t="emerald" title="翡翠 (Emerald)"></div>
+  <div class="theme-btn" data-t="slate" title="石板 (Slate)"></div>
+  <div class="theme-btn" data-t="coral" title="珊瑚 (Coral)"></div>
+  <div class="theme-btn" data-t="ocean" title="海洋 (Ocean)"></div>
+  <div class="theme-btn" data-t="minimal" title="极简 (Minimal)"></div>
+</div>
+
+<div class="container">
+
+<!-- ==================== Header ==================== -->
+<div class="header">
+  <div class="header-inner">
+    <div class="name">王 鑫</div>
+    <div class="subtitle">Go 高级研发工程师 · 广告引擎 · AI 工程实践</div>
+    <div class="contact-row">
+      <span class="contact-item" style="font-size:18px;line-height:1;">📧</span> <a href="mailto:278810732@qq.com">278810732@qq.com</a></span>
+      <span class="contact-item" style="font-size:18px;line-height:1;">📱</span> <span>183****2115</span></span>
+      <span class="contact-item" style="font-size:18px;line-height:1;">🔗</span> <a href="https://github.com/xwi88">github.com/xwi88</a></span>
+      <span class="contact-item" style="font-size:18px;line-height:1;">🌐</span> <a href="https://blog.xwi88.com">blog.xwi88.com</a></span>
+    </div>
+    <div class="metric-row">
+      <div class="metric"><div class="metric-val" id="m-years">11+</div><div class="metric-label">年研发经验</div></div>
+      <div class="metric"><div class="metric-val" id="m-go">9</div><div class="metric-label">年 Go</div></div>
+      <div class="metric"><div class="metric-val">100K+</div><div class="metric-label">QPS 承载</div></div>
+      <div class="metric"><div class="metric-val">&lt;60ms</div><div class="metric-label">P99 延迟</div></div>
+      <div class="metric"><div class="metric-val">&lt;2ms</div><div class="metric-label">模型推理</div></div>
+      <div class="metric"><div class="metric-val">50%+</div><div class="metric-label">资源优化</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 核心优势 ==================== -->
+<div class="section">
+  <div class="section-head"><div class="section-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>核心优势</div>
+  <div class="hl-grid">
+    <div class="hl-card">
+      <div class="hl-tag purple">广告引擎</div>
+      <div class="hl-body"><span id="hl-ads">5</span> 年广告方向，InMobi 主导投放引擎（召回→排序→竞价→下发），负责频控、预算、回调归因对接、核心组件编写与性能优化；诏兰负责 <abbr data-tip="Demand-Side Platform">DSP</abbr>/<abbr data-tip="Data Management Platform">DMP</abbr>；熟悉 <abbr data-tip="Real-Time Bidding">RTB</abbr> 竞价、<abbr data-tip="optimized Cost Per Action">oCPX</abbr> 出价全链路</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag rose">性能与算法工程</div>
+      <div class="hl-body">广告引擎承载 <strong>100K+ QPS</strong>，P99 优化至 <strong>60ms</strong>，计算资源降低 <strong>50-60%+</strong>，存储集群降低 <strong>40%+</strong>；TensorFlow 部署 <abbr data-tip="Factorization Machines / Field-aware FM">FM/FFM</abbr> 模型，单次推理 <strong>&lt;2ms</strong>；配套 A/B 实验与效果监控</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag amber">Agentic Engineering</div>
+      <div class="hl-body">2026 年初以 Claude Code + 多模型协作构建 Agentic Engineering 工作流，覆盖编码→测试→Review→PR 全链路，支持 Jira 任务自动创建与任务驱动编码分析，每步由人工确认执行。从 Vibe Coding（自然语言驱动编码）到 Agentic Engineering（质量保障下的效率革命），AI 加速实现，架构决策、业务判断、质量把关始终由人主导——善假于物，不为之所驭</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-tag green">跨领域工程经验</div>
+      <div class="hl-body">广告引擎、区块链底层（uni-chain/合约/<abbr data-tip="Decentralized Exchange">DEX</abbr>）、金融合规（<abbr data-tip="Know Your Customer / Anti-Money Laundering">KYC/AML</abbr>）；Go 微服务 + Docker + Consul + Prometheus/Grafana 体系搭建</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 技术栈 ================= === -->
+<div class="section">
+  <div class="section-head"><div class="section-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>技术栈</div>
+  <div class="tech-grid">
+    <div class="tech-item"><div class="tech-cat">编程语言</div><div class="tech-val"><span id="tech-go">Go（9年）</span> · Java · Python · JavaScript · Bash</div></div>
+    <div class="tech-item"><div class="tech-cat">服务架构</div><div class="tech-val">Gin · gRPC · Protobuf · Spring Boot · React</div></div>
+    <div class="tech-item"><div class="tech-cat">数据存储</div><div class="tech-val">MySQL · PostgreSQL · Redis · Elasticsearch · ClickHouse</div></div>
+    <div class="tech-item"><div class="tech-cat">消息 & 中间件</div><div class="tech-val">Apache Kafka · Redis Stream</div></div>
+    <div class="tech-item"><div class="tech-cat">AI & 工具</div><div class="tech-val">GLM · Claude · GPT · Claude Code</div></div>
+    <div class="tech-item"><div class="tech-cat">广告技术</div><div class="tech-val">OpenRTB · RTB · CTR/CVR · oCPX · 频控 · 预算 · 归因</div></div>
+    <div class="tech-item"><div class="tech-cat">基础设施</div><div class="tech-val">Docker · Consul · etcd · Prometheus · Grafana · ELK · Jaeger</div></div>
+    <div class="tech-item"><div class="tech-cat">其他</div><div class="tech-val">TensorFlow · protobuf · Linux</div></div>
+  </div>
+</div>
+
+<!-- ==================== 工作经历 ==================== -->
+<div class="section">
+  <div class="section-head"><div class="section-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>工作经历</div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">某金融合规科技公司</div><div class="exp-role">Java 后端开发工程师 · 深圳</div></div>
+      <div class="exp-date">2025.12 – 至今</div>
+    </div>
+    <div class="exp-desc">为全球客户提供 <abbr data-tip="Know Your Customer / Anti-Money Laundering">KYC/AML</abbr> 数字化合规解决方案，产品覆盖客户尽职调查全流程。</div>
+    <ul class="exp-list">
+      <li>负责 OB-BE 后端核心开发（身份验证、活体检测、企业合规申请 <abbr data-tip="Customer Due Diligence / Entity Due Diligence">COD/EOD</abbr>）</li>
+      <li>对接 Regula OCR、人脸识别 SDK、Kyckr、Dow Jones、CRIF、ScoreChain 等十余个第三方服务，排查修复集成缺陷 50+</li>
+      <li>参与合规引擎（风险评分、策略配置、自动化审查）；构建 Agentic Engineering 工作流提升跨技术栈交付效率</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">独立开发者</div><div class="exp-role">全栈开发</div></div>
+      <div class="exp-date">2024.02 – 2025.11</div>
+    </div>
+    <div class="exp-desc">承接技术项目开发与交付，探索 Agentic Engineering 在实际项目中的应用。</div>
+    <ul class="exp-list">
+      <li>Claude Code + 多模型协作独立完成项目交付；建立 Jira 自动创建→编码分析→人工确认的工作闭环</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">InMobi（邑盟）</div><div class="exp-role">Golang 高级研发工程师 · Demand Team · 北京</div></div>
+      <div class="exp-date">2020.01 – 2024.01</div>
+    </div>
+    <div class="exp-desc">全球领先移动广告技术平台，业务覆盖亚太、北美、欧洲等多个区域。</div>
+    <ul class="exp-list">
+      <li><strong>广告投放引擎：</strong>主导核心模块（请求处理、召回、排序、竞价、下发、频控、预算、回调），线上承载 <strong>100K+ QPS</strong></li>
+      <li><strong>性能优化：</strong>P99 从 80-100ms 降至 <strong>10-60ms</strong>（连接池、内存池、锁优化、GC 调优），计算资源降低 <strong>50-60%+</strong>，存储降低 <strong>40%+</strong></li>
+      <li><strong>模型推理：</strong>TensorFlow 部署 <abbr data-tip="Factorization Machines / Field-aware FM">FM/FFM</abbr>（CTR/CVR 预估），在线推理+批量预估，单次 <strong>&lt;2ms</strong>；搭建 A/B 实验框架</li>
+      <li><strong>基础设施：</strong>Go 微服务体系（Consul + Docker + ELK + Prometheus/Grafana），组织 Code Review 与技术分享</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">好车酷酷二手车</div><div class="exp-role">高级研发工程师 · 算法部-估价组 · 北京</div></div>
+      <div class="exp-date">2018.09 – 2020.01</div>
+    </div>
+    <ul class="exp-list">
+      <li>多策略估价服务架构，支持市场价、残值法、历史成交等多维度定价模型；从零搭建仿真重放系统（含 Web UI），为算法模型提供效果回测评估能力</li>
+      <li>Go Docker 两阶段构建、Consul 服务发现、ELK 日志、Kafka + Druid 数据管道</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">中思博安科技</div><div class="exp-role">软件工程师 · 北京</div></div>
+      <div class="exp-date">2016.08 – 2018.09</div>
+    </div>
+    <div class="exp-desc">专注自主区块链底层平台、智能合约引擎及去中心化应用。</div>
+    <ul class="exp-list">
+      <li><strong>uni-chain 底层平台：</strong>参与核心节点服务开发（Python 初期版本 + Go 重构），数据存储（KV + 关系型混合）、共识机制（<abbr data-tip="Practical Byzantine Fault Tolerance / Proof of Work">PBFT/POW</abbr>）、集群部署与监控</li>
+      <li><strong>uni-contract 智能合约平台：</strong>主导架构设计，Go 后端 + Python 合约编译/解析工具链，支持多语言合约编写与部署，提供合约生命周期管理 API</li>
+      <li><strong>去中心化交易所：</strong>早期参与交易模块开发（撮合引擎、链上资产兑换）</li>
+      <li><strong>研发基础设施：</strong>从零搭建 GitLab + Docker 研发平台，CI/CD 流水线，推动团队代码规范</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">北外在线</div><div class="exp-role">研发工程师 · 北京</div></div>
+      <div class="exp-date">2015.06 – 2016.04</div>
+    </div>
+    <ul class="exp-list">
+      <li>在线教育平台模块开发，优化附件存储与试卷录入</li>
+    </ul>
+  </div>
+
+  <div class="exp">
+    <div class="exp-top">
+      <div><div class="exp-company">北京诏兰信息技术</div><div class="exp-role">研发工程师 · 北京</div></div>
+      <div class="exp-date">2014.11 – 2015.05</div>
+    </div>
+    <ul class="exp-list">
+      <li><abbr data-tip="Demand-Side Platform">DSP</abbr> 需求方平台（广告请求、竞价、流量分配）、<abbr data-tip="Data Management Platform">DMP</abbr> 数据管理平台（画像、标签、分群）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ==================== 教育背景 ==================== -->
+<div class="section">
+  <div class="section-head"><div class="section-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>教育背景</div>
+  <div class="edu-school">华北电力大学科技学院</div>
+  <div class="edu-detail">软件工程 · 本科 · 2009.09 – 2013.07</div>
+</div>
+
+<div class="footer">WANG XIN · <span id="f-year">2026</span> <span style="cursor:pointer;opacity:0.8;margin-left:8px;font-size:11px;color:var(--accent);text-decoration:underline;" onclick="window.print()" title="打印/导出PDF">[ 打印 ]</span></div>
+
+<button class="back-top" id="backTop" title="回到顶部">↑</button>
+</div>
+
+<script>
+(function(){
+  const bar = document.getElementById('themeBar');
+  const btns = bar.querySelectorAll('.theme-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.body.setAttribute('data-theme', btn.dataset.t);
+      localStorage.setItem('resume-theme', btn.dataset.t);
+    });
+  });
+  const defaultTheme = 'executive';
+  const saved = localStorage.getItem('resume-theme');
+  const theme = saved || defaultTheme;
+  btns.forEach(b => { b.classList.remove('active'); if(b.dataset.t===theme) b.classList.add('active'); });
+  document.body.setAttribute('data-theme', theme);
+
+  // Dynamic years
+  (function(){
+    function yDiff(y,m){var d=new Date();var diff=d.getFullYear()-y;if(d.getMonth()+1<m)diff--;return Math.max(0,diff);}
+    // 总工作年限：从2014年11月（诏兰）至今
+    var workY = yDiff(2014,11);
+    document.getElementById('m-years').textContent = workY + '+';
+    // Go年限：从2017年1月至今
+    var goY = yDiff(2017,1);
+    document.getElementById('m-go').textContent = goY;
+    document.getElementById('tech-go').textContent = 'Go（'+goY+'年）';
+    // 广告年限：诏兰(2014.11-2015.05) + InMobi(2020.01-2024.01) = 固定历史时长，加上当前如果在广告公司则动态
+    // 当前在某金融合规公司，广告经验暂停，用历史累计
+    var now=new Date();
+    var adsMonths=0;
+    // 诏兰：2014.11 - 2015.05 = 6个月
+    adsMonths+=6;
+    // InMobi：2020.01 - 2024.01 = 48个月
+    adsMonths+=48;
+    var adsY=(adsMonths/12).toFixed(0);
+    document.getElementById('hl-ads').textContent = adsY;
+    // 年份
+    document.getElementById('f-year').textContent = now.getFullYear();
+  })();
+
+  // Back to top
+  (function(){
+    var btn = document.getElementById('backTop');
+    window.addEventListener('scroll', function(){
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+})();
+
+
+</script>
+</body>
+</html>
