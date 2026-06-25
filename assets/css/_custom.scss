@@ -332,3 +332,34 @@ html {
 .single .content img:hover {
     transform: scale(1.02);
 }
+
+// related-posts section (bottom of single posts)
+.related-posts {
+    margin-top: 2em;
+    padding: 1em 1.2em;
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 8px;
+}
+.related-posts h3 {
+    margin-top: 0;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+.related-posts ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.related-posts li {
+    padding: 0.3em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em;
+}
+.related-date {
+    flex-shrink: 0;
+    font-size: 0.85em;
+    color: rgba(128, 128, 128, 0.75);
+    font-variant-numeric: tabular-nums;
+}

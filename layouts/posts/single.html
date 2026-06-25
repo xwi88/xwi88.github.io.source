@@ -108,6 +108,25 @@
         {{- /* Footer */ -}}
         {{- partial "single/footer.html" . -}}
 
+        {{- /* Related posts (by shared tags) */ -}}
+        {{- with .Params.tags -}}
+            {{- $related := where (where $.Site.RegularPages "Section" "posts") "Params.tags" "intersect" . -}}
+            {{- $related = where $related "Permalink" "ne" $.Permalink -}}
+            {{- with $related -}}
+                <section class="related-posts">
+                    <h3>{{ if eq $.Site.Language.Lang "zh-cn" }}相关文章{{ else }}Related Posts{{ end }}</h3>
+                    <ul>
+                        {{- range first 5 . -}}
+                        <li>
+                            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                            <time class="related-date">{{ .PublishDate.Format "2006-01-02" }}</time>
+                        </li>
+                        {{- end -}}
+                    </ul>
+                </section>
+            {{- end -}}
+        {{- end -}}
+
         {{- /* Comment */ -}}
         {{- partial "comment.html" . -}}
     </article>
