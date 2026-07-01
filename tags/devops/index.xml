@@ -1,0 +1,134 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>devops - 标签 - Coding Life Share</title><link>https://xwi88.com/tags/devops/</link><description>devops - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Feb 2022 23:51:01 +0800</lastBuildDate><atom:link href="https://xwi88.com/tags/devops/" rel="self" type="application/rss+xml"/><item><title>Git 克隆非常慢问题的解决</title><link>https://xwi88.com/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://xwi88.com/git-clone-slowly-solve/</guid><description><![CDATA[<p>对于经常使用 github 的人来说，当我们进行 clone, fetch, pull, push 等等操作时，如果总是出现莫名的超时或者非常慢这是很让人捉急的，会严重影响效率，为此本文给出了几种解决方案。</p>
+<p>造成上述情况的原因是多方面的，最大的可能就是网络被限制了, 如: <code>github.global.ssl.fastly.net</code>。</p>
+<blockquote>
+<p>以项目 <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> clone 为例: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
+</blockquote>
+<h2 id="解决方案">解决方案</h2>
+<h3 id="github-镜像仓库">Github 镜像仓库</h3>
+<ul>
+<li><strong>浏览器搜索获取镜像地址替换后下载</strong>
+<ul>
+<li><code>https://hub.fastgit.org</code> (不保证可用)</li>
+<li><code>https://github.91chi.fun</code> (不保证可用)</li>
+</ul>
+</li>
+<li>浏览器安装插件: <strong>github 加速器</strong>, 通过此插件获取加速地址后 clone</li>
+<li><em>通过其他 git 存储库进行镜像 clone</em></li>
+<li><em>浏览器直接下载 zip</em></li>
+</ul>
+<h3 id="代理加速">代理加速</h3>
+<ul>
+<li><strong>proxy</strong> <em>不太推荐</em></li>
+<li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>推荐方案</strong>)</li>
+<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
+</ul>
+<h4 id="fastgithub">FastGithub</h4>
+<blockquote>
+<p>github 加速神器: 解决 github 打不开,用户头像无法加载,releases 无法上传下载, git-clone, git-pull, git-push 失败等问题。</p>
+</blockquote>
+<h5 id="功能">功能</h5>
+<ul>
+<li>提供域名的纯净 IP 解析；</li>
+<li>提供 IP 测速并选择最快的 IP；</li>
+<li>提供域名的 tls 连接自定义配置；</li>
+<li>google 的 CDN 资源替换，解决大量国外网站无法加载 js 和 cs s的问题；</li>
+</ul>
+<h5 id="安装配置">安装配置</h5>
+<blockquote>
+<ul>
+<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
+<li><a href="https://github.com/dotnetcore/fastgithub/releases" target="_blank" rel="noopener noreffer ">github-release</a></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># linux-x64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## terminal start</span>
+</span></span><span class="line"><span class="cl">sudo ./fastgithub
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## service start</span>
+</span></span><span class="line"><span class="cl">sudo ./fastgithub start // 以systemd服务安装并启动
+</span></span><span class="line"><span class="cl">sudo ./fastgithub stop  // 以systemd服务卸载并删除
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># macOS-x64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 1. start fastgithub</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## 2. install cacert/fastgithub.cer and set trustt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置系统自动代理为http://127.0.0.1:38457，或手动代理http/https为127.0.0.1:38457</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 证书验证</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 若 git 操作提示 SSL certificate problem</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 需要关闭 git 的证书验证：git config --global http.sslverify false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="安全性及合法性说明">安全性及合法性说明</h5>
+<blockquote>
+<p>以下内容摘录自 <a href="https://github.com/dotnetcore/FastGithub.README.md" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
+</blockquote>
+<p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
+<p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
+<h3 id="hosts-修改">Hosts 修改</h3>
+<blockquote>
+<p>主要是借助 <code>nslookup</code> or <code>dig</code> 获取域名对应的可访问 ip, 然后在 hosts 文件中加上 <code>ip–&gt;domain</code> 的映射，刷新 DNS 缓存便可。</p>
+</blockquote>
+<p>hosts 文件是 Linux 系统中一个负责 IP 地址与域名快速解析的文件,以 ASCII 格式保存在 /etc 目录下,文件名为 hosts (不同的 Linux 版本,这个配置文件也可能不同.比如 Debian 的对应文件是 /etc/hostname) hosts 文件包含了 IP 地址和主机名之间的映射,还包括主机名的别名.在没有域名服务器的情况下,系统上的所有网络程序都通过查询该文件来解析对应于某个主机名的 IP 地址,否则就需要使用 DNS 服务程序来解决.通常可以将常用的域名和 IP 地址映射加入到 hosts 文件中,实现快速方便的访问.</p>
+<blockquote>
+<ul>
+<li><code>nslookup github.global.ssl.fastly.net</code></li>
+<li><code>nslookup github.com</code></li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vi /etc/hosts</span>
+</span></span><span class="line"><span class="cl">xxx github.global.ssl.fastly.net
+</span></span><span class="line"><span class="cl">xx github.com 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># refresh DNS cache</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># linux</span>
+</span></span><span class="line"><span class="cl">sudo /etc/init.d/networking restart
+</span></span><span class="line"><span class="cl"><span class="c1"># or nscd -i hosts</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># arch linux</span>
+</span></span><span class="line"><span class="cl">/etc/rc.d/nscd restart
+</span></span><span class="line"><span class="cl"><span class="c1">## macos</span>
+</span></span><span class="line"><span class="cl">lookupd -flushcache
+</span></span><span class="line"><span class="cl"><span class="c1"># dscacheutil -flushcache</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item></channel></rss>
