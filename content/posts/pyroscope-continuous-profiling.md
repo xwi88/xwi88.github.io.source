@@ -7,7 +7,7 @@ draft: false
 
 description: "Pyroscope Go 性能数据持续收集分析"
 
-tags: ["go", "profiling"]
+tags: ["golang", "profiling"]
 categories: ["go"]
 
 toc:

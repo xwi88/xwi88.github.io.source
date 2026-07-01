@@ -7,7 +7,7 @@ draft: false
 
 description: "Go Kafka consumer group 使用示例及注意事项"
 
-tags: ["go", "kafka"]
+tags: ["golang", "kafka"]
 categories: ["go"]
 
 toc:

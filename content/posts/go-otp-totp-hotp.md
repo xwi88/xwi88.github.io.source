@@ -7,7 +7,7 @@ draft: false
 
 description: "Go 动态令牌 otp totp hotp"
 
-tags: ["go", "golang", "otp", "security"]
+tags: ["golang", "otp", "security"]
 categories: ["go"]
 
 toc:

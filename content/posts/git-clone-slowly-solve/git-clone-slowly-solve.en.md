@@ -8,7 +8,7 @@ author: "xwi88"
 authorLink: "https://github.com/xwi88"
 description: "Git Clone Slowly Solve"
 
-tags: ["git", "dev_ops"]
+tags: ["devops"]
 categories: ["git"]
 
 

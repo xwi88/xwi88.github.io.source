@@ -8,7 +8,7 @@ author: "xwi88"
 authorLink: "https://github.com/xwi88"
 description: "Git 克隆非常慢问题的解决"
 
-tags: ["git", "dev_ops"]
+tags: ["devops"]
 categories: ["git"]
 
 

@@ -7,7 +7,7 @@ draft: false
 
 description: "MacOS 上使用 minikube 替换 Docker Desktop"
 
-tags: ["docker", "k8s", "env"]
+tags: ["k8s", "env"]
 categories: ["docker"]
 
 toc:

@@ -6,7 +6,7 @@ lastmod: 2022-03-17T00:42:10+08:00
 draft: false
 
 description: "go 程序常用 kill 信号及捕获"
-tags: ["go", "golang", "signal"]
+tags: ["golang", "signal"]
 categories: ["go"]
 
 toc:

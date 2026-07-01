@@ -7,7 +7,7 @@ draft: false
 
 description: "dockerfile 指令小抄与镜像构建示例"
 
-tags: ["docker"]
+tags: ["cheat-sheet"]
 categories: ["docker"]
 
 toc:

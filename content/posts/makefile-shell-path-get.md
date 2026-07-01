@@ -7,7 +7,7 @@ draft: false
 
 description: "Makefile shell 中绝对路径的正确处理"
 
-tags: ["shell", "linux"]
+tags: ["shell"]
 categories: ["linux"]
 
 toc:

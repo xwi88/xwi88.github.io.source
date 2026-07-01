@@ -7,7 +7,7 @@ draft: false
 
 description: "ChatGPT 快乐使用指南，快速拥有属于你自己的 ChatGPT Web"
 
-tags: ["chatgpt", "ai"]
+tags: ["chatgpt"]
 categories: ["ai"]
 
 toc:

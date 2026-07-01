@@ -7,7 +7,7 @@ draft: false
 
 description: "我的常用 git 命令及配置"
 
-tags: ["git", "env"]
+tags: ["env"]
 categories: ["git"]
 
 toc:

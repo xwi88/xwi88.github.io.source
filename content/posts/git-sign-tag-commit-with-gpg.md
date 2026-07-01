@@ -7,7 +7,7 @@ draft: false
 
 description: "使用 gpg 对 git 的 tags 或 commits 进行签名及 gpg key 的更新、续期、过期问题处理"
 
-tags: ["git", "gpg"]
+tags: ["gpg"]
 categories: ["git"]
 
 toc:

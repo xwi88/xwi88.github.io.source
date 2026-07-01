@@ -7,7 +7,7 @@ draft: false
 
 description: "Go 对象池用法及优化-理论篇"
 
-tags: ["go", "性能优化"]
+tags: ["golang", "performance"]
 categories: ["go"]
 
 toc:

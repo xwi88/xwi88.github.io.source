@@ -6,7 +6,7 @@ lastmod: 2022-03-08T08:30:41+08:00
 draft: false
 
 description: "好用的 golang 多版本管理工具，轻松自由切换"
-tags: ["go", "golang"]
+tags: ["golang"]
 categories: ["go"]
 
 toc:
