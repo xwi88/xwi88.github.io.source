@@ -225,7 +225,7 @@ curl ${YOUR_PROXY_URL}/v1/chat/completions \
 {{< admonition example >}}
 
 ```bash
-curl https://api.openai-proxy.com/v1/chat/completions/v1/chat/completions \
+curl https://api.openai-proxy.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-xxxxxx" \
   -d '{
