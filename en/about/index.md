@@ -10,12 +10,12 @@
     <tr>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
         </a>
       </th>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
         </a>
       </th>
     </tr>
