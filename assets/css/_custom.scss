@@ -1,3 +1,31 @@
+// ===== multi-accent theme system (data-accent on <html>, localStorage 'accent') =====
+// default = indigo (also under :root so no-attribute = indigo)
+:root,
+:root[data-accent="indigo"] {
+    --accent-light: #4f46e5;
+    --accent-dark: #818cf8;
+    --accent-rgb: 79, 70, 229;
+    --accent-bg-dark: #1f1f23;
+}
+:root[data-accent="teal"] {
+    --accent-light: #0d9488;
+    --accent-dark: #2dd4bf;
+    --accent-rgb: 13, 148, 136;
+    --accent-bg-dark: #1a2b2a;
+}
+:root[data-accent="blue"] {
+    --accent-light: #2563eb;
+    --accent-dark: #60a5fa;
+    --accent-rgb: 37, 99, 235;
+    --accent-bg-dark: #0f172a;
+}
+:root[data-accent="green"] {
+    --accent-light: #059669;
+    --accent-dark: #34d399;
+    --accent-rgb: 5, 150, 105;
+    --accent-bg-dark: #14201b;
+}
+
 // ==============================
 // Custom style (project-level; overrides theme's empty _custom.scss)
 // 自定义样式
@@ -87,15 +115,16 @@ html {
 
 // text-selection accent
 ::selection {
-    background: rgba(45, 150, 209, 0.22);
+    background: rgba(var(--accent-rgb), 0.22);
 }
 body[theme="dark"] ::selection {
     background: rgba(169, 169, 179, 0.28);
 }
 
-// article reading comfort (taller line-height helps CJK)
+// article reading comfort
 .single .content {
-    line-height: 1.85;
+    font-size: 1.0625rem;    // 17px
+    line-height: 1.7;        // 收紧行距(原 1.85 偏松)
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
@@ -120,12 +149,12 @@ body[theme="dark"] ::selection {
 .single .content blockquote {
     margin: 1.3em 0;
     padding: 0.6em 1.2em;
-    border-left: 4px solid #2d96d1;
+    border-left: 4px solid var(--accent-light);
     background: rgba(125, 125, 125, 0.06);
     border-radius: 0 6px 6px 0;
 }
 body[theme="dark"] .single .content blockquote {
-    border-left-color: #5ab7e8;
+    border-left-color: var(--accent-dark);
 }
 
 // tables: clean borders + striped rows
@@ -166,7 +195,7 @@ body[theme="dark"] .single .content td {
 .single.summary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    border-color: rgba(45, 150, 209, 0.5);
+    border-color: rgba(var(--accent-rgb), 0.5);
 }
 body[theme="dark"] .single.summary {
     border-color: rgba(169, 169, 179, 0.2);
@@ -218,12 +247,12 @@ body[theme="dark"] .single .content hr {
     left: 0;
     height: 3px;
     width: 0;
-    background: #2d96d1;
+    background: var(--accent-light);
     z-index: 9998;
     transition: width 0.1s ease;
 }
 body[theme="dark"] #reading-progress {
-    background: #5ab7e8;
+    background: var(--accent-dark);
 }
 
 // image click-to-zoom overlay
@@ -283,7 +312,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-    outline: 2px solid #2d96d1;
+    outline: 2px solid var(--accent-light);
     outline-offset: 2px;
     border-radius: 3px;
 }
@@ -291,7 +320,7 @@ body[theme="dark"] a:focus-visible,
 body[theme="dark"] button:focus-visible,
 body[theme="dark"] input:focus-visible,
 body[theme="dark"] [tabindex]:focus-visible {
-    outline-color: #5ab7e8;
+    outline-color: var(--accent-dark);
 }
 
 // code block language label (top-right corner)
@@ -409,4 +438,179 @@ html {
     a {
         color: inherit;
     }
+}
+
+// ===== theme: Indigo accent — unify link color + deepen dark bg =====
+.single .content a,
+.summary a {
+    color: var(--accent-light);
+}
+body[theme="dark"] .single .content a,
+body[theme="dark"] .summary a {
+    color: var(--accent-dark);
+}
+// darker dark background pairs better with indigo (preview: var(--accent-bg-dark))
+body[theme="dark"] {
+    background-color: var(--accent-bg-dark);
+}
+body[theme="dark"] .single .content,
+body[theme="dark"] .page {
+    background-color: var(--accent-bg-dark);
+}
+
+// ===== accent theme switcher button (icon tinted with current accent) =====
+#accent-toggle {
+    color: var(--accent-light);
+}
+body[theme="dark"] #accent-toggle {
+    color: var(--accent-dark);
+}
+
+// ===== home post-card refinements =====
+// card excerpt: clamp to 3 lines so cards align regardless of length
+.single.summary .content {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+// meta line: muted, smaller — let the title dominate
+.single.summary .post-meta {
+    color: rgba(128, 128, 128, 0.85);
+    font-size: 0.85rem;
+}
+body[theme="dark"] .single.summary .post-meta {
+    color: rgba(169, 169, 179, 0.78);
+}
+// title hover -> accent
+.single.summary .single-title a:hover {
+    color: var(--accent-light);
+}
+// "阅读全文" read-more as a clear CTA button
+.single.summary .post-footer > a {
+    display: inline-block;
+    margin-top: 0.4em;
+    padding: 0.22em 0.85em;
+    border: 1px solid var(--accent-light);
+    border-radius: 5px;
+    color: var(--accent-light);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.single.summary .post-footer > a:hover {
+    background: var(--accent-light);
+    color: #fff;
+}
+
+// ===== header: glassmorphism + bottom hairline + menu hover =====
+#header-desktop,
+#header-mobile {
+    background-color: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+body[theme="dark"] #header-desktop,
+body[theme="dark"] #header-mobile {
+    background-color: rgba(31, 31, 35, 0.78);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+// menu links: accent on hover + active page
+.menu .menu-item > a {
+    transition: color 0.2s ease;
+}
+.menu .menu-item > a:hover,
+.menu .menu-item.active > a {
+    color: var(--accent-light);
+}
+body[theme="dark"] .menu .menu-item > a:hover,
+body[theme="dark"] .menu .menu-item.active > a {
+    color: var(--accent-dark);
+}
+
+// ===== menu layout: spacing + active/hover indicator + center =====
+// item spacing (a bit more breathing room)
+#header-desktop .menu .menu-item {
+    padding: 0 0.55rem;
+}
+// bottom indicator bar: grows from center on hover, stays open on active page
+#header-desktop .menu .menu-item::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 4px;
+    height: 2px;
+    background: var(--accent-light);
+    border-radius: 2px;
+    transition: left 0.2s ease, right 0.2s ease;
+}
+body[theme="dark"] #header-desktop .menu .menu-item::after {
+    background: var(--accent-dark);
+}
+#header-desktop .menu .menu-item:hover::after,
+#header-desktop .menu .menu-item.active::after {
+    left: 0.4rem;
+    right: 0.4rem;
+}
+// center the menu between logo (left) and actions (right) -> 3-segment feel
+#header-desktop .header-wrapper {
+    justify-content: space-between;
+}
+#header-desktop .header-title {
+    flex: 0 0 auto;
+}
+#header-desktop .menu {
+    margin: 0 auto;
+}
+
+// ===== A1: code block copy button =====
+.highlight {
+    position: relative;
+}
+.copy-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.2em 0.55em;
+    font-size: 0.8em;
+    color: rgba(128, 128, 128, 0.75);
+    background: rgba(128, 128, 128, 0.10);
+    border: 0;
+    border-radius: 0 8px 0 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    z-index: 2;
+}
+.highlight:hover .copy-btn { opacity: 1; }
+.copy-btn:hover { color: var(--accent-light); }
+// hide the lang label on hover so the copy button has room
+.highlight:hover .code-lang-label { opacity: 0; }
+.code-lang-label { transition: opacity 0.2s ease; }
+
+// ===== D10: article body width (~40 CJK chars/line, easier long-form reading) =====
+@media (min-width: 768px) {
+    .single .content {
+        max-width: 720px;
+    }
+}
+
+// ===== E12: footer polish =====
+.footer {
+    border-top: 1px solid rgba(128, 128, 128, 0.18);
+    margin-top: 3rem;
+}
+.footer a {
+    transition: color 0.2s ease;
+}
+.footer a:hover {
+    color: var(--accent-light);
+}
+body[theme="dark"] .footer {
+    border-top-color: rgba(169, 169, 179, 0.2);
+}
+body[theme="dark"] .footer a:hover {
+    color: var(--accent-dark);
 }

@@ -11,6 +11,8 @@
         {{- partial "head/meta.html" . -}}
         {{- partial "head/link.html" . -}}
         {{- partial "head/seo.html" . -}}
+        {{- /* accent theme: apply before body paint to avoid FOUC (default indigo) */ -}}
+        <script>document.documentElement.setAttribute('data-accent', (window.localStorage && localStorage.getItem('accent')) || 'indigo');</script>
     </head>
     <body data-header-desktop="{{ .Site.Params.header.desktopMode }}" data-header-mobile="{{ .Site.Params.header.mobileMode }}">
         {{- /* a11y: skip-to-content link (WCAG 2.4.1 Bypass Blocks). First focusable element. */ -}}
@@ -42,6 +44,11 @@
             {{- /* comment button */ -}}
             <a href="#" id="view-comments" class="fixed-button" title="{{ T `viewComments` }}">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+
+            {{- /* accent theme switcher (cycles indigo→teal→blue→green) */ -}}
+            <a href="#" id="accent-toggle" class="fixed-button" title="主题色 · 点击切换" aria-label="切换主题色">
+                <i class="fas fa-palette fa-fw" aria-hidden="true"></i>
             </a>
         </div>
 
@@ -147,6 +154,22 @@
                     label.textContent = lang;
                     h.appendChild(label);
                 }
+                // copy-to-clipboard button
+                var btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.type = 'button';
+                btn.setAttribute('aria-label', '复制代码');
+                btn.innerHTML = '<i class="fas fa-copy"></i>';
+                btn.addEventListener('click', function () {
+                    var txt = code ? code.innerText : '';
+                    function done() {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(function () { btn.innerHTML = '<i class="fas fa-copy"></i>'; }, 1500);
+                    }
+                    if (navigator.clipboard) { navigator.clipboard.writeText(txt).then(done, done); }
+                    else { done(); }
+                });
+                h.appendChild(btn);
             });
             // register service worker (PWA: offline reading + installable)
             if ('serviceWorker' in navigator) {
@@ -154,6 +177,37 @@
                     navigator.serviceWorker.register('/sw.js').catch(function () {});
                 });
             }
+        })();
+
+            {{- /* accent theme switcher (multi-color, remembered via localStorage 'accent') */ -}}
+            (function () {
+                var accents = ['indigo', 'teal', 'blue', 'green'];
+                var btn = document.getElementById('accent-toggle');
+                if (!btn) return;
+                function cur() { return document.documentElement.getAttribute('data-accent') || 'indigo'; }
+                function hint() { btn.title = '主题色 ' + cur() + ' · 点击切换'; }
+                hint();
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var nxt = accents[(accents.indexOf(cur()) + 1) % accents.length];
+                    document.documentElement.setAttribute('data-accent', nxt);
+                    try { localStorage.setItem('accent', nxt); } catch (err) {}
+                    hint();
+                });
+            })();
+        </script>
+
+        {{- /* mark current-page menu item as active (LoveIt doesn't, by default) */ -}}
+        <script>
+        (function () {
+            var here = location.pathname.replace(/\/index\.html$/, '').replace(/\/+$/, '');
+            document.querySelectorAll('#header-desktop .menu .menu-item > a').forEach(function (a) {
+                var href = a.getAttribute('href') || '';
+                var t = href.replace(/^https?:\/\/[^\/]+/, '').replace(/\/index\.html$/, '').replace(/\/+$/, '');
+                if (t && (t === here || here.indexOf(t + '/') === 0)) {
+                    a.parentElement.classList.add('active');
+                }
+            });
         })();
         </script>
     </body>
