@@ -3,6 +3,7 @@
 // by composing an SVG and rasterizing it with resvg (handles CJK OTF natively).
 // Output: public/og/<out>. Fonts cached in .cache/fonts/.
 import { readFile, writeFile, mkdir, existsSync } from 'node:fs';
+import { execFile } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -10,7 +11,8 @@ import { Resvg } from '@resvg/resvg-js';
 
 const readFileP = promisify(readFile);
 const writeFileP = promisify(writeFile);
-const mkdirP = promisify(mkdir);
+const execFileP = promisify(execFile);
+const mkdirP = (p) => promisify(mkdir)(p, { recursive: true });
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
@@ -21,17 +23,32 @@ const OUT_DIR = join(PUB, 'og');
 
 const W = 1200, H = 630;
 const FONT_FAMILY = 'Noto Sans CJK SC';
-const FONT_URL = (w) => `https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-${w}.otf`;
+// jsDelivr (not github raw) — it serves Git-LFS content, github raw doesn't.
+const FONT_URL = (w) => `https://cdn.jsdelivr.net/gh/notofonts/noto-cjk@main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-${w}.otf`;
+
+async function download(url, dest) {
+  // curl is robust with timeouts + resume + retries; fall back to fetch (timeout-guarded).
+  try {
+    await execFileP('curl', ['-sL', '--connect-timeout', '15', '--max-time', '180',
+      '--retry', '4', '--retry-all-errors', '-C', '-', '-o', dest, url]);
+    return;
+  } catch (_) { /* fall through to fetch */ }
+  const ctrl = new AbortController();
+  const to = setTimeout(() => ctrl.abort(), 180000);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    await writeFileP(dest, Buffer.from(await res.arrayBuffer()));
+  } finally { clearTimeout(to); }
+}
 
 async function ensureFonts() {
-  await mkdirP(FONT_DIR).catch(() => {});
+  await mkdirP(FONT_DIR);
   for (const w of ['Regular', 'Bold']) {
     const file = join(FONT_DIR, `NotoSansSC-${w}.otf`);
     if (!existsSync(file)) {
       process.stdout.write(`og: downloading NotoSansSC ${w}…\n`);
-      const res = await fetch(FONT_URL(w));
-      if (!res.ok) throw new Error(`font download failed (${w}): ${res.status}`);
-      await writeFileP(file, Buffer.from(await res.arrayBuffer()));
+      await download(FONT_URL(w), file);
     }
   }
   return [
@@ -122,7 +139,7 @@ async function main() {
   let n = 0;
   for (const c of cards) {
     const out = join(OUT_DIR, c.out);
-    await mkdirP(out.substring(0, out.lastIndexOf('/'))).catch(() => {});
+    await mkdirP(out.substring(0, out.lastIndexOf('/')));
     const svg = svgCard({ ...c, site });
     const png = new Resvg(svg, resvgOpts).render().asPng();
     await writeFileP(out, png);
