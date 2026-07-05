@@ -186,6 +186,21 @@
             }
         })();
 
+            // WeChat share: click → QR code (reuses #img-zoom overlay)
+            (function () {
+                var wx = document.getElementById('wechat-share');
+                if (!wx) return;
+                wx.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var url = wx.getAttribute('data-url') || location.href;
+                    var ov = document.getElementById('img-zoom');
+                    if (ov) {
+                        ov.querySelector('img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent(url);
+                        ov.hidden = false;
+                    }
+                });
+            })();
+
             {{- /* accent theme switcher (multi-color, remembered via localStorage 'accent') */ -}}
             (function () {
                 var accents = ['indigo', 'teal', 'blue', 'green'];

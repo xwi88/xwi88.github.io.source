@@ -110,6 +110,10 @@
 
         {{- /* Share buttons (LoveIt built-in, config params.page.share) */ -}}
         {{- partial "plugin/share.html" . -}}
+        {{- /* WeChat share (QR code — no web share API) */ -}}
+        <a href="javascript:void(0);" id="wechat-share" title="分享到微信(扫码)" data-url="{{ .Permalink }}">
+            {{- dict "Class" "fab fa-weixin fa-fw" | partial "plugin/icon.html" -}}
+        </a>
 
         {{- /* Related posts (by shared tags) */ -}}
         {{- with .Params.tags -}}
