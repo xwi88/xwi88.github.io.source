@@ -482,14 +482,6 @@ body[theme="dark"] .page {
     background-color: var(--accent-bg-dark);
 }
 
-// ===== accent theme switcher button (icon tinted with current accent) =====
-#accent-toggle {
-    color: var(--accent-light);
-}
-body[theme="dark"] #accent-toggle {
-    color: var(--accent-dark);
-}
-
 // ===== home post-card refinements =====
 // card excerpt: clamp to 3 lines so cards align regardless of length
 .single.summary .content {
@@ -661,49 +653,86 @@ body[theme="dark"] .fixed-button:hover {
     border-color: var(--accent-dark);
 }
 
-// ===== make the custom fixed buttons visible + stack them =====
-// LoveIt's .fixed-button base is display:none; only #back-to-top is shown by default.
-// #view-comments is hidden (display:none !important) elsewhere. Visible stack bottom-up:
-// back-to-top (1.5rem) → font-toggle (4.5rem) → accent-toggle (7.5rem, top, so its
-// popover has clear room above).
-#font-toggle   { display: block; bottom: 4.5rem; }
-#accent-toggle { display: block; bottom: 7.5rem; }
+// ===== header control buttons (palette + font) sit in the header menu now;
+// the bottom-right fixed-button copies were removed. No extra CSS needed — they
+// inherit .menu-item styling from the theme. Tint them with the current accent. =====
+.menu-item.accent-switch { color: var(--accent-light); }
+.menu-item.font-switch  { color: var(--accent-light); }
+body[theme="dark"] .menu-item.accent-switch,
+body[theme="dark"] .menu-item.font-switch { color: var(--accent-dark); }
 
-// ===== accent theme swatch popover (opens upward from #accent-toggle) =====
-// UX mirrors the resume site: a grid of gradient color chips; click to recolor + persist.
-.accent-popover {
+// ===== header dropdown popovers (palette + font) — drop down from the header =====
+.hdr-popover {
     position: fixed;
+    top: 4.2rem;            // just below the desktop header
     right: 1.5rem;
-    bottom: 10.5rem;
     z-index: 200;
-    padding: 0.7rem 0.85rem 0.6rem;
+    min-width: 11rem;
+    padding: 0.75rem 0.85rem 0.7rem;
     background: #fff;
     border: 1px solid rgba(128, 128, 128, 0.22);
     border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-    animation: accent-pop-in 0.16s ease-out;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+    animation: hdr-pop-in 0.16s ease-out;
 }
-body[theme="dark"] .accent-popover {
+body[theme="dark"] .hdr-popover {
     background: #25262b;
     border-color: rgba(169, 169, 179, 0.25);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
 }
-.accent-popover[hidden] { display: none; }
-.accent-popover-title {
+.hdr-popover[hidden] { display: none; }
+.hdr-popover-title {
     display: block;
     font-size: 0.72rem;
     color: rgba(128, 128, 128, 0.9);
-    margin: 0 0 0.55rem;
+    margin: 0 0 0.5rem;
     letter-spacing: 0.04em;
 }
+.font-popover .hdr-popover-title:not(:first-child) { margin-top: 0.7rem; }
+
+// appearance mode row (浅色 / 深色 / 跟随) — the standalone header theme-switch is
+// hidden (its function merged here); a hidden copy stays in the DOM so theme.js
+// still binds it and we can reuse its widget re-theme pipeline via .click().
+.menu-item.theme-switch { display: none !important; }
+.theme-modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+}
+.theme-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0;
+    font-size: 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(128, 128, 128, 0.95);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.theme-mode:hover { border-color: var(--accent-light); color: var(--accent-light); }
+.theme-mode.active { border-color: var(--accent-light); color: #fff; background: var(--accent-light); }
+body[theme="dark"] .theme-mode { color: rgba(169, 169, 179, 0.95); border-color: rgba(169, 169, 179, 0.28); }
+body[theme="dark"] .theme-mode:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body[theme="dark"] .theme-mode.active { border-color: var(--accent-dark); background: var(--accent-dark); color: #1f1f23; }
+.accent-popover .hdr-popover-title:not(:first-child) { margin-top: 0.7rem; }
+@keyframes hdr-pop-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+// accent swatches: grid of gradient chips
 .accent-swatches {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
 }
 .accent-swatch {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     border: 2px solid transparent;
     border-radius: 50%;
@@ -717,12 +746,87 @@ body[theme="dark"] .accent-popover {
     box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.25);
 }
 body[theme="dark"] .accent-swatch.active { border-color: var(--accent-dark); }
-@keyframes accent-pop-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+// accent custom color picker (native input type=color)
+.accent-custom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.18);
+    cursor: pointer;
 }
-@media (max-width: 575px) {
-    .accent-popover { right: 1rem; bottom: 9.5rem; }
+body[theme="dark"] .accent-custom { border-top-color: rgba(169, 169, 179, 0.22); }
+.accent-custom input[type="color"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 2px solid rgba(128, 128, 128, 0.3);
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+}
+.accent-custom input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+.accent-custom input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+.accent-custom input[type="color"]::-moz-color-swatch { border: none; border-radius: 50%; }
+.accent-custom-label { font-size: 0.8rem; color: rgba(128, 128, 128, 0.9); }
+.accent-custom.active input[type="color"] { border-color: var(--accent-light); }
+
+// font sizes: 5 chips (XS S M L XL)
+.font-sizes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.35rem;
+}
+.font-size {
+    padding: 0.4rem 0;
+    font-size: 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(128, 128, 128, 0.95);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.font-size:nth-child(1) { font-size: 0.7rem; }
+.font-size:nth-child(2) { font-size: 0.8rem; }
+.font-size:nth-child(3) { font-size: 0.92rem; }
+.font-size:nth-child(4) { font-size: 1.05rem; }
+.font-size:nth-child(5) { font-size: 1.18rem; }
+.font-size:hover { border-color: var(--accent-light); color: var(--accent-light); }
+.font-size.active { border-color: var(--accent-light); color: #fff; background: var(--accent-light); }
+body[theme="dark"] .font-size { color: rgba(169, 169, 179, 0.95); border-color: rgba(169, 169, 179, 0.28); }
+body[theme="dark"] .font-size:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body[theme="dark"] .font-size.active { border-color: var(--accent-dark); background: var(--accent-dark); color: #1f1f23; }
+
+// font family toggle (无衬线 / 衬线)
+.font-families {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+}
+.font-family {
+    padding: 0.4rem 0;
+    font-size: 0.82rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(128, 128, 128, 0.95);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.font-family[data-ff="serif"] { font-family: Georgia, "Times New Roman", serif; }
+.font-family:hover { border-color: var(--accent-light); color: var(--accent-light); }
+.font-family.active { border-color: var(--accent-light); color: #fff; background: var(--accent-light); }
+body[theme="dark"] .font-family { color: rgba(169, 169, 179, 0.95); border-color: rgba(169, 169, 179, 0.28); }
+body[theme="dark"] .font-family:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body[theme="dark"] .font-family.active { border-color: var(--accent-dark); background: var(--accent-dark); color: #1f1f23; }
+
+@media (max-width: 768px) {
+    .hdr-popover { right: 0.75rem; top: 3.6rem; }   // drop below mobile header
 }
 
 // ===== breathing room for the tags / back-home row (was flush to container edges) =====
@@ -767,12 +871,17 @@ body[theme="dark"] .single.summary {
     background-color: #25262b;
 }
 
-// ===== font scale toggle (small/normal/large) =====
-:root[data-fontscale="0"] .single .content { font-size: 0.95rem; }
-:root[data-fontscale="2"] .single .content { font-size: 1.2rem; }
-// data-fontscale="1" = default 1.0625rem (existing rule)
-#font-toggle { color: var(--accent-light); }
-body[theme="dark"] #font-toggle { color: var(--accent-dark); }
+// ===== font scale (5 levels: XS / S / M / L / XL) + family (sans / serif) =====
+// M (data-fontscale="2") == default 1.0625rem, also the base .single .content size.
+:root[data-fontscale="0"] .single .content { font-size: 0.88rem; }   // XS
+:root[data-fontscale="1"] .single .content { font-size: 0.97rem; }   // S
+:root[data-fontscale="2"] .single .content { font-size: 1.0625rem; } // M (default)
+:root[data-fontscale="3"] .single .content { font-size: 1.18rem; }   // L
+:root[data-fontscale="4"] .single .content { font-size: 1.32rem; }   // XL
+// serif family for article body (衬线) — opt-in via data-fontfamily="serif"
+:root[data-fontfamily="serif"] .single .content {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", Georgia, "Times New Roman", serif;
+}
 
 // post-nav → related-posts ordering is now guaranteed by the flexbox post-nav
 // above (flex items ignore float, so no wrap-up). clear:both is belt-and-suspenders.
