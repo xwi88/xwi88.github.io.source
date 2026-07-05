@@ -2,6 +2,12 @@
 {{- $desc := $params.description | default .Site.Params.description -}}
 {{- $ogTitle := .Title | default .Site.Title -}}
 {{- $images := .Params.images | default .Site.Params.images -}}
+{{- /* Per-post generated OG card (scripts/og/gen-cards.mjs) takes precedence;
+     falls back to front-matter images, then site default. */ -}}
+{{- $ogCard := "" -}}
+{{- if and (eq .Type "posts") (not .Params.ogImageOff) -}}
+    {{- $ogCard = printf "/og/%s.png" (trim (path.Clean .RelPermalink) "/") -}}
+{{- end -}}
 <meta name="Description" content="{{ $desc }}">
 <meta property="og:title" content="{{ $ogTitle }}">
 <meta property="og:description" content="{{ $desc }}">
@@ -9,8 +15,12 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:locale" content="{{ replace .Site.Language.Lang "-" "_" }}">
+{{- if $ogCard -}}
+<meta property="og:image" content="{{ $ogCard | absURL }}">
+{{- else -}}
 {{- range first 6 $images }}
 <meta property="og:image" content="{{ . | absURL }}">{{- end -}}
+{{- end -}}
 {{- if .IsPage -}}
 {{- with .Params.author | default .Site.Author.name }}<meta property="article:author" content="{{ . }}">{{- end -}}
 {{- with .Type }}<meta property="article:section" content="{{ . }}">{{- end -}}
@@ -22,7 +32,11 @@
 <meta name="twitter:title" content="{{ $ogTitle }}">
 <meta name="twitter:description" content="{{ $desc }}">
 {{- with .Site.Params.social.Twitter }}<meta name="twitter:site" content="@{{ . }}">{{- end -}}
+{{- if $ogCard -}}
+<meta name="twitter:image" content="{{ $ogCard | absURL }}">
+{{- else -}}
 {{- range first 1 $images }}<meta name="twitter:image" content="{{ . | absURL }}">{{- end -}}
+{{- end -}}
 <meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
 <meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
 {{- /* theme-color: split by prefers-color-scheme so mobile browser chrome matches the site's light/dark mode (light = configured value, dark = LoveIt dark background #292a2d). */ -}}

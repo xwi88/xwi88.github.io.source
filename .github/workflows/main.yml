@@ -46,6 +46,25 @@ jobs:
       - name: Build
         run: hugo
 
+      # generate per-post OG social-share cards (SVG + resvg; CJK-capable).
+      # Runs after `hugo` so public/og-cards.json exists; output goes to public/og/.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Cache OG generator (deps + fonts)
+        uses: actions/cache@v4
+        with:
+          path: |
+            scripts/og/node_modules
+            scripts/og/.cache
+          key: og-${{ runner.os }}-${{ hashFiles('scripts/og/package.json') }}
+      - name: Install OG generator
+        working-directory: scripts/og
+        run: npm ci --no-audit --no-fund
+      - name: Build OG cards
+        working-directory: scripts/og
+        run: node gen-cards.mjs
+
       # build the static search index (Pagefind) into public/pagefind/.
       # Replaces the deleted Algolia step (apps were NXDOMAIN). Chinese-aware.
       - name: Build search index (Pagefind)

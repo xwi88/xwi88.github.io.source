@@ -54,6 +54,12 @@ linkcheck:
 	@${HUGO} --quiet 2>/dev/null || true
 	@bash ${BASEDIR}/scripts/linkcheck.sh ${BASEDIR}/public
 
+# Generate per-post OG social-share cards into public/og/. Requires the site built
+# first (emits public/og-cards.json). Runs `npm ci` once in scripts/og.
+og:
+	@${HUGO} --quiet 2>/dev/null || true
+	@cd ${BASEDIR}/scripts/og && (npm ci --no-audit --no-fund 2>/dev/null || npm install --no-audit --no-fund) && node gen-cards.mjs
+
 # Re-minify the project copy of theme.js (optional dev utility).
 # Guarded: no-op unless both `uglifyjs` and src/js/theme.js exist.
 # Note: theme JS normally ships via the theme submodule (themes/LoveIt/assets/js),

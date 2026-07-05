@@ -1,0 +1,13 @@
+{
+  "name": "og-cards",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build-time OG social-share card generator (satori + resvg). Reads the Hugo-emitted manifest and renders a 1200x630 PNG per post.",
+  "type": "module",
+  "scripts": {
+    "gen": "node gen-cards.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}

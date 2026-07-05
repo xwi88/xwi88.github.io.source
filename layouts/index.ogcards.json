@@ -1,0 +1,8 @@
+{{- /* OG-card manifest: consumed by scripts/og/gen-cards.mjs to render per-post
+     social-share PNGs. Lists every post with its title, output path, tags, date. */ -}}
+{{- $cards := slice -}}
+{{- range where .Site.RegularPages "Section" "posts" -}}
+    {{- $out := printf "%s.png" (trim (path.Clean .RelPermalink) "/") -}}
+    {{- $cards = $cards | append (dict "title" .Title "out" $out "url" .RelPermalink "date" (.PublishDate.Format "2006-01-02") "tags" (.Params.tags | default slice)) -}}
+{{- end -}}
+{{- (dict "site" .Site.Title "cards" $cards) | jsonify -}}

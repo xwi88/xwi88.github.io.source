@@ -1047,10 +1047,18 @@ enableEmoji = true
   isPlainText = true
   isHTML = false
 
+# OG social-card manifest: a JSON list of posts (title/permalink/tags/date) consumed
+# by scripts/og/gen-cards.mjs to rasterize per-post share images at build time.
+[outputFormats.ogcards]
+  mediaType = "application/json"
+  baseName = "og-cards"
+  isPlainText = true
+  isHTML = false
+
 # Options to make hugo output files
 # 用于 Hugo 输出文档的设置
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON", "ogcards"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
   # Modern Hugo kinds (0.112+): `taxonomy` = taxonomy index (/tags/); `term` = single term page (/tags/go/)
