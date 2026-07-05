@@ -638,10 +638,14 @@ body[theme="dark"] .fixed-button:hover {
 }
 
 // ===== post-nav (prev/next): card style with hover accent =====
+// caps each card at half width (minus gap) so the floated prev/next pair can never
+// collide or wrap awkwardly; long titles wrap inside the card instead of pushing out.
 .post-nav a {
     border: 1px solid rgba(128, 128, 128, 0.18);
     border-radius: 8px;
     padding: 0.6em 1em;
+    box-sizing: border-box;
+    max-width: calc(50% - 0.4rem);
     transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .post-nav a:hover {
@@ -674,4 +678,18 @@ body[theme="dark"] #font-toggle { color: var(--accent-dark); }
 // fix: more space between post-nav and related-posts
 .related-posts {
     margin-top: 3rem !important;
+}
+
+// responsive: stack prev/next cards vertically on narrow screens.
+// undo LoveIt's float layout so the two cards never collide, and lift the
+// cap so related-posts sits flush below instead of wrapping into the float gap.
+@media (max-width: 575px) {
+    .post-nav a.prev,
+    .post-nav a.next {
+        float: none;
+        display: block;
+        max-width: 100%;
+        margin: 0 0 0.6rem;
+        text-align: left;
+    }
 }
