@@ -534,8 +534,8 @@ body[theme="dark"] .menu .menu-item.active > a {
 #header-desktop .menu .menu-item {
     padding: 0 0.55rem;
 }
-// bottom indicator bar: grows from center on hover, stays open on active page
-#header-desktop .menu .menu-item::after {
+// bottom indicator bar: only on real nav items (not delimiter/language/theme-switch/search)
+#header-desktop .menu .menu-item:not(.delimiter):not(.language):not(.theme-switch):not(.search)::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -546,10 +546,10 @@ body[theme="dark"] .menu .menu-item.active > a {
     border-radius: 2px;
     transition: left 0.2s ease, right 0.2s ease;
 }
-body[theme="dark"] #header-desktop .menu .menu-item::after {
+body[theme="dark"] #header-desktop .menu .menu-item:not(.delimiter):not(.language):not(.theme-switch):not(.search)::after {
     background: var(--accent-dark);
 }
-#header-desktop .menu .menu-item:hover::after,
+#header-desktop .menu .menu-item:not(.delimiter):not(.language):not(.theme-switch):not(.search):hover::after,
 #header-desktop .menu .menu-item.active::after {
     left: 0.4rem;
     right: 0.4rem;
