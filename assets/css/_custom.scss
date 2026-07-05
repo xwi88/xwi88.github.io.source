@@ -934,3 +934,39 @@ body[theme="dark"] .single.summary {
     clear: both;
     margin-top: 3rem !important;
 }
+
+// ===== weighted tag cloud (/tags/): accent-tinted pills sized by post count =====
+.tag-cloud-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1;
+}
+.tag-cloud-tags a {
+    display: inline-block;
+    padding: 0.28em 0.7em;
+    border-radius: 1rem;
+    background: rgba(var(--accent-rgb), 0.06);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
+    text-decoration: none !important;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.tag-cloud-tags a sup {
+    font-size: 0.68em;
+    opacity: 0.55;
+    margin-left: 0.18em;
+}
+.tag-cloud-tags a:hover {
+    color: var(--accent-light) !important;
+    border-color: var(--accent-light);
+    background: rgba(var(--accent-rgb), 0.16);
+    transform: translateY(-2px);
+}
+body[theme="dark"] .tag-cloud-tags a:hover { color: var(--accent-dark) !important; border-color: var(--accent-dark); }
+// tier-based sizing: popular tags read larger and bolder (the actual "cloud" effect)
+.tag-cloud-tags .cloud-tier-1 { font-size: 0.82rem; opacity: 0.78; }
+.tag-cloud-tags .cloud-tier-2 { font-size: 0.95rem; opacity: 0.88; }
+.tag-cloud-tags .cloud-tier-3 { font-size: 1.1rem; }
+.tag-cloud-tags .cloud-tier-4 { font-size: 1.32rem; font-weight: 500; }
+.tag-cloud-tags .cloud-tier-5 { font-size: 1.6rem; font-weight: 600; }
