@@ -595,3 +595,26 @@ body[theme="dark"] .footer {
 body[theme="dark"] .footer a:hover {
     color: var(--accent-dark);
 }
+
+// ===== code highlight: Dracula theme (deep code blocks, popular for tech blogs) =====
+.highlight {
+    background: #282a36 !important;
+}
+.chroma {
+    color: #f8f8f2;
+    background: #282a36;
+    .c, .cm, .c1, .cs, .ch { color: #6272a4; font-style: italic; }   /* comments */
+    .k, .kc, .kd, .kn, .kp, .kr, .kt, .ow { color: #ff79c6; }          /* keywords */
+    .s, .sa, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .s1, .ss { color: #f1fa8c; } /* strings */
+    .nf, .fm, .nd, .ni { color: #50fa7b; }                             /* functions */
+    .m, .mb, .mf, .mh, .mi, .il, .mo { color: #bd93f9; }              /* numbers */
+    .nc, .nn, .nt, .nv, .vc, .vg, .vi, .bp { color: #8be9fd; }        /* types/vars */
+    .kr, .kv { color: #ff79c6; }
+    .o { color: #ff79c6; }
+    .err { color: #ff5555; background: transparent; }
+    .lnlinks { color: #8be9fd; }
+}
+// keep lang label + copy button readable on the dark code block
+.code-lang-label { background: rgba(248,248,242,0.10); color: rgba(248,248,242,0.75); }
+.copy-btn { background: rgba(248,248,242,0.10); color: rgba(248,248,242,0.75); }
+.copy-btn:hover { color: #bd93f9; }
