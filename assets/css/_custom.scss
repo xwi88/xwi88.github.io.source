@@ -695,17 +695,19 @@ body[theme="dark"] .hdr-popover {
 // still binds it and we can reuse its widget re-theme pipeline via .click().
 .menu-item.theme-switch { display: none !important; }
 .theme-modes {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.35rem;
 }
 .theme-mode {
+    flex: 1 1 auto;
+    min-width: 2.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.2rem;
-    padding: 0.35rem 0;
+    padding: 0.35rem 0.2rem;
     font-size: 0.72rem;
     border: 1px solid rgba(128, 128, 128, 0.25);
     border-radius: 8px;
@@ -735,6 +737,16 @@ body[data-variant="sepia"] .footer { background-color: #efe4c6 !important; }
 body[data-variant="sepia"] .highlight,
 body[data-variant="sepia"] pre { background-color: #ece0c0 !important; }
 body[data-variant="sepia"] blockquote { border-left-color: #c9b78f !important; color: #6b5640 !important; }
+// 护眼 green (over light): classic 豆沙绿 eye-care background
+body[data-variant="green"] { background-color: #cce8cf !important; color: #33402f; }
+body[data-variant="green"] header { background-color: #bfe0c4 !important; }
+body[data-variant="green"] .single .content,
+body[data-variant="green"] .page,
+body[data-variant="green"] .single.summary { background-color: #d8efe0 !important; }
+body[data-variant="green"] .footer { background-color: #bfe0c4 !important; }
+body[data-variant="green"] .highlight,
+body[data-variant="green"] pre { background-color: #c2e0c8 !important; }
+body[data-variant="green"] blockquote { border-left-color: #8fc2a0 !important; color: #3e4f3a !important; }
 // 纯黑 oled (over dark): true black saves battery on OLED panels
 body[theme="dark"][data-variant="oled"] { background-color: #000 !important; }
 body[theme="dark"][data-variant="oled"] header { background-color: #000 !important; }
@@ -743,6 +755,14 @@ body[theme="dark"][data-variant="oled"] .page,
 body[theme="dark"][data-variant="oled"] .single.summary { background-color: #0a0a0a !important; }
 body[theme="dark"][data-variant="oled"] .footer { background-color: #050505 !important; }
 body[theme="dark"][data-variant="oled"] .highlight { background-color: #0c0d12 !important; }
+// 夜蓝 navy (over dark): cool midnight-blue, gentler than pure black
+body[theme="dark"][data-variant="navy"] { background-color: #0f172a !important; }
+body[theme="dark"][data-variant="navy"] header { background-color: #0f172a !important; }
+body[theme="dark"][data-variant="navy"] .single .content,
+body[theme="dark"][data-variant="navy"] .page,
+body[theme="dark"][data-variant="navy"] .single.summary { background-color: #131e34 !important; }
+body[theme="dark"][data-variant="navy"] .footer { background-color: #0b1322 !important; }
+body[theme="dark"][data-variant="navy"] .highlight { background-color: #0c1424 !important; }
 @keyframes hdr-pop-in {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: translateY(0); }

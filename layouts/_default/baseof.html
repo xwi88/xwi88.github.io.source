@@ -44,7 +44,7 @@
         {{- $theme := .Site.Params.defaulttheme -}}
         <script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('{{ $theme }}' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '{{ $theme }}' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
         {{- /* appearance variant (米黄/纯黑) applied before paint to avoid flash */ -}}
-        <script type="text/javascript">(function(){try{var a=localStorage.getItem('appearance');if(a==='sepia'||a==='oled')document.body.setAttribute('data-variant',a);}catch(e){}})();</script>
+        <script type="text/javascript">(function(){try{var a=localStorage.getItem('appearance');if({sepia:1,green:1,oled:1,navy:1}[a])document.body.setAttribute('data-variant',a);}catch(e){}})();</script>
 
         <div id="mask"></div>
 
@@ -78,8 +78,10 @@
             <div class="theme-modes" id="theme-modes">
                 <button type="button" class="theme-mode" data-mode="light" title="浅色"><i class="fas fa-sun fa-fw" aria-hidden="true"></i>浅色</button>
                 <button type="button" class="theme-mode" data-mode="sepia" title="米黄(护眼)"><i class="fas fa-book-open fa-fw" aria-hidden="true"></i>米黄</button>
+                <button type="button" class="theme-mode" data-mode="green" title="护眼绿(豆沙绿)"><i class="fas fa-leaf fa-fw" aria-hidden="true"></i>护眼</button>
                 <button type="button" class="theme-mode" data-mode="dark" title="深色"><i class="fas fa-moon fa-fw" aria-hidden="true"></i>深色</button>
                 <button type="button" class="theme-mode" data-mode="oled" title="纯黑(OLED)"><i class="fas fa-circle fa-fw" aria-hidden="true"></i>纯黑</button>
+                <button type="button" class="theme-mode" data-mode="navy" title="午夜蓝(护眼深色)"><i class="fas fa-water fa-fw" aria-hidden="true"></i>夜蓝</button>
                 <button type="button" class="theme-mode" data-mode="auto" title="跟随系统"><i class="fas fa-desktop fa-fw" aria-hidden="true"></i>跟随</button>
             </div>
             <span class="hdr-popover-title">主题配色</span>
@@ -277,20 +279,32 @@
                     var btns = document.querySelectorAll(opts.btnSel);
                     var pop = document.getElementById(opts.popId);
                     if (!btns.length || !pop) return;
-                    function close() { pop.hidden = true; }
-                    function open()  { document.querySelectorAll('.hdr-popover').forEach(function (p) { p.hidden = true; }); pop.hidden = false; opts.onOpen && opts.onOpen(); }
+                    var timer = null, DELAY = 3000;   // auto-close 3s after the pointer leaves / last click
+                    function close() { clearTimeout(timer); pop.hidden = true; }
+                    function arm()   { clearTimeout(timer); timer = setTimeout(function () { pop.hidden = true; }, DELAY); }
+                    function open()  {
+                        document.querySelectorAll('.hdr-popover').forEach(function (p) { p.hidden = true; });
+                        clearTimeout(timer); pop.hidden = false; opts.onOpen && opts.onOpen();
+                    }
                     btns.forEach(function (b) {
-                        b.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            pop.hidden ? open() : close();
-                        });
+                        b.addEventListener('click', function (e) { e.preventDefault(); pop.hidden ? open() : close(); });
                     });
+                    // hover over popover or trigger keeps it open; leaving arms the auto-close
+                    function keep() { clearTimeout(timer); }
+                    function left() { if (!pop.hidden) arm(); }
+                    [pop].concat([].slice.call(btns)).forEach(function (el) {
+                        el.addEventListener('mouseenter', keep);
+                        el.addEventListener('mouseleave', left);
+                    });
+                    // each selection inside resets the window so users can try several options
+                    pop.addEventListener('click', function () { if (!pop.hidden) arm(); });
+                    // outside click arms auto-close (not instant) per "几秒后退出"
                     document.addEventListener('click', function (e) {
                         if (pop.hidden) return;
                         var t = e.target;
                         if (pop.contains(t)) return;
                         if ([].some.call(btns, function (b) { return b === t || b.contains(t); })) return;
-                        close();
+                        arm();
                     });
                     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
                     return { open: open, close: close };
@@ -345,8 +359,10 @@
                     pop.querySelectorAll('.theme-mode').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-mode') === m); });
                 }
                 function setMode(mode) {
-                    var variant = (mode === 'sepia') ? 'sepia' : (mode === 'oled') ? 'oled' : '';
-                    var theme = (mode === 'dark' || mode === 'oled') ? 'dark'
+                    var darkVariants = { oled: 'oled', navy: 'navy' };
+                    var lightVariants = { sepia: 'sepia', green: 'green' };
+                    var variant = darkVariants[mode] || lightVariants[mode] || '';
+                    var theme = (mode === 'dark' || mode in darkVariants) ? 'dark'
                         : (mode === 'auto') ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
                         : 'light';
                     var curDark = document.body.getAttribute('theme') === 'dark';
