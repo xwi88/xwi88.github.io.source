@@ -636,3 +636,18 @@ body[theme="dark"] .fixed-button:hover {
     color: var(--accent-dark);
     border-color: var(--accent-dark);
 }
+
+// ===== post-nav (prev/next): card style with hover accent =====
+.post-nav a {
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 8px;
+    padding: 0.6em 1em;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.post-nav a:hover {
+    border-color: var(--accent-light);
+    color: var(--accent-light);
+    transform: translateY(-2px);
+}
+body[theme="dark"] .post-nav a { border-color: rgba(169, 169, 179, 0.2); }
+body[theme="dark"] .post-nav a:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
