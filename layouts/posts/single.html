@@ -112,7 +112,11 @@
         {{- partial "plugin/share.html" . -}}
         {{- /* WeChat share (QR code — no web share API) */ -}}
         <a href="javascript:void(0);" id="wechat-share" title="分享到微信(扫码)" data-url="{{ .Permalink }}">
-            {{- dict "Class" "fab fa-weixin fa-fw" | partial "plugin/icon.html" -}}
+            {{- dict "Class" "fas fa-comment-dots fa-fw" | partial "plugin/icon.html" -}}
+        </a>
+        {{- /* Baidu share (custom: FA icon, sharer.js handles data-sharer=baidu) */ -}}
+        <a href="javascript:void(0);" title="分享到百度" data-sharer="baidu" data-url="{{ .Permalink }}" data-title="{{ .Title }}">
+            {{- dict "Class" "fas fa-search fa-fw" | partial "plugin/icon.html" -}}
         </a>
 
         {{- /* Related posts (by shared tags) */ -}}
