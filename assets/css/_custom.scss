@@ -670,3 +670,8 @@ body[theme="dark"] #font-toggle { color: var(--accent-dark); }
 .post-nav {
     margin-bottom: 1.5rem;
 }
+
+// fix: more space between post-nav and related-posts
+.related-posts {
+    margin-top: 3rem !important;
+}
