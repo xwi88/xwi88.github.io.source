@@ -25,6 +25,30 @@
     --accent-rgb: 5, 150, 105;
     --accent-bg-dark: #14201b;
 }
+:root[data-accent="purple"] {
+    --accent-light: #7c3aed;
+    --accent-dark: #a78bfa;
+    --accent-rgb: 124, 58, 237;
+    --accent-bg-dark: #221a3a;
+}
+:root[data-accent="rose"] {
+    --accent-light: #e11d48;
+    --accent-dark: #fb7185;
+    --accent-rgb: 225, 29, 72;
+    --accent-bg-dark: #2a1518;
+}
+:root[data-accent="amber"] {
+    --accent-light: #d97706;
+    --accent-dark: #fbbf24;
+    --accent-rgb: 217, 119, 6;
+    --accent-bg-dark: #2a1f0f;
+}
+:root[data-accent="slate"] {
+    --accent-light: #475569;
+    --accent-dark: #94a3b8;
+    --accent-rgb: 71, 85, 105;
+    --accent-bg-dark: #1e242c;
+}
 
 // ==============================
 // Custom style (project-level; overrides theme's empty _custom.scss)
@@ -636,6 +660,73 @@ body[theme="dark"] .fixed-button:hover {
     color: var(--accent-dark);
     border-color: var(--accent-dark);
 }
+
+// ===== make the custom fixed buttons visible + stack them =====
+// LoveIt's .fixed-button base is display:none; only #back-to-top is shown by default.
+// #view-comments is hidden (display:none !important) elsewhere. Visible stack bottom-up:
+// back-to-top (1.5rem) → font-toggle (4.5rem) → accent-toggle (7.5rem, top, so its
+// popover has clear room above).
+#font-toggle   { display: block; bottom: 4.5rem; }
+#accent-toggle { display: block; bottom: 7.5rem; }
+
+// ===== accent theme swatch popover (opens upward from #accent-toggle) =====
+// UX mirrors the resume site: a grid of gradient color chips; click to recolor + persist.
+.accent-popover {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 10.5rem;
+    z-index: 200;
+    padding: 0.7rem 0.85rem 0.6rem;
+    background: #fff;
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    animation: accent-pop-in 0.16s ease-out;
+}
+body[theme="dark"] .accent-popover {
+    background: #25262b;
+    border-color: rgba(169, 169, 179, 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.accent-popover[hidden] { display: none; }
+.accent-popover-title {
+    display: block;
+    font-size: 0.72rem;
+    color: rgba(128, 128, 128, 0.9);
+    margin: 0 0 0.55rem;
+    letter-spacing: 0.04em;
+}
+.accent-swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+.accent-swatch {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: var(--sw);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.accent-swatch:hover { transform: scale(1.15); }
+.accent-swatch.active {
+    border-color: var(--accent-light);
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.25);
+}
+body[theme="dark"] .accent-swatch.active { border-color: var(--accent-dark); }
+@keyframes accent-pop-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 575px) {
+    .accent-popover { right: 1rem; bottom: 9.5rem; }
+}
+
+// ===== breathing room for the tags / back-home row (was flush to container edges) =====
+.post-info-more { padding-left: 0.4rem; padding-right: 0.4rem; }
 
 // ===== post-nav (prev/next): flexbox layout (deterministic order) =====
 // Making .post-nav a flex container neutralizes LoveIt's float:left/right on the

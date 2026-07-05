@@ -59,6 +59,22 @@
             </a>
         </div>
 
+        {{- /* accent theme swatch popover (opens from #accent-toggle; UX mirrors the
+             resume site: a row of gradient color chips, click to recolor the whole site) */ -}}
+        <div id="accent-popover" class="accent-popover" hidden role="dialog" aria-label="主题配色">
+            <span class="accent-popover-title">主题配色</span>
+            <div class="accent-swatches" id="accent-swatches">
+                <button type="button" class="accent-swatch" data-accent="indigo"  title="靛蓝 Indigo"  style="--sw:linear-gradient(135deg,#4f46e5,#818cf8)"></button>
+                <button type="button" class="accent-swatch" data-accent="teal"    title="青色 Teal"    style="--sw:linear-gradient(135deg,#0d9488,#2dd4bf)"></button>
+                <button type="button" class="accent-swatch" data-accent="blue"    title="蓝色 Blue"    style="--sw:linear-gradient(135deg,#2563eb,#60a5fa)"></button>
+                <button type="button" class="accent-swatch" data-accent="green"   title="绿色 Green"   style="--sw:linear-gradient(135deg,#059669,#34d399)"></button>
+                <button type="button" class="accent-swatch" data-accent="purple"  title="紫色 Purple"  style="--sw:linear-gradient(135deg,#7c3aed,#a78bfa)"></button>
+                <button type="button" class="accent-swatch" data-accent="rose"    title="玫红 Rose"    style="--sw:linear-gradient(135deg,#e11d48,#fb7185)"></button>
+                <button type="button" class="accent-swatch" data-accent="amber"   title="琥珀 Amber"   style="--sw:linear-gradient(135deg,#d97706,#fbbf24)"></button>
+                <button type="button" class="accent-swatch" data-accent="slate"   title="石板 Slate"   style="--sw:linear-gradient(135deg,#475569,#94a3b8)"></button>
+            </div>
+        </div>
+
         {{- /* Load JavaScript scripts and CSS */ -}}
         {{- partial "assets.html" . -}}
 
@@ -213,21 +229,38 @@
                 c.appendChild(bd);
             })();
 
-            {{- /* accent theme switcher (multi-color, remembered via localStorage 'accent') */ -}}
+            {{- /* accent theme swatch popover: click palette icon to open a row of color
+                 chips (mirrors resume site UX); click a chip to recolor + persist. */ -}}
             (function () {
-                var accents = ['indigo', 'teal', 'blue', 'green'];
                 var btn = document.getElementById('accent-toggle');
-                if (!btn) return;
+                var pop = document.getElementById('accent-popover');
+                if (!btn || !pop) return;
+                var swatches = pop.querySelectorAll('.accent-swatch');
                 function cur() { return document.documentElement.getAttribute('data-accent') || 'indigo'; }
-                function hint() { btn.title = '主题色 ' + cur() + ' · 点击切换'; }
-                hint();
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var nxt = accents[(accents.indexOf(cur()) + 1) % accents.length];
-                    document.documentElement.setAttribute('data-accent', nxt);
-                    try { localStorage.setItem('accent', nxt); } catch (err) {}
-                    hint();
+                function sync() {
+                    var c = cur();
+                    swatches.forEach(function (s) {
+                        s.classList.toggle('active', s.getAttribute('data-accent') === c);
+                    });
+                    btn.title = '主题配色 · 当前 ' + c;
+                }
+                function open()  { pop.hidden = false; sync(); }
+                function close() { pop.hidden = true; }
+                function toggle() { pop.hidden ? open() : close(); }
+                btn.addEventListener('click', function (e) { e.preventDefault(); toggle(); });
+                swatches.forEach(function (s) {
+                    s.addEventListener('click', function () {
+                        var a = s.getAttribute('data-accent');
+                        document.documentElement.setAttribute('data-accent', a);
+                        try { localStorage.setItem('accent', a); } catch (err) {}
+                        sync(); close();
+                    });
                 });
+                document.addEventListener('click', function (e) {
+                    if (!pop.hidden && !pop.contains(e.target) && e.target !== btn && !btn.contains(e.target)) close();
+                });
+                document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+                sync();
             })();
         </script>
 
