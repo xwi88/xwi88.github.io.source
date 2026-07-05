@@ -637,24 +637,37 @@ body[theme="dark"] .fixed-button:hover {
     border-color: var(--accent-dark);
 }
 
-// ===== post-nav (prev/next): card style with hover accent =====
-// caps each card at half width (minus gap) so the floated prev/next pair can never
-// collide or wrap awkwardly; long titles wrap inside the card instead of pushing out.
+// ===== post-nav (prev/next): flexbox layout (deterministic order) =====
+// Making .post-nav a flex container neutralizes LoveIt's float:left/right on the
+// cards (flex items ignore float), so the next sibling (.related-posts) ALWAYS
+// sits flush below — no float collapse, no wrap-up. Cards are equal width and
+// wrap long titles internally; on narrow screens they stack vertically.
+.post-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0.8rem;
+}
 .post-nav a {
     border: 1px solid rgba(128, 128, 128, 0.18);
     border-radius: 8px;
     padding: 0.6em 1em;
     box-sizing: border-box;
-    max-width: calc(50% - 0.4rem);
-    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    flex: 0 1 calc(50% - 0.4rem);
+    min-width: 0;
+    transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .post-nav a:hover {
     border-color: var(--accent-light);
     color: var(--accent-light);
-    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 body[theme="dark"] .post-nav a { border-color: rgba(169, 169, 179, 0.2); }
-body[theme="dark"] .post-nav a:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body[theme="dark"] .post-nav a:hover { border-color: var(--accent-dark); color: var(--accent-dark); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35); }
+@media (max-width: 575px) {
+    .post-nav { flex-direction: column; }
+    .post-nav a { flex-basis: auto; max-width: 100%; }
+}
 
 // ===== dark mode refinement: content/cards slightly lighter than body for layering =====
 body[theme="dark"] .single .content,
@@ -670,26 +683,10 @@ body[theme="dark"] .single.summary {
 #font-toggle { color: var(--accent-light); }
 body[theme="dark"] #font-toggle { color: var(--accent-dark); }
 
-// fix: post-nav card spacing (avoid overlap with divider below)
-.post-nav {
-    margin-bottom: 1.5rem;
-}
-
-// fix: more space between post-nav and related-posts
+// post-nav → related-posts ordering is now guaranteed by the flexbox post-nav
+// above (flex items ignore float, so no wrap-up). clear:both is belt-and-suspenders.
+.post-nav { margin-bottom: 1.5rem; }
 .related-posts {
+    clear: both;
     margin-top: 3rem !important;
-}
-
-// responsive: stack prev/next cards vertically on narrow screens.
-// undo LoveIt's float layout so the two cards never collide, and lift the
-// cap so related-posts sits flush below instead of wrapping into the float gap.
-@media (max-width: 575px) {
-    .post-nav a.prev,
-    .post-nav a.next {
-        float: none;
-        display: block;
-        max-width: 100%;
-        margin: 0 0 0.6rem;
-        text-align: left;
-    }
 }
