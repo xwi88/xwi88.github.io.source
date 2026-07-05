@@ -658,3 +658,10 @@ body[theme="dark"] .page,
 body[theme="dark"] .single.summary {
     background-color: #25262b;
 }
+
+// ===== font scale toggle (small/normal/large) =====
+:root[data-fontscale="0"] .single .content { font-size: 0.95rem; }
+:root[data-fontscale="2"] .single .content { font-size: 1.2rem; }
+// data-fontscale="1" = default 1.0625rem (existing rule)
+#font-toggle { color: var(--accent-light); }
+body[theme="dark"] #font-toggle { color: var(--accent-dark); }
