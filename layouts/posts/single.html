@@ -108,6 +108,9 @@
         {{- /* Footer */ -}}
         {{- partial "single/footer.html" . -}}
 
+        {{- /* Share buttons (LoveIt built-in, config params.page.share) */ -}}
+        {{- partial "plugin/share.html" . -}}
+
         {{- /* Related posts (by shared tags) */ -}}
         {{- with .Params.tags -}}
             {{- $related := where (where $.Site.RegularPages "Section" "posts") "Params.tags" "intersect" . -}}
