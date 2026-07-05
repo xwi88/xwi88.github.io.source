@@ -186,19 +186,31 @@
             }
         })();
 
-            // WeChat share: click → QR code (reuses #img-zoom overlay)
+            // WeChat + Baidu share: inject into existing .post-info-share button group
             (function () {
-                var wx = document.getElementById('wechat-share');
-                if (!wx) return;
+                var c = document.querySelector('.post-info-share span');
+                if (!c) return;
+                var wx = document.createElement('a');
+                wx.href = 'javascript:void(0);';
+                wx.title = '分享到微信(扫码)';
+                wx.innerHTML = '<i class="fas fa-comment-dots fa-fw" aria-hidden="true"></i>';
                 wx.addEventListener('click', function (e) {
                     e.preventDefault();
-                    var url = wx.getAttribute('data-url') || location.href;
                     var ov = document.getElementById('img-zoom');
                     if (ov) {
-                        ov.querySelector('img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent(url);
+                        ov.querySelector('img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent(location.href);
                         ov.hidden = false;
                     }
                 });
+                c.appendChild(wx);
+                var bd = document.createElement('a');
+                bd.href = 'javascript:void(0);';
+                bd.title = '分享到百度';
+                bd.setAttribute('data-sharer', 'baidu');
+                bd.setAttribute('data-url', location.href);
+                bd.setAttribute('data-title', document.title);
+                bd.innerHTML = '<i class="fas fa-search fa-fw" aria-hidden="true"></i>';
+                c.appendChild(bd);
             })();
 
             {{- /* accent theme switcher (multi-color, remembered via localStorage 'accent') */ -}}
