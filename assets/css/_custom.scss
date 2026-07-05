@@ -651,3 +651,10 @@ body[theme="dark"] .fixed-button:hover {
 }
 body[theme="dark"] .post-nav a { border-color: rgba(169, 169, 179, 0.2); }
 body[theme="dark"] .post-nav a:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+
+// ===== dark mode refinement: content/cards slightly lighter than body for layering =====
+body[theme="dark"] .single .content,
+body[theme="dark"] .page,
+body[theme="dark"] .single.summary {
+    background-color: #25262b;
+}
