@@ -618,3 +618,21 @@ body[theme="dark"] .footer a:hover {
 .code-lang-label { background: rgba(248,248,242,0.10); color: rgba(248,248,242,0.75); }
 .copy-btn { background: rgba(248,248,242,0.10); color: rgba(248,248,242,0.75); }
 .copy-btn:hover { color: #bd93f9; }
+
+// ===== fixed buttons (back-to-top / comment / accent): hover accent + lift =====
+.fixed-button {
+    border: 1px solid rgba(128, 128, 128, 0.22);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.fixed-button:hover {
+    color: var(--accent-light);
+    border-color: var(--accent-light);
+    transform: translateY(-2px);
+}
+body[theme="dark"] .fixed-button {
+    border-color: rgba(169, 169, 179, 0.22);
+}
+body[theme="dark"] .fixed-button:hover {
+    color: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
