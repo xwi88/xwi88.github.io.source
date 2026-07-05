@@ -43,6 +43,8 @@
         {{- /* Check theme isDark before body rendering */ -}}
         {{- $theme := .Site.Params.defaulttheme -}}
         <script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('{{ $theme }}' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '{{ $theme }}' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+        {{- /* appearance variant (米黄/纯黑) applied before paint to avoid flash */ -}}
+        <script type="text/javascript">(function(){try{var a=localStorage.getItem('appearance');if(a==='sepia'||a==='oled')document.body.setAttribute('data-variant',a);}catch(e){}})();</script>
 
         <div id="mask"></div>
 
@@ -75,7 +77,9 @@
             <span class="hdr-popover-title">外观模式</span>
             <div class="theme-modes" id="theme-modes">
                 <button type="button" class="theme-mode" data-mode="light" title="浅色"><i class="fas fa-sun fa-fw" aria-hidden="true"></i>浅色</button>
+                <button type="button" class="theme-mode" data-mode="sepia" title="米黄(护眼)"><i class="fas fa-book-open fa-fw" aria-hidden="true"></i>米黄</button>
                 <button type="button" class="theme-mode" data-mode="dark" title="深色"><i class="fas fa-moon fa-fw" aria-hidden="true"></i>深色</button>
+                <button type="button" class="theme-mode" data-mode="oled" title="纯黑(OLED)"><i class="fas fa-circle fa-fw" aria-hidden="true"></i>纯黑</button>
                 <button type="button" class="theme-mode" data-mode="auto" title="跟随系统"><i class="fas fa-desktop fa-fw" aria-hidden="true"></i>跟随</button>
             </div>
             <span class="hdr-popover-title">主题配色</span>
@@ -333,7 +337,7 @@
 
                 {{- /* light/dark/auto mode: drive LoveIt's hidden .theme-switch to reuse its
                      widget re-theme pipeline (mermaid/echarts/giscus), persist to localStorage 'theme'. */ -}}
-                function modeState() { var s; try { s = localStorage.getItem('theme'); } catch (e) {} return s || 'auto'; }
+                function modeState() { var s; try { s = localStorage.getItem('appearance') || localStorage.getItem('theme'); } catch (e) {} return s || 'auto'; }
                 function syncMode() {
                     var pop = document.getElementById('accent-popover');
                     if (!pop) return;
@@ -341,14 +345,20 @@
                     pop.querySelectorAll('.theme-mode').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-mode') === m); });
                 }
                 function setMode(mode) {
-                    var wantDark = mode === 'dark' || (mode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                    var isDark = document.body.getAttribute('theme') === 'dark';
-                    try { localStorage.setItem('theme', mode); } catch (e) {}
-                    if (wantDark !== isDark) {
+                    var variant = (mode === 'sepia') ? 'sepia' : (mode === 'oled') ? 'oled' : '';
+                    var theme = (mode === 'dark' || mode === 'oled') ? 'dark'
+                        : (mode === 'auto') ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                        : 'light';
+                    var curDark = document.body.getAttribute('theme') === 'dark';
+                    try { localStorage.setItem('appearance', mode); localStorage.setItem('theme', mode === 'auto' ? 'auto' : theme); } catch (e) {}
+                    if ((theme === 'dark') !== curDark) {
                         var sw = document.querySelector('.theme-switch');
-                        if (sw) sw.click();
+                        if (sw) sw.click();               // toggle body[theme] + fire widget re-theme
                         try { if (mode === 'auto') localStorage.setItem('theme', 'auto'); } catch (e) {}
+                    } else {
+                        if (theme === 'dark') document.body.setAttribute('theme', 'dark'); else document.body.removeAttribute('theme');
                     }
+                    if (variant) document.body.setAttribute('data-variant', variant); else document.body.removeAttribute('data-variant');
                     syncMode();
                 }
                 var modePop = document.getElementById('theme-modes');
