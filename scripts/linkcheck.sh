@@ -12,8 +12,10 @@ if [[ ! -d "$PUB" ]]; then
 fi
 
 # Same-origin absolute links, deduped, query/fragment stripped.
+# Skip protocol-relative (//) and separately-built post-Hugo assets (/pagefind/
+# search index, /og/ share cards) that aren't present in a plain `hugo` build.
 mapfile -t links < <(grep -rhoe '\(href\|src\)="/[^"]*"' "$PUB" 2>/dev/null \
-  | awk -F'"' '{print $2}' | grep -vE '^//' | sed -E 's/[?#].*$//' | sort -u)
+  | awk -F'"' '{print $2}' | grep -vE '^//|^/(pagefind|og)/' | sed -E 's/[?#].*$//' | sort -u)
 
 missing=0
 for l in "${links[@]}"; do
