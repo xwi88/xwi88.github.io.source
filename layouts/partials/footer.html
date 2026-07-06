@@ -119,6 +119,49 @@
                 });
             </script>
 
+            {{- /* make the 看板娘 (#live2d-widget) draggable: pointer-drag, persist
+                 position to localStorage, dblclick resets to the default corner.
+                 A movement threshold keeps the widget's click-to-talk intact. */ -}}
+            <script type="text/javascript">(function () {
+                var KEY = 'l2d-pos';
+                function ready(cb) { var n = 0; (function t() { var el = document.getElementById('live2d-widget'); if (el) cb(el); else if (n++ < 100) setTimeout(t, 100); })(); }
+                ready(function (el) {
+                    el.style.touchAction = 'none';
+                    function clamp(x, y) {
+                        var w = el.offsetWidth || 120, h = el.offsetHeight || 300;
+                        return [Math.max(4, Math.min(x, innerWidth - w - 4)), Math.max(4, Math.min(y, innerHeight - h - 4))];
+                    }
+                    function place(x, y) { var p = clamp(x, y); el.style.left = p[0] + 'px'; el.style.top = p[1] + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.margin = '0'; }
+                    try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && typeof s.x === 'number') place(s.x, s.y); } catch (e) {}
+                    var dragging = false, sx = 0, sy = 0, ox = 0, oy = 0, moved = false;
+                    el.addEventListener('pointerdown', function (e) {
+                        dragging = true; moved = false; sx = e.clientX; sy = e.clientY;
+                        var r = el.getBoundingClientRect(); ox = r.left; oy = r.top;
+                        el.classList.add('dragging'); el.style.zIndex = 1000;
+                        try { el.setPointerCapture(e.pointerId); } catch (err) {}
+                    });
+                    el.addEventListener('pointermove', function (e) {
+                        if (!dragging) return;
+                        var dx = e.clientX - sx, dy = e.clientY - sy;
+                        if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+                        place(ox + dx, oy + dy);
+                    });
+                    function end() {
+                        if (!dragging) return; dragging = false; el.classList.remove('dragging');
+                        var r = el.getBoundingClientRect();
+                        try { localStorage.setItem(KEY, JSON.stringify({ x: Math.round(r.left), y: Math.round(r.top) })); } catch (err) {}
+                    }
+                    el.addEventListener('pointerup', end);
+                    el.addEventListener('pointercancel', end);
+                    // suppress the widget's click-to-talk when the pointer actually dragged
+                    el.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+                    // dblclick: reset to the library's default corner
+                    el.addEventListener('dblclick', function () { try { localStorage.removeItem(KEY); } catch (err) {} el.style.left = ''; el.style.top = ''; el.style.right = ''; el.style.bottom = ''; el.style.margin = ''; });
+                    // keep on-screen if the viewport shrinks under it
+                    window.addEventListener('resize', function () { var r = el.getBoundingClientRect(); if (r.left < 0 || r.top < 0 || r.right > innerWidth || r.bottom > innerHeight) place(r.left, r.top); });
+                });
+            })();</script>
+
         {{- end -}}
 
     </footer>

@@ -702,22 +702,32 @@ body[theme="dark"] .menu .menu-item.active > a {
 // the page is %-centered so the change is barely visible there.)
 .container { padding: 0 1.5rem; }
 
-// ===== layout: auto-TOC on the LEFT (wide screens) + narrower centered body.
+// ===== layout: auto-TOC as a fixed side sidebar (wide screens) + centered body.
 // theme.js pins #toc-auto to the right of .page; override with !important to make
-// it a fixed LEFT sidebar so the article body sits to its right and the title
-// clears the viewport's left edge. Below 1200px the override drops and theme.js's
-// default (right-side / hidden) takes over.
+// it a fixed sidebar. The side is chosen by body[data-toc-side] (toggle in the font
+// popover; default LEFT, mirror to right). .page is centered (~50% width) so either
+// side margin (≈25% on a 1440px screen) comfortably fits the 14rem TOC with no
+// overlap. Below 1200px the override drops and theme.js's default takes over.
 @media (min-width: 1200px) {
     #toc-auto {
         position: fixed !important;
         top: 6.5rem !important;
-        left: 1.5rem !important;
-        right: auto !important;
         width: 14rem !important;
         max-width: 14rem !important;
+    }
+    body:not([data-toc-side="right"]) #toc-auto {
+        left: 1.5rem !important;
+        right: auto !important;
         padding: 0 0.8rem 0 0 !important;
         border-left: none !important;
         border-right: 3px solid rgba(var(--accent-rgb), 0.18);
+    }
+    body[data-toc-side="right"] #toc-auto {
+        left: auto !important;
+        right: 1.5rem !important;
+        padding: 0 0 0 0.8rem !important;
+        border-right: none !important;
+        border-left: 3px solid rgba(var(--accent-rgb), 0.18);
     }
 }
 // narrower reading column than LoveIt's 60%/800px: bigger centered margins put the
@@ -1001,6 +1011,32 @@ body[theme="dark"] .font-size.active { border-color: var(--accent-dark); backgro
 body[theme="dark"] .font-family { color: rgba(169, 169, 179, 0.95); border-color: rgba(169, 169, 179, 0.28); }
 body[theme="dark"] .font-family:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
 body[theme="dark"] .font-family.active { border-color: var(--accent-dark); background: var(--accent-dark); color: #1f1f23; }
+
+// toc side toggle (左 / 右) in the font popover — shares the chip look
+.toc-sides {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+}
+.toc-side {
+    padding: 0.4rem 0;
+    font-size: 0.82rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(128, 128, 128, 0.95);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.toc-side:hover { border-color: var(--accent-light); color: var(--accent-light); }
+.toc-side.active { border-color: var(--accent-light); color: #fff; background: var(--accent-light); }
+body[theme="dark"] .toc-side { color: rgba(169, 169, 179, 0.95); border-color: rgba(169, 169, 179, 0.28); }
+body[theme="dark"] .toc-side:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+body[theme="dark"] .toc-side.active { border-color: var(--accent-dark); background: var(--accent-dark); color: #1f1f23; }
+
+// live2d 看板娘: draggable hint cursor (drag logic lives in footer.html)
+#live2d-widget { cursor: grab; }
+#live2d-widget.dragging { cursor: grabbing; opacity: 0.92; }
 
 @media (max-width: 768px) {
     .hdr-popover { right: 0.75rem; top: 3.6rem; }   // drop below mobile header

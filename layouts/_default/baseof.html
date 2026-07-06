@@ -45,6 +45,9 @@
         <script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('{{ $theme }}' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '{{ $theme }}' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
         {{- /* appearance variant (米黄/纯黑) applied before paint to avoid flash */ -}}
         <script type="text/javascript">(function(){try{var a=localStorage.getItem('appearance');if({sepia:1,green:1,oled:1,navy:1}[a])document.body.setAttribute('data-variant',a);}catch(e){}})();</script>
+        {{- /* toc side (left/right): applied before paint so #toc-auto lands on the
+             chosen side immediately, no flash from theme.js's default placement. */ -}}
+        <script type="text/javascript">(function(){try{if(localStorage.getItem('toc-side')==='right')document.body.setAttribute('data-toc-side','right');}catch(e){}})();</script>
 
         <div id="mask"></div>
 
@@ -115,6 +118,11 @@
             <div class="font-families" id="font-families">
                 <button type="button" class="font-family" data-ff="sans">无衬线</button>
                 <button type="button" class="font-family" data-ff="serif">衬线</button>
+            </div>
+            <span class="hdr-popover-title">目录位置</span>
+            <div class="toc-sides" id="toc-sides">
+                <button type="button" class="toc-side" data-side="left" title="目录在左"><i class="fas fa-align-left fa-fw" aria-hidden="true"></i>左侧</button>
+                <button type="button" class="toc-side" data-side="right" title="目录在右">右侧<i class="fas fa-align-right fa-fw" aria-hidden="true"></i></button>
             </div>
         </div>
 
@@ -384,7 +392,7 @@
                 syncMode();
 
                 {{- /* font: 5 sizes + serif/sans family toggle */ -}}
-                controller({ btnSel: '.font-switch', popId: 'font-popover', onOpen: syncFont });
+                controller({ btnSel: '.font-switch', popId: 'font-popover', onOpen: function () { syncFont(); syncTocSide(); } });
                 function syncFont() {
                     var pop = document.getElementById('font-popover');
                     if (!pop) return;
@@ -411,6 +419,25 @@
                     });
                 }
                 syncFont();
+
+                {{- /* toc side: left/right of the article body (persisted to localStorage) */ -}}
+                function syncTocSide() {
+                    var pop = document.getElementById('font-popover');
+                    if (!pop) return;
+                    var cur = document.body.getAttribute('data-toc-side') === 'right' ? 'right' : 'left';
+                    pop.querySelectorAll('.toc-side').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-side') === cur); });
+                }
+                var tsp = document.getElementById('toc-sides');
+                if (tsp) tsp.querySelectorAll('.toc-side').forEach(function (b) {
+                    b.addEventListener('click', function () {
+                        var side = b.getAttribute('data-side');
+                        if (side === 'right') document.body.setAttribute('data-toc-side', 'right');
+                        else document.body.removeAttribute('data-toc-side');
+                        try { localStorage.setItem('toc-side', side); } catch (e) {}
+                        syncTocSide();
+                    });
+                });
+                syncTocSide();
             })();
         </script>
 
