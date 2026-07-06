@@ -429,6 +429,53 @@ html {
     font-variant-numeric: tabular-nums;
 }
 
+// ===== animate.css subset (replaces the ~80KB CDN library) =====
+// Only the entry-flourish animations the templates use: pulse (section/archive
+// titles) and flipInX (single post title), plus the .animate__faster timing.
+// Class names kept identical so no template change is needed.
+.animate__animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.animate__faster {
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+}
+@-webkit-keyframes anim-pulse {
+    0%, 100% { -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+    50%      { -webkit-transform: scale3d(1.05, 1.05, 1.05); transform: scale3d(1.05, 1.05, 1.05); }
+}
+@keyframes anim-pulse {
+    0%, 100% { transform: scale3d(1, 1, 1); }
+    50%      { transform: scale3d(1.05, 1.05, 1.05); }
+}
+.animate__pulse {
+    -webkit-animation-name: anim-pulse;
+    animation-name: anim-pulse;
+}
+@-webkit-keyframes anim-flipInX {
+    from { -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg); opacity: 0; }
+    40%  { -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg); }
+    60%  { -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg); opacity: 1; }
+    80%  { -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
+    to   { -webkit-transform: perspective(400px); }
+}
+@keyframes anim-flipInX {
+    from { transform: perspective(400px) rotate3d(1, 0, 0, 90deg); opacity: 0; }
+    40%  { transform: perspective(400px) rotate3d(1, 0, 0, -20deg); }
+    60%  { transform: perspective(400px) rotate3d(1, 0, 0, 10deg); opacity: 1; }
+    80%  { transform: perspective(400px) rotate3d(1, 0, 0, -5deg); }
+    to   { transform: perspective(400px); }
+}
+.animate__flipInX {
+    -webkit-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    -webkit-animation-name: anim-flipInX;
+    animation-name: anim-flipInX;
+}
+
 // a11y: respect prefers-reduced-motion (disable animations/transitions)
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
