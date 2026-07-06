@@ -705,7 +705,14 @@ body[theme="dark"] .menu .menu-item.active > a {
 // ===== content width: let the body fill the .page column (aligns with title /
 // meta on both edges). A separate narrower cap left the body left-aligned with a
 // ragged right gap (visually "leaning left") and squeezed code blocks/tables.
-// The centered .page (max 800px, ~47 CJK chars/line) is the reading column. =====
+// The centered .page is the reading column. =====
+// Widen the column from LoveIt's 60% / 800px: on mid-width screens the body was
+// bunched in the left ~60% with the right reserved for the auto-TOC. 68% / 920px
+// gives the body more presence; theme.js still recomputes the TOC position/width
+// from the page rect, so the right-side TOC keeps working (just a bit narrower).
+.page { max-width: 920px; }
+@media only screen and (max-width: 1440px) { .page { width: 64%; } }
+@media only screen and (max-width: 1200px) { .page { width: 60%; } }
 
 // ===== E12: footer polish =====
 .footer {
