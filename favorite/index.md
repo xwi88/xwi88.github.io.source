@@ -197,7 +197,7 @@
 					</a>
 				</div>
 				<div class="item">
-					<a href="https://www.pypandas.cn/" target="_blank" title="pypandas 中文网">
+					<a href="https://pandas.pydata.org/" target="_blank" title="pandas 官方文档">
 						<img src="/img/logo/pandas-logo.svg" alt="pandas">
 						<div class="item-name">pandas</div>
 					</a>
@@ -308,7 +308,7 @@
 		<div class="items">
 			<div class="row">
 				<div class="item">
-					<a href="https://hao.studygolang.com/" target="_blank" title="Go网址导航">
+					<a href="https://studygolang.com/" target="_blank" title="Go网址导航">
 						<img src="/img/logo/hao-studygolang-logo.png" alt="hao.studygolang">
 						<div class="item-name">Go网址导航</div>
 					</a>
