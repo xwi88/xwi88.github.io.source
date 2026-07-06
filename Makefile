@@ -33,7 +33,7 @@ gitTreeState = $(shell if git status|grep -q 'clean';then echo clean; else echo 
 	publish dev prod run \
 	debug uglifyjs local \
 	posts post-en posts-zh-cn clean clean-posts clean-public \
-	linkcheck
+	linkcheck linkcheck-external og
 
 default: dev
 
@@ -53,6 +53,24 @@ run: prod
 linkcheck:
 	@${HUGO} --quiet 2>/dev/null || true
 	@bash ${BASEDIR}/scripts/linkcheck.sh ${BASEDIR}/public
+
+# External link check (best-effort, needs lychee installed). Same args as the
+# .github/workflows/linkcheck.yml job. No-op if lychee is not on PATH.
+linkcheck-external:
+	@${HUGO} --quiet 2>/dev/null || true
+ifeq ($(shell command -v lychee 2>/dev/null),)
+	@echo "lychee not installed; skipping external link check"
+else
+	@lychee --no-progress --format compact \
+		--base-url https://blog.xwi88.com/ \
+		--exclude '^https?://(blog\.)?xwi88\.com/' \
+		--exclude '^https?://(127\.0\.0\.1|0\.0\.0\.0|localhost)' \
+		--exclude '^https?://(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)' \
+		--exclude '^https?://beian\.(miit|mps)\.gov\.cn' \
+		--exclude-private \
+		--accept 200,206,301,302,303,307,308,403,429,999 \
+		${BASEDIR}/public
+endif
 
 # Generate per-post OG social-share cards into public/og/. Requires the site built
 # first (emits public/og-cards.json). Runs `npm ci` once in scripts/og.

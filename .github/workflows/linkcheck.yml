@@ -1,0 +1,62 @@
+# Periodic link checker — runs weekly (and on demand), separate from the main CI
+# so flaky external links never block or spam the deploy. Internal links must pass;
+# external links are checked with lychee and reported best-effort (fail: false).
+name: Linkcheck
+
+on:
+  schedule:
+    - cron: '37 6 * * 1'   # every Monday ~06:37 UTC (off the :00 to dodge fleet peaks)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Hugo setup
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+          extended: true
+
+      - name: Build
+        run: hugo --quiet
+
+      # Internal links: deterministic, must pass (same check as `make linkcheck`).
+      - name: Internal links
+        run: bash scripts/linkcheck.sh "$PWD/public"
+
+      # External links: best-effort. Root-relative + own-domain links are excluded
+      # (internal links are covered by linkcheck.sh above). Bot-blocking responses
+      # (403/429, LinkedIn 999) are accepted so the report surfaces real breakage
+      # (404/500/DNS/timeout) only. Written to the run summary; the job never fails.
+      - name: External links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: false
+          args: >-
+            --no-progress
+            --max-concurrency 24
+            --base-url https://blog.xwi88.com/
+            --exclude '^https?://(blog\.)?xwi88\.com/'
+            --exclude '^https?://(127\.0\.0\.1|0\.0\.0\.0|localhost)'
+            --exclude '^https?://(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)'
+            --exclude '^https?://beian\.(miit|mps)\.gov\.cn'
+            --exclude-private
+            --accept 200,206,301,302,303,307,308,403,429,999
+            'public/**/*.html'
+
+      - name: Report to run summary
+        if: always()
+        run: |
+          {
+            echo '## 🔗 Linkcheck report'
+            echo
+            cat lychee/out.md 2>/dev/null || echo '_lychee produced no output_'
+          } >> "$GITHUB_STEP_SUMMARY"
