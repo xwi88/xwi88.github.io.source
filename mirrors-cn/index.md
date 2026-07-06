@@ -27,5 +27,5 @@
 
 ## 教育网开源镜像站
 
-[教育网镜像站们：高校及研究机构开源镜像一站式元数据平台](https://mirrors.cngi.edu.cn/)
+[MirrorZ · 高校开源镜像站一站式导航](https://mirrorz.org/)
 
