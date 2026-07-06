@@ -336,7 +336,7 @@
 <ul>
 <li><strong>proxy</strong> <em>不太推荐</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>推荐方案</strong>)</li>
-<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
+<li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
 </ul>
 <h4 id="fastgithub">FastGithub</h4>
 <blockquote>
@@ -352,8 +352,8 @@
 <h5 id="安装配置">安装配置</h5>
 <blockquote>
 <ul>
-<li><a href="https://github.com/dotnetcore/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
-<li><a href="https://github.com/dotnetcore/fastgithub/releases" target="_blank" rel="noopener noreffer ">github-release</a></li>
+<li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
+<li><a href="https://github.com/creazyboyone/FastGithub/releases" target="_blank" rel="noopener noreffer ">github-release</a></li>
 </ul>
 </blockquote>
 <div class="highlight"><div class="chroma">
@@ -400,7 +400,7 @@
 </div>
 </div><h5 id="安全性及合法性说明">安全性及合法性说明</h5>
 <blockquote>
-<p>以下内容摘录自 <a href="https://github.com/dotnetcore/FastGithub.README.md" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
+<p>以下内容摘录自 <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
 <p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>

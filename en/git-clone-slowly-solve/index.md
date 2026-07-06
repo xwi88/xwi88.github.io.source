@@ -24,7 +24,7 @@
 
 - **proxy** *不太推荐*
 - [gh-proxy](https://github.com/hunshcn/gh-proxy) (**推荐方案**)
-- [FastGithub](https://github.com/dotnetcore/FastGithub) (**推荐方案 ☆☆☆☆☆☆**)
+- [FastGithub](https://github.com/creazyboyone/FastGithub) (**推荐方案 ☆☆☆☆☆☆**)
 
 #### FastGithub
 
@@ -39,8 +39,8 @@
 
 ##### 安装配置
 
->- [FastGithub](https://github.com/dotnetcore/FastGithub)
->- [github-release](https://github.com/dotnetcore/fastgithub/releases)
+>- [FastGithub](https://github.com/creazyboyone/FastGithub)
+>- [github-release](https://github.com/creazyboyone/FastGithub/releases)
 
 ```bash
 # linux-x64
@@ -65,7 +65,7 @@ sudo ./fastgithub stop  // 以systemd服务卸载并删除
 
 ##### 安全性及合法性说明
 
->以下内容摘录自 [FastGithub.README](https://github.com/dotnetcore/FastGithub.README.md)
+>以下内容摘录自 [FastGithub.README](https://github.com/creazyboyone/FastGithub#readme)
 
 *FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。*
 
