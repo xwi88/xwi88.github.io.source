@@ -208,6 +208,24 @@ body[theme="dark"] .single .content td {
     transition: color 0.2s ease, opacity 0.2s ease;
 }
 
+// ===== spacing polish: meta field gaps + content rhythm =====
+// Meta fields were crammed with inconsistent runs of &nbsp;. Each field is now a
+// .meta-field (nowrap, icon stays with its label); the meta-line is wrap-flex with
+// a uniform column gap so fields read as evenly-spaced chips.
+.single .post-meta-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.35em;
+    column-gap: 0.9em;
+}
+.single .post-meta-line .meta-field { white-space: nowrap; }
+// paragraph + title rhythm inside article body
+.single .content p { margin: 1rem 0; }
+.single .content h2 { margin: 1.8em 0 0.8em; }
+.single .content h3 { margin: 1.4em 0 0.6em; }
+.single-title { margin: 1.4rem 0 0.6rem; }
+
 // post-list cards: border + padding + hover lift/shadow
 .single.summary {
     padding: 1.3rem 1.6rem;
