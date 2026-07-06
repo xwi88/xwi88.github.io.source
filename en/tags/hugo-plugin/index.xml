@@ -1,25 +1,25 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo-plugin - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/hugo-plugin/</link><description>hugo-plugin - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/hugo-plugin/" rel="self" type="application/rss+xml"/><item><title>Hugo Plugin Busuanzi</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Hugo 网站访问量、文章阅读次数统计插件 <strong>busuanzi</strong> 集成配置使用，基于个人实验验证，旨在为需要的人提供方便，效果见 <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">我的博客</a> 或访问 <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>。</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo-plugin - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/hugo-plugin/</link><description>hugo-plugin - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/hugo-plugin/" rel="self" type="application/rss+xml"/><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
 <h2 id="busuanzi"><strong>busuanzi</strong></h2>
 <blockquote>
 <p><a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">busuanzi</a></p>
 </blockquote>
-<p>静态网站建站现在有很多快速的技术和平台，但静态是优点也有缺点，由于是静态的，一些动态的内容如评论、计数等等模块就需要借助外来平台，计数可采用 “不蒜子”，由 Bruce 开发的一款轻量级的网页计数器。使用非常简单：<strong>两行代码可搞定</strong>， <em>一行脚本</em>，<em>一行标签</em>。</p>
-<h3 id="统计指标">统计指标</h3>
+<p>There are many fast technologies and platforms for building static sites today, but &ldquo;static&rdquo; is both a strength and a weakness. Because the site is static, dynamic features such as comments and counters have to rely on external services. For counting you can use &ldquo;busuanzi&rdquo;, a lightweight page counter developed by Bruce. It is extremely easy to use: <strong>two lines do the job</strong> — <em>one script</em> and <em>one tag</em>.</p>
+<h3 id="metrics">Metrics</h3>
 <ul>
-<li><strong>PV</strong> 即 <strong>Page View</strong>，<em>网站浏览量</em>
-指页面的浏览次数，用以衡量网站用户访问的网页数量。用户每打开一个页面便记录 1 次 PV，多次打开同一页面累计浏览量</li>
-<li><strong>UV</strong> 即 <strong>Unique Visitor</strong>，<em>独立访客数</em>
-指 1 天内访问某站点的人数，以 cookie 为依据。1 天内同一访客的多次访问只计为 1 个访客。</li>
+<li><strong>PV</strong> stands for <strong>Page View</strong>, <em>page views</em>
+The number of times a page is viewed, used to measure how many pages users visit. Each time a user opens a page, 1 PV is recorded; opening the same page repeatedly accumulates views.</li>
+<li><strong>UV</strong> stands for <strong>Unique Visitor</strong>, <em>unique visitors</em>
+The number of people who visit a site within a day, identified by cookie. Multiple visits from the same visitor within a day count as a single visitor.</li>
 </ul>
-<h3 id="不蒜子与其他统计工具的区别">不蒜子与其他统计工具的区别</h3>
+<h3 id="how-busuanzi-differs-from-other-analytics-tools">How busuanzi differs from other analytics tools</h3>
 <ul>
-<li><strong>不蒜子</strong> 可直接将访问次数显示在您在网页上（也可不显示）</li>
-<li>对于已经上线一段时间的网站，<strong>不蒜子</strong>允许您初始化首次数据 <strong>需要注册登录</strong></li>
-<li><strong>只提供计数</strong>，样式完全由用户控制</li>
+<li><strong>busuanzi</strong> can display the visit count directly on your page (or keep it hidden)</li>
+<li>For a site that has already been online for a while, <strong>busuanzi</strong> lets you seed the initial count <strong>(sign-in required)</strong></li>
+<li><strong>Counting only</strong> — the styling is entirely under your control</li>
 </ul>
-<h3 id="简单使用">简单使用</h3>
+<h3 id="quick-start">Quick start</h3>
 <blockquote>
-<p><strong>只计数不显示</strong>，<em>只安装脚本代码，不安装标签代码</em>。</p>
+<p><strong>Count without displaying</strong>: <em>install only the script, skip the display tags.</em></p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -30,36 +30,36 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="kr">async</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_site_pv&#34;</span><span class="o">&gt;</span><span class="nx">本站总访问量</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_site_pv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次&lt;/span&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_site_uv&#34;</span><span class="o">&gt;</span><span class="nx">本站总访客数</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_site_uv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;人&lt;/span&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_container_page_pv&#34;</span><span class="o">&gt;</span><span class="nx">本文总阅读量</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;busuanzi_value_page_pv&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;次&lt;/span&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_pv&#34;</span><span class="p">&gt;</span>site views: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_uv&#34;</span><span class="p">&gt;</span>visitors: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span>this page: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="hugo-集成">Hugo 集成</h3>
+</div><h3 id="hugo-integration">Hugo integration</h3>
 <blockquote>
-<p>如果你没有开发主题的强烈欲望，且想后续持续更新选用的主题，请采用合理的方式(<strong>模板配置等的覆盖</strong>)进行自定义修改。</p>
+<p>If you don&rsquo;t have a strong urge to develop your own theme and want to keep updating the theme you&rsquo;ve chosen, customize it the sensible way (<strong>override templates and config</strong>).</p>
 </blockquote>
-<h4 id="修改与变动">修改与变动</h4>
-<p>我们将对页面进行阅读计数 <code>PV</code>，对整站进行 <code>PV</code>，<code>UV</code> 统计。结合当前使用的主题，需要修改的地方有：</p>
+<h4 id="what-to-change">What to change</h4>
+<p>We will count per-page read <code>PV</code>, and track site-wide <code>PV</code> and <code>UV</code>. Combined with the theme in use, the files to modify are:</p>
 <ul>
-<li><code>footer.html</code> 页脚模板页
+<li><code>footer.html</code> — the footer template
 <ul>
-<li><strong>请注意</strong>: 此处分为全局 <code>footer.html</code> 与单页 <code>footer.html</code></li>
-<li>计数使用全局 <strong>footer.html</strong></li>
+<li><strong>Note</strong>: there is a global <code>footer.html</code> and a per-page <code>footer.html</code></li>
+<li>Counting uses the global <strong>footer.html</strong></li>
 </ul>
 </li>
-<li><code>single.html</code> 内容页模板</li>
-<li><code>busuanzi.html</code> 新加的 <strong>busuanzi</strong> 模板</li>
-<li><code>config.toml</code> 或 <code>config.yaml</code> 或你指定的配置文件</li>
+<li><code>single.html</code> — the content page template</li>
+<li><code>busuanzi.html</code> — the new <strong>busuanzi</strong> partial</li>
+<li><code>config.toml</code> or <code>config.yaml</code>, whichever config file you use</li>
 </ul>
 <blockquote>
-<p>需要变动的地方如图所示:</p>
+<p>The files that need changes are shown below:</p>
 </blockquote>
 <p><figure><figcaption class="image-caption">hugo busuanzi support</figcaption>
     </figure></p>
-<h5 id="自定义配置">自定义配置</h5>
+<h5 id="custom-config">Custom config</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -85,17 +85,17 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"> <span class="c"># xwi88 自定义配置 xwi88Cfg</span>
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"> <span class="c"># xwi88 custom config: xwi88Cfg</span>
 </span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">summary</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># summary 更新日期显示</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># show the updated date for summaries</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">page</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># pages 更新日期显示</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># show the updated date for pages</span>
 </span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">busuanzi</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
 </span></span><span class="line"><span class="cl">    <span class="c"># custom uv for the whole site</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">site_uv</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_uv_pre</span> <span class="p">=</span> <span class="s1">&#39;&lt;i class=&#34;fa fa-user&#34;&gt;&lt;/i&gt;&#39;</span> <span class="c"># 字符或提示语</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">site_uv_pre</span> <span class="p">=</span> <span class="s1">&#39;&lt;i class=&#34;fa fa-user&#34;&gt;&lt;/i&gt;&#39;</span> <span class="c"># a character or hint text</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">site_uv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">    <span class="c"># custom pv for the whole site</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">site_pv</span> <span class="p">=</span> <span class="kc">true</span>
@@ -108,7 +108,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">page_pv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="模板添加">模板添加</h5>
+</div><h5 id="add-the-partial">Add the partial</h5>
 <blockquote>
 <p><strong>busuanzi.html</strong></p>
 </blockquote>
@@ -163,7 +163,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ if .params.enable }}
 </span></span><span class="line"><span class="cl">    {{ if eq .bsz_type &#34;footer&#34; }}
-</span></span><span class="line"><span class="cl">        {{/* 只有 footer 才刷新，防止页面进行多次调用，计数重复; 只要启用就计数，显示与否看具体设置 */}}
+</span></span><span class="line"><span class="cl">        {{/* only refresh in the footer to avoid repeated calls and double counting; counting runs whenever enabled, display depends on the settings */}}
 </span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34; //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js &#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    {{ end }}
 </span></span><span class="line"><span class="cl">
@@ -180,7 +180,7 @@
 </span></span><span class="line"><span class="cl">                {{ end }}
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                {{ if and (eq .params.site_pv true) (eq .params.site_uv true) }}
-</span></span><span class="line"><span class="cl">                    <span class="ni">&amp;nbsp;</span>|<span class="ni">&amp;nbsp;</span>              
+</span></span><span class="line"><span class="cl">                    <span class="ni">&amp;nbsp;</span>|<span class="ni">&amp;nbsp;</span>
 </span></span><span class="line"><span class="cl">                {{ end }}
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                {{ if eq .params.site_uv true }}
@@ -194,7 +194,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">        {{ end }}
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{/*  page pv 只在 page 显示  */}}
+</span></span><span class="line"><span class="cl">        {{/*  page pv shows on the page only  */}}
 </span></span><span class="line"><span class="cl">        {{ if and (eq .params.page_pv true) (eq .bsz_type &#34;page-reading&#34;) }}
 </span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_value_page_pv&#34;</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">                {{- with .params.page_pv_pre -}}
@@ -209,7 +209,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>相应位置引入我们编写的插件: <strong>busuanzi</strong></p>
+<p>Include the partial we wrote at the right places: <strong>busuanzi</strong></p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -222,16 +222,16 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"># 全局 footer.html
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"># global footer.html
 </span></span><span class="line"><span class="cl">{{- /* busuanzi plugin */ -}}
 </span></span><span class="line"><span class="cl">{{- partial &#34;plugin/busuanzi.html&#34; (dict &#34;params&#34; .Site.Params.xwi88Cfg.busuanzi &#34;bsz_type&#34; &#34;footer&#34;) -}}
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># 单页面 single.html
+</span></span><span class="line"><span class="cl"># single page single.html
 </span></span><span class="line"><span class="cl">{{- /* busuanzi plugin */ -}}
 </span></span><span class="line"><span class="cl">{{- partial &#34;plugin/busuanzi.html&#34; (dict &#34;params&#34; .Site.Params.xwi88Cfg.busuanzi &#34;bsz_type&#34; &#34;page-reading&#34;) -}}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="代码变更详情可参考">代码变更详情可参考</h4>
+</div><h4 id="full-code-changes">Full code changes</h4>
 <ul>
 <li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">github.com/xwi88/xwi88.github.io.source</a></li>
 <li><a href="https://gitee.com/xwi88/xwi88/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">gitee.com/xwi88/xwi88</a></li>

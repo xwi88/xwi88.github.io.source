@@ -1,38 +1,38 @@
 # Hugo 插件 Utterances 用法
 
 
-Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。
+Hugo 评论插件 utterances 的配置使用，基于个人实验验证，旨在为需要的人提供方便。
 
 <!--more-->
 
->*blog theme*: [LoveIt](https://github.com/xwi88/LoveIt.git)
+>*博客主题*: [LoveIt](https://github.com/xwi88/LoveIt.git)
 
 ## **utteranc**
 
 >[utteranc](https://utteranc.es/)
 
-### introduction
+### 简介
 
-A lightweight comments widget built on *GitHub issues*. Use *GitHub issues* for blog comments, wiki pages and more!
+一款基于 *GitHub issues* 构建的轻量级评论组件。用 *GitHub issues* 来承载博客评论、wiki 页面等！
 
-* Open source. 🙌
-* No tracking, no ads, always free. 📡🚫
-* No lock-in. All data stored in GitHub issues. 🔓
-* Styled with Primer, the css toolkit that powers GitHub. 💅
-* Dark theme. 🌘
-* Lightweight. Vanilla TypeScript. No font downloads, JavaScript frameworks or polyfills for evergreen browsers. 🐦🌲
+* 开源。🙌
+* 不追踪、无广告、永久免费。📡🚫
+* 无锁定。所有数据都存储在 GitHub issues 中。🔓
+* 使用 GitHub 的 CSS 工具集 Primer 进行样式渲染。💅
+* 支持暗色主题。🌘
+* 轻量。纯 TypeScript 实现，无需字体下载、JavaScript 框架，也无需为常青浏览器准备 polyfill。🐦🌲
 
-### configuration
+### 配置
 
-Choose the **repository** utterances will connect to.
+选择 utterances 要连接的**仓库**。
 
-1. Make sure the repo is **public**, otherwise your readers will not be able to view the **issues/comments**.
-2. Make sure the [utterances app](https://github.com/apps/utterances) is installed on the repo, otherwise users will not be able to post comments.
-3. If your repo is a **fork**, navigate to its settings tab and confirm the issues feature is turned on.
+1. 确保仓库是 **public**（公开）的，否则读者将无法查看 **issues/评论**。
+2. 确保已在仓库上安装 [utterances app](https://github.com/apps/utterances)，否则用户无法发表评论。
+3. 如果你的仓库是 **fork**（派生）来的，请进入它的 settings 标签页，确认 issues 功能已开启。
 
-#### config update
+#### 配置更新
 
->after this config, maybe work well.
+>完成此配置后，基本就能正常工作了。
 
 ```toml
 ## ref https://utteranc.es/
@@ -43,25 +43,25 @@ Choose the **repository** utterances will connect to.
   theme = "github-light"
 ```
 
-#### blog post ↔ issue mapping
+#### 博文 ↔ issue 映射
 
-Choose the mapping between blog posts and GitHub issues. Pls visit [utterances app](https://github.com/apps/utterances) to check and set the config.
+选择博文与 GitHub issues 之间的映射方式。请访问 [utterances app](https://github.com/apps/utterances) 查看并设置该配置。
 
-#### issue label
+#### issue 标签
 
-Choose the label that will be assigned to issues created by Utterances.
+选择由 Utterances 创建的 issues 所使用的标签。
 
->default: **Comment**
+>默认：**Comment**
 
-Label names are case sensitive. The label must exist in your repo- Utterances cannot attach labels that do not exist. Emoji are supported in label names.✨💬✨
+标签名称区分大小写。该标签必须已存在于你的仓库中——Utterances 无法添加不存在的标签。标签名称支持 emoji。✨💬✨
 
-#### theme
+#### 主题
 
-*Choose an Utterances theme that matches your blog.*
+*选择一个与你的博客相匹配的 Utterances 主题。*
 
-### enable utterances
+### 启用 utterances
 
-Add the following script tag to your blog's template. Position it where you want the comments to appear. Customize the layout using the .utterances and .utterances-frame selectors.
+将以下 script 标签添加到博客模板中，放在你希望评论出现的位置。可使用 `.utterances` 和 `.utterances-frame` 选择器自定义布局。
 
 ```js
 <script src="https://utteranc.es/client.js"
