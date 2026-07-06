@@ -702,12 +702,10 @@ body[theme="dark"] .menu .menu-item.active > a {
 // the page is %-centered so the change is barely visible there.)
 .container { padding: 0 1.5rem; }
 
-// ===== D10: article body width (~40 CJK chars/line, easier long-form reading) =====
-@media (min-width: 768px) {
-    .single .content {
-        max-width: 720px;
-    }
-}
+// ===== content width: let the body fill the .page column (aligns with title /
+// meta on both edges). A separate narrower cap left the body left-aligned with a
+// ragged right gap (visually "leaning left") and squeezed code blocks/tables.
+// The centered .page (max 800px, ~47 CJK chars/line) is the reading column. =====
 
 // ===== E12: footer polish =====
 .footer {
