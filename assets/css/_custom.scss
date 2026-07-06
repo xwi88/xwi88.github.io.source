@@ -695,6 +695,13 @@ body[theme="dark"] .menu .menu-item.active > a {
 .highlight:hover .code-lang-label { opacity: 0; }
 .code-lang-label { transition: opacity 0.2s ease; }
 
+// ===== content gutter: .page goes full-width on narrow screens, so .container's
+// horizontal padding is the only thing keeping the body off the viewport edge.
+// LoveIt's 1rem (16px) felt cramped on phones — bump to 1.5rem (24px). (.container
+// wraps only <main> content, so the header/footer gutter is unaffected; on desktop
+// the page is %-centered so the change is barely visible there.)
+.container { padding: 0 1.5rem; }
+
 // ===== D10: article body width (~40 CJK chars/line, easier long-form reading) =====
 @media (min-width: 768px) {
     .single .content {
