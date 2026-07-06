@@ -702,17 +702,30 @@ body[theme="dark"] .menu .menu-item.active > a {
 // the page is %-centered so the change is barely visible there.)
 .container { padding: 0 1.5rem; }
 
-// ===== content width: let the body fill the .page column (aligns with title /
-// meta on both edges). A separate narrower cap left the body left-aligned with a
-// ragged right gap (visually "leaning left") and squeezed code blocks/tables.
-// The centered .page is the reading column. =====
-// Widen the column from LoveIt's 60% / 800px: on mid-width screens the body was
-// bunched in the left ~60% with the right reserved for the auto-TOC. 68% / 920px
-// gives the body more presence; theme.js still recomputes the TOC position/width
-// from the page rect, so the right-side TOC keeps working (just a bit narrower).
-.page { max-width: 920px; }
-@media only screen and (max-width: 1440px) { .page { width: 64%; } }
-@media only screen and (max-width: 1200px) { .page { width: 60%; } }
+// ===== layout: auto-TOC on the LEFT (wide screens) + narrower centered body.
+// theme.js pins #toc-auto to the right of .page; override with !important to make
+// it a fixed LEFT sidebar so the article body sits to its right and the title
+// clears the viewport's left edge. Below 1200px the override drops and theme.js's
+// default (right-side / hidden) takes over.
+@media (min-width: 1200px) {
+    #toc-auto {
+        position: fixed !important;
+        top: 6.5rem !important;
+        left: 1.5rem !important;
+        right: auto !important;
+        width: 14rem !important;
+        max-width: 14rem !important;
+        padding: 0 0.8rem 0 0 !important;
+        border-left: none !important;
+        border-right: 3px solid rgba(var(--accent-rgb), 0.18);
+    }
+}
+// narrower reading column than LoveIt's 60%/800px: bigger centered margins put the
+// title further from the left edge and leave room for the left-side TOC without
+// overlap. (~46 CJK chars/line at 780px — still comfortable.)
+.page { max-width: 780px; }
+@media only screen and (max-width: 1440px) { .page { width: 50%; } }
+@media only screen and (max-width: 1200px) { .page { width: 46%; } }
 
 // ===== E12: footer polish =====
 .footer {
