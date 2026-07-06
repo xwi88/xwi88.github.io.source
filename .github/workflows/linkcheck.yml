@@ -48,6 +48,7 @@ jobs:
             --exclude '^https?://(127\.0\.0\.1|0\.0\.0\.0|localhost)'
             --exclude '^https?://(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)'
             --exclude '^https?://beian\.(miit|mps)\.gov\.cn'
+            --exclude '^https?://([a-z]+\.)?studygolang\.com/'
             --exclude-private
             --accept 200,206,301,302,303,307,308,403,429,999
             'public/**/*.html'
