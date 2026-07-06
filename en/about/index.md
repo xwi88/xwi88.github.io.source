@@ -10,12 +10,14 @@
     <tr>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=en" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'" />
+          <span style="display:none;text-align:center;color:#888;font-size:0.9em">📊 Stats temporarily unavailable (rate-limited)<br>Click to view GitHub profile</span>
         </a>
       </th>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=en&layout=compact" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'" />
+          <span style="display:none;text-align:center;color:#888;font-size:0.9em">📊 Language stats temporarily unavailable (rate-limited)<br>Click to view GitHub profile</span>
         </a>
       </th>
     </tr>

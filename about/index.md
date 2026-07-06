@@ -10,12 +10,14 @@
     <tr>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=cn" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api?username=xwi88&show_icons=true&theme=cobalt&locale=cn" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'" />
+          <span style="display:none;text-align:center;color:#888;font-size:0.9em">📊 统计暂时不可用（限流）<br>点此查看 GitHub 主页</span>
         </a>
       </th>
       <th style="border:0px;">
         <a href="https://github.com/xwi88">
-          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=cn&layout=compact" />
+          <img align="center" src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=xwi88&hide=java,html&show_icons=true&theme=gruvbox&locale=cn&layout=compact" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'" />
+          <span style="display:none;text-align:center;color:#888;font-size:0.9em">📊 语言统计暂时不可用（限流）<br>点此查看 GitHub 主页</span>
         </a>
       </th>
     </tr>
