@@ -364,6 +364,45 @@ body[theme="dark"] [tabindex]:focus-visible {
     text-transform: lowercase;
 }
 
+// 404 page: big accent numeral + search box (reuses the site Ctrl+K Pagefind modal)
+#content-404 { transform: translateY(20vh); }
+#content-404 .error-code {
+    font-size: 6rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--accent-light);
+    margin-bottom: 0.1em;
+}
+body[theme="dark"] #content-404 .error-code { color: var(--accent-dark); }
+#error-emoji { font-size: 2rem; margin: 0 0 0.4em; }
+.error-search {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    max-width: 26rem;
+    margin: 1.4rem auto;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+    background: rgba(var(--accent-rgb), 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.error-search:focus-within {
+    border-color: var(--accent-light);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+}
+.error-search input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1rem;
+    color: inherit;
+}
+.error-search i { color: rgba(128, 128, 128, 0.7); }
+
 // 404 page links
 .error-links a {
     margin: 0 0.2em;
