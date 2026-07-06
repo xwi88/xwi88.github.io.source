@@ -210,7 +210,7 @@ body[theme="dark"] .single .content td {
 
 // post-list cards: border + padding + hover lift/shadow
 .single.summary {
-    padding: 1.2rem 1.4rem;
+    padding: 1.3rem 1.6rem;
     margin-bottom: 1.1rem;
     border: 1px solid rgba(125, 125, 125, 0.18);
     border-radius: 10px;
@@ -455,7 +455,7 @@ html {
     margin: 0;
 }
 .related-posts li {
-    padding: 0.3em 0;
+    padding: 0.35em 0.5em;   // horizontal padding so the date clears the box border
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -467,6 +467,10 @@ html {
     color: rgba(128, 128, 128, 0.75);
     font-variant-numeric: tabular-nums;
 }
+
+// archive / section list rows: the date is flex-justified to the right edge —
+// give it clearance so it doesn't hug the content column's right boundary.
+.archive-item { padding-right: 0.5rem; }
 
 // ===== animate.css subset (replaces the ~80KB CDN library) =====
 // Only the entry-flourish animations the templates use: pulse (section/archive
