@@ -174,11 +174,12 @@ body[theme="dark"] ::selection {
     margin: 1.3em 0;
     padding: 0.6em 1.2em;
     border-left: 4px solid var(--accent-light);
-    background: rgba(125, 125, 125, 0.06);
+    background: rgba(var(--accent-rgb), 0.06);
     border-radius: 0 6px 6px 0;
 }
 body[theme="dark"] .single .content blockquote {
     border-left-color: var(--accent-dark);
+    background: rgba(var(--accent-rgb), 0.10);
 }
 
 // tables: clean borders + striped rows. Wide tables (cheat-sheet pages) are
