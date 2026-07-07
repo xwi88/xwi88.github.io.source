@@ -261,6 +261,15 @@
                 });
                 h.appendChild(btn);
             });
+            // wrap wide content tables in a horizontal-scroll container so the
+            // dockerfile/docker cheat-sheet tables don't overflow on narrow screens
+            document.querySelectorAll('.single .content table').forEach(function (t) {
+                if (t.parentElement.classList.contains('table-scroll')) return;
+                var w = document.createElement('div');
+                w.className = 'table-scroll';
+                t.parentNode.insertBefore(w, t);
+                w.appendChild(t);
+            });
             // register service worker (PWA: offline reading + installable)
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function () {

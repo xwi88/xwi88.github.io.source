@@ -181,10 +181,17 @@ body[theme="dark"] .single .content blockquote {
     border-left-color: var(--accent-dark);
 }
 
-// tables: clean borders + striped rows
+// tables: clean borders + striped rows. Wide tables (cheat-sheet pages) are
+// wrapped in .table-scroll by baseof.html so they scroll horizontally instead
+// of overflowing the column on narrow screens.
+.single .content .table-scroll {
+    overflow-x: auto;
+    margin: 1.3em 0;
+    -webkit-overflow-scrolling: touch;
+}
 .single .content table {
     border-collapse: collapse;
-    margin: 1.3em 0;
+    margin: 0;
 }
 .single .content th,
 .single .content td {
