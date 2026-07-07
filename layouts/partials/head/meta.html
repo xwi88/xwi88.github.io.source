@@ -1,5 +1,13 @@
 {{- $params := .Scratch.Get "params" -}}
 {{- $desc := $params.description | default .Site.Params.description -}}
+{{- /* term/category pages: a specific description beats the generic site-wide one
+     for search snippets and OG. */ -}}
+{{- if eq .Kind "term" -}}
+    {{- $desc = cond (eq .Site.Language.Lang "en")
+        (cond (eq .Type "tags") (printf "Posts tagged %q" .Title) (printf "Posts in the %q category" .Title))
+        (printf "「%s」%s下的文章" .Title (cond (eq .Type "tags") "标签" "分类"))
+    -}}
+{{- end -}}
 {{- $ogTitle := .Title | default .Site.Title -}}
 {{- $images := .Params.images | default .Site.Params.images -}}
 {{- /* Per-post generated OG card (scripts/og/gen-cards.mjs) takes precedence;
