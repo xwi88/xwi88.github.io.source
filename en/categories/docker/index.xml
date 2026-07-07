@@ -2,10 +2,12 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="dockerfile-overview">Dockerfile overview</h2>
+<h2 id="dockerfile-overview">
+    <a href="#dockerfile-overview" class="header-anchor" aria-label="Link to Dockerfile overview"></a>Dockerfile overview</h2>
 <p>A <code>Dockerfile</code> is a text file used to build an image, made up of the instructions (<code>instruction</code>) and notes needed to build it. Each instruction builds one layer.</p>
 <p>By default <code>docker build .</code> looks for a file named <code>Dockerfile</code> in the current directory; you can also pass a path and filename: <code>docker build -f xxx/path/DockerfileName .</code></p>
-<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<h2 id="dockerignore">
+    <a href="#dockerignore" class="header-anchor" aria-label="Link to .dockerignore"></a><code>.dockerignore</code></h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -14,7 +16,8 @@
             <div class="admonition-content">To speed up builds, add a <code>.dockerignore</code> file in the build context to exclude files and directories. If your project has many large files that don&rsquo;t need to be in the image, excluding them really helps build speed and image size.</div>
         </div>
     </div>
-<h2 id="basic-structure">Basic structure</h2>
+<h2 id="basic-structure">
+    <a href="#basic-structure" class="header-anchor" aria-label="Link to Basic structure"></a>Basic structure</h2>
 <blockquote>
 <p>Lines starting with <code>#</code> are comments and may appear anywhere; avoid extra spaces before <code>#</code>.</p>
 </blockquote>
@@ -24,7 +27,8 @@
 <li>Image-operation instructions</li>
 <li>Container-startup instruction</li>
 </ul>
-<h2 id="all-instructions">All instructions</h2>
+<h2 id="all-instructions">
+    <a href="#all-instructions" class="header-anchor" aria-label="Link to All instructions"></a>All instructions</h2>
 <blockquote>
 <ul>
 <li><a href="#from" rel=""><strong>FROM</strong></a></li>
@@ -46,7 +50,8 @@
 <li><a href="#shell" rel="">SHELL</a></li>
 </ul>
 </blockquote>
-<h2 id="from"><strong>FROM</strong></h2>
+<h2 id="from">
+    <a href="#from" class="header-anchor" aria-label="Link to FROM"></a><strong>FROM</strong></h2>
 <ul>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
@@ -60,7 +65,8 @@
 <li><code>tag</code> and <code>digest</code> are optional. If omitted, the builder defaults to the <code>latest</code> tag. If the builder can&rsquo;t find the tag, it errors.</li>
 <li><code>--platform=&lt;platform&gt;</code> specifies which platform&rsquo;s image <code>FROM</code> refers to, e.g. <code>linux/amd64</code>, <code>linux/arm64</code>, <code>windows/amd64</code>. It defaults to the target platform of the build request. You can use global build args in this flag, e.g. <a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer ">automatic platform args in the global scope</a>, letting you force the build stage&rsquo;s native platform <code>(--platform=$BUILDPLATFORM)</code> and cross-compile to the target within it.</li>
 </ul>
-<h3 id="arg--from-interaction"><strong>ARG &amp; FROM interaction</strong></h3>
+<h3 id="arg--from-interaction">
+    <a href="#arg--from-interaction" class="header-anchor" aria-label="Link to ARG &amp; FROM interaction"></a><strong>ARG &amp; FROM interaction</strong></h3>
 <blockquote>
 <p>Variables declared by <code>ARG</code> may appear before the first <code>FROM</code>.</p>
 </blockquote>
@@ -86,7 +92,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-scope">ARG scope</h3>
+</div><h3 id="arg-scope">
+    <a href="#arg-scope" class="header-anchor" aria-label="Link to ARG scope"></a>ARG scope</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -123,7 +130,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="run">RUN</h2>
+</div><h2 id="run">
+    <a href="#run" class="header-anchor" aria-label="Link to RUN"></a>RUN</h2>
 <ul>
 <li><code>RUN &lt;command&gt;</code> (shell form; default on <em>linux</em>: <code>/bin/sh -c</code>, on <em>Windows</em>: <code>cmd /S /C</code>)</li>
 <li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> form)</li>
@@ -176,20 +184,23 @@
 </div></div>
         </div>
     </div>
-<h3 id="run-cache">RUN cache</h3>
+<h3 id="run-cache">
+    <a href="#run-cache" class="header-anchor" aria-label="Link to RUN cache"></a>RUN cache</h3>
 <ul>
 <li>The <code>RUN</code> cache is <strong>not</strong> invalidated automatically on the next build</li>
 <li>A command like <code>RUN apt-get dist-upgrade -y</code> has its cache reused on the next build</li>
 <li><code>--no-cache</code> invalidates the <code>RUN</code> cache: <code>docker build --no-cache</code></li>
 <li><strong><code>ADD</code> and <code>COPY</code> can invalidate the <code>RUN</code> cache</strong></li>
 </ul>
-<h2 id="cmd">CMD</h2>
+<h2 id="cmd">
+    <a href="#cmd" class="header-anchor" aria-label="Link to CMD"></a>CMD</h2>
 <ul>
 <li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
 <li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
 <li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
 </ul>
-<h3 id="notes">Notes</h3>
+<h3 id="notes">
+    <a href="#notes" class="header-anchor" aria-label="Link to Notes"></a>Notes</h3>
 <ul>
 <li>A <code>Dockerfile</code> may have only one <code>CMD</code>; if there are several, only the last takes effect.</li>
 <li><code>CMD</code>&rsquo;s main purpose is to provide defaults for an executing container. The defaults may include an executable, or omit it — in which case you must also specify <code>ENTRYPOINT</code>.</li>
@@ -198,7 +209,8 @@
 <li><strong>If the user passes arguments to <code>docker run</code>, they override the <code>CMD</code> defaults</strong></li>
 <li>Don&rsquo;t confuse <code>RUN</code> with <code>CMD</code>. <code>RUN</code> <em>actually runs a command and commits the result</em>; <code>CMD</code> <em>does nothing at build time but specifies the intended command for the image</em>.</li>
 </ul>
-<h2 id="label">LABEL</h2>
+<h2 id="label">
+    <a href="#label" class="header-anchor" aria-label="Link to LABEL"></a>LABEL</h2>
 <blockquote>
 <p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -231,7 +243,8 @@
 <blockquote>
 <p>View image labels: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
 </blockquote>
-<h2 id="expose">EXPOSE</h2>
+<h2 id="expose">
+    <a href="#expose" class="header-anchor" aria-label="Link to EXPOSE"></a>EXPOSE</h2>
 <blockquote>
 <p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
 </blockquote>
@@ -256,7 +269,8 @@
 </span></span><span class="line"><span class="cl">EXPOSE 80/udp
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="expose-for-run">expose for run</h3>
+</div><h3 id="expose-for-run">
+    <a href="#expose-for-run" class="header-anchor" aria-label="Link to expose for run"></a>expose for run</h3>
 <ul>
 <li>
 <p><code>P</code> Publish all exposed ports to the host interfaces</p>
@@ -271,7 +285,8 @@
 <p><code>docker run -p 80-81:80-81/tcp</code></p>
 </li>
 </ul>
-<h2 id="env">ENV</h2>
+<h2 id="env">
+    <a href="#env" class="header-anchor" aria-label="Link to ENV"></a>ENV</h2>
 <blockquote>
 <p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -328,7 +343,8 @@
 </span></span><span class="line"><span class="cl">ENV <span class="nv">ghi</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># ghi=bye</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="add">ADD</h2>
+</div><h2 id="add">
+    <a href="#add" class="header-anchor" aria-label="Link to ADD"></a>ADD</h2>
 <ul>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code>  <strong>required when paths contain spaces</strong></li>
@@ -405,7 +421,8 @@
 </div>
         </div>
     </div>
-<h2 id="copy">COPY</h2>
+<h2 id="copy">
+    <a href="#copy" class="header-anchor" aria-label="Link to COPY"></a>COPY</h2>
 <ul>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code> <strong>required when paths contain spaces</strong></li>
@@ -481,7 +498,8 @@
 </div>
         </div>
     </div>
-<h2 id="entrypoint">ENTRYPOINT</h2>
+<h2 id="entrypoint">
+    <a href="#entrypoint" class="header-anchor" aria-label="Link to ENTRYPOINT"></a>ENTRYPOINT</h2>
 <ul>
 <li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> <code>exec form</code> <strong>recommended</strong></li>
 <li><code>ENTRYPOINT command param1 param2</code> <code>shell form</code> <strong>cannot accept args passed via CLI, <code>CMD</code>, or <code>run</code></strong></li>
@@ -497,7 +515,8 @@
 <li>The exec form does not invoke a <em>shell</em>; if you need one, specify <code>sh -c</code> in <code>ENTRYPOINT</code>, e.g. <code>ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
 <li>The shell form runs as a subcommand of <code>/bin/sh -c</code> and doesn&rsquo;t pass signals. The executable won&rsquo;t be <code>PID 1</code> and won&rsquo;t receive <code>Unix</code> signals, so it won&rsquo;t receive <code>SIGTERM</code> from <code>docker stop &lt;container&gt;</code></li>
 </ul>
-<h3 id="exec-form-entrypoint-example">exec form ENTRYPOINT example</h3>
+<h3 id="exec-form-entrypoint-example">
+    <a href="#exec-form-entrypoint-example" class="header-anchor" aria-label="Link to exec form ENTRYPOINT example"></a>exec form ENTRYPOINT example</h3>
 <blockquote>
 <p><a href="https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Exec form ENTRYPOINT example</a>*</p>
 </blockquote>
@@ -577,11 +596,13 @@
 </div></div>
         </div>
     </div>
-<h3 id="shell-form-entrypoint-example">shell form ENTRYPOINT example</h3>
+<h3 id="shell-form-entrypoint-example">
+    <a href="#shell-form-entrypoint-example" class="header-anchor" aria-label="Link to shell form ENTRYPOINT example"></a>shell form ENTRYPOINT example</h3>
 <blockquote>
 <p><em><a href="https://docs.docker.com/engine/reference/builder/#shell-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Shell form ENTRYPOINT example</a></em></p>
 </blockquote>
-<h4 id="shell-form-with-exec"><strong>shell form with <code>exec</code></strong></h4>
+<h4 id="shell-form-with-exec">
+    <a href="#shell-form-with-exec" class="header-anchor" aria-label="Link to shell form with exec"></a><strong>shell form with <code>exec</code></strong></h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -653,7 +674,8 @@
 </div></div>
         </div>
     </div>
-<h4 id="shell-form-no-exec">shell form (no exec)</h4>
+<h4 id="shell-form-no-exec">
+    <a href="#shell-form-no-exec" class="header-anchor" aria-label="Link to shell form (no exec)"></a>shell form (no exec)</h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -732,7 +754,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="cmd-and-entrypoint-interaction"><strong>CMD and ENTRYPOINT interaction</strong></h3>
+<h3 id="cmd-and-entrypoint-interaction">
+    <a href="#cmd-and-entrypoint-interaction" class="header-anchor" aria-label="Link to CMD and ENTRYPOINT interaction"></a><strong>CMD and ENTRYPOINT interaction</strong></h3>
 <blockquote>
 <p>Both define the command to run when the container starts.</p>
 </blockquote>
@@ -742,7 +765,8 @@
 <li><code>CMD</code> should be the way to define <em>default parameters</em> for the <code>ENTRYPOINT</code> command, or a transient command to run in the container</li>
 <li>When the container is run with other args, <code>CMD</code> is overridden</li>
 </ul>
-<h4 id="cmd-and-entrypoint-interaction-rules"><strong>CMD and ENTRYPOINT interaction rules</strong></h4>
+<h4 id="cmd-and-entrypoint-interaction-rules">
+    <a href="#cmd-and-entrypoint-interaction-rules" class="header-anchor" aria-label="Link to CMD and ENTRYPOINT interaction rules"></a><strong>CMD and ENTRYPOINT interaction rules</strong></h4>
 <blockquote>
 <p>If the base image defines a <code>CMD</code>, setting <code>ENTRYPOINT</code> resets <code>CMD</code> to empty.</p>
 </blockquote>
@@ -782,7 +806,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="volume">VOLUME</h2>
+<h2 id="volume">
+    <a href="#volume" class="header-anchor" aria-label="Link to VOLUME"></a>VOLUME</h2>
 <ul>
 <li><code>VOLUME [&quot;/data&quot;]</code></li>
 </ul>
@@ -834,7 +859,8 @@
 <li>JSON formatting: the list is parsed as a JSON array. You must use double-quotes (<code>&quot;</code>) not single-quotes (<code>'</code>).</li>
 <li>Host directories at runtime: host directories (mount points) are inherently host-dependent. This keeps images portable, since a given host directory isn&rsquo;t guaranteed on every host. For this reason you cannot mount a host directory from the Dockerfile. <code>VOLUME</code> does not support a <code>host-dir</code> argument. You must specify the mount point when creating/running the container.</li>
 </ul>
-<h2 id="user">USER</h2>
+<h2 id="user">
+    <a href="#user" class="header-anchor" aria-label="Link to USER"></a>USER</h2>
 <ul>
 <li><code>USER &lt;user&gt;[:&lt;group&gt;]</code></li>
 <li><code>USER &lt;UID&gt;[:&lt;GID&gt;]</code></li>
@@ -843,7 +869,8 @@
 <blockquote>
 <p><strong>When you specify a group for the user, the user has only that group&rsquo;s membership. Any other configured group memberships are ignored.</strong></p>
 </blockquote>
-<h2 id="workdir">WORKDIR</h2>
+<h2 id="workdir">
+    <a href="#workdir" class="header-anchor" aria-label="Link to WORKDIR"></a>WORKDIR</h2>
 <ul>
 <li>
 <p><code>WORKDIR /path/to/workdir</code></p>
@@ -887,7 +914,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="arg">ARG</h2>
+</div><h2 id="arg">
+    <a href="#arg" class="header-anchor" aria-label="Link to ARG"></a>ARG</h2>
 <ul>
 <li>
 <p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
@@ -913,7 +941,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="default-values">Default values</h3>
+</div><h3 id="default-values">
+    <a href="#default-values" class="header-anchor" aria-label="Link to Default values"></a>Default values</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -928,7 +957,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="scope">Scope</h3>
+</div><h3 id="scope">
+    <a href="#scope" class="header-anchor" aria-label="Link to Scope"></a>Scope</h3>
 <ul>
 <li>An <code>ARG</code> variable is in effect <strong>from the line it&rsquo;s declared on, downward</strong> in the <code>Dockerfile</code>; nowhere else.</li>
 <li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>overrides <code>&lt;arg-name&gt;</code></strong></li>
@@ -974,7 +1004,8 @@
 </span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="using-arg-variables"><strong>Using ARG variables</strong></h3>
+</div><h3 id="using-arg-variables">
+    <a href="#using-arg-variables" class="header-anchor" aria-label="Link to Using ARG variables"></a><strong>Using ARG variables</strong></h3>
 <ul>
 <li>For the same-named <code>ARG</code> and <code>ENV</code>, an <code>ENV</code> defined after the <code>ARG</code> overrides the nearest preceding <code>ARG</code> value.</li>
 <li><code>ARG VAR_NAME</code> may be repeated; each acts as a reset and can be overridden by the nearest following same-named <code>ENV</code>.</li>
@@ -1004,7 +1035,8 @@
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>outputs v1.0.0</em></p>
 </blockquote>
 <p>See <a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer ">environment replacement</a></p>
-<h3 id="built-in-args">Built-in args</h3>
+<h3 id="built-in-args">
+    <a href="#built-in-args" class="header-anchor" aria-label="Link to Built-in args"></a>Built-in args</h3>
 <blockquote>
 <p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
 </blockquote>
@@ -1018,7 +1050,8 @@
 <li>NO_PROXY</li>
 <li>no_proxy</li>
 </ul>
-<h3 id="platform-related-global-args">Platform-related global args</h3>
+<h3 id="platform-related-global-args">
+    <a href="#platform-related-global-args" class="header-anchor" aria-label="Link to Platform-related global args"></a>Platform-related global args</h3>
 <ul>
 <li><code>docker build --platform=</code></li>
 </ul>
@@ -1038,7 +1071,8 @@
 <li>BUILDARCH - architecture component of BUILDPLATFORM</li>
 <li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
 </ul>
-<h3 id="cache-invalidation-by-arg">Cache invalidation by ARG</h3>
+<h3 id="cache-invalidation-by-arg">
+    <a href="#cache-invalidation-by-arg" class="header-anchor" aria-label="Link to Cache invalidation by ARG"></a>Cache invalidation by ARG</h3>
 <blockquote>
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
 </blockquote>
@@ -1065,7 +1099,8 @@
 <li>exec count 2: use cache</li>
 <li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>: everything before <code>ARG CONT_IMG_VER</code> used cache; everything after is cache-invalidated</li>
 </ul>
-<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<h2 id="onbuild">
+    <a href="#onbuild" class="header-anchor" aria-label="Link to ONBUILD"></a><strong>ONBUILD</strong></h2>
 <ul>
 <li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
 </ul>
@@ -1086,7 +1121,8 @@
 <p>This is very useful when you&rsquo;re building an image meant to be a base for others — e.g. an app build environment or a daemon customizable with user-specific config.</p>
 <p>For example, if your image is a reusable <code>Python</code> app builder, you need to <em>add the app source to a specific directory</em> and maybe call a build script afterwards. You can&rsquo;t just call <code>ADD</code> and <code>RUN</code> now because you don&rsquo;t have the app source yet, and it differs per app build. You could hand app developers a boilerplate <code>Dockerfile</code> to copy-paste, but that&rsquo;s <strong>inefficient, error-prone, and hard to update</strong>, since it&rsquo;s mixed into app-specific code.</p>
 <p><strong>The solution</strong> is <code>ONBUILD</code> to <strong>register pre-run instructions</strong> for the next build stage.</p>
-<h3 id="how-onbuild-works">How <code>ONBUILD</code> works</h3>
+<h3 id="how-onbuild-works">
+    <a href="#how-onbuild-works" class="header-anchor" aria-label="Link to How ONBUILD works"></a>How <code>ONBUILD</code> works</h3>
 <ul>
 <li>
 <ol>
@@ -1109,13 +1145,15 @@
 </ol>
 </li>
 </ul>
-<h2 id="stopsignal">STOPSIGNAL</h2>
+<h2 id="stopsignal">
+    <a href="#stopsignal" class="header-anchor" aria-label="Link to STOPSIGNAL"></a>STOPSIGNAL</h2>
 <blockquote>
 <p><code>STOPSIGNAL signal</code></p>
 </blockquote>
 <p><code>STOPSIGNAL</code> sets the system-call signal sent to the container to exit. It may be a signal name in <code>SIG&lt;name&gt;</code> form (e.g. <code>SIGKILL</code>) or an unsigned number matching a position in the kernel&rsquo;s syscall table (e.g. <code>9</code>). If unset, defaults to <code>SIGTERM</code>.</p>
 <p>The <code>--stop-signal</code> flag on <code>docker run</code> and <code>docker create</code> overrides the image&rsquo;s default stop signal per container.</p>
-<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<h2 id="healthcheck">
+    <a href="#healthcheck" class="header-anchor" aria-label="Link to HEALTHCHECK"></a><strong>HEALTHCHECK</strong></h2>
 <ul>
 <li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
 <li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
@@ -1138,7 +1176,8 @@
 <li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
 <li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
 </ul>
-<h3 id="healthcheck-example"><code>HEALTHCHECK</code> example</h3>
+<h3 id="healthcheck-example">
+    <a href="#healthcheck-example" class="header-anchor" aria-label="Link to HEALTHCHECK example"></a><code>HEALTHCHECK</code> example</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1149,7 +1188,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="shell">SHELL</h2>
+</div><h2 id="shell">
+    <a href="#shell" class="header-anchor" aria-label="Link to SHELL"></a>SHELL</h2>
 <blockquote>
 <p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
 </blockquote>
@@ -1209,7 +1249,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="example">Example</h2>
+<h2 id="example">
+    <a href="#example" class="header-anchor" aria-label="Link to Example"></a>Example</h2>
 <blockquote>
 <p><code>go1.18</code> base-image build; for more base images see <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 </blockquote>
@@ -1247,7 +1288,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="best-practices">Best practices</h2>
+</div><h2 id="best-practices">
+    <a href="#best-practices" class="header-anchor" aria-label="Link to Best practices"></a>Best practices</h2>
 <ul>
 <li>Each instruction creates a layer. For downstream images the upstream image is a read-only layer; the current build just <strong>appends layers</strong> on top.</li>
 <li>Prefer <code>COPY</code> over <code>ADD</code> — more transparent and direct</li>
@@ -1290,7 +1332,8 @@
 <li>On <code>docker stop</code>, a <code>PID=1</code> container exits cleanly; after the stop timeout, <code>SIGKILL</code> is sent</li>
 <li><a href="#cmd-and-entrypoint-interaction-rules" rel="">CMD and ENTRYPOINT interaction rules</a></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer ">Docker reference</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer ">understand-how-arg-and-from-interact</a></li>
@@ -1302,7 +1345,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="terminology">Terminology</h2>
+<h2 id="terminology">
+    <a href="#terminology" class="header-anchor" aria-label="Link to Terminology"></a>Terminology</h2>
 <ul>
 <li><strong><a href="https://en.wikipedia.org/wiki/Docker,_Inc." target="_blank" rel="noopener noreffer ">Docker Inc</a></strong> a US-based company that built open-source and closed-source software making it easier to develop, test, and run applications in containers.</li>
 <li><strong><a href="https://github.com/docker/engine" target="_blank" rel="noopener noreffer ">Docker Engine</a></strong> the core technology behind Docker. Open-source software that runs as a daemon on Linux and makes running containers on the Linux kernel possible. It owns the container lifecycle and the isolation of physical resources (compute, memory, storage) a container can access. It can run on physical or virtual machines, but only on a Linux kernel — i.e. on any Linux-flavored OS. This is important: <strong>the Docker engine runs only on Linux</strong>.</li>
@@ -1317,7 +1361,8 @@
             <div class="admonition-content">The way to keep running and building container apps on <strong>macOS</strong> is to run <code>Docker Engine</code> inside a <code>Linux VM</code>.</div>
         </div>
     </div>
-<h2 id="requirements">Requirements</h2>
+<h2 id="requirements">
+    <a href="#requirements" class="header-anchor" aria-label="Link to Requirements"></a>Requirements</h2>
 <ul>
 <li>At least 2 CPUs</li>
 <li>At least 2 GB of free memory</li>
@@ -1325,7 +1370,8 @@
 <li>A network connection</li>
 <li>A container or VM manager, e.g. <strong><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong>, <strong><a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong>, Hyper-V, KVM, Parallels, <strong><a href="https://podman.io/" target="_blank" rel="noopener noreffer ">podman</a></strong>, <em><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreffer ">VirtualBox</a></em>, or VMware Fusion/Workstation</li>
 </ul>
-<h2 id="installation">Installation</h2>
+<h2 id="installation">
+    <a href="#installation" class="header-anchor" aria-label="Link to Installation"></a>Installation</h2>
 <blockquote>
 <p>If you&rsquo;re sure you won&rsquo;t run images in <code>docker desktop</code> anymore, remove all <code>docker</code> / <code>docker desktop</code> related config.</p>
 </blockquote>
@@ -1375,7 +1421,8 @@
 </div>
         </div>
     </div>
-<h2 id="verify-the-install">Verify the install</h2>
+<h2 id="verify-the-install">
+    <a href="#verify-the-install" class="header-anchor" aria-label="Link to Verify the install"></a>Verify the install</h2>
 <p>Run <code>which minikube</code></p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -1397,12 +1444,14 @@
 </div>
         </div>
     </div>
-<h2 id="drivers">Drivers</h2>
+<h2 id="drivers">
+    <a href="#drivers" class="header-anchor" aria-label="Link to Drivers"></a>Drivers</h2>
 <blockquote>
 <p><code>minikube</code> needs a <code>Linux VM</code> to start on <code>mac/windows</code>; that&rsquo;s the driver we configure. With <code>--driver=docker</code> you need the matching <code>Docker Desktop</code> installed to reuse its <code>linux vm</code>.
 Otherwise pick another driver. Supported drivers:</p>
 </blockquote>
-<h3 id="linux"><em>Linux</em></h3>
+<h3 id="linux">
+    <a href="#linux" class="header-anchor" aria-label="Link to Linux"></a><em>Linux</em></h3>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - container-based (preferred)</li>
 <li>KVM2 - VM-based (preferred)</li>
@@ -1411,7 +1460,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/podman/" target="_blank" rel="noopener noreffer ">Podman</a></strong> - container (experimental)</li>
 <li>SSH - remote ssh</li>
 </ul>
-<h3 id="macos"><strong>macOS</strong></h3>
+<h3 id="macos">
+    <a href="#macos" class="header-anchor" aria-label="Link to macOS"></a><strong>macOS</strong></h3>
 <ul>
 <li><em><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></em> - VM + Container (preferred)</li>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperkit/" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong> - VM</li>
@@ -1420,7 +1470,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li>VMware Fusion - VM</li>
 <li>SSH - remote ssh</li>
 </ul>
-<h3 id="windows">Windows</h3>
+<h3 id="windows">
+    <a href="#windows" class="header-anchor" aria-label="Link to Windows"></a>Windows</h3>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperv/" target="_blank" rel="noopener noreffer ">Hyper-V</a></strong> - VM (preferred)</li>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - VM + Container (preferred)</li>
@@ -1491,7 +1542,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <blockquote>
 <p>More driver config &amp; usage: <a href="https://minikube.sigs.k8s.io/docs/drivers/" target="_blank" rel="noopener noreffer ">minikube drivers</a></p>
 </blockquote>
-<h2 id="config-commands">Config commands</h2>
+<h2 id="config-commands">
+    <a href="#config-commands" class="header-anchor" aria-label="Link to Config commands"></a>Config commands</h2>
 <p><code>minikube config SUBCOMMAND [flags] [options]</code></p>
 <ul>
 <li><code>minikube config help</code></li>
@@ -1636,7 +1688,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="quick-start">Quick start</h2>
+<h2 id="quick-start">
+    <a href="#quick-start" class="header-anchor" aria-label="Link to Quick start"></a>Quick start</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1665,11 +1718,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">docker run hello-world
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="advanced-start">Advanced start</h2>
+</div><h2 id="advanced-start">
+    <a href="#advanced-start" class="header-anchor" aria-label="Link to Advanced start"></a>Advanced start</h2>
 <blockquote>
 <p><strong><a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">commands start</a></strong></p>
 </blockquote>
-<h3 id="start-command">Start command</h3>
+<h3 id="start-command">
+    <a href="#start-command" class="header-anchor" aria-label="Link to Start command"></a>Start command</h3>
 <ul>
 <li>After some config changes you need <code>minikube delete</code> then restart</li>
 </ul>
@@ -1704,7 +1759,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h3 id="possible-issues">Possible issues</h3>
+<h3 id="possible-issues">
+    <a href="#possible-issues" class="header-anchor" aria-label="Link to Possible issues"></a>Possible issues</h3>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1765,7 +1821,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="post-start-environment-check">Post-start environment check</h2>
+<h2 id="post-start-environment-check">
+    <a href="#post-start-environment-check" class="header-anchor" aria-label="Link to Post-start environment check"></a>Post-start environment check</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1936,7 +1993,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="change-image-registries">Change image registries</h2>
+<h2 id="change-image-registries">
+    <a href="#change-image-registries" class="header-anchor" aria-label="Link to Change image registries"></a>Change image registries</h2>
 <blockquote>
 <p><strong>Don&rsquo;t make this change inside the minikube environment.</strong> Pass it at start: <code>minikube start --image-mirror-country='cn'</code> etc.; see <a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">minikube start</a> or <a href="#advanced-start" rel="">Advanced start</a></p>
 </blockquote>
@@ -1992,7 +2050,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="dashboard">Dashboard</h2>
+<h2 id="dashboard">
+    <a href="#dashboard" class="header-anchor" aria-label="Link to Dashboard"></a>Dashboard</h2>
 <p><code>minikube dashboard</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -2006,13 +2065,15 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="directory-mounting">Directory mounting</h2>
+<h2 id="directory-mounting">
+    <a href="#directory-mounting" class="header-anchor" aria-label="Link to Directory mounting"></a>Directory mounting</h2>
 <blockquote>
 <p>This will start the mount daemon and automatically mount files into minikube.</p>
 </blockquote>
 <p><code>minikube mount &lt;local directory&gt;:&lt;host directory&gt;</code></p>
 <p><strong>Mapping/mount chain</strong>: <code>host volumes</code>&lt;-&gt;<code>docker desktop VM volumes</code>&lt;-&gt;<code>docker container volumes</code></p>
-<h3 id="driver-default-mount-paths">Driver default mount paths</h3>
+<h3 id="driver-default-mount-paths">
+    <a href="#driver-default-mount-paths" class="header-anchor" aria-label="Link to Driver default mount paths"></a>Driver default mount paths</h3>
 <p>Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:</p>
 <table>
 <thead>
@@ -2063,11 +2124,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </tbody>
 </table>
 <p><em>These mounts can be disabled by passing &ndash;disable-driver-mounts to minikube start.</em></p>
-<h2 id="running-local-apps"><strong>Running local apps</strong></h2>
+<h2 id="running-local-apps">
+    <a href="#running-local-apps" class="header-anchor" aria-label="Link to Running local apps"></a><strong>Running local apps</strong></h2>
 <blockquote>
 <p>If you use directory mapping you must enable mounting, and mind the mount path — otherwise files or configs won&rsquo;t be found.</p>
 </blockquote>
-<h3 id="files-or-configs-not-found"><strong>Files or configs not found</strong></h3>
+<h3 id="files-or-configs-not-found">
+    <a href="#files-or-configs-not-found" class="header-anchor" aria-label="Link to Files or configs not found"></a><strong>Files or configs not found</strong></h3>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2081,7 +2144,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h3 id="solution"><strong>Solution</strong></h3>
+<h3 id="solution">
+    <a href="#solution" class="header-anchor" aria-label="Link to Solution"></a><strong>Solution</strong></h3>
 <blockquote>
 <p><strong>Map/mount your working directory on the host</strong>:</p>
 <ul>
@@ -2106,11 +2170,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="start-on-boot">Start on boot</h2>
+<h2 id="start-on-boot">
+    <a href="#start-on-boot" class="header-anchor" aria-label="Link to Start on boot"></a>Start on boot</h2>
 <blockquote>
 <p><code>--mount --mount-string=$HOME/workspace:$HOME/workspace</code> <em>may have issues; mounting via <code>minikube mount</code> after start is recommended</em></p>
 </blockquote>
-<h3 id="mount-only-the-current-project-directory"><strong>Mount only the current project directory</strong></h3>
+<h3 id="mount-only-the-current-project-directory">
+    <a href="#mount-only-the-current-project-directory" class="header-anchor" aria-label="Link to Mount only the current project directory"></a><strong>Mount only the current project directory</strong></h3>
 <ul>
 <li>Pro: fewer mount dirs, less space</li>
 <li>Con: switching projects means re-mounting — tedious</li>
@@ -2140,7 +2206,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mount-the-whole-working-directory"><strong>Mount the whole working directory</strong></h3>
+</div><h3 id="mount-the-whole-working-directory">
+    <a href="#mount-the-whole-working-directory" class="header-anchor" aria-label="Link to Mount the whole working directory"></a><strong>Mount the whole working directory</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2165,7 +2232,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mount-the-whole-working-directory-and-run-in-the-background"><em>Mount the whole working directory and run in the background</em></h3>
+</div><h3 id="mount-the-whole-working-directory-and-run-in-the-background">
+    <a href="#mount-the-whole-working-directory-and-run-in-the-background" class="header-anchor" aria-label="Link to Mount the whole working directory and run in the background"></a><em>Mount the whole working directory and run in the background</em></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2188,7 +2256,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">nohup minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace <span class="p">&amp;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="caveats"><strong>Caveats</strong></h2>
+</div><h2 id="caveats">
+    <a href="#caveats" class="header-anchor" aria-label="Link to Caveats"></a><strong>Caveats</strong></h2>
 <ul>
 <li>After minikube starts, run <code>eval $(minikube docker-env)</code></li>
 <li><em>Mount directories after minikube starts</em> — see <a href="#running-local-apps" rel="">Running local apps</a></li>
@@ -2196,14 +2265,16 @@ Otherwise pick another driver. Supported drivers:</p>
 <li>If the mount flag is wrong, run <code>minikube mount --kill</code> and remove the dir from the <code>minikube vm</code></li>
 <li><code>minikube delete — you don't need to run it every time</code></li>
 </ul>
-<h2 id="more">More</h2>
+<h2 id="more">
+    <a href="#more" class="header-anchor" aria-label="Link to More"></a>More</h2>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/" target="_blank" rel="noopener noreffer ">Using minikube as Docker Desktop Replacement</a></strong></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/handbook/registry/" target="_blank" rel="noopener noreffer ">How to interact with registries</a></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/commands/image/#minikube-image-build" target="_blank" rel="noopener noreffer ">minikube-image-build</a></li>
 <li><a href="https://github.com/containerd/containerd" target="_blank" rel="noopener noreffer ">containerd</a></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://dhwaneetbhatt.com/blog/run-docker-without-docker-desktop-on-macos" target="_blank" rel="noopener noreffer ">run-docker-without-docker-desktop-on-macos</a></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer ">minikube docs</a></li>

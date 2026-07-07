@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="common-signals">Common signals</h2>
+<h2 id="common-signals">
+    <a href="#common-signals" class="header-anchor" aria-label="Link to Common signals"></a>Common signals</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -35,7 +36,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -69,11 +71,13 @@
 </div><blockquote>
 <p>For a more convenient wrapper, see <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-testing">kill testing</h2>
+<h2 id="kill-testing">
+    <a href="#kill-testing" class="header-anchor" aria-label="Link to kill testing"></a>kill testing</h2>
 <blockquote>
 <p>Run <code>kill</code> on the host to stop the <code>app</code>. There are two runtime environments: <strong>host</strong> and <strong>docker</strong>.</p>
 </blockquote>
-<h3 id="host">Host</h3>
+<h3 id="host">
+    <a href="#host" class="header-anchor" aria-label="Link to Host"></a>Host</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -93,7 +97,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker">docker</h3>
+<h3 id="docker">
+    <a href="#docker" class="header-anchor" aria-label="Link to docker"></a>docker</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -120,7 +125,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">
+    <a href="#conclusion" class="header-anchor" aria-label="Link to Conclusion"></a>Conclusion</h2>
 <blockquote>
 <p>From the tests above, the <strong>commonly catchable, no-difference, return-0 signals</strong> are: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -129,13 +135,15 @@
 <li>2 <strong>SIGINT</strong> — trigger: <code>CTRL+C</code> or <code>kill -2</code></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="graceful-shutdown">Graceful shutdown</h2>
+<h2 id="graceful-shutdown">
+    <a href="#graceful-shutdown" class="header-anchor" aria-label="Link to Graceful shutdown"></a>Graceful shutdown</h2>
 <ol>
 <li>Send <code>kill</code> with <code>-15/-TERM/-SIGTERM</code></li>
 <li>After the program catches the signal: <strong>remove the node from discovery</strong>, <strong>release resources</strong>, <em>stop the program</em></li>
 <li>After a configured interval, check whether it stopped; if not, fall back to <code>kill -9/-KILL/-SIGKILL</code> per your policy</li>
 </ol>
-<h2 id="k8s-graceful-shutdown">k8s graceful shutdown</h2>
+<h2 id="k8s-graceful-shutdown">
+    <a href="#k8s-graceful-shutdown" class="header-anchor" aria-label="Link to k8s graceful shutdown"></a>k8s graceful shutdown</h2>
 <ol>
 <li><strong>Remove the node</strong></li>
 <li><code>preStop hook</code> <em>optional delay, to drain in-flight traffic</em></li>
@@ -148,7 +156,8 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>Current <code>Docker Compose version 2.2.2</code></li>
 </ul>

@@ -5,14 +5,16 @@
 <li><a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">giscus demo</a></li>
 </ul>
 </blockquote>
-<h2 id="giscus-integration">giscus integration</h2>
+<h2 id="giscus-integration">
+    <a href="#giscus-integration" class="header-anchor" aria-label="Link to giscus integration"></a>giscus integration</h2>
 <blockquote>
 <ul>
 <li><a href="https://giscus.app" target="_blank" rel="noopener noreffer ">giscus</a></li>
 <li><a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus zh-CN</a></li>
 </ul>
 </blockquote>
-<h3 id="introduction">Introduction</h3>
+<h3 id="introduction">
+    <a href="#introduction" class="header-anchor" aria-label="Link to Introduction"></a>Introduction</h3>
 <p>A comment system powered by <a href="https://docs.github.com/en/discussions" target="_blank" rel="noopener noreffer ">GitHub Discussions</a>. Let visitors leave comments and reactions on your website via GitHub! This project is heavily inspired by <a href="https://github.com/utterance/utterances" target="_blank" rel="noopener noreffer ">utterances</a>.</p>
 <ul>
 <li><a href="https://github.com/giscus/giscus" target="_blank" rel="noopener noreffer ">Open source</a>. 🌏</li>
@@ -30,7 +32,8 @@
 <li>giscus is still under active development. GitHub is also actively developing <strong>Discussions</strong> and its API. As a result, some giscus features may break or change over time.</li>
 </ul>
 </blockquote>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">
+    <a href="#configuration" class="header-anchor" aria-label="Link to Configuration"></a>Configuration</h3>
 <blockquote>
 <p>Requirements</p>
 </blockquote>
@@ -79,7 +82,8 @@
 </div><blockquote>
 <p>You can customize the container layout in the embedded page using the <strong>.giscus</strong> and <strong>.giscus-frame</strong> selectors.</p>
 </blockquote>
-<h4 id="getting-some-parameters">Getting some parameters</h4>
+<h4 id="getting-some-parameters">
+    <a href="#getting-some-parameters" class="header-anchor" aria-label="Link to Getting some parameters"></a>Getting some parameters</h4>
 <ul>
 <li><strong>repo-id</strong>, <strong>category-id</strong>: via the <a href="https://docs.github.com/en/graphql/overview/explorer" target="_blank" rel="noopener noreffer ">github graphql api</a></li>
 <li><strong>category</strong> is usually <strong>Announcements</strong>, or pick another as needed — make sure it matches the <strong>category-id</strong>!</li>
@@ -90,7 +94,8 @@
 <blockquote>
 <p>After the steps above, you can use the plugin easily. Embedding it into your current theme, however, needs some extra handling.</p>
 </blockquote>
-<h3 id="theme-support-for-giscus">Theme support for giscus</h3>
+<h3 id="theme-support-for-giscus">
+    <a href="#theme-support-for-giscus" class="header-anchor" aria-label="Link to Theme support for giscus"></a>Theme support for giscus</h3>
 <p>You can add giscus support in two ways:</p>
 <ul>
 <li><strong>theme.js</strong> <em>JS approach</em> — <strong>requires recompiling theme.js</strong>; see the project&rsquo;s <code>Makefile</code>, <code>make debug</code></li>
@@ -104,31 +109,36 @@
 <blockquote>
 <p>giscus iframe async theme config: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer ">isetconfigmessage</a></p>
 </blockquote>
-<h3 id="see-it-in-action">See it in action</h3>
+<h3 id="see-it-in-action">
+    <a href="#see-it-in-action" class="header-anchor" aria-label="Link to See it in action"></a>See it in action</h3>
 <ul>
 <li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xwi88.com</a></li>
 </ul>
 <p><figure><figcaption class="image-caption">hugo giscus demo</figcaption>
     </figure></p>]]></description></item><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
-<h2 id="busuanzi"><strong>busuanzi</strong></h2>
+<h2 id="busuanzi">
+    <a href="#busuanzi" class="header-anchor" aria-label="Link to busuanzi"></a><strong>busuanzi</strong></h2>
 <blockquote>
 <p><a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">busuanzi</a></p>
 </blockquote>
 <p>There are many fast technologies and platforms for building static sites today, but &ldquo;static&rdquo; is both a strength and a weakness. Because the site is static, dynamic features such as comments and counters have to rely on external services. For counting you can use &ldquo;busuanzi&rdquo;, a lightweight page counter developed by Bruce. It is extremely easy to use: <strong>two lines do the job</strong> — <em>one script</em> and <em>one tag</em>.</p>
-<h3 id="metrics">Metrics</h3>
+<h3 id="metrics">
+    <a href="#metrics" class="header-anchor" aria-label="Link to Metrics"></a>Metrics</h3>
 <ul>
 <li><strong>PV</strong> stands for <strong>Page View</strong>, <em>page views</em>
 The number of times a page is viewed, used to measure how many pages users visit. Each time a user opens a page, 1 PV is recorded; opening the same page repeatedly accumulates views.</li>
 <li><strong>UV</strong> stands for <strong>Unique Visitor</strong>, <em>unique visitors</em>
 The number of people who visit a site within a day, identified by cookie. Multiple visits from the same visitor within a day count as a single visitor.</li>
 </ul>
-<h3 id="how-busuanzi-differs-from-other-analytics-tools">How busuanzi differs from other analytics tools</h3>
+<h3 id="how-busuanzi-differs-from-other-analytics-tools">
+    <a href="#how-busuanzi-differs-from-other-analytics-tools" class="header-anchor" aria-label="Link to How busuanzi differs from other analytics tools"></a>How busuanzi differs from other analytics tools</h3>
 <ul>
 <li><strong>busuanzi</strong> can display the visit count directly on your page (or keep it hidden)</li>
 <li>For a site that has already been online for a while, <strong>busuanzi</strong> lets you seed the initial count <strong>(sign-in required)</strong></li>
 <li><strong>Counting only</strong> — the styling is entirely under your control</li>
 </ul>
-<h3 id="quick-start">Quick start</h3>
+<h3 id="quick-start">
+    <a href="#quick-start" class="header-anchor" aria-label="Link to Quick start"></a>Quick start</h3>
 <blockquote>
 <p><strong>Count without displaying</strong>: <em>install only the script, skip the display tags.</em></p>
 </blockquote>
@@ -148,11 +158,13 @@ The number of people who visit a site within a day, identified by cookie. Multip
 </span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span>this page: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="hugo-integration">Hugo integration</h3>
+</div><h3 id="hugo-integration">
+    <a href="#hugo-integration" class="header-anchor" aria-label="Link to Hugo integration"></a>Hugo integration</h3>
 <blockquote>
 <p>If you don&rsquo;t have a strong urge to develop your own theme and want to keep updating the theme you&rsquo;ve chosen, customize it the sensible way (<strong>override templates and config</strong>).</p>
 </blockquote>
-<h4 id="what-to-change">What to change</h4>
+<h4 id="what-to-change">
+    <a href="#what-to-change" class="header-anchor" aria-label="Link to What to change"></a>What to change</h4>
 <p>We will count per-page read <code>PV</code>, and track site-wide <code>PV</code> and <code>UV</code>. Combined with the theme in use, the files to modify are:</p>
 <ul>
 <li><code>footer.html</code> — the footer template
@@ -170,7 +182,8 @@ The number of people who visit a site within a day, identified by cookie. Multip
 </blockquote>
 <p><figure><figcaption class="image-caption">hugo busuanzi support</figcaption>
     </figure></p>
-<h5 id="custom-config">Custom config</h5>
+<h5 id="custom-config">
+    <a href="#custom-config" class="header-anchor" aria-label="Link to Custom config"></a>Custom config</h5>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -219,7 +232,8 @@ The number of people who visit a site within a day, identified by cookie. Multip
 </span></span><span class="line"><span class="cl">    <span class="nx">page_pv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="add-the-partial">Add the partial</h5>
+</div><h5 id="add-the-partial">
+    <a href="#add-the-partial" class="header-anchor" aria-label="Link to Add the partial"></a>Add the partial</h5>
 <blockquote>
 <p><strong>busuanzi.html</strong></p>
 </blockquote>
@@ -342,7 +356,8 @@ The number of people who visit a site within a day, identified by cookie. Multip
 </span></span><span class="line"><span class="cl">{{- partial &#34;plugin/busuanzi.html&#34; (dict &#34;params&#34; .Site.Params.xwi88Cfg.busuanzi &#34;bsz_type&#34; &#34;page-reading&#34;) -}}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="full-code-changes">Full code changes</h4>
+</div><h4 id="full-code-changes">
+    <a href="#full-code-changes" class="header-anchor" aria-label="Link to Full code changes"></a>Full code changes</h4>
 <ul>
 <li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">github.com/xwi88/xwi88.github.io.source</a></li>
 <li><a href="https://gitee.com/xwi88/xwi88/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">gitee.com/xwi88/xwi88</a></li>
@@ -350,11 +365,13 @@ The number of people who visit a site within a day, identified by cookie. Multip
 <blockquote>
 <p><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></p>
 </blockquote>
-<h2 id="utteranc"><strong>utteranc</strong></h2>
+<h2 id="utteranc">
+    <a href="#utteranc" class="header-anchor" aria-label="Link to utteranc"></a><strong>utteranc</strong></h2>
 <blockquote>
 <p><a href="https://utteranc.es/" target="_blank" rel="noopener noreffer ">utteranc</a></p>
 </blockquote>
-<h3 id="introduction">introduction</h3>
+<h3 id="introduction">
+    <a href="#introduction" class="header-anchor" aria-label="Link to introduction"></a>introduction</h3>
 <p>A lightweight comments widget built on <em>GitHub issues</em>. Use <em>GitHub issues</em> for blog comments, wiki pages and more!</p>
 <ul>
 <li>Open source. 🙌</li>
@@ -364,14 +381,16 @@ The number of people who visit a site within a day, identified by cookie. Multip
 <li>Dark theme. 🌘</li>
 <li>Lightweight. Vanilla TypeScript. No font downloads, JavaScript frameworks or polyfills for evergreen browsers. 🐦🌲</li>
 </ul>
-<h3 id="configuration">configuration</h3>
+<h3 id="configuration">
+    <a href="#configuration" class="header-anchor" aria-label="Link to configuration"></a>configuration</h3>
 <p>Choose the <strong>repository</strong> utterances will connect to.</p>
 <ol>
 <li>Make sure the repo is <strong>public</strong>, otherwise your readers will not be able to view the <strong>issues/comments</strong>.</li>
 <li>Make sure the <a href="https://github.com/apps/utterances" target="_blank" rel="noopener noreffer ">utterances app</a> is installed on the repo, otherwise users will not be able to post comments.</li>
 <li>If your repo is a <strong>fork</strong>, navigate to its settings tab and confirm the issues feature is turned on.</li>
 </ol>
-<h4 id="config-update">config update</h4>
+<h4 id="config-update">
+    <a href="#config-update" class="header-anchor" aria-label="Link to config update"></a>config update</h4>
 <blockquote>
 <p>after this config, maybe work well.</p>
 </blockquote>
@@ -393,17 +412,21 @@ The number of people who visit a site within a day, identified by cookie. Multip
 </span></span><span class="line"><span class="cl">  <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;github-light&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="blog-post--issue-mapping">blog post ↔ issue mapping</h4>
+</div><h4 id="blog-post--issue-mapping">
+    <a href="#blog-post--issue-mapping" class="header-anchor" aria-label="Link to blog post ↔ issue mapping"></a>blog post ↔ issue mapping</h4>
 <p>Choose the mapping between blog posts and GitHub issues. Pls visit <a href="https://github.com/apps/utterances" target="_blank" rel="noopener noreffer ">utterances app</a> to check and set the config.</p>
-<h4 id="issue-label">issue label</h4>
+<h4 id="issue-label">
+    <a href="#issue-label" class="header-anchor" aria-label="Link to issue label"></a>issue label</h4>
 <p>Choose the label that will be assigned to issues created by Utterances.</p>
 <blockquote>
 <p>default: <strong>Comment</strong></p>
 </blockquote>
 <p>Label names are case sensitive. The label must exist in your repo- Utterances cannot attach labels that do not exist. Emoji are supported in label names.✨💬✨</p>
-<h4 id="theme">theme</h4>
+<h4 id="theme">
+    <a href="#theme" class="header-anchor" aria-label="Link to theme"></a>theme</h4>
 <p><em>Choose an Utterances theme that matches your blog.</em></p>
-<h3 id="enable-utterances">enable utterances</h3>
+<h3 id="enable-utterances">
+    <a href="#enable-utterances" class="header-anchor" aria-label="Link to enable utterances"></a>enable utterances</h3>
 <p>Add the following script tag to your blog&rsquo;s template. Position it where you want the comments to appear. Customize the layout using the .utterances and .utterances-frame selectors.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

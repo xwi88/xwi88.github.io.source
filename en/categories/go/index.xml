@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="concepts">Concepts</h2>
+<h2 id="concepts">
+    <a href="#concepts" class="header-anchor" aria-label="Link to Concepts"></a>Concepts</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -23,7 +24,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Server login dynamic-password verification (cloud servers, enterprise platforms, etc.)</li>
 <li>github, twitter, google login two-factor authentication</li>
@@ -32,7 +34,8 @@
 <li>Hardware tokens for online banking and online games</li>
 <li>2FA / MFA and the like</li>
 </ul>
-<h2 id="products">Products</h2>
+<h2 id="products">
+    <a href="#products" class="header-anchor" aria-label="Link to Products"></a>Products</h2>
 <ul>
 <li>Microsoft Authenticator: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -44,7 +47,8 @@
 <li>Bank token: bound to a specific account/card only</li>
 <li>Vendor-specific OTP security apps: limited to that vendor&rsquo;s products</li>
 </ul>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">
+    <a href="#principle" class="header-anchor" aria-label="Link to Principle"></a>Principle</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: secret key string</li>
@@ -61,12 +65,14 @@
 <li>Starting at that offset, take 4 bytes and combine them into an integer (big-endian)</li>
 <li>Take the last 6 or 8 digits of that integer and return them as a string</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li><code>C</code>: a random value derived from a timestamp
 <ul>
@@ -83,12 +89,14 @@
 <li>Other parameters as defined above</li>
 <li>The hash function is usually <code>SHA2</code>, i.e. event-synchronous verification based on a <code>SHA-256</code> or <code>SHA-512</code> hash</li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h2 id="implementations">Implementations</h2>
+<h2 id="implementations">
+    <a href="#implementations" class="header-anchor" aria-label="Link to Implementations"></a>Implementations</h2>
 <table>
 <thead>
 <tr>
@@ -149,7 +157,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="usage">Usage</h2>
+<h2 id="usage">
+    <a href="#usage" class="header-anchor" aria-label="Link to Usage"></a>Usage</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>
@@ -210,14 +219,16 @@
 </div><blockquote>
 <p>More examples are in the source <code>otp/*_test.go</code> files</p>
 </blockquote>]]></description></item><item><title>Go Object Pool Usage &amp; Optimization — Theory</title><link>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go object pools reuse <code>temporary objects</code>, which <code>reduces the waste</code> from frequently creating them — i.e. <code>lower GC overhead</code> and memory usage — improving performance and lowering serving cost to some extent. Based on <code>go1.18.2</code>, this post covers use cases, <strong>the processing flow &amp; caveats</strong>, open-source examples, a personal example (incl. pooling under <code>gRPC</code>), and best practices.</p>
-<h2 id="when-to-use">When to use</h2>
+<h2 id="when-to-use">
+    <a href="#when-to-use" class="header-anchor" aria-label="Link to When to use"></a>When to use</h2>
 <p><strong>When you frequently create the <code>same kind</code> of object and creation is expensive</strong></p>
 <ul>
 <li>The larger each object&rsquo;s memory footprint, the more obvious the benefit</li>
 <li>The bigger the memory footprint, the more obvious the benefit</li>
 <li>The higher the concurrency, the more obvious the benefit</li>
 </ul>
-<h2 id="processing-flow--caveats"><strong>Processing flow &amp; caveats</strong></h2>
+<h2 id="processing-flow--caveats">
+    <a href="#processing-flow--caveats" class="header-anchor" aria-label="Link to Processing flow &amp; caveats"></a><strong>Processing flow &amp; caveats</strong></h2>
 <blockquote>
 <p>After a temporary object is returned to the pool, it should ideally be: <code>stateless</code>, <code>reference-free</code></p>
 </blockquote>
@@ -248,7 +259,8 @@
 </div>
         </div>
     </div>
-<h2 id="object-pool-data-structures">Object-pool data structures</h2>
+<h2 id="object-pool-data-structures">
+    <a href="#object-pool-data-structures" class="header-anchor" aria-label="Link to Object-pool data structures"></a>Object-pool data structures</h2>
 <ul>
 <li><code>sync.pool</code>: fits most scenarios; easy to use and efficient
 <ul>
@@ -307,8 +319,10 @@
 </div>
         </div>
     </div>
-<h2 id="source-examples">Source examples</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="source-examples">
+    <a href="#source-examples" class="header-anchor" aria-label="Link to Source examples"></a>Source examples</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -382,7 +396,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -434,7 +449,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -466,7 +482,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -636,7 +653,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -686,7 +704,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>
@@ -792,7 +811,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="consumer-group">Consumer Group</h2>
+<h2 id="consumer-group">
+    <a href="#consumer-group" class="header-anchor" aria-label="Link to Consumer Group"></a>Consumer Group</h2>
 <p>A <code>consumer group</code> is Kafka&rsquo;s scalable, fault-tolerant consumer mechanism. A few properties:</p>
 <ul>
 <li>A <code>consumer group</code> is made up of <strong>one or more</strong> <code>consumer</code>s that together consume messages from <strong>one or more</strong> <code>topic</code>s</li>
@@ -812,7 +832,8 @@
 </div>
         </div>
     </div>
-<h2 id="rebalance">Rebalance</h2>
+<h2 id="rebalance">
+    <a href="#rebalance" class="header-anchor" aria-label="Link to Rebalance"></a>Rebalance</h2>
 <p>Partition rebalancing (<code>Rebalance</code>) is a key Kafka feature that guarantees high availability and horizontal scaling. The following trigger a Kafka rebalance:</p>
 <ul>
 <li>Consumer-group membership changes:
@@ -837,8 +858,10 @@
 </div>
         </div>
     </div>
-<h2 id="go-consumer-group">Go Consumer Group</h2>
-<h3 id="consumergroup-interface--notes">ConsumerGroup interface &amp; notes</h3>
+<h2 id="go-consumer-group">
+    <a href="#go-consumer-group" class="header-anchor" aria-label="Link to Go Consumer Group"></a>Go Consumer Group</h2>
+<h3 id="consumergroup-interface--notes">
+    <a href="#consumergroup-interface--notes" class="header-anchor" aria-label="Link to ConsumerGroup interface &amp; notes"></a>ConsumerGroup interface &amp; notes</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -927,7 +950,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+</div><h3 id="consumergroup-demo">
+    <a href="#consumergroup-demo" class="header-anchor" aria-label="Link to ConsumerGroup Demo"></a>ConsumerGroup Demo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1134,7 +1158,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="selected-config-parameters">Selected config parameters</h2>
+</div><h2 id="selected-config-parameters">
+    <a href="#selected-config-parameters" class="header-anchor" aria-label="Link to Selected config parameters"></a>Selected config parameters</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
 <li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
@@ -1144,7 +1169,8 @@
 <li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
 <li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
 </ul>
-<h2 id="configuration-recommendations">Configuration recommendations</h2>
+<h2 id="configuration-recommendations">
+    <a href="#configuration-recommendations" class="header-anchor" aria-label="Link to Configuration recommendations"></a>Configuration recommendations</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: default <code>30s</code>; if consumers often hit <code>read tcp xxx i/o timeout</code>, consider raising it
 <ul>
@@ -1177,12 +1203,14 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="why-use-it">Why use it</h2>
+<h2 id="why-use-it">
+    <a href="#why-use-it" class="header-anchor" aria-label="Link to Why use it"></a>Why use it</h2>
 <ul>
 <li>Understand which parts of your application consume the most resources</li>
 <li>Continuous profiling adds a time dimension, letting you track resource usage (CPU, memory, …) over time and locate, debug and fix performance issues</li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Find performance problems in your code</li>
 <li>Resolve high CPU utilization</li>
@@ -1190,14 +1218,16 @@
 <li>Understand your application&rsquo;s call tree</li>
 <li>Track how metrics change over time</li>
 </ul>
-<h2 id="overhead">Overhead</h2>
+<h2 id="overhead">
+    <a href="#overhead" class="header-anchor" aria-label="Link to Overhead"></a>Overhead</h2>
 <p>By using sampling-based profiling, <strong>Pyroscope</strong> collects data with minimal overhead (around <code>2-5%</code>). Its purpose-built <em>storage engine</em> <em>compresses and stores data efficiently</em>.</p>
 <ul>
 <li>Low CPU overhead thanks to sampling</li>
 <li>Control the granularity of profiling data (<code>10s</code> up to multiple years)</li>
 <li>Efficient compression, low disk-space needs and cost</li>
 </ul>
-<h2 id="working-mode">Working mode</h2>
+<h2 id="working-mode">
+    <a href="#working-mode" class="header-anchor" aria-label="Link to Working mode"></a>Working mode</h2>
 <blockquote>
 <p>Similar to common data-collection tools: an <code>Agent-Server</code> model.</p>
 </blockquote>
@@ -1207,8 +1237,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-installation">Server installation</h2>
-<h3 id="install-methods">Install methods</h3>
+<h2 id="server-installation">
+    <a href="#server-installation" class="header-anchor" aria-label="Link to Server installation"></a>Server installation</h2>
+<h3 id="install-methods">
+    <a href="#install-methods" class="header-anchor" aria-label="Link to Install methods"></a>Install methods</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -1220,7 +1252,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos--linux-install-example">MacOS &amp; Linux install example</h3>
+<h3 id="macos--linux-install-example">
+    <a href="#macos--linux-install-example" class="header-anchor" aria-label="Link to MacOS &amp; Linux install example"></a>MacOS &amp; Linux install example</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -1272,7 +1305,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">
+    <a href="#configuration" class="header-anchor" aria-label="Link to Configuration"></a>Configuration</h3>
 <p>Multiple <a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">configuration</a> sources are supported, with this precedence:</p>
 <ol>
 <li><strong>CLI flags</strong></li>
@@ -1477,15 +1511,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="start">Start</h3>
+<h3 id="start">
+    <a href="#start" class="header-anchor" aria-label="Link to Start"></a>Start</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="using-the-go-agent">Using the Go agent</h2>
+<h2 id="using-the-go-agent">
+    <a href="#using-the-go-agent" class="header-anchor" aria-label="Link to Using the Go agent"></a>Using the Go agent</h2>
 <blockquote>
 <p>Uses <code>Push</code> mode — simple and efficient.</p>
 </blockquote>
-<h3 id="import-the-dependency">Import the dependency</h3>
+<h3 id="import-the-dependency">
+    <a href="#import-the-dependency" class="header-anchor" aria-label="Link to Import the dependency"></a>Import the dependency</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-example">Agent Push example</h3>
+<h3 id="agent-push-example">
+    <a href="#agent-push-example" class="header-anchor" aria-label="Link to Agent Push example"></a>Agent Push example</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1552,7 +1590,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="authentication">Authentication</h2>
+</div><h2 id="authentication">
+    <a href="#authentication" class="header-anchor" aria-label="Link to Authentication"></a>Authentication</h2>
 <blockquote>
 <p>Default username/password: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -1561,7 +1600,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">Internal authentication</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="query--export">Query &amp; export</h2>
+<h2 id="query--export">
+    <a href="#query--export" class="header-anchor" aria-label="Link to Query &amp; export"></a>Query &amp; export</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">config</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -1577,7 +1617,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
@@ -1585,7 +1626,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="common-signals">Common signals</h2>
+<h2 id="common-signals">
+    <a href="#common-signals" class="header-anchor" aria-label="Link to Common signals"></a>Common signals</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1618,7 +1660,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1652,11 +1695,13 @@
 </div><blockquote>
 <p>For a more convenient wrapper, see <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-testing">kill testing</h2>
+<h2 id="kill-testing">
+    <a href="#kill-testing" class="header-anchor" aria-label="Link to kill testing"></a>kill testing</h2>
 <blockquote>
 <p>Run <code>kill</code> on the host to stop the <code>app</code>. There are two runtime environments: <strong>host</strong> and <strong>docker</strong>.</p>
 </blockquote>
-<h3 id="host">Host</h3>
+<h3 id="host">
+    <a href="#host" class="header-anchor" aria-label="Link to Host"></a>Host</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -1676,7 +1721,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker">docker</h3>
+<h3 id="docker">
+    <a href="#docker" class="header-anchor" aria-label="Link to docker"></a>docker</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -1703,7 +1749,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">
+    <a href="#conclusion" class="header-anchor" aria-label="Link to Conclusion"></a>Conclusion</h2>
 <blockquote>
 <p>From the tests above, the <strong>commonly catchable, no-difference, return-0 signals</strong> are: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -1712,13 +1759,15 @@
 <li>2 <strong>SIGINT</strong> — trigger: <code>CTRL+C</code> or <code>kill -2</code></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="graceful-shutdown">Graceful shutdown</h2>
+<h2 id="graceful-shutdown">
+    <a href="#graceful-shutdown" class="header-anchor" aria-label="Link to Graceful shutdown"></a>Graceful shutdown</h2>
 <ol>
 <li>Send <code>kill</code> with <code>-15/-TERM/-SIGTERM</code></li>
 <li>After the program catches the signal: <strong>remove the node from discovery</strong>, <strong>release resources</strong>, <em>stop the program</em></li>
 <li>After a configured interval, check whether it stopped; if not, fall back to <code>kill -9/-KILL/-SIGKILL</code> per your policy</li>
 </ol>
-<h2 id="k8s-graceful-shutdown">k8s graceful shutdown</h2>
+<h2 id="k8s-graceful-shutdown">
+    <a href="#k8s-graceful-shutdown" class="header-anchor" aria-label="Link to k8s graceful shutdown"></a>k8s graceful shutdown</h2>
 <ol>
 <li><strong>Remove the node</strong></li>
 <li><code>preStop hook</code> <em>optional delay, to drain in-flight traffic</em></li>
@@ -1731,13 +1780,16 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>Current <code>Docker Compose version 2.2.2</code></li>
 </ul>
 <p><code>docker-compose</code> may fail to stop on <code>CTRL+C</code>; force quit with <code>CTRL+\</code></p>]]></description></item><item><title>gvm: Go Version Manager</title><link>https://blog.xwi88.com/en/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> is a CLI tool for <strong>Linux</strong>, <strong>MacOS</strong> and <strong>Windows</strong> — similar to <strong>nvm</strong> / <em>anaconda</em> — that lets you conveniently manage and switch between multiple <strong>go</strong> environments. Highly recommended.</p>
-<h2 id="installation">Installation</h2>
-<h3 id="mac-os-x-requirements">Mac OS X Requirements</h3>
+<h2 id="installation">
+    <a href="#installation" class="header-anchor" aria-label="Link to Installation"></a>Installation</h2>
+<h3 id="mac-os-x-requirements">
+    <a href="#mac-os-x-requirements" class="header-anchor" aria-label="Link to Mac OS X Requirements"></a>Mac OS X Requirements</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1752,7 +1804,8 @@
 </span></span><span class="line"><span class="cl">brew install mercurial
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="install-gvm">Install gvm</h3>
+</div><h3 id="install-gvm">
+    <a href="#install-gvm" class="header-anchor" aria-label="Link to Install gvm"></a>Install gvm</h3>
 <blockquote>
 <p><a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener noreffer ">gvm</a></p>
 </blockquote>
@@ -1792,7 +1845,8 @@
 </div><blockquote>
 <p>To support multiple shells at the same time, copy the snippet above into each shell&rsquo;s config file manually.</p>
 </blockquote>
-<h3 id="go-environment-config">Go environment config</h3>
+<h3 id="go-environment-config">
+    <a href="#go-environment-config" class="header-anchor" aria-label="Link to Go environment config"></a>Go environment config</h3>
 <p>Switching go versions with <code>gvm use &lt;version&gt;</code> changes several environment variables, such as:</p>
 <ul>
 <li><code>GOMODCACHE=&quot;$HOME/.gvm/pkgsets/go1.17.7/global/pkg/mod&quot;</code></li>
@@ -1827,7 +1881,8 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,https://goproxy.io/,https://mirrors.aliyun.com/goproxy/,https://gocenter.io/,https://proxy.golang.org,direct
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gvm-usage"><strong>gvm</strong> usage</h2>
+</div><h2 id="gvm-usage">
+    <a href="#gvm-usage" class="header-anchor" aria-label="Link to gvm usage"></a><strong>gvm</strong> usage</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1876,7 +1931,8 @@
 </span></span><span class="line"><span class="cl">  pkgenv     - edit the environment <span class="k">for</span> a package <span class="nb">set</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gvm-install"><strong>gvm install</strong></h3>
+</div><h3 id="gvm-install">
+    <a href="#gvm-install" class="header-anchor" aria-label="Link to gvm install"></a><strong>gvm install</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1899,7 +1955,8 @@
 </span></span><span class="line"><span class="cl">    -h,  --help               Display this message.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="quick-start">Quick start</h3>
+</div><h3 id="quick-start">
+    <a href="#quick-start" class="header-anchor" aria-label="Link to Quick start"></a>Quick start</h3>
 <blockquote>
 <p><code>gvm use</code> <em>- select a go version to use (&ndash;default to set permanently)</em></p>
 </blockquote>
@@ -1912,7 +1969,8 @@
 <li><em>gvm install go1.17.7 -s=https://godoc.org/golang.org/dl/go1.17.7</em></li>
 <li><em>gvm implode</em> <strong>uninstall gvm</strong></li>
 </ul>
-<h2 id="example">Example</h2>
+<h2 id="example">
+    <a href="#example" class="header-anchor" aria-label="Link to Example"></a>Example</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

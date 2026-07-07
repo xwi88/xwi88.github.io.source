@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="makefile">Makefile</h2>
+<h2 id="makefile">
+    <a href="#makefile" class="header-anchor" aria-label="Link to Makefile"></a>Makefile</h2>
 <blockquote>
 <p>make version: <code>3.81</code></p>
 </blockquote>
@@ -27,7 +28,8 @@
 </span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="linux-shell">Linux Shell</h2>
+</div><h2 id="linux-shell">
+    <a href="#linux-shell" class="header-anchor" aria-label="Link to Linux Shell"></a>Linux Shell</h2>
 <blockquote>
 <p>Bash version: <code>5.1</code></p>
 </blockquote>
@@ -51,7 +53,8 @@
 </div>
         </div>
     </div>
-<h2 id="example">Example</h2>
+<h2 id="example">
+    <a href="#example" class="header-anchor" aria-label="Link to Example"></a>Example</h2>
 <p>For working examples of the above, see: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 <ul>
 <li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>

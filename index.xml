@@ -2,9 +2,11 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="历史">历史</h2>
+<h2 id="历史">
+    <a href="#%e5%8e%86%e5%8f%b2" class="header-anchor" aria-label="Link to 历史"></a>历史</h2>
 <p>ChatGPT最早由OpenAI团队开发，它在2018年由此带来的一系列语言生成模型（如GPT-2、GPT-3等）都备受关注。ChatGPT的历史始于2019年，当时AI开发人员在研究中发现，GPT模型可以用于生成自然对话。基于这一发现，AI开发人员进行了一系列的研究和调整，逐渐形成了今天的ChatGPT。</p>
-<h3 id="gpt-各版本简介">GPT 各版本简介</h3>
+<h3 id="gpt-各版本简介">
+    <a href="#gpt-%e5%90%84%e7%89%88%e6%9c%ac%e7%ae%80%e4%bb%8b" class="header-anchor" aria-label="Link to GPT 各版本简介"></a>GPT 各版本简介</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -61,9 +63,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="原理">原理</h2>
+<h2 id="原理">
+    <a href="#%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 原理"></a>原理</h2>
 <p>ChatGPT基于GPT（Generative Pre-training Transformer）技术，是一种基于深层神经网络的自然语言生成模型。GPT模型是由OpenAI团队开发的，它基于深度学习技术，通过预先训练一个大规模的语料库，从而使得该模型可以为用户提供高质量的自然语言生成服务。ChatGPT是基于GPT模型进行训练和调整的，其核心是通过上下文理解识别用户的话题和意图，从而生成合适的答案和回答。</p>
-<h3 id="模型原理">模型原理</h3>
+<h3 id="模型原理">
+    <a href="#%e6%a8%a1%e5%9e%8b%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 模型原理"></a>模型原理</h3>
 <ol>
 <li>架构：OpenAI ChatGPT是基于transformer架构的深度学习模型。该架构通过多头自注意力机制和前向神经网络对序列数据进行编码和解码，具有高度的表示能力和泛化能力。</li>
 <li>预训练：OpenAI ChatGPT使用大规模的语料库进行预训练，训练过程主要包括两个步骤: 遮盖语言模型和下一句预测模型。
@@ -75,7 +79,8 @@
 <li>微调：在预训练完成后，OpenAI ChatGPT针对特定的任务（如对话生成）进行微调，进一步提升模型性能。</li>
 <li>序列到序列生成：在ChatGPT的使用中，它将用户输入的问题作为输入序列，经过处理后得到输出序列，输出序列经过细致的调整后以自然语言的形式呈现给用户。ChatGPT通过监督学习的方式，不断优化模型的参数和结构，提高答案的质量和相关性。</li>
 </ol>
-<h3 id="工作原理">工作原理</h3>
+<h3 id="工作原理">
+    <a href="#%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 工作原理"></a>工作原理</h3>
 <ol>
 <li>输入编码：当用户输入一条聊天句子并发送时，ChatGPT 会使用 Transformer 编码器对该输入句子进行编码,得到其语义向量表示。</li>
 <li>解码器初始化：然后 ChatGPT 会初始化 Transformer 解码器，以最大化生成下一条回复句子的概率。</li>
@@ -86,7 +91,8 @@
 <li>重复学习：ChatGPT 是一个预训练语言模型，在和用户的每轮交互中，它都会继续学习，并不断优化自身的语言表达和生成能力。</li>
 </ol>
 <p>所以总的来说，ChatGPT 的工作原理主要依靠 Transformer 编码器-解码器框架，利用注意力机制和贪心搜索算法进行序列生成，并借助大规模聊天数据集不断学习和优化，以实现人机开放领域对话。这也使其成为目前效果最为显著的聊天机器人系统之一。</p>
-<h2 id="竞品">竞品</h2>
+<h2 id="竞品">
+    <a href="#%e7%ab%9e%e5%93%81" class="header-anchor" aria-label="Link to 竞品"></a>竞品</h2>
 <blockquote>
 <p>相关内容及分析，基于文章发布时间，如有不准确的地方，见谅。</p>
 </blockquote>
@@ -139,7 +145,8 @@
             <div class="admonition-content">以上标注免费的产品仅限于当前官方页面访问，具体计费请以官方为准。</div>
         </div>
     </div>
-<h3 id="chatgpt-api-计费">ChatGPT API 计费</h3>
+<h3 id="chatgpt-api-计费">
+    <a href="#chatgpt-api-%e8%ae%a1%e8%b4%b9" class="header-anchor" aria-label="Link to ChatGPT API 计费"></a>ChatGPT API 计费</h3>
 <ul>
 <li>OpenAI网站计费说明：<a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer ">pricing#language-models</a></li>
 <li>OpenAI根据token数收费，1000个token通常可代表750个英文单词，或500个汉字。</li>
@@ -188,7 +195,8 @@
 </div>
         </div>
     </div>
-<h2 id="访问环境配置">访问环境配置</h2>
+<h2 id="访问环境配置">
+    <a href="#%e8%ae%bf%e9%97%ae%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 访问环境配置"></a>访问环境配置</h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -197,7 +205,8 @@
             <div class="admonition-content">我们主要以 ChatGPT 为例来进行科学访问的配置，仅限于个人研究使用，商业使用请务必合法合规。</div>
         </div>
     </div>
-<h3 id="可选方式">可选方式</h3>
+<h3 id="可选方式">
+    <a href="#%e5%8f%af%e9%80%89%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 可选方式"></a>可选方式</h3>
 <table>
 <thead>
 <tr>
@@ -237,7 +246,8 @@
             <div class="admonition-content">如果你需要通过自己域名进行调用，需要通过Nginx或其他工具在你的服务端进行反代处理。</div>
         </div>
     </div>
-<h3 id="推荐方式">推荐方式</h3>
+<h3 id="推荐方式">
+    <a href="#%e6%8e%a8%e8%8d%90%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 推荐方式"></a>推荐方式</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -246,7 +256,8 @@
             <div class="admonition-content">选择合适地区通过云函数方式创建并测试，当前可用: 腾讯云，阿里云，其他云服务商请自行探索。</div>
         </div>
     </div>
-<h4 id="创建步骤如下">创建步骤如下</h4>
+<h4 id="创建步骤如下">
+    <a href="#%e5%88%9b%e5%bb%ba%e6%ad%a5%e9%aa%a4%e5%a6%82%e4%b8%8b" class="header-anchor" aria-label="Link to 创建步骤如下"></a>创建步骤如下</h4>
 <blockquote>
 <p>更多请参考: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer ">openai-scf-proxy</a> 或 <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer ">openai-scf-goproxy</a></p>
 </blockquote>
@@ -302,8 +313,10 @@
 </ul>
 </li>
 </ol>
-<h2 id="api-测试">API 测试</h2>
-<h3 id="余额">余额</h3>
+<h2 id="api-测试">
+    <a href="#api-%e6%b5%8b%e8%af%95" class="header-anchor" aria-label="Link to API 测试"></a>API 测试</h2>
+<h3 id="余额">
+    <a href="#%e4%bd%99%e9%a2%9d" class="header-anchor" aria-label="Link to 余额"></a>余额</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -338,7 +351,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="订阅">订阅</h3>
+<h3 id="订阅">
+    <a href="#%e8%ae%a2%e9%98%85" class="header-anchor" aria-label="Link to 订阅"></a>订阅</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -429,7 +443,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="交互">交互</h3>
+<h3 id="交互">
+    <a href="#%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to 交互"></a>交互</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,9 +547,11 @@
 </div></div>
         </div>
     </div>
-<h2 id="chatgpt-web-搭建">ChatGPT Web 搭建</h2>
+<h2 id="chatgpt-web-搭建">
+    <a href="#chatgpt-web-%e6%90%ad%e5%bb%ba" class="header-anchor" aria-label="Link to ChatGPT Web 搭建"></a>ChatGPT Web 搭建</h2>
 <p>借助开源的ChatGPT Web项目，以容器方式，已成功搭建可通过域名访问的 <strong>ChatGPT UI</strong>，链路: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
-<h3 id="容器相关配置">容器相关配置</h3>
+<h3 id="容器相关配置">
+    <a href="#%e5%ae%b9%e5%99%a8%e7%9b%b8%e5%85%b3%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 容器相关配置"></a>容器相关配置</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -571,7 +588,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="环境变量说明">环境变量说明</h3>
+</div><h3 id="环境变量说明">
+    <a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 环境变量说明"></a>环境变量说明</h3>
 <ul>
 <li>OPENAI_API_KEY: Your openai api key
 <ul>
@@ -591,7 +609,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="更多-web-or-app-项目">更多 Web Or APP 项目</h2>
+<h2 id="更多-web-or-app-项目">
+    <a href="#%e6%9b%b4%e5%a4%9a-web-or-app-%e9%a1%b9%e7%9b%ae" class="header-anchor" aria-label="Link to 更多 Web Or APP 项目"></a>更多 Web Or APP 项目</h2>
 <table>
 <thead>
 <tr>
@@ -654,7 +673,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="nginx-配置注意事项">Nginx 配置注意事项</h2>
+<h2 id="nginx-配置注意事项">
+    <a href="#nginx-%e9%85%8d%e7%bd%ae%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to Nginx 配置注意事项"></a>Nginx 配置注意事项</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -689,7 +709,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h2 id="概念">
+    <a href="#%e6%a6%82%e5%bf%b5" class="header-anchor" aria-label="Link to 概念"></a>概念</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -710,7 +731,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>服务器登录动态密码验证（云服务器登录, 企业管理平台登录等）</li>
 <li>github, twitter, google 登录双因素认证</li>
@@ -719,7 +741,8 @@
 <li>网银、网络游戏的实体动态口令牌</li>
 <li>双因素认证<code>2FA</code>，多因素认证<code>MFA</code>等</li>
 </ul>
-<h2 id="产品">产品</h2>
+<h2 id="产品">
+    <a href="#%e4%ba%a7%e5%93%81" class="header-anchor" aria-label="Link to 产品"></a>产品</h2>
 <ul>
 <li>Microsoft 身份认证器: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -731,7 +754,8 @@
 <li>银行网盾令牌: 仅限绑定账户卡</li>
 <li>支持OTP的游戏厂商的安全防护应用: 仅限指定厂商产品</li>
 </ul>
-<h2 id="原理">原理</h2>
+<h2 id="原理">
+    <a href="#%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 原理"></a>原理</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: 秘钥串</li>
@@ -748,12 +772,14 @@
 <li>按照下标偏移量开始，获取4个字节，按照大端方式组成一个整数</li>
 <li>截取这个整数的后6位或者8位转成字符串返回。</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li>
 <p><code>C</code>: 随机数，基于时间戳生成</p>
@@ -775,12 +801,14 @@
 <p>一般散列函数使用<code>SHA2</code>, 即：基于<code>SHA-256</code> or <code>SHA-512</code> [SHA2] 的散列函数做事件同步验证</p>
 </li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h2 id="实现参考">实现参考</h2>
+<h2 id="实现参考">
+    <a href="#%e5%ae%9e%e7%8e%b0%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 实现参考"></a>实现参考</h2>
 <table>
 <thead>
 <tr>
@@ -841,7 +869,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="使用">使用</h2>
+<h2 id="使用">
+    <a href="#%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 使用"></a>使用</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>
@@ -902,14 +931,16 @@
 </div><blockquote>
 <p>更多示例可以查看源码 <code>otp/*_test.go</code> 文件</p>
 </blockquote>]]></description></item><item><title>Go 对象池使用及优化-理论篇</title><link>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go 对象池用于<code>临时对象</code>重用，可以<code>减少对象频繁创建</code>造成的资源浪费，即<code>减少GC开销</code>及内存占用等，在一定程度上提升程序性能，降低服务成本。本文基于 <code>go1.18.2</code> ，给出对象池使用场景、<strong>处理流程及注意事项</strong>、开源示例、个人实例(包括<code>GRPC</code> 下对象池的使用)及最佳实践。</p>
-<h2 id="场景">场景</h2>
+<h2 id="场景">
+    <a href="#%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 场景"></a>场景</h2>
 <p><strong>需要频繁创建<code>同一类</code>对象，且创建成本较高时</strong></p>
 <ul>
 <li>单个对象内存占用超过一定阈值，优势越明显</li>
 <li>占用内存越大，优势越明显</li>
 <li>并发量越大，优势越明显</li>
 </ul>
-<h2 id="处理流程及注意事项"><strong>处理流程及注意事项</strong></h2>
+<h2 id="处理流程及注意事项">
+    <a href="#%e5%a4%84%e7%90%86%e6%b5%81%e7%a8%8b%e5%8f%8a%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to 处理流程及注意事项"></a><strong>处理流程及注意事项</strong></h2>
 <blockquote>
 <p>创建的临时对象放回池中后需尽可能的满足：<code>无状态</code>，<code>无引用</code></p>
 </blockquote>
@@ -940,7 +971,8 @@
 </div>
         </div>
     </div>
-<h2 id="对象池数据结构">对象池数据结构</h2>
+<h2 id="对象池数据结构">
+    <a href="#%e5%af%b9%e8%b1%a1%e6%b1%a0%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="header-anchor" aria-label="Link to 对象池数据结构"></a>对象池数据结构</h2>
 <ul>
 <li><code>sync.pool</code>: 适用于大多数场景，易用高效
 <ul>
@@ -999,8 +1031,10 @@
 </div>
         </div>
     </div>
-<h2 id="源码示例">源码示例</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="源码示例">
+    <a href="#%e6%ba%90%e7%a0%81%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 源码示例"></a>源码示例</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -1074,7 +1108,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -1126,7 +1161,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -1158,7 +1194,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -1328,7 +1365,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -1378,7 +1416,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>
@@ -1484,7 +1523,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="consumer-group">Consumer Group</h2>
+<h2 id="consumer-group">
+    <a href="#consumer-group" class="header-anchor" aria-label="Link to Consumer Group"></a>Consumer Group</h2>
 <p><code>consumer group</code> 是 <code>kafka</code> 提供的可扩展且具有容错性的消费者机制。具有一些特性:</p>
 <ul>
 <li><code>consumer group</code> 由<strong>一个或多个</strong> <code>consumer</code> 组成，它们共同消费<strong>一个或多个</strong> <code>topic</code> 中的消息</li>
@@ -1504,7 +1544,8 @@
 </div>
         </div>
     </div>
-<h2 id="rebalance">Rebalance</h2>
+<h2 id="rebalance">
+    <a href="#rebalance" class="header-anchor" aria-label="Link to Rebalance"></a>Rebalance</h2>
 <p>分区的重平衡 (<code>Rebalance</code>) 是 <code>Kafka</code> 一个很重要特性，它可以保证系统的高可用和系统的水平扩展。以下几种情况会触发 <code>Kafka</code> 发生重平衡。</p>
 <ul>
 <li>消费者组成员变化:
@@ -1529,8 +1570,10 @@
 </div>
         </div>
     </div>
-<h2 id="go-consumer-group">GO Consumer Group</h2>
-<h3 id="consumergroup-接口及说明">ConsumerGroup 接口及说明</h3>
+<h2 id="go-consumer-group">
+    <a href="#go-consumer-group" class="header-anchor" aria-label="Link to GO Consumer Group"></a>GO Consumer Group</h2>
+<h3 id="consumergroup-接口及说明">
+    <a href="#consumergroup-%e6%8e%a5%e5%8f%a3%e5%8f%8a%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to ConsumerGroup 接口及说明"></a>ConsumerGroup 接口及说明</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1619,7 +1662,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+</div><h3 id="consumergroup-demo">
+    <a href="#consumergroup-demo" class="header-anchor" aria-label="Link to ConsumerGroup Demo"></a>ConsumerGroup Demo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1826,7 +1870,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="部分配置参数说明">部分配置参数说明</h2>
+</div><h2 id="部分配置参数说明">
+    <a href="#%e9%83%a8%e5%88%86%e9%85%8d%e7%bd%ae%e5%8f%82%e6%95%b0%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 部分配置参数说明"></a>部分配置参数说明</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
 <li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
@@ -1836,7 +1881,8 @@
 <li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
 <li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
 </ul>
-<h2 id="参数配置建议">参数配置建议</h2>
+<h2 id="参数配置建议">
+    <a href="#%e5%8f%82%e6%95%b0%e9%85%8d%e7%bd%ae%e5%bb%ba%e8%ae%ae" class="header-anchor" aria-label="Link to 参数配置建议"></a>参数配置建议</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: 默认值 <code>30s</code>，如果消费者常出现 <code>read tcp xxx i/o timeout</code> 可考虑增大此值
 <ul>
@@ -1869,12 +1915,14 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="为什么使用">为什么使用</h2>
+<h2 id="为什么使用">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 为什么使用"></a>为什么使用</h2>
 <ul>
 <li>了解应用程序的哪些部分消耗资源最多</li>
 <li>持续性分析增加了一个时间维度，允许您随着时间的推移了解系统资源使用情况(如 CPU、内存等) ，并使你能够定位、调试和修复与性能相关的问题。</li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>查找代码中的性能问题</li>
 <li>解决高 CPU 利用率的问题</li>
@@ -1882,14 +1930,16 @@
 <li>理解应用程序的调用树</li>
 <li>跟踪指标随时间的变化</li>
 </ul>
-<h2 id="负载消耗">负载消耗</h2>
+<h2 id="负载消耗">
+    <a href="#%e8%b4%9f%e8%bd%bd%e6%b6%88%e8%80%97" class="header-anchor" aria-label="Link to 负载消耗"></a>负载消耗</h2>
 <p>通过使用采样分析，<strong>Pyroscope</strong> 能够以最小的开销(约为 <code>2-5%</code>)收集数据。 特别构建的<em>存储引擎</em>能<em>高效地压缩和存储数据</em>。</p>
 <ul>
 <li>由于采样分析技术，CPU 开销较低</li>
 <li>控制分析数据粒度(<code>10s</code> 至多年)</li>
 <li>高效的压缩，低的磁盘空间需求和成本</li>
 </ul>
-<h2 id="工作模式">工作模式</h2>
+<h2 id="工作模式">
+    <a href="#%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f" class="header-anchor" aria-label="Link to 工作模式"></a>工作模式</h2>
 <blockquote>
 <p>类似于常见的数据采集处理工具，<code>Agent-Server</code> 模式。</p>
 </blockquote>
@@ -1899,8 +1949,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-安装">Server 安装</h2>
-<h3 id="安装部署方式">安装部署方式</h3>
+<h2 id="server-安装">
+    <a href="#server-%e5%ae%89%e8%a3%85" class="header-anchor" aria-label="Link to Server 安装"></a>Server 安装</h2>
+<h3 id="安装部署方式">
+    <a href="#%e5%ae%89%e8%a3%85%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 安装部署方式"></a>安装部署方式</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -1912,7 +1964,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos-与-linux-安装示例">MacOS 与 Linux 安装示例</h3>
+<h3 id="macos-与-linux-安装示例">
+    <a href="#macos-%e4%b8%8e-linux-%e5%ae%89%e8%a3%85%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to MacOS 与 Linux 安装示例"></a>MacOS 与 Linux 安装示例</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -1964,7 +2017,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="配置">配置</h3>
+<h3 id="配置">
+    <a href="#%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 配置"></a>配置</h3>
 <p>支持多种<a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">配置</a>，优先级如下：</p>
 <ol>
 <li><strong>命令行参数</strong></li>
@@ -2169,15 +2223,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="启动">启动</h3>
+<h3 id="启动">
+    <a href="#%e5%90%af%e5%8a%a8" class="header-anchor" aria-label="Link to 启动"></a>启动</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="go-agent-使用">Go Agent 使用</h2>
+<h2 id="go-agent-使用">
+    <a href="#go-agent-%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to Go Agent 使用"></a>Go Agent 使用</h2>
 <blockquote>
 <p>采用 <code>Push 模式</code>，简单高效。</p>
 </blockquote>
-<h3 id="依赖导入">依赖导入</h3>
+<h3 id="依赖导入">
+    <a href="#%e4%be%9d%e8%b5%96%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 依赖导入"></a>依赖导入</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-示例">Agent Push 示例</h3>
+<h3 id="agent-push-示例">
+    <a href="#agent-push-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to Agent Push 示例"></a>Agent Push 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2244,7 +2302,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="认证登录">认证登录</h2>
+</div><h2 id="认证登录">
+    <a href="#%e8%ae%a4%e8%af%81%e7%99%bb%e5%bd%95" class="header-anchor" aria-label="Link to 认证登录"></a>认证登录</h2>
 <blockquote>
 <p>默认用户及密码为: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -2253,7 +2312,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">内部身份验证</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="数据查询导出">数据查询导出</h2>
+<h2 id="数据查询导出">
+    <a href="#%e6%95%b0%e6%8d%ae%e6%9f%a5%e8%af%a2%e5%af%bc%e5%87%ba" class="header-anchor" aria-label="Link to 数据查询导出"></a>数据查询导出</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">配置</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -2269,7 +2329,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
@@ -2281,8 +2342,10 @@
 <li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
 <li>Compose version: <code>Docker Compose version 2.2.2</code></li>
 </ul>
-<h2 id="docker-相关参考资源">Docker 相关参考资源</h2>
-<h3 id="文件格式">文件格式</h3>
+<h2 id="docker-相关参考资源">
+    <a href="#docker-%e7%9b%b8%e5%85%b3%e5%8f%82%e8%80%83%e8%b5%84%e6%ba%90" class="header-anchor" aria-label="Link to Docker 相关参考资源"></a>Docker 相关参考资源</h2>
+<h3 id="文件格式">
+    <a href="#%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="header-anchor" aria-label="Link to 文件格式"></a>文件格式</h3>
 <table>
 <thead>
 <tr>
@@ -2301,7 +2364,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="命令行接口-clis">命令行接口 (CLIs)</h3>
+<h3 id="命令行接口-clis">
+    <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%8e%a5%e5%8f%a3-clis" class="header-anchor" aria-label="Link to 命令行接口 (CLIs)"></a>命令行接口 (CLIs)</h3>
 <table>
 <thead>
 <tr>
@@ -2324,7 +2388,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="应用程序接口-apis">应用程序接口 (APIs)</h3>
+<h3 id="应用程序接口-apis">
+    <a href="#%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e6%8e%a5%e5%8f%a3-apis" class="header-anchor" aria-label="Link to 应用程序接口 (APIs)"></a>应用程序接口 (APIs)</h3>
 <table>
 <thead>
 <tr>
@@ -2347,7 +2412,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="驱动与规范">驱动与规范</h3>
+<h3 id="驱动与规范">
+    <a href="#%e9%a9%b1%e5%8a%a8%e4%b8%8e%e8%a7%84%e8%8c%83" class="header-anchor" aria-label="Link to 驱动与规范"></a>驱动与规范</h3>
 <table>
 <thead>
 <tr>
@@ -2370,7 +2436,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="docker-cli-用法">Docker CLI 用法</h2>
+<h2 id="docker-cli-用法">
+    <a href="#docker-cli-%e7%94%a8%e6%b3%95" class="header-anchor" aria-label="Link to Docker CLI 用法"></a>Docker CLI 用法</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2551,7 +2618,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-compose-cli-用法">Docker Compose CLI 用法</h2>
+<h2 id="docker-compose-cli-用法">
+    <a href="#docker-compose-cli-%e7%94%a8%e6%b3%95" class="header-anchor" aria-label="Link to Docker Compose CLI 用法"></a>Docker Compose CLI 用法</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2650,8 +2718,10 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-命令">Docker 命令</h2>
-<h3 id="docker-常用管理命令">Docker 常用管理命令</h3>
+<h2 id="docker-命令">
+    <a href="#docker-%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 命令"></a>Docker 命令</h2>
+<h3 id="docker-常用管理命令">
+    <a href="#docker-%e5%b8%b8%e7%94%a8%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 常用管理命令"></a>Docker 常用管理命令</h3>
 <ul>
 <li><code>docker context [--help]</code> <strong>上下文管理</strong></li>
 <li><code>docker compose [--help]</code> <strong>docker compose 命令</strong> <code>v2.2.2+</code></li>
@@ -2672,7 +2742,8 @@
 <li><code>docker scan [--help]</code> docker 镜像扫描分析</li>
 <li><code>docker manifest [--help]</code> docker 镜像清单查看，实验特性</li>
 </ul>
-<h3 id="docker-常用命令">Docker 常用命令</h3>
+<h3 id="docker-常用命令">
+    <a href="#docker-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 常用命令"></a>Docker 常用命令</h3>
 <ul>
 <li><code>docker build [--help]</code> <strong>镜像构建</strong>
 <ul>
@@ -2700,7 +2771,8 @@
 <li><code>docker stop</code></li>
 <li><code>docker logs</code></li>
 </ul>
-<h3 id="docker-镜像过滤查找">docker 镜像过滤查找</h3>
+<h3 id="docker-镜像过滤查找">
+    <a href="#docker-%e9%95%9c%e5%83%8f%e8%bf%87%e6%bb%a4%e6%9f%a5%e6%89%be" class="header-anchor" aria-label="Link to docker 镜像过滤查找"></a>docker 镜像过滤查找</h3>
 <blockquote>
 <p><code>docker images -f [filter params]</code></p>
 </blockquote>
@@ -2749,7 +2821,8 @@
             <div class="admonition-content">测试发现，如果 <code>REPOSITORY</code> 中含有 <code>/</code> 则通过 reference 正则查询时，必须包含 <code>/</code> 否则无法匹配出来，也即 <code>/</code> 无法被 filter 正则匹配</div>
         </div>
     </div>
-<h3 id="docker-commit-基于容器创建镜像">docker commit 基于容器创建镜像</h3>
+<h3 id="docker-commit-基于容器创建镜像">
+    <a href="#docker-commit-%e5%9f%ba%e4%ba%8e%e5%ae%b9%e5%99%a8%e5%88%9b%e5%bb%ba%e9%95%9c%e5%83%8f" class="header-anchor" aria-label="Link to docker commit 基于容器创建镜像"></a>docker commit 基于容器创建镜像</h3>
 <blockquote>
 <p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
 </blockquote>
@@ -2777,7 +2850,8 @@
 </span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="prune-镜像容器等一键删除">prune 镜像容器等一键删除</h3>
+</div><h3 id="prune-镜像容器等一键删除">
+    <a href="#prune-%e9%95%9c%e5%83%8f%e5%ae%b9%e5%99%a8%e7%ad%89%e4%b8%80%e9%94%ae%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to prune 镜像容器等一键删除"></a>prune 镜像容器等一键删除</h3>
 <ul>
 <li><code>docker image prune -a</code> <strong>删除所有未被容器使用的镜像</strong></li>
 <li><code>docker container prune</code> <em>删除所有停止运行容器</em></li>
@@ -2785,13 +2859,15 @@
 <li><code>docker system prune</code> <em>删除 docker 所有资源</em></li>
 <li><code>docker network prune</code> <em>删除所有网络</em></li>
 </ul>
-<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<h2 id="simple-cheat-sheet">
+    <a href="#simple-cheat-sheet" class="header-anchor" aria-label="Link to Simple Cheat Sheet"></a>Simple Cheat Sheet</h2>
 <ul>
 <li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
 <li>演示镜像: <code>v8fg/demo[:latest]</code></li>
 <li>演示容器名: <code>v8fg-demo</code></li>
 </ul>
-<h3 id="running-containers">Running Containers</h3>
+<h3 id="running-containers">
+    <a href="#running-containers" class="header-anchor" aria-label="Link to Running Containers"></a>Running Containers</h3>
 <table>
 <thead>
 <tr>
@@ -2871,7 +2947,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<h3 id="container-lifecycle-stuff">
+    <a href="#container-lifecycle-stuff" class="header-anchor" aria-label="Link to Container Lifecycle Stuff"></a>Container Lifecycle Stuff</h3>
 <table>
 <thead>
 <tr>
@@ -2930,7 +3007,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<h3 id="resource-limits-and-controls">
+    <a href="#resource-limits-and-controls" class="header-anchor" aria-label="Link to Resource Limits and Controls"></a>Resource Limits and Controls</h3>
 <table>
 <thead>
 <tr>
@@ -2969,7 +3047,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<h3 id="stats-logs-and-events">
+    <a href="#stats-logs-and-events" class="header-anchor" aria-label="Link to Stats, Logs, and Events"></a>Stats, Logs, and Events</h3>
 <table>
 <thead>
 <tr>
@@ -3008,7 +3087,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-images">Docker Images</h3>
+<h3 id="docker-images">
+    <a href="#docker-images" class="header-anchor" aria-label="Link to Docker Images"></a>Docker Images</h3>
 <table>
 <thead>
 <tr>
@@ -3071,7 +3151,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<h3 id="exportimportsaveload">
+    <a href="#exportimportsaveload" class="header-anchor" aria-label="Link to Export/Import/Save/Load"></a>Export/Import/Save/Load</h3>
 <ul>
 <li><strong>export, import</strong>: 不保留层历史信息，较小 <strong>制作基础镜像，去除历史</strong></li>
 <li><em>save, load</em>: 保留层历史信息，较大</li>
@@ -3122,7 +3203,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<h3 id="docker-hubregistry">
+    <a href="#docker-hubregistry" class="header-anchor" aria-label="Link to Docker Hub/Registry"></a>Docker Hub/Registry</h3>
 <table>
 <thead>
 <tr>
@@ -3169,7 +3251,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<h3 id="building-docker-images-from-a-dockerfile">
+    <a href="#building-docker-images-from-a-dockerfile" class="header-anchor" aria-label="Link to Building Docker Images From A Dockerfile"></a>Building Docker Images From A Dockerfile</h3>
 <table>
 <thead>
 <tr>
@@ -3204,7 +3287,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<h3 id="simple-dockerfile-example">
+    <a href="#simple-dockerfile-example" class="header-anchor" aria-label="Link to Simple Dockerfile Example"></a>Simple Dockerfile Example</h3>
 <blockquote>
 <p><code>v8fg/demo:latest</code></p>
 </blockquote>
@@ -3241,7 +3325,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+</div><h3 id="big-dockerfile-example">
+    <a href="#big-dockerfile-example" class="header-anchor" aria-label="Link to Big Dockerfile Example"></a>Big Dockerfile Example</h3>
 <table>
 <thead>
 <tr>
@@ -3332,7 +3417,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="volumesstorage">Volumes/Storage</h3>
+<h3 id="volumesstorage">
+    <a href="#volumesstorage" class="header-anchor" aria-label="Link to Volumes/Storage"></a>Volumes/Storage</h3>
 <table>
 <thead>
 <tr>
@@ -3423,7 +3509,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="expose-ports">Expose Ports</h3>
+<h3 id="expose-ports">
+    <a href="#expose-ports" class="header-anchor" aria-label="Link to Expose Ports"></a>Expose Ports</h3>
 <table>
 <thead>
 <tr>
@@ -3462,7 +3549,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="networks">Networks</h3>
+<h3 id="networks">
+    <a href="#networks" class="header-anchor" aria-label="Link to Networks"></a>Networks</h3>
 <table>
 <thead>
 <tr>
@@ -3553,7 +3641,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
 <li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>
@@ -3562,10 +3651,12 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="dockerfile-简介">Dockerfile 简介</h2>
+<h2 id="dockerfile-简介">
+    <a href="#dockerfile-%e7%ae%80%e4%bb%8b" class="header-anchor" aria-label="Link to Dockerfile 简介"></a>Dockerfile 简介</h2>
 <p><code>Dockerfile</code> 是一个用来构建镜像的文本文件，由一条条构建镜像所需的指令（<code>instruction</code>）和说明组成。每一条指令构建一层。</p>
 <p>默认执行构建命令 <code>docker build .</code> 会在当前路径下查找名为 <code>Dockerfile</code> 的文件，也可以指定路径及文件名：<code>docker build -f xxx/path/DockerfileName .</code></p>
-<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<h2 id="dockerignore">
+    <a href="#dockerignore" class="header-anchor" aria-label="Link to .dockerignore"></a><code>.dockerignore</code></h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -3574,7 +3665,8 @@
             <div class="admonition-content">为了提高构建的性能，可以通过在上下文目录中添加 <code>.dockerignore</code> 文件来排除文件和目录。如果你的项目目录下有较多或较大的不必要参与镜像构建的文件，请将其排除，这对于加快构建速度、减少镜像体积将会非常有用。</div>
         </div>
     </div>
-<h2 id="基本组成">基本组成</h2>
+<h2 id="基本组成">
+    <a href="#%e5%9f%ba%e6%9c%ac%e7%bb%84%e6%88%90" class="header-anchor" aria-label="Link to 基本组成"></a>基本组成</h2>
 <blockquote>
 <p>支持以 <code>#</code> 开头的注释行，可以放在任意行的开头位置，不建议在 <code>#</code> 前保留多余的空格。</p>
 </blockquote>
@@ -3584,7 +3676,8 @@
 <li>镜像操作指令</li>
 <li>容器启动执行指令</li>
 </ul>
-<h2 id="所有指令">所有指令</h2>
+<h2 id="所有指令">
+    <a href="#%e6%89%80%e6%9c%89%e6%8c%87%e4%bb%a4" class="header-anchor" aria-label="Link to 所有指令"></a>所有指令</h2>
 <blockquote>
 <ul>
 <li><a href="#from" rel=""><strong>FROM</strong></a></li>
@@ -3606,7 +3699,8 @@
 <li><a href="#shell" rel="">SHELL</a></li>
 </ul>
 </blockquote>
-<h2 id="from"><strong>FROM</strong></h2>
+<h2 id="from">
+    <a href="#from" class="header-anchor" aria-label="Link to FROM"></a><strong>FROM</strong></h2>
 <ul>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
@@ -3620,7 +3714,8 @@
 <li>标签 <code>tag</code> 或摘要值 <code>digest</code> 是可选的。如果省略它们中的任何一个，构建器将默认使用标签 <code>latest</code>。如果构建器找不到标记值，则返回一个错误。</li>
 <li>可以通过 <code>--platform=&lt;platform&gt;</code> 指定 <code>FROM</code> 引用的是哪个平台的镜像。例如：<code>linux/amd64</code>、 <code>linux/arm64</code> 或 <code>windows/amd64</code>。默认使用构建请求的目标平台。可以在这个标志中使用全局构建参数，如：<a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer ">全局范围内自动平台参数</a>，允许你强制指定一个阶段的本机构建平台<code>(--platform=$BUILDPLATFORM)</code>，并使用它在此构建阶段内交叉编译到目标平台。</li>
 </ul>
-<h3 id="arg-参数与-from-交互"><strong>ARG 参数与 FROM 交互</strong></h3>
+<h3 id="arg-参数与-from-交互">
+    <a href="#arg-%e5%8f%82%e6%95%b0%e4%b8%8e-from-%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to ARG 参数与 FROM 交互"></a><strong>ARG 参数与 FROM 交互</strong></h3>
 <blockquote>
 <p>由 <code>ARG</code> 指令声明的变量，可以出现在第一个 <code>FROM</code> 指令之前。</p>
 </blockquote>
@@ -3646,7 +3741,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-参数作用域">ARG 参数作用域</h3>
+</div><h3 id="arg-参数作用域">
+    <a href="#arg-%e5%8f%82%e6%95%b0%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-anchor" aria-label="Link to ARG 参数作用域"></a>ARG 参数作用域</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3683,7 +3779,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="run">RUN</h2>
+</div><h2 id="run">
+    <a href="#run" class="header-anchor" aria-label="Link to RUN"></a>RUN</h2>
 <ul>
 <li><code>RUN &lt;command&gt;</code> (以 <code>shell</code> 形式运行, <em>linux</em> 下默认:  <code>/bin/sh -c</code>， <em>Windows</em> 下默认: <code>cmd /S /C</code>)</li>
 <li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> 形式)</li>
@@ -3736,20 +3833,23 @@
 </div></div>
         </div>
     </div>
-<h3 id="run-指令缓存">RUN 指令缓存</h3>
+<h3 id="run-指令缓存">
+    <a href="#run-%e6%8c%87%e4%bb%a4%e7%bc%93%e5%ad%98" class="header-anchor" aria-label="Link to RUN 指令缓存"></a>RUN 指令缓存</h3>
 <ul>
 <li><code>在下一次构建期间，RUN</code> 指令的缓存不会自动失效</li>
 <li><code>RUN apt-get dist-upgrade-y</code> 这样的指令的缓存将在下一次构建期间重用</li>
 <li><code>--no-cache</code> 标志使 <code>RUN</code> 指令的缓存失效，<code>docker build --no-cache</code></li>
 <li><strong><code>ADD</code>、<code>COPY</code> 可以使 <code>RUN</code> 指令缓存失效</strong></li>
 </ul>
-<h2 id="cmd">CMD</h2>
+<h2 id="cmd">
+    <a href="#cmd" class="header-anchor" aria-label="Link to CMD"></a>CMD</h2>
 <ul>
 <li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
 <li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
 <li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
 </ul>
-<h3 id="注意事项">注意事项</h3>
+<h3 id="注意事项">
+    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to 注意事项"></a>注意事项</h3>
 <ul>
 <li>一个 <code>Dockerfile</code> 只能有一个 <code>CMD</code> 指令，如果有多个则只有最后一个会生效。</li>
 <li><code>CMD</code> 的主要目的是为正在执行的容器提供缺省值。这些缺省值可以包括可执行文件，也可以省略可执行文件，在这种情况下，你必须指定 <code>ENTRYPOINT</code> 指令。</li>
@@ -3758,7 +3858,8 @@
 <li><strong>如果用户指定参数来运行 <code>docker</code>，那么它们将覆盖 <code>CMD</code> 中指定的缺省值</strong></li>
 <li>不要将 <code>RUN</code> 与 <code>CMD</code> 混淆。<code>RUN</code> <em>实际上运行一个命令并提交结果</em>; <code>CMD</code> <em>在构建时不执行任何内容，但是为镜像指定预期的命令</em>。</li>
 </ul>
-<h2 id="label">LABEL</h2>
+<h2 id="label">
+    <a href="#label" class="header-anchor" aria-label="Link to LABEL"></a>LABEL</h2>
 <blockquote>
 <p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -3791,7 +3892,8 @@
 <blockquote>
 <p>image 标签查看: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
 </blockquote>
-<h2 id="expose">EXPOSE</h2>
+<h2 id="expose">
+    <a href="#expose" class="header-anchor" aria-label="Link to EXPOSE"></a>EXPOSE</h2>
 <blockquote>
 <p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
 </blockquote>
@@ -3816,7 +3918,8 @@
 </span></span><span class="line"><span class="cl">EXPOSE 80/udp
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="expose-for-run">expose for run</h3>
+</div><h3 id="expose-for-run">
+    <a href="#expose-for-run" class="header-anchor" aria-label="Link to expose for run"></a>expose for run</h3>
 <ul>
 <li>
 <p><code>P</code> Publish all exposed ports to the host interfaces</p>
@@ -3831,7 +3934,8 @@
 <p><code>docker run -p 80-81:80-81/tcp</code></p>
 </li>
 </ul>
-<h2 id="env">ENV</h2>
+<h2 id="env">
+    <a href="#env" class="header-anchor" aria-label="Link to ENV"></a>ENV</h2>
 <blockquote>
 <p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -3888,7 +3992,8 @@
 </span></span><span class="line"><span class="cl">ENV <span class="nv">ghi</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># ghi=bye</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="add">ADD</h2>
+</div><h2 id="add">
+    <a href="#add" class="header-anchor" aria-label="Link to ADD"></a>ADD</h2>
 <ul>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code>  <strong>路径含有空格必须使用此指令</strong></li>
@@ -3965,7 +4070,8 @@
 </div>
         </div>
     </div>
-<h2 id="copy">COPY</h2>
+<h2 id="copy">
+    <a href="#copy" class="header-anchor" aria-label="Link to COPY"></a>COPY</h2>
 <ul>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code> <strong>路径含有空格必须使用此指令</strong></li>
@@ -4041,7 +4147,8 @@
 </div>
         </div>
     </div>
-<h2 id="entrypoint">ENTRYPOINT</h2>
+<h2 id="entrypoint">
+    <a href="#entrypoint" class="header-anchor" aria-label="Link to ENTRYPOINT"></a>ENTRYPOINT</h2>
 <ul>
 <li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> <code>exec 形式</code> <strong>推荐形式</strong></li>
 <li><code>ENTRYPOINT command param1 param2</code> <code>shell 形式</code> <strong>不能接受命令行参数，<code>CMD</code> 或 <code>run</code> 传递的</strong></li>
@@ -4057,7 +4164,8 @@
 <li><code>exec</code> 形式不会调用 <em>shell 命令行</em>，如果想使用 shell，可以在 <code>ENTRYPOINT</code> 中指定 <code>sh -c</code>：如，<code>ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
 <li><code>shell</code> 形式将作为 <code>/bin/sh-c</code> 的子命令启动，它不传递信号。这意味着执行程序不会是容器中 <code>PID 1</code> 的，也不会接收 <code>Unix</code> 信号，因此你的可执行文件不会接收来自 <code>docker stop &lt;container&gt;</code> 的 <code>SIGTERM</code></li>
 </ul>
-<h3 id="exec-形式-entrypoint-示例">exec 形式 ENTRYPOINT 示例</h3>
+<h3 id="exec-形式-entrypoint-示例">
+    <a href="#exec-%e5%bd%a2%e5%bc%8f-entrypoint-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to exec 形式 ENTRYPOINT 示例"></a>exec 形式 ENTRYPOINT 示例</h3>
 <blockquote>
 <p><a href="https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Exec form ENTRYPOINT example</a>*</p>
 </blockquote>
@@ -4137,11 +4245,13 @@
 </div></div>
         </div>
     </div>
-<h3 id="shell-形式-entrypoint-示例">shell 形式 ENTRYPOINT 示例</h3>
+<h3 id="shell-形式-entrypoint-示例">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f-entrypoint-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to shell 形式 ENTRYPOINT 示例"></a>shell 形式 ENTRYPOINT 示例</h3>
 <blockquote>
 <p><em><a href="https://docs.docker.com/engine/reference/builder/#shell-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Shell form ENTRYPOINT example</a></em></p>
 </blockquote>
-<h4 id="shell-形式-exec-执行"><strong>shell 形式 <code>exec</code> 执行</strong></h4>
+<h4 id="shell-形式-exec-执行">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f-exec-%e6%89%a7%e8%a1%8c" class="header-anchor" aria-label="Link to shell 形式 exec 执行"></a><strong>shell 形式 <code>exec</code> 执行</strong></h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -4213,7 +4323,8 @@
 </div></div>
         </div>
     </div>
-<h4 id="shell-形式执行">shell 形式执行</h4>
+<h4 id="shell-形式执行">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f%e6%89%a7%e8%a1%8c" class="header-anchor" aria-label="Link to shell 形式执行"></a>shell 形式执行</h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -4292,7 +4403,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="cmd-与-entrypoint-交互"><strong>CMD 与 ENTRYPOINT 交互</strong></h3>
+<h3 id="cmd-与-entrypoint-交互">
+    <a href="#cmd-%e4%b8%8e-entrypoint-%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to CMD 与 ENTRYPOINT 交互"></a><strong>CMD 与 ENTRYPOINT 交互</strong></h3>
 <blockquote>
 <p>都定义了容器运行时要执行的命令</p>
 </blockquote>
@@ -4302,7 +4414,8 @@
 <li><code>CMD</code> 应该用作定义 <code>ENTRYPOINT</code> 命令或在容器中执行临时命令的<em>默认参数</em>的一种方式</li>
 <li>当使用其他参数运行容器时，<code>CMD</code> 将被重写</li>
 </ul>
-<h4 id="cmd-与-entrypoint-联合作用规则"><strong>CMD 与 ENTRYPOINT 联合作用规则</strong></h4>
+<h4 id="cmd-与-entrypoint-联合作用规则">
+    <a href="#cmd-%e4%b8%8e-entrypoint-%e8%81%94%e5%90%88%e4%bd%9c%e7%94%a8%e8%a7%84%e5%88%99" class="header-anchor" aria-label="Link to CMD 与 ENTRYPOINT 联合作用规则"></a><strong>CMD 与 ENTRYPOINT 联合作用规则</strong></h4>
 <blockquote>
 <p>如果基本镜像定义了 <code>CMD</code>，那么设置 <code>ENTRYPOINT</code> 将会把 <code>CMD</code> 重置为空值。</p>
 </blockquote>
@@ -4342,7 +4455,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="volume">VOLUME</h2>
+<h2 id="volume">
+    <a href="#volume" class="header-anchor" aria-label="Link to VOLUME"></a>VOLUME</h2>
 <ul>
 <li><code>VOLUME [&quot;/data&quot;]</code></li>
 </ul>
@@ -4394,7 +4508,8 @@
 <li>SON 格式化: 列表被解析为 JSON 数组。必须用双引号(”)而不是单引号(’)括住单词。</li>
 <li>主机目录在容器运行时声明: 主机目录(挂载点)本质上是依赖于主机的。这是为了保持镜像的可移植性，因为不能保证给定的主机目录在所有主机上都可用。由于这个原因，你不能从 Dockerfile 中挂载主机目录。VOLUME 指令不支持指定 <code>host-dir</code> 参数。在创建或运行容器时，必须指定挂载点。</li>
 </ul>
-<h2 id="user">USER</h2>
+<h2 id="user">
+    <a href="#user" class="header-anchor" aria-label="Link to USER"></a>USER</h2>
 <ul>
 <li><code>USER &lt;user&gt;[:&lt;group&gt;]</code></li>
 <li><code>USER &lt;UID&gt;[:&lt;GID&gt;]</code></li>
@@ -4403,7 +4518,8 @@
 <blockquote>
 <p><strong>在为用户指定组时，用户将只具有指定的组成员身份。任何其他配置的组成员关系都将被忽略。</strong></p>
 </blockquote>
-<h2 id="workdir">WORKDIR</h2>
+<h2 id="workdir">
+    <a href="#workdir" class="header-anchor" aria-label="Link to WORKDIR"></a>WORKDIR</h2>
 <ul>
 <li>
 <p><code>WORKDIR /path/to/workdir</code></p>
@@ -4447,7 +4563,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="arg">ARG</h2>
+</div><h2 id="arg">
+    <a href="#arg" class="header-anchor" aria-label="Link to ARG"></a>ARG</h2>
 <ul>
 <li>
 <p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
@@ -4473,7 +4590,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="默认值">默认值</h3>
+</div><h3 id="默认值">
+    <a href="#%e9%bb%98%e8%ae%a4%e5%80%bc" class="header-anchor" aria-label="Link to 默认值"></a>默认值</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4488,7 +4606,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="作用域">作用域</h3>
+</div><h3 id="作用域">
+    <a href="#%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-anchor" aria-label="Link to 作用域"></a>作用域</h3>
 <ul>
 <li><code>ARG</code> 变量在 <code>Dockerfile</code> 中<strong>定义的行之后的指令中生效</strong>，其他地方不生效。</li>
 <li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>可覆盖变量 <code>&lt;arg-name&gt;</code></strong></li>
@@ -4534,7 +4653,8 @@
 </span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-变量使用"><strong>ARG 变量使用</strong></h3>
+</div><h3 id="arg-变量使用">
+    <a href="#arg-%e5%8f%98%e9%87%8f%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to ARG 变量使用"></a><strong>ARG 变量使用</strong></h3>
 <ul>
 <li><code>ENV</code> <code>ARG</code> 定义的同名变量，<code>ARG</code> 后定义的 <code>ENV</code> 值会覆盖它之前声明的最近的 <code>ARG</code> 值。</li>
 <li><code>ARG VAR_NAME</code> 可多次使用，每次都相当于重置，都可被其后最近的同名 <code>ENV</code> 覆盖</li>
@@ -4564,7 +4684,8 @@
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>输出 v1.0.0</em></p>
 </blockquote>
 <p>更多可参考：<a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer ">环境变量替换</a></p>
-<h3 id="内置参数">内置参数</h3>
+<h3 id="内置参数">
+    <a href="#%e5%86%85%e7%bd%ae%e5%8f%82%e6%95%b0" class="header-anchor" aria-label="Link to 内置参数"></a>内置参数</h3>
 <blockquote>
 <p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
 </blockquote>
@@ -4578,7 +4699,8 @@
 <li>NO_PROXY</li>
 <li>no_proxy</li>
 </ul>
-<h3 id="平台相关全局参数">平台相关全局参数</h3>
+<h3 id="平台相关全局参数">
+    <a href="#%e5%b9%b3%e5%8f%b0%e7%9b%b8%e5%85%b3%e5%85%a8%e5%b1%80%e5%8f%82%e6%95%b0" class="header-anchor" aria-label="Link to 平台相关全局参数"></a>平台相关全局参数</h3>
 <ul>
 <li><code>docker build --platform=</code></li>
 </ul>
@@ -4598,7 +4720,8 @@
 <li>BUILDARCH - architecture component of BUILDPLATFORM</li>
 <li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
 </ul>
-<h3 id="arg-引起的缓存失效">ARG 引起的缓存失效</h3>
+<h3 id="arg-引起的缓存失效">
+    <a href="#arg-%e5%bc%95%e8%b5%b7%e7%9a%84%e7%bc%93%e5%ad%98%e5%a4%b1%e6%95%88" class="header-anchor" aria-label="Link to ARG 引起的缓存失效"></a>ARG 引起的缓存失效</h3>
 <blockquote>
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
 </blockquote>
@@ -4625,7 +4748,8 @@
 <li>exec count 2: use cache</li>
 <li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>，<code>ARG CONT_IMG_VER</code> 之前的使用了 cache, 后续输出全部缓存失效</li>
 </ul>
-<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<h2 id="onbuild">
+    <a href="#onbuild" class="header-anchor" aria-label="Link to ONBUILD"></a><strong>ONBUILD</strong></h2>
 <ul>
 <li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
 </ul>
@@ -4646,7 +4770,8 @@
 <p>如果你正在构建一个镜像，该镜像将用作构建其他镜像的基础，例如一个应用程序构建环境或一个守护进程，该守护进程可以使用特定于用户的配置进行自定义，那么这是非常有用的。</p>
 <p>例如，如果你的镜像是一个可重用的 <code>Python</code> 应用程序构建器，则需要<em>将应用程序源代码添加到特定的目录中</em>，并且可能需要在此之后调用构建脚本。你现在不能只调用 <code>ADD</code> 和 <code>RUN</code>，因为你还没有访问应用程序源代码的权限，而且对于每个应用程序构建都是不同的。你可以简单地向应用程序开发人员提供一个样板文件 <code>Dockerfile</code>，以便将其复制粘贴到他们的应用程序中，但是这样做<strong>效率低下，容易出错，而且很难更新</strong>，因为它与应用程序特定的代码混合在。</p>
 <p><strong>解决方案</strong>是使用 <code>ONBUILD</code> 来<strong>注册预执行指令</strong>，以便稍后在下一个构建阶段运行。</p>
-<h3 id="onbuild-的工作原理"><code>ONBUILD</code> 的工作原理</h3>
+<h3 id="onbuild-的工作原理">
+    <a href="#onbuild-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to ONBUILD 的工作原理"></a><code>ONBUILD</code> 的工作原理</h3>
 <ul>
 <li>
 <ol>
@@ -4669,13 +4794,15 @@
 </ol>
 </li>
 </ul>
-<h2 id="stopsignal">STOPSIGNAL</h2>
+<h2 id="stopsignal">
+    <a href="#stopsignal" class="header-anchor" aria-label="Link to STOPSIGNAL"></a>STOPSIGNAL</h2>
 <blockquote>
 <p><code>STOPSIGNAL signal</code></p>
 </blockquote>
 <p><code>STOPSIGNAL</code> 指令设置系统调用信号，该信号将被发送到容器以退出。这个信号可以是 <code>SIG&lt;name&gt;</code> 格式的信号名，例如 <code>SIGKILL</code>，或者是与内核系统调用表中的位置匹配的无符号数，例如 <code>9</code>。如果没有定义，则默认为 <code>SIGTERM</code>。</p>
 <p>在 <code>docker</code> 运行和 <code>docker create</code> 上使用 <code>--stop-signal</code> 标志，可以对每个容器重写镜像的默认停止信号。</p>
-<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<h2 id="healthcheck">
+    <a href="#healthcheck" class="header-anchor" aria-label="Link to HEALTHCHECK"></a><strong>HEALTHCHECK</strong></h2>
 <ul>
 <li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
 <li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
@@ -4698,7 +4825,8 @@
 <li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
 <li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
 </ul>
-<h3 id="healthcheck-示例"><code>HEALTHCHECK</code> 示例</h3>
+<h3 id="healthcheck-示例">
+    <a href="#healthcheck-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to HEALTHCHECK 示例"></a><code>HEALTHCHECK</code> 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4709,7 +4837,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="shell">SHELL</h2>
+</div><h2 id="shell">
+    <a href="#shell" class="header-anchor" aria-label="Link to SHELL"></a>SHELL</h2>
 <blockquote>
 <p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
 </blockquote>
@@ -4769,7 +4898,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="示例">示例</h2>
+<h2 id="示例">
+    <a href="#%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 示例"></a>示例</h2>
 <blockquote>
 <p><code>go1.18</code> 基础镜像构建，更多基础镜像构建可参考: <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 </blockquote>
@@ -4807,7 +4937,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="最佳实践">最佳实践</h2>
+</div><h2 id="最佳实践">
+    <a href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" class="header-anchor" aria-label="Link to 最佳实践"></a>最佳实践</h2>
 <ul>
 <li>每一条指定会生成一层。对于下游镜像来说，上游镜像是只读层，当前镜像构建只是在上游只读层基础上一层层<strong>追加镜像层</strong>。</li>
 <li>优先使用 <code>COPY</code> 比 <code>ADD</code> 更加透明直接</li>
@@ -4850,7 +4981,8 @@
 <li>执行 <code>docker stop</code>， <code>PID=1</code> 的容器干净的退出；<code>stop</code> 超时后发送 <code>SIGKILL</code> 来终止</li>
 <li><a href="#cmd-%e4%b8%8e-entrypoint-%e8%81%94%e5%90%88%e4%bd%9c%e7%94%a8%e8%a7%84%e5%88%99" rel="">CMD 与 ENTRYPOINT 联合作用规则</a></li>
 </ul>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer ">Docker reference</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer ">understand-how-arg-and-from-interact</a></li>
@@ -4862,7 +4994,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="常用信号">常用信号</h2>
+<h2 id="常用信号">
+    <a href="#%e5%b8%b8%e7%94%a8%e4%bf%a1%e5%8f%b7" class="header-anchor" aria-label="Link to 常用信号"></a>常用信号</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4895,7 +5028,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4929,11 +5063,13 @@
 </div><blockquote>
 <p>需要更便捷处理可以引入: <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-测试">kill 测试</h2>
+<h2 id="kill-测试">
+    <a href="#kill-%e6%b5%8b%e8%af%95" class="header-anchor" aria-label="Link to kill 测试"></a>kill 测试</h2>
 <blockquote>
 <p><em>宿主机上执行</em> <code>kill</code> 程序停止 <code>app</code> 运行，按照 <code>app</code> 运行环境分为：<strong>宿主环境</strong>，<strong>docker 环境</strong></p>
 </blockquote>
-<h3 id="宿主环境">宿主环境</h3>
+<h3 id="宿主环境">
+    <a href="#%e5%ae%bf%e4%b8%bb%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to 宿主环境"></a>宿主环境</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -4953,7 +5089,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker-环境">docker 环境</h3>
+<h3 id="docker-环境">
+    <a href="#docker-%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to docker 环境"></a>docker 环境</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -4980,7 +5117,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="结论">结论</h2>
+<h2 id="结论">
+    <a href="#%e7%bb%93%e8%ae%ba" class="header-anchor" aria-label="Link to 结论"></a>结论</h2>
 <blockquote>
 <p>经过以上测试，<strong>常用可正常捕获无差异性且返回 0 的 signal</strong>: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -4989,13 +5127,15 @@
 <li>2 <strong>SIGINT</strong>  <strong>触发: <code>CTRL+C</code> 或 <code>kill -2</code></strong></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="优雅停止服务">优雅停止服务</h2>
+<h2 id="优雅停止服务">
+    <a href="#%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to 优雅停止服务"></a>优雅停止服务</h2>
 <ol>
 <li>执行 kill 发送信号 <code>-15/-TERM/-SIGTERM</code></li>
 <li>程序捕获信号后<strong>节点摘除</strong>, <strong>释放资源</strong>，<em>停止程序</em></li>
 <li>间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 <code>kill -9/-KILL/-SIGKILL</code></li>
 </ol>
-<h2 id="k8s-优雅停止服务">k8s 优雅停止服务</h2>
+<h2 id="k8s-优雅停止服务">
+    <a href="#k8s-%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to k8s 优雅停止服务"></a>k8s 优雅停止服务</h2>
 <ol>
 <li><strong>节点摘除</strong></li>
 <li><code>preStop hook</code> <em>可设置延迟时间，用于处理进入流量</em></li>
@@ -5008,7 +5148,8 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>当前 <code>Docker Compose version 2.2.2</code></li>
 </ul>
@@ -5016,7 +5157,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="推荐镜像站">推荐镜像站</h2>
+<h2 id="推荐镜像站">
+    <a href="#%e6%8e%a8%e8%8d%90%e9%95%9c%e5%83%8f%e7%ab%99" class="header-anchor" aria-label="Link to 推荐镜像站"></a>推荐镜像站</h2>
 <ul>
 <li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">华为开源镜像站</a></li>
 <li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">腾讯开源镜像站</a></li>
@@ -5027,19 +5169,22 @@
 <li><a href="https://mirrors.zju.edu.cn/" target="_blank" rel="noopener noreffer ">浙江大学开源镜像站</a></li>
 <li><a href="https://mirror.lzu.edu.cn/" target="_blank" rel="noopener noreffer ">兰州大学开源社区镜像站</a></li>
 </ul>
-<h2 id="企业镜像站">企业镜像站</h2>
+<h2 id="企业镜像站">
+    <a href="#%e4%bc%81%e4%b8%9a%e9%95%9c%e5%83%8f%e7%ab%99" class="header-anchor" aria-label="Link to 企业镜像站"></a>企业镜像站</h2>
 <ul>
 <li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">华为开源镜像站</a></li>
 <li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">腾讯开源镜像站</a></li>
 <li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">阿里巴巴开源镜像站</a></li>
 <li><a href="https://mirrors.163.com/" target="_blank" rel="noopener noreffer ">网易开源镜像站</a></li>
 </ul>
-<h2 id="教育网开源镜像站">教育网开源镜像站</h2>
+<h2 id="教育网开源镜像站">
+    <a href="#%e6%95%99%e8%82%b2%e7%bd%91%e5%bc%80%e6%ba%90%e9%95%9c%e5%83%8f%e7%ab%99" class="header-anchor" aria-label="Link to 教育网开源镜像站"></a>教育网开源镜像站</h2>
 <p><a href="https://mirrorz.org/" target="_blank" rel="noopener noreffer ">MirrorZ · 高校开源镜像站一站式导航</a></p>]]></description></item><item><title>Makefile shell 中绝对路径的正确处理</title><link>https://blog.xwi88.com/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/makefile-shell-path-get/</guid><description><![CDATA[<p><a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> 与 shell(主要是 <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>) 中绝对路径的处理。</p>
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="makefile">Makefile</h2>
+<h2 id="makefile">
+    <a href="#makefile" class="header-anchor" aria-label="Link to Makefile"></a>Makefile</h2>
 <blockquote>
 <p>make version: <code>3.81</code></p>
 </blockquote>
@@ -5064,7 +5209,8 @@
 </span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="linux-shell">Linux Shell</h2>
+</div><h2 id="linux-shell">
+    <a href="#linux-shell" class="header-anchor" aria-label="Link to Linux Shell"></a>Linux Shell</h2>
 <blockquote>
 <p>Bash version: <code>5.1</code></p>
 </blockquote>
@@ -5088,7 +5234,8 @@
 </div>
         </div>
     </div>
-<h2 id="实例">实例</h2>
+<h2 id="实例">
+    <a href="#%e5%ae%9e%e4%be%8b" class="header-anchor" aria-label="Link to 实例"></a>实例</h2>
 <p>以上使用实例请参考: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 <ul>
 <li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>

@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="常用信号">常用信号</h2>
+<h2 id="常用信号">
+    <a href="#%e5%b8%b8%e7%94%a8%e4%bf%a1%e5%8f%b7" class="header-anchor" aria-label="Link to 常用信号"></a>常用信号</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -35,7 +36,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -69,11 +71,13 @@
 </div><blockquote>
 <p>需要更便捷处理可以引入: <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-测试">kill 测试</h2>
+<h2 id="kill-测试">
+    <a href="#kill-%e6%b5%8b%e8%af%95" class="header-anchor" aria-label="Link to kill 测试"></a>kill 测试</h2>
 <blockquote>
 <p><em>宿主机上执行</em> <code>kill</code> 程序停止 <code>app</code> 运行，按照 <code>app</code> 运行环境分为：<strong>宿主环境</strong>，<strong>docker 环境</strong></p>
 </blockquote>
-<h3 id="宿主环境">宿主环境</h3>
+<h3 id="宿主环境">
+    <a href="#%e5%ae%bf%e4%b8%bb%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to 宿主环境"></a>宿主环境</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -93,7 +97,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker-环境">docker 环境</h3>
+<h3 id="docker-环境">
+    <a href="#docker-%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to docker 环境"></a>docker 环境</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -120,7 +125,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="结论">结论</h2>
+<h2 id="结论">
+    <a href="#%e7%bb%93%e8%ae%ba" class="header-anchor" aria-label="Link to 结论"></a>结论</h2>
 <blockquote>
 <p>经过以上测试，<strong>常用可正常捕获无差异性且返回 0 的 signal</strong>: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -129,13 +135,15 @@
 <li>2 <strong>SIGINT</strong>  <strong>触发: <code>CTRL+C</code> 或 <code>kill -2</code></strong></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="优雅停止服务">优雅停止服务</h2>
+<h2 id="优雅停止服务">
+    <a href="#%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to 优雅停止服务"></a>优雅停止服务</h2>
 <ol>
 <li>执行 kill 发送信号 <code>-15/-TERM/-SIGTERM</code></li>
 <li>程序捕获信号后<strong>节点摘除</strong>, <strong>释放资源</strong>，<em>停止程序</em></li>
 <li>间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 <code>kill -9/-KILL/-SIGKILL</code></li>
 </ol>
-<h2 id="k8s-优雅停止服务">k8s 优雅停止服务</h2>
+<h2 id="k8s-优雅停止服务">
+    <a href="#k8s-%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to k8s 优雅停止服务"></a>k8s 优雅停止服务</h2>
 <ol>
 <li><strong>节点摘除</strong></li>
 <li><code>preStop hook</code> <em>可设置延迟时间，用于处理进入流量</em></li>
@@ -148,7 +156,8 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>当前 <code>Docker Compose version 2.2.2</code></li>
 </ul>

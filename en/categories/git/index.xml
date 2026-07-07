@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="basic-account-config">Basic account config</h2>
+<h2 id="basic-account-config">
+    <a href="#basic-account-config" class="header-anchor" aria-label="Link to Basic account config"></a>Basic account config</h2>
 <blockquote>
 <p><code>--global</code> <em>means global config</em>; <strong>non-global config must be set inside the specific git project directory</strong></p>
 </blockquote>
@@ -12,7 +13,8 @@
 <li><code>git config --global --list</code> <strong>view global git config</strong></li>
 <li><code>git config --list</code> <em>view project git config</em></li>
 </ul>
-<h3 id="signed-commit-setup">Signed-commit setup</h3>
+<h3 id="signed-commit-setup">
+    <a href="#signed-commit-setup" class="header-anchor" aria-label="Link to Signed-commit setup"></a>Signed-commit setup</h3>
 <blockquote>
 <p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
 </blockquote>
@@ -21,7 +23,8 @@
 <li><code>git config --global commit.gpgsign true</code></li>
 </ul>
 <p>See also: <a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a> for setup.</p>
-<h2 id="credential-storage">Credential storage</h2>
+<h2 id="credential-storage">
+    <a href="#credential-storage" class="header-anchor" aria-label="Link to Credential storage"></a>Credential storage</h2>
 <blockquote>
 <p>To avoid typing the password every time, let the machine remember it. <em>MacOS</em> uses <strong>Keychain Access</strong> to store your password and other credentials.</p>
 </blockquote>
@@ -55,7 +58,8 @@
 </div>
         </div>
     </div>
-<h2 id="credential-cleanup">Credential cleanup</h2>
+<h2 id="credential-cleanup">
+    <a href="#credential-cleanup" class="header-anchor" aria-label="Link to Credential cleanup"></a>Credential cleanup</h2>
 <blockquote>
 <p>After a password changes or expires, clear the stored one, or you may get <code>login failed</code> / <code>no permission</code> errors.</p>
 </blockquote>
@@ -64,7 +68,8 @@
 <li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>or set a very short expiry to flush the cached password</em></li>
 <li><code>git config --global credential.helper store</code> <strong>re-enable credential storage</strong></li>
 </ul>
-<h2 id="prettier-log-output">Prettier log output</h2>
+<h2 id="prettier-log-output">
+    <a href="#prettier-log-output" class="header-anchor" aria-label="Link to Prettier log output"></a>Prettier log output</h2>
 <blockquote>
 <p>The plain <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> is too bare to inspect details. We can format it, and <code>git alias</code> makes it easy to define our own <em>git log</em> command — <strong>do not override git&rsquo;s built-in commands</strong>.</p>
 </blockquote>
@@ -146,7 +151,8 @@
 </div>
         </div>
     </div>
-<h2 id="basic-commands">Basic commands</h2>
+<h2 id="basic-commands">
+    <a href="#basic-commands" class="header-anchor" aria-label="Link to Basic commands"></a>Basic commands</h2>
 <blockquote>
 <p>For more detail on any command, run <code>git &lt;command&gt; --help</code></p>
 </blockquote>
@@ -176,26 +182,31 @@
 <li><code>git rm</code> remove files from the index and working tree</li>
 <li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>file rename</em>; equivalent to <code>mv old new</code>, <code>git add</code> the new file and <code>git rm</code> the old</li>
 </ul>
-<h2 id="branch-operations">Branch operations</h2>
-<h3 id="remote-branch-config">Remote branch config</h3>
+<h2 id="branch-operations">
+    <a href="#branch-operations" class="header-anchor" aria-label="Link to Branch operations"></a>Branch operations</h2>
+<h3 id="remote-branch-config">
+    <a href="#remote-branch-config" class="header-anchor" aria-label="Link to Remote branch config"></a>Remote branch config</h3>
 <ul>
 <li><code>git remote -v</code></li>
 <li><code>git remote add &lt;name&gt; &lt;url&gt;</code> add a remote</li>
 <li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> rename a remote</li>
 <li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> change a remote URL</li>
 </ul>
-<h3 id="cloning">Cloning</h3>
+<h3 id="cloning">
+    <a href="#cloning" class="header-anchor" aria-label="Link to Cloning"></a>Cloning</h3>
 <ul>
 <li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> single-branch clone</li>
 <li><code>git clone &lt;url&gt; [dir]</code></li>
 </ul>
-<h3 id="fetch--sync">Fetch &amp; sync</h3>
+<h3 id="fetch--sync">
+    <a href="#fetch--sync" class="header-anchor" aria-label="Link to Fetch &amp; sync"></a>Fetch &amp; sync</h3>
 <ul>
 <li><code>git fetch --all</code> || <code>git merge</code> only fetch into the <strong>local remote-tracking branch</strong> (e.g. <code>origin/main</code>, <code>upstream/main</code>); merge into the local branch later when needed</li>
 <li><code>git pull</code> fetch and merge the remote branch into the current branch; generally avoid unless you understand the consequences</li>
 <li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> set up tracking between a new local branch and a remote branch — <strong>typically for a new branch&rsquo;s first push</strong></li>
 </ul>
-<h3 id="checkout-vs-reset">checkout vs reset</h3>
+<h3 id="checkout-vs-reset">
+    <a href="#checkout-vs-reset" class="header-anchor" aria-label="Link to checkout vs reset"></a>checkout vs reset</h3>
 <ul>
 <li><code>git checkout</code></li>
 <li><code>git reset</code></li>
@@ -255,7 +266,8 @@
 </div>
         </div>
     </div>
-<h3 id="merging--committing">Merging &amp; committing</h3>
+<h3 id="merging--committing">
+    <a href="#merging--committing" class="header-anchor" aria-label="Link to Merging &amp; committing"></a>Merging &amp; committing</h3>
 <blockquote>
 <p>For multi-person or large-team collaboration, master and use <code>git rebase</code>, and keep each branch&rsquo;s commit count vs the <strong>base</strong> branch <strong>minimal</strong> — easier rebases and conflict resolution for everyone.</p>
 <p>If you&rsquo;ve opened a <code>PR</code>/<code>MR</code>, before <strong>reviewers</strong> review, make sure your branch is <code>Fast-Forward</code> vs the <strong>base</strong>; do not <strong>Rebase</strong> from the web UI.</p>
@@ -264,14 +276,16 @@
 <li><code>git rebase</code> <strong>use with care</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">demo</a></li>
 <li><code>git merge</code> <del><strong>not recommended</strong></del></li>
 </ul>
-<h3 id="branch-push--delete">Branch push &amp; delete</h3>
+<h3 id="branch-push--delete">
+    <a href="#branch-push--delete" class="header-anchor" aria-label="Link to Branch push &amp; delete"></a>Branch push &amp; delete</h3>
 <ul>
 <li><code>git push</code> push the current branch; requires tracking a remote branch; for the first push use <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
 <li><code>git push -f</code> force-push the current branch to its remote</li>
 <li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> push an empty branch to the remote — i.e. <strong>delete the remote branch</strong></li>
 <li><code>git branch -d</code> delete a local branch</li>
 </ul>
-<h2 id="unset-config">Unset config</h2>
+<h2 id="unset-config">
+    <a href="#unset-config" class="header-anchor" aria-label="Link to Unset config"></a>Unset config</h2>
 <blockquote>
 <p><strong>Remove the line matching the key from config file.</strong></p>
 </blockquote>
@@ -289,12 +303,14 @@
 </div>
         </div>
     </div>
-<h2 id="edit-config-files">Edit config files</h2>
+<h2 id="edit-config-files">
+    <a href="#edit-config-files" class="header-anchor" aria-label="Link to Edit config files"></a>Edit config files</h2>
 <ul>
 <li><code>git config --global -e</code> edit the global config file at <code>~/.gitconfig</code></li>
 <li><code>git config -e</code> edit the project config file at <code>.git/config</code></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>
@@ -304,13 +320,16 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="enable-vigilant-mode">Enable vigilant mode</h2>
+<h2 id="enable-vigilant-mode">
+    <a href="#enable-vigilant-mode" class="header-anchor" aria-label="Link to Enable vigilant mode"></a>Enable vigilant mode</h2>
 <p>With <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer ">vigilant</a></strong> mode on, your own unsigned commits are flagged <strong>Unverified</strong>. This <strong>alerts you and others to potential authenticity issues</strong>. The author and committer of a Git commit are easily spoofed — someone could push a commit that claims to be yours but isn&rsquo;t.</p>
 <blockquote>
 <p>Path: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer ">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
-<h2 id="gpg-command">GPG Command</h2>
-<h3 id="man-gpg"><strong>man gpg</strong></h3>
+<h2 id="gpg-command">
+    <a href="#gpg-command" class="header-anchor" aria-label="Link to GPG Command"></a>GPG Command</h2>
+<h3 id="man-gpg">
+    <a href="#man-gpg" class="header-anchor" aria-label="Link to man gpg"></a><strong>man gpg</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -521,7 +540,8 @@
 </span></span><span class="line"><span class="cl">Please report bugs to &lt;https://bugs.gnupg.org&gt;.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gpg-shell-command"><strong>gpg shell command</strong></h3>
+</div><h3 id="gpg-shell-command">
+    <a href="#gpg-shell-command" class="header-anchor" aria-label="Link to gpg shell command"></a><strong>gpg shell command</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -588,7 +608,8 @@
 </span></span><span class="line"><span class="cl">  <span class="o">(</span>nrsign<span class="o">)</span>, or any combination thereof <span class="o">(</span>ltsign, tnrsign, etc.<span class="o">)</span>.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gpg-key-generation--config">GPG key generation &amp; config</h2>
+</div><h2 id="gpg-key-generation--config">
+    <a href="#gpg-key-generation--config" class="header-anchor" aria-label="Link to GPG key generation &amp; config"></a>GPG key generation &amp; config</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -597,7 +618,8 @@
             <div class="admonition-content">GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href="https://www.gnupg.org/download/" target="_blank" rel="noopener noreffer ">GnuPG&rsquo;s Download page</a>.</div>
         </div>
     </div>
-<h3 id="existing-gpg-keys"><em>Existing GPG keys</em></h3>
+<h3 id="existing-gpg-keys">
+    <a href="#existing-gpg-keys" class="header-anchor" aria-label="Link to Existing GPG keys"></a><em>Existing GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -626,7 +648,8 @@
 </div>
         </div>
     </div>
-<h3 id="generate-a-new-gpg-key">Generate a new <em>GPG key</em></h3>
+<h3 id="generate-a-new-gpg-key">
+    <a href="#generate-a-new-gpg-key" class="header-anchor" aria-label="Link to Generate a new GPG key"></a>Generate a new <em>GPG key</em></h3>
 <blockquote>
 <p>If an old GPG key already exists, you don&rsquo;t need to generate a new one!</p>
 </blockquote>
@@ -684,7 +707,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="latest-gpg-keys">Latest <em>GPG keys</em></h3>
+<h3 id="latest-gpg-keys">
+    <a href="#latest-gpg-keys" class="header-anchor" aria-label="Link to Latest GPG keys"></a>Latest <em>GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -708,7 +732,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg &lt;278810732@qq.com&gt;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="export-a-gpg-key">Export a <em>GPG key</em></h3>
+</div><h3 id="export-a-gpg-key">
+    <a href="#export-a-gpg-key" class="header-anchor" aria-label="Link to Export a GPG key"></a>Export a <em>GPG key</em></h3>
 <ul>
 <li><code>gpg --armor --export FE47519758053257</code></li>
 <li>or <code>gpg -a -o --export FE47519758053257</code></li>
@@ -746,7 +771,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="find-a-gpg-key">Find a <em>GPG key</em></h3>
+</div><h3 id="find-a-gpg-key">
+    <a href="#find-a-gpg-key" class="header-anchor" aria-label="Link to Find a GPG key"></a>Find a <em>GPG key</em></h3>
 <blockquote>
 <p><strong>keyIDs</strong> may be: <em>name</em>, <strong>keyID</strong>, <em>email</em></p>
 </blockquote>
@@ -813,7 +839,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="import-a-gpg-key">Import a <em>GPG key</em></h3>
+<h3 id="import-a-gpg-key">
+    <a href="#import-a-gpg-key" class="header-anchor" aria-label="Link to Import a GPG key"></a>Import a <em>GPG key</em></h3>
 <blockquote>
 <p><strong>Key-server import</strong> — without an address it defaults to <code>hkps://keyserver.ubuntu.com</code> <strong>(your address may differ; this is local output)</strong></p>
 </blockquote>
@@ -846,7 +873,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="secret-key-backup-export--import">Secret-key backup, export &amp; import</h3>
+<h3 id="secret-key-backup-export--import">
+    <a href="#secret-key-backup-export--import" class="header-anchor" aria-label="Link to Secret-key backup, export &amp; import"></a>Secret-key backup, export &amp; import</h3>
 <blockquote>
 <p>Mainly for: <strong>sharing across your own machines</strong></p>
 </blockquote>
@@ -864,7 +892,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="export-a-secret-key">Export a secret key</h4>
+<h4 id="export-a-secret-key">
+    <a href="#export-a-secret-key" class="header-anchor" aria-label="Link to Export a secret key"></a>Export a secret key</h4>
 <p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -878,7 +907,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="import-a-secret-key">Import a secret key</h4>
+<h4 id="import-a-secret-key">
+    <a href="#import-a-secret-key" class="header-anchor" aria-label="Link to Import a secret key"></a>Import a secret key</h4>
 <p><code>gpg --import secKeyFile</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -906,7 +936,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="key-revocation"><strong>Key revocation</strong></h3>
+<h3 id="key-revocation">
+    <a href="#key-revocation" class="header-anchor" aria-label="Link to Key revocation"></a><strong>Key revocation</strong></h3>
 <p><em>After generating a new key pair, if other key pairs are no longer used, publish a revocation certificate immediately to declare the old public key invalid and prevent malicious use.</em></p>
 <blockquote>
 <p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p>
@@ -1018,18 +1049,22 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="delete-keys">Delete keys</h3>
+<h3 id="delete-keys">
+    <a href="#delete-keys" class="header-anchor" aria-label="Link to Delete keys"></a>Delete keys</h3>
 <ul>
 <li><code>gpg --delete-secret-keys keyID</code> <strong>delete this first</strong></li>
 <li><code>gpg --delete-keys keyID</code></li>
 </ul>
-<h2 id="restart-the-gpg-agent">Restart the GPG Agent</h2>
+<h2 id="restart-the-gpg-agent">
+    <a href="#restart-the-gpg-agent" class="header-anchor" aria-label="Link to Restart the GPG Agent"></a>Restart the GPG Agent</h2>
 <blockquote>
 <p>GPG restarts it on demand</p>
 </blockquote>
 <p><code>gpgconf --kill gpg-agent</code></p>
-<h2 id="configure-git-to-use-gpg">Configure git to use GPG</h2>
-<h3 id="set-the-gpg-key">Set the <strong>GPG key</strong></h3>
+<h2 id="configure-git-to-use-gpg">
+    <a href="#configure-git-to-use-gpg" class="header-anchor" aria-label="Link to Configure git to use GPG"></a>Configure git to use GPG</h2>
+<h3 id="set-the-gpg-key">
+    <a href="#set-the-gpg-key" class="header-anchor" aria-label="Link to Set the GPG key"></a>Set the <strong>GPG key</strong></h3>
 <blockquote>
 <ul>
 <li>
@@ -1040,7 +1075,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </li>
 </ul>
 </blockquote>
-<h3 id="configure-the-gpg-key-used-for-signing">Configure the <em>GPG key</em> used for signing</h3>
+<h3 id="configure-the-gpg-key-used-for-signing">
+    <a href="#configure-the-gpg-key-used-for-signing" class="header-anchor" aria-label="Link to Configure the GPG key used for signing"></a>Configure the <em>GPG key</em> used for signing</h3>
 <blockquote>
 <p>Mind whether you want this global; with a global config, an individual project can still override it! Replace <del>&ndash;global</del> with <strong>local</strong></p>
 </blockquote>
@@ -1060,7 +1096,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git config --global commit.gpgsign <span class="nb">true</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="create-a-signed-commit">Create a signed commit</h3>
+</div><h3 id="create-a-signed-commit">
+    <a href="#create-a-signed-commit" class="header-anchor" aria-label="Link to Create a signed commit"></a>Create a signed commit</h3>
 <p><code>git commit -S -m &quot;your commit message&quot;</code></p>
 <blockquote>
 <p>If you&rsquo;ve set commits to be signed by default, you can also just:</p>
@@ -1081,7 +1118,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="sign-a-tag">Sign a tag</h3>
+<h3 id="sign-a-tag">
+    <a href="#sign-a-tag" class="header-anchor" aria-label="Link to Sign a tag"></a>Sign a tag</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1098,7 +1136,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git tag -v my_tag
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="view-commit-signatures">View commit signatures</h3>
+</div><h3 id="view-commit-signatures">
+    <a href="#view-commit-signatures" class="header-anchor" aria-label="Link to View commit signatures"></a>View commit signatures</h3>
 <blockquote>
 <ul>
 <li><a href="https://www.git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer ">git log usage</a></li>
@@ -1148,7 +1187,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="local-signature-verification-issues"><strong>Local signature-verification issues</strong></h3>
+<h3 id="local-signature-verification-issues">
+    <a href="#local-signature-verification-issues" class="header-anchor" aria-label="Link to Local signature-verification issues"></a><strong>Local signature-verification issues</strong></h3>
 <p>When viewing commit signatures via <code>git log --show-signature</code>, you may see:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1168,7 +1208,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <p>You can also verify a specific commit&rsquo;s signature with <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code></p>
 </blockquote>
 <p><strong>This happens because your local repo doesn&rsquo;t have the <code>gpg public key</code> used for those <code>commits</code>. Fix it by importing the committer&rsquo;s <code>gpg public keys</code>.</strong></p>
-<h3 id="importing-missing-gpg-keys--verifying">Importing <strong>missing gpg keys</strong> &amp; verifying</h3>
+<h3 id="importing-missing-gpg-keys--verifying">
+    <a href="#importing-missing-gpg-keys--verifying" class="header-anchor" aria-label="Link to Importing missing gpg keys &amp; verifying"></a>Importing <strong>missing gpg keys</strong> &amp; verifying</h3>
 <p>To get full signature verification, we import the missing <strong>public keys</strong>. Suggested import sources:</p>
 <ul>
 <li><code>https://github.com/&lt;username&gt;.gpg</code> <em>requires you to have uploaded GPG keys to github</em></li>
@@ -1222,7 +1263,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="importing-githubs-gpg-public-key">Importing Github&rsquo;s GPG public key</h2>
+<h2 id="importing-githubs-gpg-public-key">
+    <a href="#importing-githubs-gpg-public-key" class="header-anchor" aria-label="Link to Importing Github&amp;rsquo;s GPG public key"></a>Importing Github&rsquo;s GPG public key</h2>
 <blockquote>
 <p><a href="https://github.com/web-flow.gpg" target="_blank" rel="noopener noreffer ">github public GPG key for web-flow</a></p>
 </blockquote>
@@ -1231,7 +1273,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><code>gpg --edit-key noreply@github.com trust quit</code> <strong>trust and save, you choose: <code>4</code></strong></li>
 <li><code>gpg --lsign-key noreply@github.com</code> <em>sign selected user IDs locally</em></li>
 </ol>
-<h2 id="gpg-key-update--renewal"><strong>GPG key update &amp; renewal</strong></h2>
+<h2 id="gpg-key-update--renewal">
+    <a href="#gpg-key-update--renewal" class="header-anchor" aria-label="Link to GPG key update &amp; renewal"></a><strong>GPG key update &amp; renewal</strong></h2>
 <p><code>gpg --edit-key [GPG key ID]</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -1398,7 +1441,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="rebinding-the-gpg-sign-key">Rebinding the GPG sign key</h2>
+<h2 id="rebinding-the-gpg-sign-key">
+    <a href="#rebinding-the-gpg-sign-key" class="header-anchor" aria-label="Link to Rebinding the GPG sign key"></a>Rebinding the GPG sign key</h2>
 <blockquote>
 <p><strong>Don&rsquo;t change this unless you need to.</strong></p>
 </blockquote>
@@ -1425,7 +1469,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h2 id="deleting-gpg-keys"><em>Deleting GPG keys</em></h2>
+<h2 id="deleting-gpg-keys">
+    <a href="#deleting-gpg-keys" class="header-anchor" aria-label="Link to Deleting GPG keys"></a><em>Deleting GPG keys</em></h2>
 <ul>
 <li><code>gpg --delete-secret-key [uid]</code></li>
 <li><code>gpg --delete-secret-key [uid1] [uid2]</code></li>
@@ -1481,7 +1526,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification" target="_blank" rel="noopener noreffer ">managing-commit-signature-verification</a></li>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification" target="_blank" rel="noopener noreffer ">S/MIME commit signature verification</a></li>
@@ -1491,8 +1537,10 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <blockquote>
 <p>Using the <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> project as an example: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
 </blockquote>
-<h2 id="solutions">Solutions</h2>
-<h3 id="github-mirror-repositories">GitHub mirror repositories</h3>
+<h2 id="solutions">
+    <a href="#solutions" class="header-anchor" aria-label="Link to Solutions"></a>Solutions</h2>
+<h3 id="github-mirror-repositories">
+    <a href="#github-mirror-repositories" class="header-anchor" aria-label="Link to GitHub mirror repositories"></a>GitHub mirror repositories</h3>
 <ul>
 <li><strong>Search the web for a mirror URL, swap it in, then download</strong>
 <ul>
@@ -1504,24 +1552,28 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><em>Clone through another Git hosting mirror</em></li>
 <li><em>Download the ZIP directly in the browser</em></li>
 </ul>
-<h3 id="proxy-acceleration">Proxy acceleration</h3>
+<h3 id="proxy-acceleration">
+    <a href="#proxy-acceleration" class="header-anchor" aria-label="Link to Proxy acceleration"></a>Proxy acceleration</h3>
 <ul>
 <li><strong>proxy</strong> <em>not really recommended</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>recommended</strong>)</li>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>recommended ☆☆☆☆☆☆</strong>)</li>
 </ul>
-<h4 id="fastgithub">FastGithub</h4>
+<h4 id="fastgithub">
+    <a href="#fastgithub" class="header-anchor" aria-label="Link to FastGithub"></a>FastGithub</h4>
 <blockquote>
 <p>A miracle tool for GitHub acceleration: fixes GitHub failing to open, avatars not loading, releases failing to upload/download, and git-clone / git-pull / git-push errors.</p>
 </blockquote>
-<h5 id="features">Features</h5>
+<h5 id="features">
+    <a href="#features" class="header-anchor" aria-label="Link to Features"></a>Features</h5>
 <ul>
 <li>Clean IP resolution for the relevant domains</li>
 <li>IP speed testing, automatically picking the fastest IP</li>
 <li>Custom TLS connection configuration per domain</li>
 <li>Replaces Google CDN resources, fixing the failure to load JS and CSS on many overseas sites</li>
 </ul>
-<h5 id="install--configure">Install &amp; configure</h5>
+<h5 id="install--configure">
+    <a href="#install--configure" class="header-anchor" aria-label="Link to Install &amp; configure"></a>Install &amp; configure</h5>
 <blockquote>
 <ul>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
@@ -1570,13 +1622,15 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl"><span class="c1"># disable git&#39;s certificate verification: git config --global http.sslverify false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="security--legality-note">Security &amp; legality note</h5>
+</div><h5 id="security--legality-note">
+    <a href="#security--legality-note" class="header-anchor" aria-label="Link to Security &amp; legality note"></a>Security &amp; legality note</h5>
 <blockquote>
 <p>Excerpted from <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub generates a self-signed CA certificate for each host, stored under the cacert folder. Client devices must install and unconditionally trust this self-signed CA certificate. Do not leak the certificate&rsquo;s private key to anyone, to avoid losses.</em></p>
 <p><em>&ldquo;FastGithub&rsquo;s local proxy only uses the international exit channels provided by the public telecom network. The traffic between overseas GitHub servers and the FastGithub program on a domestic user&rsquo;s machine flows over normal channels, with no extra encryption applied beyond the page&rsquo;s own TLS (unlike the encrypted traffic of a proxy). The entire proxy process after FastGithub retrieves the page data takes place domestically, so the regulations on international internetworking do not apply.&rdquo;</em></p>
-<h3 id="hosts-tweak">Hosts tweak</h3>
+<h3 id="hosts-tweak">
+    <a href="#hosts-tweak" class="header-anchor" aria-label="Link to Hosts tweak"></a>Hosts tweak</h3>
 <blockquote>
 <p>The idea is to use <code>nslookup</code> or <code>dig</code> to find a reachable IP for the domain, then add an <code>ip -&gt; domain</code> mapping to your hosts file and flush the DNS cache.</p>
 </blockquote>

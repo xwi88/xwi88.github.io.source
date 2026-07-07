@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="consumer-group">Consumer Group</h2>
+<h2 id="consumer-group">
+    <a href="#consumer-group" class="header-anchor" aria-label="Link to Consumer Group"></a>Consumer Group</h2>
 <p><code>consumer group</code> 是 <code>kafka</code> 提供的可扩展且具有容错性的消费者机制。具有一些特性:</p>
 <ul>
 <li><code>consumer group</code> 由<strong>一个或多个</strong> <code>consumer</code> 组成，它们共同消费<strong>一个或多个</strong> <code>topic</code> 中的消息</li>
@@ -22,7 +23,8 @@
 </div>
         </div>
     </div>
-<h2 id="rebalance">Rebalance</h2>
+<h2 id="rebalance">
+    <a href="#rebalance" class="header-anchor" aria-label="Link to Rebalance"></a>Rebalance</h2>
 <p>分区的重平衡 (<code>Rebalance</code>) 是 <code>Kafka</code> 一个很重要特性，它可以保证系统的高可用和系统的水平扩展。以下几种情况会触发 <code>Kafka</code> 发生重平衡。</p>
 <ul>
 <li>消费者组成员变化:
@@ -47,8 +49,10 @@
 </div>
         </div>
     </div>
-<h2 id="go-consumer-group">GO Consumer Group</h2>
-<h3 id="consumergroup-接口及说明">ConsumerGroup 接口及说明</h3>
+<h2 id="go-consumer-group">
+    <a href="#go-consumer-group" class="header-anchor" aria-label="Link to GO Consumer Group"></a>GO Consumer Group</h2>
+<h3 id="consumergroup-接口及说明">
+    <a href="#consumergroup-%e6%8e%a5%e5%8f%a3%e5%8f%8a%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to ConsumerGroup 接口及说明"></a>ConsumerGroup 接口及说明</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -137,7 +141,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+</div><h3 id="consumergroup-demo">
+    <a href="#consumergroup-demo" class="header-anchor" aria-label="Link to ConsumerGroup Demo"></a>ConsumerGroup Demo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -344,7 +349,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="部分配置参数说明">部分配置参数说明</h2>
+</div><h2 id="部分配置参数说明">
+    <a href="#%e9%83%a8%e5%88%86%e9%85%8d%e7%bd%ae%e5%8f%82%e6%95%b0%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 部分配置参数说明"></a>部分配置参数说明</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
 <li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
@@ -354,7 +360,8 @@
 <li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
 <li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
 </ul>
-<h2 id="参数配置建议">参数配置建议</h2>
+<h2 id="参数配置建议">
+    <a href="#%e5%8f%82%e6%95%b0%e9%85%8d%e7%bd%ae%e5%bb%ba%e8%ae%ae" class="header-anchor" aria-label="Link to 参数配置建议"></a>参数配置建议</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: 默认值 <code>30s</code>，如果消费者常出现 <code>read tcp xxx i/o timeout</code> 可考虑增大此值
 <ul>

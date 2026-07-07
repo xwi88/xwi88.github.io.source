@@ -6,8 +6,10 @@
 <li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
 <li>Compose version: <code>Docker Compose version 2.2.2</code></li>
 </ul>
-<h2 id="docker-相关参考资源">Docker 相关参考资源</h2>
-<h3 id="文件格式">文件格式</h3>
+<h2 id="docker-相关参考资源">
+    <a href="#docker-%e7%9b%b8%e5%85%b3%e5%8f%82%e8%80%83%e8%b5%84%e6%ba%90" class="header-anchor" aria-label="Link to Docker 相关参考资源"></a>Docker 相关参考资源</h2>
+<h3 id="文件格式">
+    <a href="#%e6%96%87%e4%bb%b6%e6%a0%bc%e5%bc%8f" class="header-anchor" aria-label="Link to 文件格式"></a>文件格式</h3>
 <table>
 <thead>
 <tr>
@@ -26,7 +28,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="命令行接口-clis">命令行接口 (CLIs)</h3>
+<h3 id="命令行接口-clis">
+    <a href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%8e%a5%e5%8f%a3-clis" class="header-anchor" aria-label="Link to 命令行接口 (CLIs)"></a>命令行接口 (CLIs)</h3>
 <table>
 <thead>
 <tr>
@@ -49,7 +52,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="应用程序接口-apis">应用程序接口 (APIs)</h3>
+<h3 id="应用程序接口-apis">
+    <a href="#%e5%ba%94%e7%94%a8%e7%a8%8b%e5%ba%8f%e6%8e%a5%e5%8f%a3-apis" class="header-anchor" aria-label="Link to 应用程序接口 (APIs)"></a>应用程序接口 (APIs)</h3>
 <table>
 <thead>
 <tr>
@@ -72,7 +76,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="驱动与规范">驱动与规范</h3>
+<h3 id="驱动与规范">
+    <a href="#%e9%a9%b1%e5%8a%a8%e4%b8%8e%e8%a7%84%e8%8c%83" class="header-anchor" aria-label="Link to 驱动与规范"></a>驱动与规范</h3>
 <table>
 <thead>
 <tr>
@@ -95,7 +100,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="docker-cli-用法">Docker CLI 用法</h2>
+<h2 id="docker-cli-用法">
+    <a href="#docker-cli-%e7%94%a8%e6%b3%95" class="header-anchor" aria-label="Link to Docker CLI 用法"></a>Docker CLI 用法</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -276,7 +282,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-compose-cli-用法">Docker Compose CLI 用法</h2>
+<h2 id="docker-compose-cli-用法">
+    <a href="#docker-compose-cli-%e7%94%a8%e6%b3%95" class="header-anchor" aria-label="Link to Docker Compose CLI 用法"></a>Docker Compose CLI 用法</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -375,8 +382,10 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-命令">Docker 命令</h2>
-<h3 id="docker-常用管理命令">Docker 常用管理命令</h3>
+<h2 id="docker-命令">
+    <a href="#docker-%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 命令"></a>Docker 命令</h2>
+<h3 id="docker-常用管理命令">
+    <a href="#docker-%e5%b8%b8%e7%94%a8%e7%ae%a1%e7%90%86%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 常用管理命令"></a>Docker 常用管理命令</h3>
 <ul>
 <li><code>docker context [--help]</code> <strong>上下文管理</strong></li>
 <li><code>docker compose [--help]</code> <strong>docker compose 命令</strong> <code>v2.2.2+</code></li>
@@ -397,7 +406,8 @@
 <li><code>docker scan [--help]</code> docker 镜像扫描分析</li>
 <li><code>docker manifest [--help]</code> docker 镜像清单查看，实验特性</li>
 </ul>
-<h3 id="docker-常用命令">Docker 常用命令</h3>
+<h3 id="docker-常用命令">
+    <a href="#docker-%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to Docker 常用命令"></a>Docker 常用命令</h3>
 <ul>
 <li><code>docker build [--help]</code> <strong>镜像构建</strong>
 <ul>
@@ -425,7 +435,8 @@
 <li><code>docker stop</code></li>
 <li><code>docker logs</code></li>
 </ul>
-<h3 id="docker-镜像过滤查找">docker 镜像过滤查找</h3>
+<h3 id="docker-镜像过滤查找">
+    <a href="#docker-%e9%95%9c%e5%83%8f%e8%bf%87%e6%bb%a4%e6%9f%a5%e6%89%be" class="header-anchor" aria-label="Link to docker 镜像过滤查找"></a>docker 镜像过滤查找</h3>
 <blockquote>
 <p><code>docker images -f [filter params]</code></p>
 </blockquote>
@@ -474,7 +485,8 @@
             <div class="admonition-content">测试发现，如果 <code>REPOSITORY</code> 中含有 <code>/</code> 则通过 reference 正则查询时，必须包含 <code>/</code> 否则无法匹配出来，也即 <code>/</code> 无法被 filter 正则匹配</div>
         </div>
     </div>
-<h3 id="docker-commit-基于容器创建镜像">docker commit 基于容器创建镜像</h3>
+<h3 id="docker-commit-基于容器创建镜像">
+    <a href="#docker-commit-%e5%9f%ba%e4%ba%8e%e5%ae%b9%e5%99%a8%e5%88%9b%e5%bb%ba%e9%95%9c%e5%83%8f" class="header-anchor" aria-label="Link to docker commit 基于容器创建镜像"></a>docker commit 基于容器创建镜像</h3>
 <blockquote>
 <p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
 </blockquote>
@@ -502,7 +514,8 @@
 </span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="prune-镜像容器等一键删除">prune 镜像容器等一键删除</h3>
+</div><h3 id="prune-镜像容器等一键删除">
+    <a href="#prune-%e9%95%9c%e5%83%8f%e5%ae%b9%e5%99%a8%e7%ad%89%e4%b8%80%e9%94%ae%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to prune 镜像容器等一键删除"></a>prune 镜像容器等一键删除</h3>
 <ul>
 <li><code>docker image prune -a</code> <strong>删除所有未被容器使用的镜像</strong></li>
 <li><code>docker container prune</code> <em>删除所有停止运行容器</em></li>
@@ -510,13 +523,15 @@
 <li><code>docker system prune</code> <em>删除 docker 所有资源</em></li>
 <li><code>docker network prune</code> <em>删除所有网络</em></li>
 </ul>
-<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<h2 id="simple-cheat-sheet">
+    <a href="#simple-cheat-sheet" class="header-anchor" aria-label="Link to Simple Cheat Sheet"></a>Simple Cheat Sheet</h2>
 <ul>
 <li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
 <li>演示镜像: <code>v8fg/demo[:latest]</code></li>
 <li>演示容器名: <code>v8fg-demo</code></li>
 </ul>
-<h3 id="running-containers">Running Containers</h3>
+<h3 id="running-containers">
+    <a href="#running-containers" class="header-anchor" aria-label="Link to Running Containers"></a>Running Containers</h3>
 <table>
 <thead>
 <tr>
@@ -596,7 +611,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<h3 id="container-lifecycle-stuff">
+    <a href="#container-lifecycle-stuff" class="header-anchor" aria-label="Link to Container Lifecycle Stuff"></a>Container Lifecycle Stuff</h3>
 <table>
 <thead>
 <tr>
@@ -655,7 +671,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<h3 id="resource-limits-and-controls">
+    <a href="#resource-limits-and-controls" class="header-anchor" aria-label="Link to Resource Limits and Controls"></a>Resource Limits and Controls</h3>
 <table>
 <thead>
 <tr>
@@ -694,7 +711,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<h3 id="stats-logs-and-events">
+    <a href="#stats-logs-and-events" class="header-anchor" aria-label="Link to Stats, Logs, and Events"></a>Stats, Logs, and Events</h3>
 <table>
 <thead>
 <tr>
@@ -733,7 +751,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-images">Docker Images</h3>
+<h3 id="docker-images">
+    <a href="#docker-images" class="header-anchor" aria-label="Link to Docker Images"></a>Docker Images</h3>
 <table>
 <thead>
 <tr>
@@ -796,7 +815,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<h3 id="exportimportsaveload">
+    <a href="#exportimportsaveload" class="header-anchor" aria-label="Link to Export/Import/Save/Load"></a>Export/Import/Save/Load</h3>
 <ul>
 <li><strong>export, import</strong>: 不保留层历史信息，较小 <strong>制作基础镜像，去除历史</strong></li>
 <li><em>save, load</em>: 保留层历史信息，较大</li>
@@ -847,7 +867,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<h3 id="docker-hubregistry">
+    <a href="#docker-hubregistry" class="header-anchor" aria-label="Link to Docker Hub/Registry"></a>Docker Hub/Registry</h3>
 <table>
 <thead>
 <tr>
@@ -894,7 +915,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<h3 id="building-docker-images-from-a-dockerfile">
+    <a href="#building-docker-images-from-a-dockerfile" class="header-anchor" aria-label="Link to Building Docker Images From A Dockerfile"></a>Building Docker Images From A Dockerfile</h3>
 <table>
 <thead>
 <tr>
@@ -929,7 +951,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<h3 id="simple-dockerfile-example">
+    <a href="#simple-dockerfile-example" class="header-anchor" aria-label="Link to Simple Dockerfile Example"></a>Simple Dockerfile Example</h3>
 <blockquote>
 <p><code>v8fg/demo:latest</code></p>
 </blockquote>
@@ -966,7 +989,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+</div><h3 id="big-dockerfile-example">
+    <a href="#big-dockerfile-example" class="header-anchor" aria-label="Link to Big Dockerfile Example"></a>Big Dockerfile Example</h3>
 <table>
 <thead>
 <tr>
@@ -1057,7 +1081,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="volumesstorage">Volumes/Storage</h3>
+<h3 id="volumesstorage">
+    <a href="#volumesstorage" class="header-anchor" aria-label="Link to Volumes/Storage"></a>Volumes/Storage</h3>
 <table>
 <thead>
 <tr>
@@ -1148,7 +1173,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="expose-ports">Expose Ports</h3>
+<h3 id="expose-ports">
+    <a href="#expose-ports" class="header-anchor" aria-label="Link to Expose Ports"></a>Expose Ports</h3>
 <table>
 <thead>
 <tr>
@@ -1187,7 +1213,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="networks">Networks</h3>
+<h3 id="networks">
+    <a href="#networks" class="header-anchor" aria-label="Link to Networks"></a>Networks</h3>
 <table>
 <thead>
 <tr>
@@ -1278,7 +1305,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
 <li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>
@@ -1287,10 +1315,12 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="dockerfile-简介">Dockerfile 简介</h2>
+<h2 id="dockerfile-简介">
+    <a href="#dockerfile-%e7%ae%80%e4%bb%8b" class="header-anchor" aria-label="Link to Dockerfile 简介"></a>Dockerfile 简介</h2>
 <p><code>Dockerfile</code> 是一个用来构建镜像的文本文件，由一条条构建镜像所需的指令（<code>instruction</code>）和说明组成。每一条指令构建一层。</p>
 <p>默认执行构建命令 <code>docker build .</code> 会在当前路径下查找名为 <code>Dockerfile</code> 的文件，也可以指定路径及文件名：<code>docker build -f xxx/path/DockerfileName .</code></p>
-<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<h2 id="dockerignore">
+    <a href="#dockerignore" class="header-anchor" aria-label="Link to .dockerignore"></a><code>.dockerignore</code></h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1299,7 +1329,8 @@
             <div class="admonition-content">为了提高构建的性能，可以通过在上下文目录中添加 <code>.dockerignore</code> 文件来排除文件和目录。如果你的项目目录下有较多或较大的不必要参与镜像构建的文件，请将其排除，这对于加快构建速度、减少镜像体积将会非常有用。</div>
         </div>
     </div>
-<h2 id="基本组成">基本组成</h2>
+<h2 id="基本组成">
+    <a href="#%e5%9f%ba%e6%9c%ac%e7%bb%84%e6%88%90" class="header-anchor" aria-label="Link to 基本组成"></a>基本组成</h2>
 <blockquote>
 <p>支持以 <code>#</code> 开头的注释行，可以放在任意行的开头位置，不建议在 <code>#</code> 前保留多余的空格。</p>
 </blockquote>
@@ -1309,7 +1340,8 @@
 <li>镜像操作指令</li>
 <li>容器启动执行指令</li>
 </ul>
-<h2 id="所有指令">所有指令</h2>
+<h2 id="所有指令">
+    <a href="#%e6%89%80%e6%9c%89%e6%8c%87%e4%bb%a4" class="header-anchor" aria-label="Link to 所有指令"></a>所有指令</h2>
 <blockquote>
 <ul>
 <li><a href="#from" rel=""><strong>FROM</strong></a></li>
@@ -1331,7 +1363,8 @@
 <li><a href="#shell" rel="">SHELL</a></li>
 </ul>
 </blockquote>
-<h2 id="from"><strong>FROM</strong></h2>
+<h2 id="from">
+    <a href="#from" class="header-anchor" aria-label="Link to FROM"></a><strong>FROM</strong></h2>
 <ul>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
@@ -1345,7 +1378,8 @@
 <li>标签 <code>tag</code> 或摘要值 <code>digest</code> 是可选的。如果省略它们中的任何一个，构建器将默认使用标签 <code>latest</code>。如果构建器找不到标记值，则返回一个错误。</li>
 <li>可以通过 <code>--platform=&lt;platform&gt;</code> 指定 <code>FROM</code> 引用的是哪个平台的镜像。例如：<code>linux/amd64</code>、 <code>linux/arm64</code> 或 <code>windows/amd64</code>。默认使用构建请求的目标平台。可以在这个标志中使用全局构建参数，如：<a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer ">全局范围内自动平台参数</a>，允许你强制指定一个阶段的本机构建平台<code>(--platform=$BUILDPLATFORM)</code>，并使用它在此构建阶段内交叉编译到目标平台。</li>
 </ul>
-<h3 id="arg-参数与-from-交互"><strong>ARG 参数与 FROM 交互</strong></h3>
+<h3 id="arg-参数与-from-交互">
+    <a href="#arg-%e5%8f%82%e6%95%b0%e4%b8%8e-from-%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to ARG 参数与 FROM 交互"></a><strong>ARG 参数与 FROM 交互</strong></h3>
 <blockquote>
 <p>由 <code>ARG</code> 指令声明的变量，可以出现在第一个 <code>FROM</code> 指令之前。</p>
 </blockquote>
@@ -1371,7 +1405,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-参数作用域">ARG 参数作用域</h3>
+</div><h3 id="arg-参数作用域">
+    <a href="#arg-%e5%8f%82%e6%95%b0%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-anchor" aria-label="Link to ARG 参数作用域"></a>ARG 参数作用域</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1408,7 +1443,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="run">RUN</h2>
+</div><h2 id="run">
+    <a href="#run" class="header-anchor" aria-label="Link to RUN"></a>RUN</h2>
 <ul>
 <li><code>RUN &lt;command&gt;</code> (以 <code>shell</code> 形式运行, <em>linux</em> 下默认:  <code>/bin/sh -c</code>， <em>Windows</em> 下默认: <code>cmd /S /C</code>)</li>
 <li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> 形式)</li>
@@ -1461,20 +1497,23 @@
 </div></div>
         </div>
     </div>
-<h3 id="run-指令缓存">RUN 指令缓存</h3>
+<h3 id="run-指令缓存">
+    <a href="#run-%e6%8c%87%e4%bb%a4%e7%bc%93%e5%ad%98" class="header-anchor" aria-label="Link to RUN 指令缓存"></a>RUN 指令缓存</h3>
 <ul>
 <li><code>在下一次构建期间，RUN</code> 指令的缓存不会自动失效</li>
 <li><code>RUN apt-get dist-upgrade-y</code> 这样的指令的缓存将在下一次构建期间重用</li>
 <li><code>--no-cache</code> 标志使 <code>RUN</code> 指令的缓存失效，<code>docker build --no-cache</code></li>
 <li><strong><code>ADD</code>、<code>COPY</code> 可以使 <code>RUN</code> 指令缓存失效</strong></li>
 </ul>
-<h2 id="cmd">CMD</h2>
+<h2 id="cmd">
+    <a href="#cmd" class="header-anchor" aria-label="Link to CMD"></a>CMD</h2>
 <ul>
 <li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
 <li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
 <li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
 </ul>
-<h3 id="注意事项">注意事项</h3>
+<h3 id="注意事项">
+    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to 注意事项"></a>注意事项</h3>
 <ul>
 <li>一个 <code>Dockerfile</code> 只能有一个 <code>CMD</code> 指令，如果有多个则只有最后一个会生效。</li>
 <li><code>CMD</code> 的主要目的是为正在执行的容器提供缺省值。这些缺省值可以包括可执行文件，也可以省略可执行文件，在这种情况下，你必须指定 <code>ENTRYPOINT</code> 指令。</li>
@@ -1483,7 +1522,8 @@
 <li><strong>如果用户指定参数来运行 <code>docker</code>，那么它们将覆盖 <code>CMD</code> 中指定的缺省值</strong></li>
 <li>不要将 <code>RUN</code> 与 <code>CMD</code> 混淆。<code>RUN</code> <em>实际上运行一个命令并提交结果</em>; <code>CMD</code> <em>在构建时不执行任何内容，但是为镜像指定预期的命令</em>。</li>
 </ul>
-<h2 id="label">LABEL</h2>
+<h2 id="label">
+    <a href="#label" class="header-anchor" aria-label="Link to LABEL"></a>LABEL</h2>
 <blockquote>
 <p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -1516,7 +1556,8 @@
 <blockquote>
 <p>image 标签查看: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
 </blockquote>
-<h2 id="expose">EXPOSE</h2>
+<h2 id="expose">
+    <a href="#expose" class="header-anchor" aria-label="Link to EXPOSE"></a>EXPOSE</h2>
 <blockquote>
 <p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
 </blockquote>
@@ -1541,7 +1582,8 @@
 </span></span><span class="line"><span class="cl">EXPOSE 80/udp
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="expose-for-run">expose for run</h3>
+</div><h3 id="expose-for-run">
+    <a href="#expose-for-run" class="header-anchor" aria-label="Link to expose for run"></a>expose for run</h3>
 <ul>
 <li>
 <p><code>P</code> Publish all exposed ports to the host interfaces</p>
@@ -1556,7 +1598,8 @@
 <p><code>docker run -p 80-81:80-81/tcp</code></p>
 </li>
 </ul>
-<h2 id="env">ENV</h2>
+<h2 id="env">
+    <a href="#env" class="header-anchor" aria-label="Link to ENV"></a>ENV</h2>
 <blockquote>
 <p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -1613,7 +1656,8 @@
 </span></span><span class="line"><span class="cl">ENV <span class="nv">ghi</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># ghi=bye</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="add">ADD</h2>
+</div><h2 id="add">
+    <a href="#add" class="header-anchor" aria-label="Link to ADD"></a>ADD</h2>
 <ul>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code>  <strong>路径含有空格必须使用此指令</strong></li>
@@ -1690,7 +1734,8 @@
 </div>
         </div>
     </div>
-<h2 id="copy">COPY</h2>
+<h2 id="copy">
+    <a href="#copy" class="header-anchor" aria-label="Link to COPY"></a>COPY</h2>
 <ul>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code> <strong>路径含有空格必须使用此指令</strong></li>
@@ -1766,7 +1811,8 @@
 </div>
         </div>
     </div>
-<h2 id="entrypoint">ENTRYPOINT</h2>
+<h2 id="entrypoint">
+    <a href="#entrypoint" class="header-anchor" aria-label="Link to ENTRYPOINT"></a>ENTRYPOINT</h2>
 <ul>
 <li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> <code>exec 形式</code> <strong>推荐形式</strong></li>
 <li><code>ENTRYPOINT command param1 param2</code> <code>shell 形式</code> <strong>不能接受命令行参数，<code>CMD</code> 或 <code>run</code> 传递的</strong></li>
@@ -1782,7 +1828,8 @@
 <li><code>exec</code> 形式不会调用 <em>shell 命令行</em>，如果想使用 shell，可以在 <code>ENTRYPOINT</code> 中指定 <code>sh -c</code>：如，<code>ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
 <li><code>shell</code> 形式将作为 <code>/bin/sh-c</code> 的子命令启动，它不传递信号。这意味着执行程序不会是容器中 <code>PID 1</code> 的，也不会接收 <code>Unix</code> 信号，因此你的可执行文件不会接收来自 <code>docker stop &lt;container&gt;</code> 的 <code>SIGTERM</code></li>
 </ul>
-<h3 id="exec-形式-entrypoint-示例">exec 形式 ENTRYPOINT 示例</h3>
+<h3 id="exec-形式-entrypoint-示例">
+    <a href="#exec-%e5%bd%a2%e5%bc%8f-entrypoint-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to exec 形式 ENTRYPOINT 示例"></a>exec 形式 ENTRYPOINT 示例</h3>
 <blockquote>
 <p><a href="https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Exec form ENTRYPOINT example</a>*</p>
 </blockquote>
@@ -1862,11 +1909,13 @@
 </div></div>
         </div>
     </div>
-<h3 id="shell-形式-entrypoint-示例">shell 形式 ENTRYPOINT 示例</h3>
+<h3 id="shell-形式-entrypoint-示例">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f-entrypoint-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to shell 形式 ENTRYPOINT 示例"></a>shell 形式 ENTRYPOINT 示例</h3>
 <blockquote>
 <p><em><a href="https://docs.docker.com/engine/reference/builder/#shell-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Shell form ENTRYPOINT example</a></em></p>
 </blockquote>
-<h4 id="shell-形式-exec-执行"><strong>shell 形式 <code>exec</code> 执行</strong></h4>
+<h4 id="shell-形式-exec-执行">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f-exec-%e6%89%a7%e8%a1%8c" class="header-anchor" aria-label="Link to shell 形式 exec 执行"></a><strong>shell 形式 <code>exec</code> 执行</strong></h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1938,7 +1987,8 @@
 </div></div>
         </div>
     </div>
-<h4 id="shell-形式执行">shell 形式执行</h4>
+<h4 id="shell-形式执行">
+    <a href="#shell-%e5%bd%a2%e5%bc%8f%e6%89%a7%e8%a1%8c" class="header-anchor" aria-label="Link to shell 形式执行"></a>shell 形式执行</h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2017,7 +2067,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="cmd-与-entrypoint-交互"><strong>CMD 与 ENTRYPOINT 交互</strong></h3>
+<h3 id="cmd-与-entrypoint-交互">
+    <a href="#cmd-%e4%b8%8e-entrypoint-%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to CMD 与 ENTRYPOINT 交互"></a><strong>CMD 与 ENTRYPOINT 交互</strong></h3>
 <blockquote>
 <p>都定义了容器运行时要执行的命令</p>
 </blockquote>
@@ -2027,7 +2078,8 @@
 <li><code>CMD</code> 应该用作定义 <code>ENTRYPOINT</code> 命令或在容器中执行临时命令的<em>默认参数</em>的一种方式</li>
 <li>当使用其他参数运行容器时，<code>CMD</code> 将被重写</li>
 </ul>
-<h4 id="cmd-与-entrypoint-联合作用规则"><strong>CMD 与 ENTRYPOINT 联合作用规则</strong></h4>
+<h4 id="cmd-与-entrypoint-联合作用规则">
+    <a href="#cmd-%e4%b8%8e-entrypoint-%e8%81%94%e5%90%88%e4%bd%9c%e7%94%a8%e8%a7%84%e5%88%99" class="header-anchor" aria-label="Link to CMD 与 ENTRYPOINT 联合作用规则"></a><strong>CMD 与 ENTRYPOINT 联合作用规则</strong></h4>
 <blockquote>
 <p>如果基本镜像定义了 <code>CMD</code>，那么设置 <code>ENTRYPOINT</code> 将会把 <code>CMD</code> 重置为空值。</p>
 </blockquote>
@@ -2067,7 +2119,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="volume">VOLUME</h2>
+<h2 id="volume">
+    <a href="#volume" class="header-anchor" aria-label="Link to VOLUME"></a>VOLUME</h2>
 <ul>
 <li><code>VOLUME [&quot;/data&quot;]</code></li>
 </ul>
@@ -2119,7 +2172,8 @@
 <li>SON 格式化: 列表被解析为 JSON 数组。必须用双引号(”)而不是单引号(’)括住单词。</li>
 <li>主机目录在容器运行时声明: 主机目录(挂载点)本质上是依赖于主机的。这是为了保持镜像的可移植性，因为不能保证给定的主机目录在所有主机上都可用。由于这个原因，你不能从 Dockerfile 中挂载主机目录。VOLUME 指令不支持指定 <code>host-dir</code> 参数。在创建或运行容器时，必须指定挂载点。</li>
 </ul>
-<h2 id="user">USER</h2>
+<h2 id="user">
+    <a href="#user" class="header-anchor" aria-label="Link to USER"></a>USER</h2>
 <ul>
 <li><code>USER &lt;user&gt;[:&lt;group&gt;]</code></li>
 <li><code>USER &lt;UID&gt;[:&lt;GID&gt;]</code></li>
@@ -2128,7 +2182,8 @@
 <blockquote>
 <p><strong>在为用户指定组时，用户将只具有指定的组成员身份。任何其他配置的组成员关系都将被忽略。</strong></p>
 </blockquote>
-<h2 id="workdir">WORKDIR</h2>
+<h2 id="workdir">
+    <a href="#workdir" class="header-anchor" aria-label="Link to WORKDIR"></a>WORKDIR</h2>
 <ul>
 <li>
 <p><code>WORKDIR /path/to/workdir</code></p>
@@ -2172,7 +2227,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="arg">ARG</h2>
+</div><h2 id="arg">
+    <a href="#arg" class="header-anchor" aria-label="Link to ARG"></a>ARG</h2>
 <ul>
 <li>
 <p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
@@ -2198,7 +2254,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="默认值">默认值</h3>
+</div><h3 id="默认值">
+    <a href="#%e9%bb%98%e8%ae%a4%e5%80%bc" class="header-anchor" aria-label="Link to 默认值"></a>默认值</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2213,7 +2270,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="作用域">作用域</h3>
+</div><h3 id="作用域">
+    <a href="#%e4%bd%9c%e7%94%a8%e5%9f%9f" class="header-anchor" aria-label="Link to 作用域"></a>作用域</h3>
 <ul>
 <li><code>ARG</code> 变量在 <code>Dockerfile</code> 中<strong>定义的行之后的指令中生效</strong>，其他地方不生效。</li>
 <li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>可覆盖变量 <code>&lt;arg-name&gt;</code></strong></li>
@@ -2259,7 +2317,8 @@
 </span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-变量使用"><strong>ARG 变量使用</strong></h3>
+</div><h3 id="arg-变量使用">
+    <a href="#arg-%e5%8f%98%e9%87%8f%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to ARG 变量使用"></a><strong>ARG 变量使用</strong></h3>
 <ul>
 <li><code>ENV</code> <code>ARG</code> 定义的同名变量，<code>ARG</code> 后定义的 <code>ENV</code> 值会覆盖它之前声明的最近的 <code>ARG</code> 值。</li>
 <li><code>ARG VAR_NAME</code> 可多次使用，每次都相当于重置，都可被其后最近的同名 <code>ENV</code> 覆盖</li>
@@ -2289,7 +2348,8 @@
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>输出 v1.0.0</em></p>
 </blockquote>
 <p>更多可参考：<a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer ">环境变量替换</a></p>
-<h3 id="内置参数">内置参数</h3>
+<h3 id="内置参数">
+    <a href="#%e5%86%85%e7%bd%ae%e5%8f%82%e6%95%b0" class="header-anchor" aria-label="Link to 内置参数"></a>内置参数</h3>
 <blockquote>
 <p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
 </blockquote>
@@ -2303,7 +2363,8 @@
 <li>NO_PROXY</li>
 <li>no_proxy</li>
 </ul>
-<h3 id="平台相关全局参数">平台相关全局参数</h3>
+<h3 id="平台相关全局参数">
+    <a href="#%e5%b9%b3%e5%8f%b0%e7%9b%b8%e5%85%b3%e5%85%a8%e5%b1%80%e5%8f%82%e6%95%b0" class="header-anchor" aria-label="Link to 平台相关全局参数"></a>平台相关全局参数</h3>
 <ul>
 <li><code>docker build --platform=</code></li>
 </ul>
@@ -2323,7 +2384,8 @@
 <li>BUILDARCH - architecture component of BUILDPLATFORM</li>
 <li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
 </ul>
-<h3 id="arg-引起的缓存失效">ARG 引起的缓存失效</h3>
+<h3 id="arg-引起的缓存失效">
+    <a href="#arg-%e5%bc%95%e8%b5%b7%e7%9a%84%e7%bc%93%e5%ad%98%e5%a4%b1%e6%95%88" class="header-anchor" aria-label="Link to ARG 引起的缓存失效"></a>ARG 引起的缓存失效</h3>
 <blockquote>
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
 </blockquote>
@@ -2350,7 +2412,8 @@
 <li>exec count 2: use cache</li>
 <li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>，<code>ARG CONT_IMG_VER</code> 之前的使用了 cache, 后续输出全部缓存失效</li>
 </ul>
-<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<h2 id="onbuild">
+    <a href="#onbuild" class="header-anchor" aria-label="Link to ONBUILD"></a><strong>ONBUILD</strong></h2>
 <ul>
 <li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
 </ul>
@@ -2371,7 +2434,8 @@
 <p>如果你正在构建一个镜像，该镜像将用作构建其他镜像的基础，例如一个应用程序构建环境或一个守护进程，该守护进程可以使用特定于用户的配置进行自定义，那么这是非常有用的。</p>
 <p>例如，如果你的镜像是一个可重用的 <code>Python</code> 应用程序构建器，则需要<em>将应用程序源代码添加到特定的目录中</em>，并且可能需要在此之后调用构建脚本。你现在不能只调用 <code>ADD</code> 和 <code>RUN</code>，因为你还没有访问应用程序源代码的权限，而且对于每个应用程序构建都是不同的。你可以简单地向应用程序开发人员提供一个样板文件 <code>Dockerfile</code>，以便将其复制粘贴到他们的应用程序中，但是这样做<strong>效率低下，容易出错，而且很难更新</strong>，因为它与应用程序特定的代码混合在。</p>
 <p><strong>解决方案</strong>是使用 <code>ONBUILD</code> 来<strong>注册预执行指令</strong>，以便稍后在下一个构建阶段运行。</p>
-<h3 id="onbuild-的工作原理"><code>ONBUILD</code> 的工作原理</h3>
+<h3 id="onbuild-的工作原理">
+    <a href="#onbuild-%e7%9a%84%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to ONBUILD 的工作原理"></a><code>ONBUILD</code> 的工作原理</h3>
 <ul>
 <li>
 <ol>
@@ -2394,13 +2458,15 @@
 </ol>
 </li>
 </ul>
-<h2 id="stopsignal">STOPSIGNAL</h2>
+<h2 id="stopsignal">
+    <a href="#stopsignal" class="header-anchor" aria-label="Link to STOPSIGNAL"></a>STOPSIGNAL</h2>
 <blockquote>
 <p><code>STOPSIGNAL signal</code></p>
 </blockquote>
 <p><code>STOPSIGNAL</code> 指令设置系统调用信号，该信号将被发送到容器以退出。这个信号可以是 <code>SIG&lt;name&gt;</code> 格式的信号名，例如 <code>SIGKILL</code>，或者是与内核系统调用表中的位置匹配的无符号数，例如 <code>9</code>。如果没有定义，则默认为 <code>SIGTERM</code>。</p>
 <p>在 <code>docker</code> 运行和 <code>docker create</code> 上使用 <code>--stop-signal</code> 标志，可以对每个容器重写镜像的默认停止信号。</p>
-<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<h2 id="healthcheck">
+    <a href="#healthcheck" class="header-anchor" aria-label="Link to HEALTHCHECK"></a><strong>HEALTHCHECK</strong></h2>
 <ul>
 <li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
 <li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
@@ -2423,7 +2489,8 @@
 <li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
 <li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
 </ul>
-<h3 id="healthcheck-示例"><code>HEALTHCHECK</code> 示例</h3>
+<h3 id="healthcheck-示例">
+    <a href="#healthcheck-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to HEALTHCHECK 示例"></a><code>HEALTHCHECK</code> 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2434,7 +2501,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="shell">SHELL</h2>
+</div><h2 id="shell">
+    <a href="#shell" class="header-anchor" aria-label="Link to SHELL"></a>SHELL</h2>
 <blockquote>
 <p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
 </blockquote>
@@ -2494,7 +2562,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="示例">示例</h2>
+<h2 id="示例">
+    <a href="#%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 示例"></a>示例</h2>
 <blockquote>
 <p><code>go1.18</code> 基础镜像构建，更多基础镜像构建可参考: <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 </blockquote>
@@ -2532,7 +2601,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="最佳实践">最佳实践</h2>
+</div><h2 id="最佳实践">
+    <a href="#%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5" class="header-anchor" aria-label="Link to 最佳实践"></a>最佳实践</h2>
 <ul>
 <li>每一条指定会生成一层。对于下游镜像来说，上游镜像是只读层，当前镜像构建只是在上游只读层基础上一层层<strong>追加镜像层</strong>。</li>
 <li>优先使用 <code>COPY</code> 比 <code>ADD</code> 更加透明直接</li>
@@ -2575,7 +2645,8 @@
 <li>执行 <code>docker stop</code>， <code>PID=1</code> 的容器干净的退出；<code>stop</code> 超时后发送 <code>SIGKILL</code> 来终止</li>
 <li><a href="#cmd-%e4%b8%8e-entrypoint-%e8%81%94%e5%90%88%e4%bd%9c%e7%94%a8%e8%a7%84%e5%88%99" rel="">CMD 与 ENTRYPOINT 联合作用规则</a></li>
 </ul>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer ">Docker reference</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer ">understand-how-arg-and-from-interact</a></li>

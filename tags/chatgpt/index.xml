@@ -2,9 +2,11 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="历史">历史</h2>
+<h2 id="历史">
+    <a href="#%e5%8e%86%e5%8f%b2" class="header-anchor" aria-label="Link to 历史"></a>历史</h2>
 <p>ChatGPT最早由OpenAI团队开发，它在2018年由此带来的一系列语言生成模型（如GPT-2、GPT-3等）都备受关注。ChatGPT的历史始于2019年，当时AI开发人员在研究中发现，GPT模型可以用于生成自然对话。基于这一发现，AI开发人员进行了一系列的研究和调整，逐渐形成了今天的ChatGPT。</p>
-<h3 id="gpt-各版本简介">GPT 各版本简介</h3>
+<h3 id="gpt-各版本简介">
+    <a href="#gpt-%e5%90%84%e7%89%88%e6%9c%ac%e7%ae%80%e4%bb%8b" class="header-anchor" aria-label="Link to GPT 各版本简介"></a>GPT 各版本简介</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -61,9 +63,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="原理">原理</h2>
+<h2 id="原理">
+    <a href="#%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 原理"></a>原理</h2>
 <p>ChatGPT基于GPT（Generative Pre-training Transformer）技术，是一种基于深层神经网络的自然语言生成模型。GPT模型是由OpenAI团队开发的，它基于深度学习技术，通过预先训练一个大规模的语料库，从而使得该模型可以为用户提供高质量的自然语言生成服务。ChatGPT是基于GPT模型进行训练和调整的，其核心是通过上下文理解识别用户的话题和意图，从而生成合适的答案和回答。</p>
-<h3 id="模型原理">模型原理</h3>
+<h3 id="模型原理">
+    <a href="#%e6%a8%a1%e5%9e%8b%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 模型原理"></a>模型原理</h3>
 <ol>
 <li>架构：OpenAI ChatGPT是基于transformer架构的深度学习模型。该架构通过多头自注意力机制和前向神经网络对序列数据进行编码和解码，具有高度的表示能力和泛化能力。</li>
 <li>预训练：OpenAI ChatGPT使用大规模的语料库进行预训练，训练过程主要包括两个步骤: 遮盖语言模型和下一句预测模型。
@@ -75,7 +79,8 @@
 <li>微调：在预训练完成后，OpenAI ChatGPT针对特定的任务（如对话生成）进行微调，进一步提升模型性能。</li>
 <li>序列到序列生成：在ChatGPT的使用中，它将用户输入的问题作为输入序列，经过处理后得到输出序列，输出序列经过细致的调整后以自然语言的形式呈现给用户。ChatGPT通过监督学习的方式，不断优化模型的参数和结构，提高答案的质量和相关性。</li>
 </ol>
-<h3 id="工作原理">工作原理</h3>
+<h3 id="工作原理">
+    <a href="#%e5%b7%a5%e4%bd%9c%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 工作原理"></a>工作原理</h3>
 <ol>
 <li>输入编码：当用户输入一条聊天句子并发送时，ChatGPT 会使用 Transformer 编码器对该输入句子进行编码,得到其语义向量表示。</li>
 <li>解码器初始化：然后 ChatGPT 会初始化 Transformer 解码器，以最大化生成下一条回复句子的概率。</li>
@@ -86,7 +91,8 @@
 <li>重复学习：ChatGPT 是一个预训练语言模型，在和用户的每轮交互中，它都会继续学习，并不断优化自身的语言表达和生成能力。</li>
 </ol>
 <p>所以总的来说，ChatGPT 的工作原理主要依靠 Transformer 编码器-解码器框架，利用注意力机制和贪心搜索算法进行序列生成，并借助大规模聊天数据集不断学习和优化，以实现人机开放领域对话。这也使其成为目前效果最为显著的聊天机器人系统之一。</p>
-<h2 id="竞品">竞品</h2>
+<h2 id="竞品">
+    <a href="#%e7%ab%9e%e5%93%81" class="header-anchor" aria-label="Link to 竞品"></a>竞品</h2>
 <blockquote>
 <p>相关内容及分析，基于文章发布时间，如有不准确的地方，见谅。</p>
 </blockquote>
@@ -139,7 +145,8 @@
             <div class="admonition-content">以上标注免费的产品仅限于当前官方页面访问，具体计费请以官方为准。</div>
         </div>
     </div>
-<h3 id="chatgpt-api-计费">ChatGPT API 计费</h3>
+<h3 id="chatgpt-api-计费">
+    <a href="#chatgpt-api-%e8%ae%a1%e8%b4%b9" class="header-anchor" aria-label="Link to ChatGPT API 计费"></a>ChatGPT API 计费</h3>
 <ul>
 <li>OpenAI网站计费说明：<a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer ">pricing#language-models</a></li>
 <li>OpenAI根据token数收费，1000个token通常可代表750个英文单词，或500个汉字。</li>
@@ -188,7 +195,8 @@
 </div>
         </div>
     </div>
-<h2 id="访问环境配置">访问环境配置</h2>
+<h2 id="访问环境配置">
+    <a href="#%e8%ae%bf%e9%97%ae%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 访问环境配置"></a>访问环境配置</h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -197,7 +205,8 @@
             <div class="admonition-content">我们主要以 ChatGPT 为例来进行科学访问的配置，仅限于个人研究使用，商业使用请务必合法合规。</div>
         </div>
     </div>
-<h3 id="可选方式">可选方式</h3>
+<h3 id="可选方式">
+    <a href="#%e5%8f%af%e9%80%89%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 可选方式"></a>可选方式</h3>
 <table>
 <thead>
 <tr>
@@ -237,7 +246,8 @@
             <div class="admonition-content">如果你需要通过自己域名进行调用，需要通过Nginx或其他工具在你的服务端进行反代处理。</div>
         </div>
     </div>
-<h3 id="推荐方式">推荐方式</h3>
+<h3 id="推荐方式">
+    <a href="#%e6%8e%a8%e8%8d%90%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 推荐方式"></a>推荐方式</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -246,7 +256,8 @@
             <div class="admonition-content">选择合适地区通过云函数方式创建并测试，当前可用: 腾讯云，阿里云，其他云服务商请自行探索。</div>
         </div>
     </div>
-<h4 id="创建步骤如下">创建步骤如下</h4>
+<h4 id="创建步骤如下">
+    <a href="#%e5%88%9b%e5%bb%ba%e6%ad%a5%e9%aa%a4%e5%a6%82%e4%b8%8b" class="header-anchor" aria-label="Link to 创建步骤如下"></a>创建步骤如下</h4>
 <blockquote>
 <p>更多请参考: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer ">openai-scf-proxy</a> 或 <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer ">openai-scf-goproxy</a></p>
 </blockquote>
@@ -302,8 +313,10 @@
 </ul>
 </li>
 </ol>
-<h2 id="api-测试">API 测试</h2>
-<h3 id="余额">余额</h3>
+<h2 id="api-测试">
+    <a href="#api-%e6%b5%8b%e8%af%95" class="header-anchor" aria-label="Link to API 测试"></a>API 测试</h2>
+<h3 id="余额">
+    <a href="#%e4%bd%99%e9%a2%9d" class="header-anchor" aria-label="Link to 余额"></a>余额</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -338,7 +351,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="订阅">订阅</h3>
+<h3 id="订阅">
+    <a href="#%e8%ae%a2%e9%98%85" class="header-anchor" aria-label="Link to 订阅"></a>订阅</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -429,7 +443,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="交互">交互</h3>
+<h3 id="交互">
+    <a href="#%e4%ba%a4%e4%ba%92" class="header-anchor" aria-label="Link to 交互"></a>交互</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,9 +547,11 @@
 </div></div>
         </div>
     </div>
-<h2 id="chatgpt-web-搭建">ChatGPT Web 搭建</h2>
+<h2 id="chatgpt-web-搭建">
+    <a href="#chatgpt-web-%e6%90%ad%e5%bb%ba" class="header-anchor" aria-label="Link to ChatGPT Web 搭建"></a>ChatGPT Web 搭建</h2>
 <p>借助开源的ChatGPT Web项目，以容器方式，已成功搭建可通过域名访问的 <strong>ChatGPT UI</strong>，链路: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
-<h3 id="容器相关配置">容器相关配置</h3>
+<h3 id="容器相关配置">
+    <a href="#%e5%ae%b9%e5%99%a8%e7%9b%b8%e5%85%b3%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 容器相关配置"></a>容器相关配置</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -571,7 +588,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="环境变量说明">环境变量说明</h3>
+</div><h3 id="环境变量说明">
+    <a href="#%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 环境变量说明"></a>环境变量说明</h3>
 <ul>
 <li>OPENAI_API_KEY: Your openai api key
 <ul>
@@ -591,7 +609,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="更多-web-or-app-项目">更多 Web Or APP 项目</h2>
+<h2 id="更多-web-or-app-项目">
+    <a href="#%e6%9b%b4%e5%a4%9a-web-or-app-%e9%a1%b9%e7%9b%ae" class="header-anchor" aria-label="Link to 更多 Web Or APP 项目"></a>更多 Web Or APP 项目</h2>
 <table>
 <thead>
 <tr>
@@ -654,7 +673,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="nginx-配置注意事项">Nginx 配置注意事项</h2>
+<h2 id="nginx-配置注意事项">
+    <a href="#nginx-%e9%85%8d%e7%bd%ae%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to Nginx 配置注意事项"></a>Nginx 配置注意事项</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>

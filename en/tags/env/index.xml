@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="terminology">Terminology</h2>
+<h2 id="terminology">
+    <a href="#terminology" class="header-anchor" aria-label="Link to Terminology"></a>Terminology</h2>
 <ul>
 <li><strong><a href="https://en.wikipedia.org/wiki/Docker,_Inc." target="_blank" rel="noopener noreffer ">Docker Inc</a></strong> a US-based company that built open-source and closed-source software making it easier to develop, test, and run applications in containers.</li>
 <li><strong><a href="https://github.com/docker/engine" target="_blank" rel="noopener noreffer ">Docker Engine</a></strong> the core technology behind Docker. Open-source software that runs as a daemon on Linux and makes running containers on the Linux kernel possible. It owns the container lifecycle and the isolation of physical resources (compute, memory, storage) a container can access. It can run on physical or virtual machines, but only on a Linux kernel — i.e. on any Linux-flavored OS. This is important: <strong>the Docker engine runs only on Linux</strong>.</li>
@@ -17,7 +18,8 @@
             <div class="admonition-content">The way to keep running and building container apps on <strong>macOS</strong> is to run <code>Docker Engine</code> inside a <code>Linux VM</code>.</div>
         </div>
     </div>
-<h2 id="requirements">Requirements</h2>
+<h2 id="requirements">
+    <a href="#requirements" class="header-anchor" aria-label="Link to Requirements"></a>Requirements</h2>
 <ul>
 <li>At least 2 CPUs</li>
 <li>At least 2 GB of free memory</li>
@@ -25,7 +27,8 @@
 <li>A network connection</li>
 <li>A container or VM manager, e.g. <strong><a href="https://docs.docker.com/get-docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong>, <strong><a href="https://github.com/moby/hyperkit" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong>, Hyper-V, KVM, Parallels, <strong><a href="https://podman.io/" target="_blank" rel="noopener noreffer ">podman</a></strong>, <em><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreffer ">VirtualBox</a></em>, or VMware Fusion/Workstation</li>
 </ul>
-<h2 id="installation">Installation</h2>
+<h2 id="installation">
+    <a href="#installation" class="header-anchor" aria-label="Link to Installation"></a>Installation</h2>
 <blockquote>
 <p>If you&rsquo;re sure you won&rsquo;t run images in <code>docker desktop</code> anymore, remove all <code>docker</code> / <code>docker desktop</code> related config.</p>
 </blockquote>
@@ -75,7 +78,8 @@
 </div>
         </div>
     </div>
-<h2 id="verify-the-install">Verify the install</h2>
+<h2 id="verify-the-install">
+    <a href="#verify-the-install" class="header-anchor" aria-label="Link to Verify the install"></a>Verify the install</h2>
 <p>Run <code>which minikube</code></p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -97,12 +101,14 @@
 </div>
         </div>
     </div>
-<h2 id="drivers">Drivers</h2>
+<h2 id="drivers">
+    <a href="#drivers" class="header-anchor" aria-label="Link to Drivers"></a>Drivers</h2>
 <blockquote>
 <p><code>minikube</code> needs a <code>Linux VM</code> to start on <code>mac/windows</code>; that&rsquo;s the driver we configure. With <code>--driver=docker</code> you need the matching <code>Docker Desktop</code> installed to reuse its <code>linux vm</code>.
 Otherwise pick another driver. Supported drivers:</p>
 </blockquote>
-<h3 id="linux"><em>Linux</em></h3>
+<h3 id="linux">
+    <a href="#linux" class="header-anchor" aria-label="Link to Linux"></a><em>Linux</em></h3>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - container-based (preferred)</li>
 <li>KVM2 - VM-based (preferred)</li>
@@ -111,7 +117,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/podman/" target="_blank" rel="noopener noreffer ">Podman</a></strong> - container (experimental)</li>
 <li>SSH - remote ssh</li>
 </ul>
-<h3 id="macos"><strong>macOS</strong></h3>
+<h3 id="macos">
+    <a href="#macos" class="header-anchor" aria-label="Link to macOS"></a><strong>macOS</strong></h3>
 <ul>
 <li><em><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></em> - VM + Container (preferred)</li>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperkit/" target="_blank" rel="noopener noreffer ">Hyperkit</a></strong> - VM</li>
@@ -120,7 +127,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li>VMware Fusion - VM</li>
 <li>SSH - remote ssh</li>
 </ul>
-<h3 id="windows">Windows</h3>
+<h3 id="windows">
+    <a href="#windows" class="header-anchor" aria-label="Link to Windows"></a>Windows</h3>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/hyperv/" target="_blank" rel="noopener noreffer ">Hyper-V</a></strong> - VM (preferred)</li>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/drivers/docker/" target="_blank" rel="noopener noreffer ">Docker</a></strong> - VM + Container (preferred)</li>
@@ -191,7 +199,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <blockquote>
 <p>More driver config &amp; usage: <a href="https://minikube.sigs.k8s.io/docs/drivers/" target="_blank" rel="noopener noreffer ">minikube drivers</a></p>
 </blockquote>
-<h2 id="config-commands">Config commands</h2>
+<h2 id="config-commands">
+    <a href="#config-commands" class="header-anchor" aria-label="Link to Config commands"></a>Config commands</h2>
 <p><code>minikube config SUBCOMMAND [flags] [options]</code></p>
 <ul>
 <li><code>minikube config help</code></li>
@@ -336,7 +345,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="quick-start">Quick start</h2>
+<h2 id="quick-start">
+    <a href="#quick-start" class="header-anchor" aria-label="Link to Quick start"></a>Quick start</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -365,11 +375,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">docker run hello-world
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="advanced-start">Advanced start</h2>
+</div><h2 id="advanced-start">
+    <a href="#advanced-start" class="header-anchor" aria-label="Link to Advanced start"></a>Advanced start</h2>
 <blockquote>
 <p><strong><a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">commands start</a></strong></p>
 </blockquote>
-<h3 id="start-command">Start command</h3>
+<h3 id="start-command">
+    <a href="#start-command" class="header-anchor" aria-label="Link to Start command"></a>Start command</h3>
 <ul>
 <li>After some config changes you need <code>minikube delete</code> then restart</li>
 </ul>
@@ -404,7 +416,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h3 id="possible-issues">Possible issues</h3>
+<h3 id="possible-issues">
+    <a href="#possible-issues" class="header-anchor" aria-label="Link to Possible issues"></a>Possible issues</h3>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -465,7 +478,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="post-start-environment-check">Post-start environment check</h2>
+<h2 id="post-start-environment-check">
+    <a href="#post-start-environment-check" class="header-anchor" aria-label="Link to Post-start environment check"></a>Post-start environment check</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -636,7 +650,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div></div>
         </div>
     </div>
-<h2 id="change-image-registries">Change image registries</h2>
+<h2 id="change-image-registries">
+    <a href="#change-image-registries" class="header-anchor" aria-label="Link to Change image registries"></a>Change image registries</h2>
 <blockquote>
 <p><strong>Don&rsquo;t make this change inside the minikube environment.</strong> Pass it at start: <code>minikube start --image-mirror-country='cn'</code> etc.; see <a href="https://minikube.sigs.k8s.io/docs/commands/start/" target="_blank" rel="noopener noreffer ">minikube start</a> or <a href="#advanced-start" rel="">Advanced start</a></p>
 </blockquote>
@@ -692,7 +707,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="dashboard">Dashboard</h2>
+<h2 id="dashboard">
+    <a href="#dashboard" class="header-anchor" aria-label="Link to Dashboard"></a>Dashboard</h2>
 <p><code>minikube dashboard</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -706,13 +722,15 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="directory-mounting">Directory mounting</h2>
+<h2 id="directory-mounting">
+    <a href="#directory-mounting" class="header-anchor" aria-label="Link to Directory mounting"></a>Directory mounting</h2>
 <blockquote>
 <p>This will start the mount daemon and automatically mount files into minikube.</p>
 </blockquote>
 <p><code>minikube mount &lt;local directory&gt;:&lt;host directory&gt;</code></p>
 <p><strong>Mapping/mount chain</strong>: <code>host volumes</code>&lt;-&gt;<code>docker desktop VM volumes</code>&lt;-&gt;<code>docker container volumes</code></p>
-<h3 id="driver-default-mount-paths">Driver default mount paths</h3>
+<h3 id="driver-default-mount-paths">
+    <a href="#driver-default-mount-paths" class="header-anchor" aria-label="Link to Driver default mount paths"></a>Driver default mount paths</h3>
 <p>Some hypervisors, have built-in host folder sharing. Driver mounts are reliable with good performance, but the paths are not predictable across operating systems or hypervisors:</p>
 <table>
 <thead>
@@ -763,11 +781,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </tbody>
 </table>
 <p><em>These mounts can be disabled by passing &ndash;disable-driver-mounts to minikube start.</em></p>
-<h2 id="running-local-apps"><strong>Running local apps</strong></h2>
+<h2 id="running-local-apps">
+    <a href="#running-local-apps" class="header-anchor" aria-label="Link to Running local apps"></a><strong>Running local apps</strong></h2>
 <blockquote>
 <p>If you use directory mapping you must enable mounting, and mind the mount path — otherwise files or configs won&rsquo;t be found.</p>
 </blockquote>
-<h3 id="files-or-configs-not-found"><strong>Files or configs not found</strong></h3>
+<h3 id="files-or-configs-not-found">
+    <a href="#files-or-configs-not-found" class="header-anchor" aria-label="Link to Files or configs not found"></a><strong>Files or configs not found</strong></h3>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -781,7 +801,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h3 id="solution"><strong>Solution</strong></h3>
+<h3 id="solution">
+    <a href="#solution" class="header-anchor" aria-label="Link to Solution"></a><strong>Solution</strong></h3>
 <blockquote>
 <p><strong>Map/mount your working directory on the host</strong>:</p>
 <ul>
@@ -806,11 +827,13 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="start-on-boot">Start on boot</h2>
+<h2 id="start-on-boot">
+    <a href="#start-on-boot" class="header-anchor" aria-label="Link to Start on boot"></a>Start on boot</h2>
 <blockquote>
 <p><code>--mount --mount-string=$HOME/workspace:$HOME/workspace</code> <em>may have issues; mounting via <code>minikube mount</code> after start is recommended</em></p>
 </blockquote>
-<h3 id="mount-only-the-current-project-directory"><strong>Mount only the current project directory</strong></h3>
+<h3 id="mount-only-the-current-project-directory">
+    <a href="#mount-only-the-current-project-directory" class="header-anchor" aria-label="Link to Mount only the current project directory"></a><strong>Mount only the current project directory</strong></h3>
 <ul>
 <li>Pro: fewer mount dirs, less space</li>
 <li>Con: switching projects means re-mounting — tedious</li>
@@ -840,7 +863,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mount-the-whole-working-directory"><strong>Mount the whole working directory</strong></h3>
+</div><h3 id="mount-the-whole-working-directory">
+    <a href="#mount-the-whole-working-directory" class="header-anchor" aria-label="Link to Mount the whole working directory"></a><strong>Mount the whole working directory</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -865,7 +889,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mount-the-whole-working-directory-and-run-in-the-background"><em>Mount the whole working directory and run in the background</em></h3>
+</div><h3 id="mount-the-whole-working-directory-and-run-in-the-background">
+    <a href="#mount-the-whole-working-directory-and-run-in-the-background" class="header-anchor" aria-label="Link to Mount the whole working directory and run in the background"></a><em>Mount the whole working directory and run in the background</em></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -888,7 +913,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </span></span><span class="line"><span class="cl">nohup minikube mount <span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace:<span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/workspace <span class="p">&amp;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="caveats"><strong>Caveats</strong></h2>
+</div><h2 id="caveats">
+    <a href="#caveats" class="header-anchor" aria-label="Link to Caveats"></a><strong>Caveats</strong></h2>
 <ul>
 <li>After minikube starts, run <code>eval $(minikube docker-env)</code></li>
 <li><em>Mount directories after minikube starts</em> — see <a href="#running-local-apps" rel="">Running local apps</a></li>
@@ -896,14 +922,16 @@ Otherwise pick another driver. Supported drivers:</p>
 <li>If the mount flag is wrong, run <code>minikube mount --kill</code> and remove the dir from the <code>minikube vm</code></li>
 <li><code>minikube delete — you don't need to run it every time</code></li>
 </ul>
-<h2 id="more">More</h2>
+<h2 id="more">
+    <a href="#more" class="header-anchor" aria-label="Link to More"></a>More</h2>
 <ul>
 <li><strong><a href="https://minikube.sigs.k8s.io/docs/tutorials/docker_desktop_replacement/" target="_blank" rel="noopener noreffer ">Using minikube as Docker Desktop Replacement</a></strong></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/handbook/registry/" target="_blank" rel="noopener noreffer ">How to interact with registries</a></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/commands/image/#minikube-image-build" target="_blank" rel="noopener noreffer ">minikube-image-build</a></li>
 <li><a href="https://github.com/containerd/containerd" target="_blank" rel="noopener noreffer ">containerd</a></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://dhwaneetbhatt.com/blog/run-docker-without-docker-desktop-on-macos" target="_blank" rel="noopener noreffer ">run-docker-without-docker-desktop-on-macos</a></li>
 <li><a href="https://minikube.sigs.k8s.io/docs/" target="_blank" rel="noopener noreffer ">minikube docs</a></li>
@@ -911,7 +939,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="basic-account-config">Basic account config</h2>
+<h2 id="basic-account-config">
+    <a href="#basic-account-config" class="header-anchor" aria-label="Link to Basic account config"></a>Basic account config</h2>
 <blockquote>
 <p><code>--global</code> <em>means global config</em>; <strong>non-global config must be set inside the specific git project directory</strong></p>
 </blockquote>
@@ -921,7 +950,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><code>git config --global --list</code> <strong>view global git config</strong></li>
 <li><code>git config --list</code> <em>view project git config</em></li>
 </ul>
-<h3 id="signed-commit-setup">Signed-commit setup</h3>
+<h3 id="signed-commit-setup">
+    <a href="#signed-commit-setup" class="header-anchor" aria-label="Link to Signed-commit setup"></a>Signed-commit setup</h3>
 <blockquote>
 <p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
 </blockquote>
@@ -930,7 +960,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><code>git config --global commit.gpgsign true</code></li>
 </ul>
 <p>See also: <a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a> for setup.</p>
-<h2 id="credential-storage">Credential storage</h2>
+<h2 id="credential-storage">
+    <a href="#credential-storage" class="header-anchor" aria-label="Link to Credential storage"></a>Credential storage</h2>
 <blockquote>
 <p>To avoid typing the password every time, let the machine remember it. <em>MacOS</em> uses <strong>Keychain Access</strong> to store your password and other credentials.</p>
 </blockquote>
@@ -964,7 +995,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="credential-cleanup">Credential cleanup</h2>
+<h2 id="credential-cleanup">
+    <a href="#credential-cleanup" class="header-anchor" aria-label="Link to Credential cleanup"></a>Credential cleanup</h2>
 <blockquote>
 <p>After a password changes or expires, clear the stored one, or you may get <code>login failed</code> / <code>no permission</code> errors.</p>
 </blockquote>
@@ -973,7 +1005,8 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>or set a very short expiry to flush the cached password</em></li>
 <li><code>git config --global credential.helper store</code> <strong>re-enable credential storage</strong></li>
 </ul>
-<h2 id="prettier-log-output">Prettier log output</h2>
+<h2 id="prettier-log-output">
+    <a href="#prettier-log-output" class="header-anchor" aria-label="Link to Prettier log output"></a>Prettier log output</h2>
 <blockquote>
 <p>The plain <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> is too bare to inspect details. We can format it, and <code>git alias</code> makes it easy to define our own <em>git log</em> command — <strong>do not override git&rsquo;s built-in commands</strong>.</p>
 </blockquote>
@@ -1055,7 +1088,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="basic-commands">Basic commands</h2>
+<h2 id="basic-commands">
+    <a href="#basic-commands" class="header-anchor" aria-label="Link to Basic commands"></a>Basic commands</h2>
 <blockquote>
 <p>For more detail on any command, run <code>git &lt;command&gt; --help</code></p>
 </blockquote>
@@ -1085,26 +1119,31 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><code>git rm</code> remove files from the index and working tree</li>
 <li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>file rename</em>; equivalent to <code>mv old new</code>, <code>git add</code> the new file and <code>git rm</code> the old</li>
 </ul>
-<h2 id="branch-operations">Branch operations</h2>
-<h3 id="remote-branch-config">Remote branch config</h3>
+<h2 id="branch-operations">
+    <a href="#branch-operations" class="header-anchor" aria-label="Link to Branch operations"></a>Branch operations</h2>
+<h3 id="remote-branch-config">
+    <a href="#remote-branch-config" class="header-anchor" aria-label="Link to Remote branch config"></a>Remote branch config</h3>
 <ul>
 <li><code>git remote -v</code></li>
 <li><code>git remote add &lt;name&gt; &lt;url&gt;</code> add a remote</li>
 <li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> rename a remote</li>
 <li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> change a remote URL</li>
 </ul>
-<h3 id="cloning">Cloning</h3>
+<h3 id="cloning">
+    <a href="#cloning" class="header-anchor" aria-label="Link to Cloning"></a>Cloning</h3>
 <ul>
 <li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> single-branch clone</li>
 <li><code>git clone &lt;url&gt; [dir]</code></li>
 </ul>
-<h3 id="fetch--sync">Fetch &amp; sync</h3>
+<h3 id="fetch--sync">
+    <a href="#fetch--sync" class="header-anchor" aria-label="Link to Fetch &amp; sync"></a>Fetch &amp; sync</h3>
 <ul>
 <li><code>git fetch --all</code> || <code>git merge</code> only fetch into the <strong>local remote-tracking branch</strong> (e.g. <code>origin/main</code>, <code>upstream/main</code>); merge into the local branch later when needed</li>
 <li><code>git pull</code> fetch and merge the remote branch into the current branch; generally avoid unless you understand the consequences</li>
 <li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> set up tracking between a new local branch and a remote branch — <strong>typically for a new branch&rsquo;s first push</strong></li>
 </ul>
-<h3 id="checkout-vs-reset">checkout vs reset</h3>
+<h3 id="checkout-vs-reset">
+    <a href="#checkout-vs-reset" class="header-anchor" aria-label="Link to checkout vs reset"></a>checkout vs reset</h3>
 <ul>
 <li><code>git checkout</code></li>
 <li><code>git reset</code></li>
@@ -1164,7 +1203,8 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h3 id="merging--committing">Merging &amp; committing</h3>
+<h3 id="merging--committing">
+    <a href="#merging--committing" class="header-anchor" aria-label="Link to Merging &amp; committing"></a>Merging &amp; committing</h3>
 <blockquote>
 <p>For multi-person or large-team collaboration, master and use <code>git rebase</code>, and keep each branch&rsquo;s commit count vs the <strong>base</strong> branch <strong>minimal</strong> — easier rebases and conflict resolution for everyone.</p>
 <p>If you&rsquo;ve opened a <code>PR</code>/<code>MR</code>, before <strong>reviewers</strong> review, make sure your branch is <code>Fast-Forward</code> vs the <strong>base</strong>; do not <strong>Rebase</strong> from the web UI.</p>
@@ -1173,14 +1213,16 @@ Otherwise pick another driver. Supported drivers:</p>
 <li><code>git rebase</code> <strong>use with care</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">demo</a></li>
 <li><code>git merge</code> <del><strong>not recommended</strong></del></li>
 </ul>
-<h3 id="branch-push--delete">Branch push &amp; delete</h3>
+<h3 id="branch-push--delete">
+    <a href="#branch-push--delete" class="header-anchor" aria-label="Link to Branch push &amp; delete"></a>Branch push &amp; delete</h3>
 <ul>
 <li><code>git push</code> push the current branch; requires tracking a remote branch; for the first push use <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
 <li><code>git push -f</code> force-push the current branch to its remote</li>
 <li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> push an empty branch to the remote — i.e. <strong>delete the remote branch</strong></li>
 <li><code>git branch -d</code> delete a local branch</li>
 </ul>
-<h2 id="unset-config">Unset config</h2>
+<h2 id="unset-config">
+    <a href="#unset-config" class="header-anchor" aria-label="Link to Unset config"></a>Unset config</h2>
 <blockquote>
 <p><strong>Remove the line matching the key from config file.</strong></p>
 </blockquote>
@@ -1198,12 +1240,14 @@ Otherwise pick another driver. Supported drivers:</p>
 </div>
         </div>
     </div>
-<h2 id="edit-config-files">Edit config files</h2>
+<h2 id="edit-config-files">
+    <a href="#edit-config-files" class="header-anchor" aria-label="Link to Edit config files"></a>Edit config files</h2>
 <ul>
 <li><code>git config --global -e</code> edit the global config file at <code>~/.gitconfig</code></li>
 <li><code>git config -e</code> edit the project config file at <code>.git/config</code></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>

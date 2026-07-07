@@ -2,13 +2,16 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="开启-vigilant-模式">开启 vigilant 模式</h2>
+<h2 id="开启-vigilant-模式">
+    <a href="#%e5%bc%80%e5%90%af-vigilant-%e6%a8%a1%e5%bc%8f" class="header-anchor" aria-label="Link to 开启 vigilant 模式"></a>开启 vigilant 模式</h2>
 <p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer ">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推送一个声明是你的提交，但实际上不是。</p>
 <blockquote>
 <p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer ">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
-<h2 id="gpg-command">GPG Command</h2>
-<h3 id="man-gpg"><strong>man gpg</strong></h3>
+<h2 id="gpg-command">
+    <a href="#gpg-command" class="header-anchor" aria-label="Link to GPG Command"></a>GPG Command</h2>
+<h3 id="man-gpg">
+    <a href="#man-gpg" class="header-anchor" aria-label="Link to man gpg"></a><strong>man gpg</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -219,7 +222,8 @@
 </span></span><span class="line"><span class="cl">Please report bugs to &lt;https://bugs.gnupg.org&gt;.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gpg-shell-command"><strong>gpg shell command</strong></h3>
+</div><h3 id="gpg-shell-command">
+    <a href="#gpg-shell-command" class="header-anchor" aria-label="Link to gpg shell command"></a><strong>gpg shell command</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -286,7 +290,8 @@
 </span></span><span class="line"><span class="cl">  <span class="o">(</span>nrsign<span class="o">)</span>, or any combination thereof <span class="o">(</span>ltsign, tnrsign, etc.<span class="o">)</span>.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
+</div><h2 id="gpg-key-生成与配置">
+    <a href="#gpg-key-%e7%94%9f%e6%88%90%e4%b8%8e%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to GPG Key 生成与配置"></a>GPG Key 生成与配置</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -295,7 +300,8 @@
             <div class="admonition-content">GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href="https://www.gnupg.org/download/" target="_blank" rel="noopener noreffer ">GnuPG&rsquo;s Download page</a>.</div>
         </div>
     </div>
-<h3 id="已存在-gpg-keys"><em>已存在 GPG keys</em></h3>
+<h3 id="已存在-gpg-keys">
+    <a href="#%e5%b7%b2%e5%ad%98%e5%9c%a8-gpg-keys" class="header-anchor" aria-label="Link to 已存在 GPG keys"></a><em>已存在 GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -324,7 +330,8 @@
 </div>
         </div>
     </div>
-<h3 id="新生成-gpg-key">新生成 <em>GPG key</em></h3>
+<h3 id="新生成-gpg-key">
+    <a href="#%e6%96%b0%e7%94%9f%e6%88%90-gpg-key" class="header-anchor" aria-label="Link to 新生成 GPG key"></a>新生成 <em>GPG key</em></h3>
 <blockquote>
 <p>如果当前已存在旧的 GPG key 可不必重新生成!</p>
 </blockquote>
@@ -382,7 +389,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="最新-gpg-keys">最新 <em>GPG keys</em></h3>
+<h3 id="最新-gpg-keys">
+    <a href="#%e6%9c%80%e6%96%b0-gpg-keys" class="header-anchor" aria-label="Link to 最新 GPG keys"></a>最新 <em>GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -406,7 +414,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg &lt;278810732@qq.com&gt;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="导出-gpg-key">导出 <em>GPG key</em></h3>
+</div><h3 id="导出-gpg-key">
+    <a href="#%e5%af%bc%e5%87%ba-gpg-key" class="header-anchor" aria-label="Link to 导出 GPG key"></a>导出 <em>GPG key</em></h3>
 <ul>
 <li><code>gpg --armor --export FE47519758053257</code></li>
 <li>或 <code>gpg -a -o --export FE47519758053257</code></li>
@@ -444,7 +453,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="查找-gpg-key">查找 <em>GPG key</em></h3>
+</div><h3 id="查找-gpg-key">
+    <a href="#%e6%9f%a5%e6%89%be-gpg-key" class="header-anchor" aria-label="Link to 查找 GPG key"></a>查找 <em>GPG key</em></h3>
 <blockquote>
 <p><strong>keyIDs</strong> 可以为: <em>name</em>, <strong>keyID</strong>, <em>email</em></p>
 </blockquote>
@@ -511,7 +521,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="导入-gpg-key">导入 <em>GPG key</em></h3>
+<h3 id="导入-gpg-key">
+    <a href="#%e5%af%bc%e5%85%a5-gpg-key" class="header-anchor" aria-label="Link to 导入 GPG key"></a>导入 <em>GPG key</em></h3>
 <blockquote>
 <p><strong>key server 导入</strong> 如果不指定地址则默认从 <code>hkps://keyserver.ubuntu.com</code> 导入, <strong>地址可能会不同，此为本机输出</strong></p>
 </blockquote>
@@ -544,7 +555,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="私钥备份导出与导入">私钥备份导出与导入</h3>
+<h3 id="私钥备份导出与导入">
+    <a href="#%e7%a7%81%e9%92%a5%e5%a4%87%e4%bb%bd%e5%af%bc%e5%87%ba%e4%b8%8e%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 私钥备份导出与导入"></a>私钥备份导出与导入</h3>
 <blockquote>
 <p>主要用于: <strong>个人多机共享</strong></p>
 </blockquote>
@@ -562,7 +574,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="私钥导出">私钥导出</h4>
+<h4 id="私钥导出">
+    <a href="#%e7%a7%81%e9%92%a5%e5%af%bc%e5%87%ba" class="header-anchor" aria-label="Link to 私钥导出"></a>私钥导出</h4>
 <p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -576,7 +589,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="私钥导入">私钥导入</h4>
+<h4 id="私钥导入">
+    <a href="#%e7%a7%81%e9%92%a5%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 私钥导入"></a>私钥导入</h4>
 <p><code>gpg --import secKeyFile</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -604,7 +618,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="秘钥回收"><strong>秘钥回收</strong></h3>
+<h3 id="秘钥回收">
+    <a href="#%e7%a7%98%e9%92%a5%e5%9b%9e%e6%94%b6" class="header-anchor" aria-label="Link to 秘钥回收"></a><strong>秘钥回收</strong></h3>
 <p><em>当重新生成秘钥对后，如果其他的秘钥对不再使用，需要立即发布秘钥回收证书，声明以前的公钥不再生效，防止被恶意使用。</em></p>
 <blockquote>
 <p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p>
@@ -716,18 +731,22 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="秘钥删除">秘钥删除</h3>
+<h3 id="秘钥删除">
+    <a href="#%e7%a7%98%e9%92%a5%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to 秘钥删除"></a>秘钥删除</h3>
 <ul>
 <li><code>gpg --delete-secret-keys keyID</code> <strong>需要先删除</strong></li>
 <li><code>gpg --delete-keys keyID</code></li>
 </ul>
-<h2 id="重启-gpg-agent">重启 GPG Agent</h2>
+<h2 id="重启-gpg-agent">
+    <a href="#%e9%87%8d%e5%90%af-gpg-agent" class="header-anchor" aria-label="Link to 重启 GPG Agent"></a>重启 GPG Agent</h2>
 <blockquote>
 <p>GPG会在需要时重新启动它</p>
 </blockquote>
 <p><code>gpgconf --kill gpg-agent</code></p>
-<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
-<h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
+<h2 id="git-配置使用-gpg">
+    <a href="#git-%e9%85%8d%e7%bd%ae%e4%bd%bf%e7%94%a8-gpg" class="header-anchor" aria-label="Link to Git 配置使用 GPG"></a>Git 配置使用 GPG</h2>
+<h3 id="设置-gpg-key">
+    <a href="#%e8%ae%be%e7%bd%ae-gpg-key" class="header-anchor" aria-label="Link to 设置 GPG key"></a>设置 <strong>GPG key</strong></h3>
 <blockquote>
 <ul>
 <li>
@@ -738,7 +757,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </li>
 </ul>
 </blockquote>
-<h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
+<h3 id="配置-sign-使用的-gpg-key">
+    <a href="#%e9%85%8d%e7%bd%ae-sign-%e4%bd%bf%e7%94%a8%e7%9a%84-gpg-key" class="header-anchor" aria-label="Link to 配置 sign 使用的 GPG key"></a>配置 sign 使用的 <em>GPG key</em></h3>
 <blockquote>
 <p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <strong>local</strong> 替换 <del>&ndash;global</del></p>
 </blockquote>
@@ -758,7 +778,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git config --global commit.gpgsign <span class="nb">true</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="提交带签名的-commit">提交带签名的 commit</h3>
+</div><h3 id="提交带签名的-commit">
+    <a href="#%e6%8f%90%e4%ba%a4%e5%b8%a6%e7%ad%be%e5%90%8d%e7%9a%84-commit" class="header-anchor" aria-label="Link to 提交带签名的 commit"></a>提交带签名的 commit</h3>
 <p><code>git commit -S -m &quot;your commit message&quot;</code></p>
 <blockquote>
 <p>如果你设置了默认对提交进行签名，也可以如下操作</p>
@@ -779,7 +800,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="sign-tag">sign tag</h3>
+<h3 id="sign-tag">
+    <a href="#sign-tag" class="header-anchor" aria-label="Link to sign tag"></a>sign tag</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -796,7 +818,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git tag -v my_tag
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="提交签名查看">提交签名查看</h3>
+</div><h3 id="提交签名查看">
+    <a href="#%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d%e6%9f%a5%e7%9c%8b" class="header-anchor" aria-label="Link to 提交签名查看"></a>提交签名查看</h3>
 <blockquote>
 <ul>
 <li><a href="https://www.git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer ">git log usage</a></li>
@@ -846,7 +869,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="本地签名校验问题"><strong>本地签名校验问题</strong></h3>
+<h3 id="本地签名校验问题">
+    <a href="#%e6%9c%ac%e5%9c%b0%e7%ad%be%e5%90%8d%e6%a0%a1%e9%aa%8c%e9%97%ae%e9%a2%98" class="header-anchor" aria-label="Link to 本地签名校验问题"></a><strong>本地签名校验问题</strong></h3>
 <p>通过命令 <code>git log --show-signature</code> 查看提交签名信息时可能会出现如下信息:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -866,7 +890,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <p>也可通过命令 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code> 校验指定提交签名是否合法</p>
 </blockquote>
 <p><strong>出现上述现象原因是因为你当前代码不存在对应 <code>commits</code> 使用的 <code>gpg public key</code>。我们可以通过导入对应提交者 <code>gpg public keys</code> 的方法解决。</strong></p>
-<h3 id="缺失-gpg-keys-导入认证"><strong>缺失 gpg keys</strong> 导入认证</h3>
+<h3 id="缺失-gpg-keys-导入认证">
+    <a href="#%e7%bc%ba%e5%a4%b1-gpg-keys-%e5%af%bc%e5%85%a5%e8%ae%a4%e8%af%81" class="header-anchor" aria-label="Link to 缺失 gpg keys 导入认证"></a><strong>缺失 gpg keys</strong> 导入认证</h3>
 <p>为了准确获取完整提交的签名校验信息，我们需要对缺失 <strong>public keys</strong> 进行导入。我们的实验导入源参考如下：</p>
 <ul>
 <li><code>https://github.com/&lt;username&gt;.gpg</code> <em>需要你在 github 进行 GPG keys 上传配置</em></li>
@@ -920,7 +945,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="github-gpg-public-key-导入">Github GPG public key 导入</h2>
+<h2 id="github-gpg-public-key-导入">
+    <a href="#github-gpg-public-key-%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to Github GPG public key 导入"></a>Github GPG public key 导入</h2>
 <blockquote>
 <p><a href="https://github.com/web-flow.gpg" target="_blank" rel="noopener noreffer ">github public GPG key for web-flow</a></p>
 </blockquote>
@@ -929,7 +955,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><code>gpg --edit-key noreply@github.com trust quit</code> <strong>trust and save, you choose: <code>4</code></strong></li>
 <li><code>gpg --lsign-key noreply@github.com</code> <em>sign selected user IDs locally</em></li>
 </ol>
-<h2 id="gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></h2>
+<h2 id="gpg-keys-更新续期处理">
+    <a href="#gpg-keys-%e6%9b%b4%e6%96%b0%e7%bb%ad%e6%9c%9f%e5%a4%84%e7%90%86" class="header-anchor" aria-label="Link to GPG keys 更新续期处理"></a><strong>GPG keys 更新续期处理</strong></h2>
 <p><code>gpg --edit-key [GPG key ID]</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -1096,7 +1123,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="gpg-sign-key-重新绑定">GPG sign key 重新绑定</h2>
+<h2 id="gpg-sign-key-重新绑定">
+    <a href="#gpg-sign-key-%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="header-anchor" aria-label="Link to GPG sign key 重新绑定"></a>GPG sign key 重新绑定</h2>
 <blockquote>
 <p><strong>以下设置如无需要，请勿更新</strong></p>
 </blockquote>
@@ -1123,7 +1151,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h2 id="gpg-keys-删除"><em>GPG keys 删除</em></h2>
+<h2 id="gpg-keys-删除">
+    <a href="#gpg-keys-%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to GPG keys 删除"></a><em>GPG keys 删除</em></h2>
 <ul>
 <li><code>gpg --delete-secret-key [uid]</code></li>
 <li><code>gpg --delete-secret-key [uid1] [uid2]</code></li>
@@ -1179,7 +1208,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification" target="_blank" rel="noopener noreffer ">managing-commit-signature-verification</a></li>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification" target="_blank" rel="noopener noreffer ">S/MIME commit signature verification</a></li>

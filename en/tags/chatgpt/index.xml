@@ -2,9 +2,11 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="history">History</h2>
+<h2 id="history">
+    <a href="#history" class="header-anchor" aria-label="Link to History"></a>History</h2>
 <p>ChatGPT was first developed by the OpenAI team. The series of language-generation models it spawned (GPT-2, GPT-3, …) has drawn wide attention since 2018. ChatGPT&rsquo;s own history began in 2019, when AI researchers found the GPT model could generate natural conversation. Building on that, they ran a series of studies and adjustments that gradually shaped today&rsquo;s ChatGPT.</p>
-<h3 id="gpt-versions-at-a-glance">GPT versions at a glance</h3>
+<h3 id="gpt-versions-at-a-glance">
+    <a href="#gpt-versions-at-a-glance" class="header-anchor" aria-label="Link to GPT versions at a glance"></a>GPT versions at a glance</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -61,9 +63,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">
+    <a href="#principle" class="header-anchor" aria-label="Link to Principle"></a>Principle</h2>
 <p>ChatGPT is built on GPT (Generative Pre-training Transformer) — a deep-neural-network natural-language generation model. The GPT model, developed by OpenAI, is pre-trained on a large corpus so it can produce high-quality natural language. ChatGPT is trained and tuned on top of GPT; its core is recognizing the user&rsquo;s topic and intent through context, then generating a suitable answer.</p>
-<h3 id="model-principle">Model principle</h3>
+<h3 id="model-principle">
+    <a href="#model-principle" class="header-anchor" aria-label="Link to Model principle"></a>Model principle</h3>
 <ol>
 <li>Architecture: OpenAI ChatGPT is a deep-learning model based on the transformer architecture. Through multi-head self-attention and feed-forward networks it encodes and decodes sequential data, with strong representational and generalization power.</li>
 <li>Pre-training: OpenAI ChatGPT is pre-trained on a large corpus, mainly in two steps: a masked language model and a next-sentence prediction model.
@@ -75,7 +79,8 @@
 <li>Fine-tuning: after pre-training, OpenAI ChatGPT is fine-tuned for specific tasks (e.g. dialogue generation) to further improve performance.</li>
 <li>Sequence-to-sequence generation: in use, it takes the user&rsquo;s question as an input sequence, processes it, and returns an output sequence that is fine-tuned into natural language. Through supervised learning it keeps optimizing its parameters and structure to improve answer quality and relevance.</li>
 </ol>
-<h3 id="how-it-works">How it works</h3>
+<h3 id="how-it-works">
+    <a href="#how-it-works" class="header-anchor" aria-label="Link to How it works"></a>How it works</h3>
 <ol>
 <li>Input encoding: when the user sends a message, ChatGPT&rsquo;s transformer encoder encodes it into a semantic vector.</li>
 <li>Decoder initialization: it then initializes the transformer decoder to maximize the probability of generating the next reply.</li>
@@ -86,7 +91,8 @@
 <li>Continual learning: as a pre-trained model, it keeps learning across interactions, refining its expression and generation.</li>
 </ol>
 <p>So in short, ChatGPT relies on the transformer encoder–decoder framework, generates sequences with attention and greedy search, and keeps learning from large dialogue datasets — which makes it one of the most effective open-domain chatbot systems today.</p>
-<h2 id="competitors">Competitors</h2>
+<h2 id="competitors">
+    <a href="#competitors" class="header-anchor" aria-label="Link to Competitors"></a>Competitors</h2>
 <blockquote>
 <p>Analysis below reflects the state at the time of writing; forgive any inaccuracy.</p>
 </blockquote>
@@ -139,7 +145,8 @@
             <div class="admonition-content">&ldquo;Free&rdquo; above refers only to the official web access at this time; always refer to the official pricing.</div>
         </div>
     </div>
-<h3 id="chatgpt-api-billing">ChatGPT API billing</h3>
+<h3 id="chatgpt-api-billing">
+    <a href="#chatgpt-api-billing" class="header-anchor" aria-label="Link to ChatGPT API billing"></a>ChatGPT API billing</h3>
 <ul>
 <li>OpenAI pricing: <a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer ">pricing#language-models</a></li>
 <li>OpenAI charges by token; 1000 tokens ≈ 750 English words or 500 Chinese characters.</li>
@@ -188,7 +195,8 @@
 </div>
         </div>
     </div>
-<h2 id="access-environment-setup">Access environment setup</h2>
+<h2 id="access-environment-setup">
+    <a href="#access-environment-setup" class="header-anchor" aria-label="Link to Access environment setup"></a>Access environment setup</h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -197,7 +205,8 @@
             <div class="admonition-content">We use ChatGPT as the example for setting up access for personal research only. For commercial use, stay lawful and compliant.</div>
         </div>
     </div>
-<h3 id="options">Options</h3>
+<h3 id="options">
+    <a href="#options" class="header-anchor" aria-label="Link to Options"></a>Options</h3>
 <table>
 <thead>
 <tr>
@@ -237,7 +246,8 @@
             <div class="admonition-content">To call it through your own domain, reverse-proxy via Nginx or similar on your server.</div>
         </div>
     </div>
-<h3 id="recommended-approach">Recommended approach</h3>
+<h3 id="recommended-approach">
+    <a href="#recommended-approach" class="header-anchor" aria-label="Link to Recommended approach"></a>Recommended approach</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -246,7 +256,8 @@
             <div class="admonition-content">Create and test a cloud function in a suitable region. Currently usable: Tencent Cloud, Alibaba Cloud; explore other providers yourself.</div>
         </div>
     </div>
-<h4 id="creation-steps">Creation steps</h4>
+<h4 id="creation-steps">
+    <a href="#creation-steps" class="header-anchor" aria-label="Link to Creation steps"></a>Creation steps</h4>
 <blockquote>
 <p>More at: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer ">openai-scf-proxy</a> or <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer ">openai-scf-goproxy</a></p>
 </blockquote>
@@ -302,8 +313,10 @@
 </ul>
 </li>
 </ol>
-<h2 id="api-testing">API testing</h2>
-<h3 id="balance">Balance</h3>
+<h2 id="api-testing">
+    <a href="#api-testing" class="header-anchor" aria-label="Link to API testing"></a>API testing</h2>
+<h3 id="balance">
+    <a href="#balance" class="header-anchor" aria-label="Link to Balance"></a>Balance</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -338,7 +351,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="subscription">Subscription</h3>
+<h3 id="subscription">
+    <a href="#subscription" class="header-anchor" aria-label="Link to Subscription"></a>Subscription</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -429,7 +443,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="chat">Chat</h3>
+<h3 id="chat">
+    <a href="#chat" class="header-anchor" aria-label="Link to Chat"></a>Chat</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,9 +547,11 @@
 </div></div>
         </div>
     </div>
-<h2 id="building-the-chatgpt-web-ui">Building the ChatGPT Web UI</h2>
+<h2 id="building-the-chatgpt-web-ui">
+    <a href="#building-the-chatgpt-web-ui" class="header-anchor" aria-label="Link to Building the ChatGPT Web UI"></a>Building the ChatGPT Web UI</h2>
 <p>Using the open-source ChatGPT Web project as a container, I&rsquo;ve set up a domain-accessible <strong>ChatGPT UI</strong>. Chain: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
-<h3 id="container-config">Container config</h3>
+<h3 id="container-config">
+    <a href="#container-config" class="header-anchor" aria-label="Link to Container config"></a>Container config</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -571,7 +588,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="environment-variables">Environment variables</h3>
+</div><h3 id="environment-variables">
+    <a href="#environment-variables" class="header-anchor" aria-label="Link to Environment variables"></a>Environment variables</h3>
 <ul>
 <li>OPENAI_API_KEY: Your openai api key
 <ul>
@@ -591,7 +609,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="more-web--app-projects">More Web / App projects</h2>
+<h2 id="more-web--app-projects">
+    <a href="#more-web--app-projects" class="header-anchor" aria-label="Link to More Web / App projects"></a>More Web / App projects</h2>
 <table>
 <thead>
 <tr>
@@ -654,7 +673,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="nginx-config-notes">Nginx config notes</h2>
+<h2 id="nginx-config-notes">
+    <a href="#nginx-config-notes" class="header-anchor" aria-label="Link to Nginx config notes"></a>Nginx config notes</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>

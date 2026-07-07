@@ -2,9 +2,11 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="history">History</h2>
+<h2 id="history">
+    <a href="#history" class="header-anchor" aria-label="Link to History"></a>History</h2>
 <p>ChatGPT was first developed by the OpenAI team. The series of language-generation models it spawned (GPT-2, GPT-3, …) has drawn wide attention since 2018. ChatGPT&rsquo;s own history began in 2019, when AI researchers found the GPT model could generate natural conversation. Building on that, they ran a series of studies and adjustments that gradually shaped today&rsquo;s ChatGPT.</p>
-<h3 id="gpt-versions-at-a-glance">GPT versions at a glance</h3>
+<h3 id="gpt-versions-at-a-glance">
+    <a href="#gpt-versions-at-a-glance" class="header-anchor" aria-label="Link to GPT versions at a glance"></a>GPT versions at a glance</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -61,9 +63,11 @@
 </tr>
 </tbody>
 </table>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">
+    <a href="#principle" class="header-anchor" aria-label="Link to Principle"></a>Principle</h2>
 <p>ChatGPT is built on GPT (Generative Pre-training Transformer) — a deep-neural-network natural-language generation model. The GPT model, developed by OpenAI, is pre-trained on a large corpus so it can produce high-quality natural language. ChatGPT is trained and tuned on top of GPT; its core is recognizing the user&rsquo;s topic and intent through context, then generating a suitable answer.</p>
-<h3 id="model-principle">Model principle</h3>
+<h3 id="model-principle">
+    <a href="#model-principle" class="header-anchor" aria-label="Link to Model principle"></a>Model principle</h3>
 <ol>
 <li>Architecture: OpenAI ChatGPT is a deep-learning model based on the transformer architecture. Through multi-head self-attention and feed-forward networks it encodes and decodes sequential data, with strong representational and generalization power.</li>
 <li>Pre-training: OpenAI ChatGPT is pre-trained on a large corpus, mainly in two steps: a masked language model and a next-sentence prediction model.
@@ -75,7 +79,8 @@
 <li>Fine-tuning: after pre-training, OpenAI ChatGPT is fine-tuned for specific tasks (e.g. dialogue generation) to further improve performance.</li>
 <li>Sequence-to-sequence generation: in use, it takes the user&rsquo;s question as an input sequence, processes it, and returns an output sequence that is fine-tuned into natural language. Through supervised learning it keeps optimizing its parameters and structure to improve answer quality and relevance.</li>
 </ol>
-<h3 id="how-it-works">How it works</h3>
+<h3 id="how-it-works">
+    <a href="#how-it-works" class="header-anchor" aria-label="Link to How it works"></a>How it works</h3>
 <ol>
 <li>Input encoding: when the user sends a message, ChatGPT&rsquo;s transformer encoder encodes it into a semantic vector.</li>
 <li>Decoder initialization: it then initializes the transformer decoder to maximize the probability of generating the next reply.</li>
@@ -86,7 +91,8 @@
 <li>Continual learning: as a pre-trained model, it keeps learning across interactions, refining its expression and generation.</li>
 </ol>
 <p>So in short, ChatGPT relies on the transformer encoder–decoder framework, generates sequences with attention and greedy search, and keeps learning from large dialogue datasets — which makes it one of the most effective open-domain chatbot systems today.</p>
-<h2 id="competitors">Competitors</h2>
+<h2 id="competitors">
+    <a href="#competitors" class="header-anchor" aria-label="Link to Competitors"></a>Competitors</h2>
 <blockquote>
 <p>Analysis below reflects the state at the time of writing; forgive any inaccuracy.</p>
 </blockquote>
@@ -139,7 +145,8 @@
             <div class="admonition-content">&ldquo;Free&rdquo; above refers only to the official web access at this time; always refer to the official pricing.</div>
         </div>
     </div>
-<h3 id="chatgpt-api-billing">ChatGPT API billing</h3>
+<h3 id="chatgpt-api-billing">
+    <a href="#chatgpt-api-billing" class="header-anchor" aria-label="Link to ChatGPT API billing"></a>ChatGPT API billing</h3>
 <ul>
 <li>OpenAI pricing: <a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer ">pricing#language-models</a></li>
 <li>OpenAI charges by token; 1000 tokens ≈ 750 English words or 500 Chinese characters.</li>
@@ -188,7 +195,8 @@
 </div>
         </div>
     </div>
-<h2 id="access-environment-setup">Access environment setup</h2>
+<h2 id="access-environment-setup">
+    <a href="#access-environment-setup" class="header-anchor" aria-label="Link to Access environment setup"></a>Access environment setup</h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -197,7 +205,8 @@
             <div class="admonition-content">We use ChatGPT as the example for setting up access for personal research only. For commercial use, stay lawful and compliant.</div>
         </div>
     </div>
-<h3 id="options">Options</h3>
+<h3 id="options">
+    <a href="#options" class="header-anchor" aria-label="Link to Options"></a>Options</h3>
 <table>
 <thead>
 <tr>
@@ -237,7 +246,8 @@
             <div class="admonition-content">To call it through your own domain, reverse-proxy via Nginx or similar on your server.</div>
         </div>
     </div>
-<h3 id="recommended-approach">Recommended approach</h3>
+<h3 id="recommended-approach">
+    <a href="#recommended-approach" class="header-anchor" aria-label="Link to Recommended approach"></a>Recommended approach</h3>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -246,7 +256,8 @@
             <div class="admonition-content">Create and test a cloud function in a suitable region. Currently usable: Tencent Cloud, Alibaba Cloud; explore other providers yourself.</div>
         </div>
     </div>
-<h4 id="creation-steps">Creation steps</h4>
+<h4 id="creation-steps">
+    <a href="#creation-steps" class="header-anchor" aria-label="Link to Creation steps"></a>Creation steps</h4>
 <blockquote>
 <p>More at: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer ">openai-scf-proxy</a> or <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer ">openai-scf-goproxy</a></p>
 </blockquote>
@@ -302,8 +313,10 @@
 </ul>
 </li>
 </ol>
-<h2 id="api-testing">API testing</h2>
-<h3 id="balance">Balance</h3>
+<h2 id="api-testing">
+    <a href="#api-testing" class="header-anchor" aria-label="Link to API testing"></a>API testing</h2>
+<h3 id="balance">
+    <a href="#balance" class="header-anchor" aria-label="Link to Balance"></a>Balance</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -338,7 +351,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="subscription">Subscription</h3>
+<h3 id="subscription">
+    <a href="#subscription" class="header-anchor" aria-label="Link to Subscription"></a>Subscription</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -429,7 +443,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="chat">Chat</h3>
+<h3 id="chat">
+    <a href="#chat" class="header-anchor" aria-label="Link to Chat"></a>Chat</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,9 +547,11 @@
 </div></div>
         </div>
     </div>
-<h2 id="building-the-chatgpt-web-ui">Building the ChatGPT Web UI</h2>
+<h2 id="building-the-chatgpt-web-ui">
+    <a href="#building-the-chatgpt-web-ui" class="header-anchor" aria-label="Link to Building the ChatGPT Web UI"></a>Building the ChatGPT Web UI</h2>
 <p>Using the open-source ChatGPT Web project as a container, I&rsquo;ve set up a domain-accessible <strong>ChatGPT UI</strong>. Chain: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
-<h3 id="container-config">Container config</h3>
+<h3 id="container-config">
+    <a href="#container-config" class="header-anchor" aria-label="Link to Container config"></a>Container config</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -571,7 +588,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="environment-variables">Environment variables</h3>
+</div><h3 id="environment-variables">
+    <a href="#environment-variables" class="header-anchor" aria-label="Link to Environment variables"></a>Environment variables</h3>
 <ul>
 <li>OPENAI_API_KEY: Your openai api key
 <ul>
@@ -591,7 +609,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="more-web--app-projects">More Web / App projects</h2>
+<h2 id="more-web--app-projects">
+    <a href="#more-web--app-projects" class="header-anchor" aria-label="Link to More Web / App projects"></a>More Web / App projects</h2>
 <table>
 <thead>
 <tr>
@@ -654,7 +673,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="nginx-config-notes">Nginx config notes</h2>
+<h2 id="nginx-config-notes">
+    <a href="#nginx-config-notes" class="header-anchor" aria-label="Link to Nginx config notes"></a>Nginx config notes</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -689,7 +709,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="concepts">Concepts</h2>
+<h2 id="concepts">
+    <a href="#concepts" class="header-anchor" aria-label="Link to Concepts"></a>Concepts</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -710,7 +731,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Server login dynamic-password verification (cloud servers, enterprise platforms, etc.)</li>
 <li>github, twitter, google login two-factor authentication</li>
@@ -719,7 +741,8 @@
 <li>Hardware tokens for online banking and online games</li>
 <li>2FA / MFA and the like</li>
 </ul>
-<h2 id="products">Products</h2>
+<h2 id="products">
+    <a href="#products" class="header-anchor" aria-label="Link to Products"></a>Products</h2>
 <ul>
 <li>Microsoft Authenticator: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -731,7 +754,8 @@
 <li>Bank token: bound to a specific account/card only</li>
 <li>Vendor-specific OTP security apps: limited to that vendor&rsquo;s products</li>
 </ul>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">
+    <a href="#principle" class="header-anchor" aria-label="Link to Principle"></a>Principle</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: secret key string</li>
@@ -748,12 +772,14 @@
 <li>Starting at that offset, take 4 bytes and combine them into an integer (big-endian)</li>
 <li>Take the last 6 or 8 digits of that integer and return them as a string</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li><code>C</code>: a random value derived from a timestamp
 <ul>
@@ -770,12 +796,14 @@
 <li>Other parameters as defined above</li>
 <li>The hash function is usually <code>SHA2</code>, i.e. event-synchronous verification based on a <code>SHA-256</code> or <code>SHA-512</code> hash</li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h2 id="implementations">Implementations</h2>
+<h2 id="implementations">
+    <a href="#implementations" class="header-anchor" aria-label="Link to Implementations"></a>Implementations</h2>
 <table>
 <thead>
 <tr>
@@ -836,7 +864,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="usage">Usage</h2>
+<h2 id="usage">
+    <a href="#usage" class="header-anchor" aria-label="Link to Usage"></a>Usage</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>
@@ -897,14 +926,16 @@
 </div><blockquote>
 <p>More examples are in the source <code>otp/*_test.go</code> files</p>
 </blockquote>]]></description></item><item><title>Go Object Pool Usage &amp; Optimization — Theory</title><link>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go object pools reuse <code>temporary objects</code>, which <code>reduces the waste</code> from frequently creating them — i.e. <code>lower GC overhead</code> and memory usage — improving performance and lowering serving cost to some extent. Based on <code>go1.18.2</code>, this post covers use cases, <strong>the processing flow &amp; caveats</strong>, open-source examples, a personal example (incl. pooling under <code>gRPC</code>), and best practices.</p>
-<h2 id="when-to-use">When to use</h2>
+<h2 id="when-to-use">
+    <a href="#when-to-use" class="header-anchor" aria-label="Link to When to use"></a>When to use</h2>
 <p><strong>When you frequently create the <code>same kind</code> of object and creation is expensive</strong></p>
 <ul>
 <li>The larger each object&rsquo;s memory footprint, the more obvious the benefit</li>
 <li>The bigger the memory footprint, the more obvious the benefit</li>
 <li>The higher the concurrency, the more obvious the benefit</li>
 </ul>
-<h2 id="processing-flow--caveats"><strong>Processing flow &amp; caveats</strong></h2>
+<h2 id="processing-flow--caveats">
+    <a href="#processing-flow--caveats" class="header-anchor" aria-label="Link to Processing flow &amp; caveats"></a><strong>Processing flow &amp; caveats</strong></h2>
 <blockquote>
 <p>After a temporary object is returned to the pool, it should ideally be: <code>stateless</code>, <code>reference-free</code></p>
 </blockquote>
@@ -935,7 +966,8 @@
 </div>
         </div>
     </div>
-<h2 id="object-pool-data-structures">Object-pool data structures</h2>
+<h2 id="object-pool-data-structures">
+    <a href="#object-pool-data-structures" class="header-anchor" aria-label="Link to Object-pool data structures"></a>Object-pool data structures</h2>
 <ul>
 <li><code>sync.pool</code>: fits most scenarios; easy to use and efficient
 <ul>
@@ -994,8 +1026,10 @@
 </div>
         </div>
     </div>
-<h2 id="source-examples">Source examples</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="source-examples">
+    <a href="#source-examples" class="header-anchor" aria-label="Link to Source examples"></a>Source examples</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -1069,7 +1103,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -1121,7 +1156,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -1153,7 +1189,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -1323,7 +1360,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -1373,7 +1411,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>
@@ -1479,7 +1518,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="consumer-group">Consumer Group</h2>
+<h2 id="consumer-group">
+    <a href="#consumer-group" class="header-anchor" aria-label="Link to Consumer Group"></a>Consumer Group</h2>
 <p>A <code>consumer group</code> is Kafka&rsquo;s scalable, fault-tolerant consumer mechanism. A few properties:</p>
 <ul>
 <li>A <code>consumer group</code> is made up of <strong>one or more</strong> <code>consumer</code>s that together consume messages from <strong>one or more</strong> <code>topic</code>s</li>
@@ -1499,7 +1539,8 @@
 </div>
         </div>
     </div>
-<h2 id="rebalance">Rebalance</h2>
+<h2 id="rebalance">
+    <a href="#rebalance" class="header-anchor" aria-label="Link to Rebalance"></a>Rebalance</h2>
 <p>Partition rebalancing (<code>Rebalance</code>) is a key Kafka feature that guarantees high availability and horizontal scaling. The following trigger a Kafka rebalance:</p>
 <ul>
 <li>Consumer-group membership changes:
@@ -1524,8 +1565,10 @@
 </div>
         </div>
     </div>
-<h2 id="go-consumer-group">Go Consumer Group</h2>
-<h3 id="consumergroup-interface--notes">ConsumerGroup interface &amp; notes</h3>
+<h2 id="go-consumer-group">
+    <a href="#go-consumer-group" class="header-anchor" aria-label="Link to Go Consumer Group"></a>Go Consumer Group</h2>
+<h3 id="consumergroup-interface--notes">
+    <a href="#consumergroup-interface--notes" class="header-anchor" aria-label="Link to ConsumerGroup interface &amp; notes"></a>ConsumerGroup interface &amp; notes</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1614,7 +1657,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+</div><h3 id="consumergroup-demo">
+    <a href="#consumergroup-demo" class="header-anchor" aria-label="Link to ConsumerGroup Demo"></a>ConsumerGroup Demo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1821,7 +1865,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="selected-config-parameters">Selected config parameters</h2>
+</div><h2 id="selected-config-parameters">
+    <a href="#selected-config-parameters" class="header-anchor" aria-label="Link to Selected config parameters"></a>Selected config parameters</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
 <li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
@@ -1831,7 +1876,8 @@
 <li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
 <li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
 </ul>
-<h2 id="configuration-recommendations">Configuration recommendations</h2>
+<h2 id="configuration-recommendations">
+    <a href="#configuration-recommendations" class="header-anchor" aria-label="Link to Configuration recommendations"></a>Configuration recommendations</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: default <code>30s</code>; if consumers often hit <code>read tcp xxx i/o timeout</code>, consider raising it
 <ul>
@@ -1864,12 +1910,14 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="why-use-it">Why use it</h2>
+<h2 id="why-use-it">
+    <a href="#why-use-it" class="header-anchor" aria-label="Link to Why use it"></a>Why use it</h2>
 <ul>
 <li>Understand which parts of your application consume the most resources</li>
 <li>Continuous profiling adds a time dimension, letting you track resource usage (CPU, memory, …) over time and locate, debug and fix performance issues</li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Find performance problems in your code</li>
 <li>Resolve high CPU utilization</li>
@@ -1877,14 +1925,16 @@
 <li>Understand your application&rsquo;s call tree</li>
 <li>Track how metrics change over time</li>
 </ul>
-<h2 id="overhead">Overhead</h2>
+<h2 id="overhead">
+    <a href="#overhead" class="header-anchor" aria-label="Link to Overhead"></a>Overhead</h2>
 <p>By using sampling-based profiling, <strong>Pyroscope</strong> collects data with minimal overhead (around <code>2-5%</code>). Its purpose-built <em>storage engine</em> <em>compresses and stores data efficiently</em>.</p>
 <ul>
 <li>Low CPU overhead thanks to sampling</li>
 <li>Control the granularity of profiling data (<code>10s</code> up to multiple years)</li>
 <li>Efficient compression, low disk-space needs and cost</li>
 </ul>
-<h2 id="working-mode">Working mode</h2>
+<h2 id="working-mode">
+    <a href="#working-mode" class="header-anchor" aria-label="Link to Working mode"></a>Working mode</h2>
 <blockquote>
 <p>Similar to common data-collection tools: an <code>Agent-Server</code> model.</p>
 </blockquote>
@@ -1894,8 +1944,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-installation">Server installation</h2>
-<h3 id="install-methods">Install methods</h3>
+<h2 id="server-installation">
+    <a href="#server-installation" class="header-anchor" aria-label="Link to Server installation"></a>Server installation</h2>
+<h3 id="install-methods">
+    <a href="#install-methods" class="header-anchor" aria-label="Link to Install methods"></a>Install methods</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -1907,7 +1959,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos--linux-install-example">MacOS &amp; Linux install example</h3>
+<h3 id="macos--linux-install-example">
+    <a href="#macos--linux-install-example" class="header-anchor" aria-label="Link to MacOS &amp; Linux install example"></a>MacOS &amp; Linux install example</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -1959,7 +2012,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">
+    <a href="#configuration" class="header-anchor" aria-label="Link to Configuration"></a>Configuration</h3>
 <p>Multiple <a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">configuration</a> sources are supported, with this precedence:</p>
 <ol>
 <li><strong>CLI flags</strong></li>
@@ -2164,15 +2218,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="start">Start</h3>
+<h3 id="start">
+    <a href="#start" class="header-anchor" aria-label="Link to Start"></a>Start</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="using-the-go-agent">Using the Go agent</h2>
+<h2 id="using-the-go-agent">
+    <a href="#using-the-go-agent" class="header-anchor" aria-label="Link to Using the Go agent"></a>Using the Go agent</h2>
 <blockquote>
 <p>Uses <code>Push</code> mode — simple and efficient.</p>
 </blockquote>
-<h3 id="import-the-dependency">Import the dependency</h3>
+<h3 id="import-the-dependency">
+    <a href="#import-the-dependency" class="header-anchor" aria-label="Link to Import the dependency"></a>Import the dependency</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-example">Agent Push example</h3>
+<h3 id="agent-push-example">
+    <a href="#agent-push-example" class="header-anchor" aria-label="Link to Agent Push example"></a>Agent Push example</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2239,7 +2297,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="authentication">Authentication</h2>
+</div><h2 id="authentication">
+    <a href="#authentication" class="header-anchor" aria-label="Link to Authentication"></a>Authentication</h2>
 <blockquote>
 <p>Default username/password: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -2248,7 +2307,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">Internal authentication</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="query--export">Query &amp; export</h2>
+<h2 id="query--export">
+    <a href="#query--export" class="header-anchor" aria-label="Link to Query &amp; export"></a>Query &amp; export</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">config</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -2264,7 +2324,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
@@ -2276,8 +2337,10 @@
 <li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
 <li>Compose version: <code>Docker Compose version 2.2.2</code></li>
 </ul>
-<h2 id="docker-reference-resources">Docker reference resources</h2>
-<h3 id="file-formats">File formats</h3>
+<h2 id="docker-reference-resources">
+    <a href="#docker-reference-resources" class="header-anchor" aria-label="Link to Docker reference resources"></a>Docker reference resources</h2>
+<h3 id="file-formats">
+    <a href="#file-formats" class="header-anchor" aria-label="Link to File formats"></a>File formats</h3>
 <table>
 <thead>
 <tr>
@@ -2296,7 +2359,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-interfaces-clis">Command-line interfaces (CLIs)</h3>
+<h3 id="command-line-interfaces-clis">
+    <a href="#command-line-interfaces-clis" class="header-anchor" aria-label="Link to Command-line interfaces (CLIs)"></a>Command-line interfaces (CLIs)</h3>
 <table>
 <thead>
 <tr>
@@ -2319,7 +2383,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="application-programming-interfaces-apis">Application programming interfaces (APIs)</h3>
+<h3 id="application-programming-interfaces-apis">
+    <a href="#application-programming-interfaces-apis" class="header-anchor" aria-label="Link to Application programming interfaces (APIs)"></a>Application programming interfaces (APIs)</h3>
 <table>
 <thead>
 <tr>
@@ -2342,7 +2407,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="drivers--specs">Drivers &amp; specs</h3>
+<h3 id="drivers--specs">
+    <a href="#drivers--specs" class="header-anchor" aria-label="Link to Drivers &amp; specs"></a>Drivers &amp; specs</h3>
 <table>
 <thead>
 <tr>
@@ -2365,7 +2431,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="docker-cli-usage">Docker CLI usage</h2>
+<h2 id="docker-cli-usage">
+    <a href="#docker-cli-usage" class="header-anchor" aria-label="Link to Docker CLI usage"></a>Docker CLI usage</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2546,7 +2613,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-compose-cli-usage">Docker Compose CLI usage</h2>
+<h2 id="docker-compose-cli-usage">
+    <a href="#docker-compose-cli-usage" class="header-anchor" aria-label="Link to Docker Compose CLI usage"></a>Docker Compose CLI usage</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -2645,8 +2713,10 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-commands">Docker commands</h2>
-<h3 id="common-management-commands">Common management commands</h3>
+<h2 id="docker-commands">
+    <a href="#docker-commands" class="header-anchor" aria-label="Link to Docker commands"></a>Docker commands</h2>
+<h3 id="common-management-commands">
+    <a href="#common-management-commands" class="header-anchor" aria-label="Link to Common management commands"></a>Common management commands</h3>
 <ul>
 <li><code>docker context [--help]</code> <strong>context management</strong></li>
 <li><code>docker compose [--help]</code> <strong>docker compose commands</strong> <code>v2.2.2+</code></li>
@@ -2667,7 +2737,8 @@
 <li><code>docker scan [--help]</code> scan and analyze images</li>
 <li><code>docker manifest [--help]</code> view image manifests; experimental</li>
 </ul>
-<h3 id="common-commands">Common commands</h3>
+<h3 id="common-commands">
+    <a href="#common-commands" class="header-anchor" aria-label="Link to Common commands"></a>Common commands</h3>
 <ul>
 <li><code>docker build [--help]</code> <strong>build an image</strong>
 <ul>
@@ -2695,7 +2766,8 @@
 <li><code>docker stop</code></li>
 <li><code>docker logs</code></li>
 </ul>
-<h3 id="docker-image-filtering">docker image filtering</h3>
+<h3 id="docker-image-filtering">
+    <a href="#docker-image-filtering" class="header-anchor" aria-label="Link to docker image filtering"></a>docker image filtering</h3>
 <blockquote>
 <p><code>docker images -f [filter params]</code></p>
 </blockquote>
@@ -2744,7 +2816,8 @@
             <div class="admonition-content">In testing, if <code>REPOSITORY</code> contains <code>/</code>, the <code>reference</code> regex must include <code>/</code> to match — the filter regex does not match <code>/</code>.</div>
         </div>
     </div>
-<h3 id="docker-commit--create-an-image-from-a-container">docker commit — create an image from a container</h3>
+<h3 id="docker-commit--create-an-image-from-a-container">
+    <a href="#docker-commit--create-an-image-from-a-container" class="header-anchor" aria-label="Link to docker commit — create an image from a container"></a>docker commit — create an image from a container</h3>
 <blockquote>
 <p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
 </blockquote>
@@ -2772,7 +2845,8 @@
 </span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">prune — one-shot cleanup of images, containers, etc.</h3>
+</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">
+    <a href="#prune--one-shot-cleanup-of-images-containers-etc" class="header-anchor" aria-label="Link to prune — one-shot cleanup of images, containers, etc."></a>prune — one-shot cleanup of images, containers, etc.</h3>
 <ul>
 <li><code>docker image prune -a</code> <strong>remove all images not used by any container</strong></li>
 <li><code>docker container prune</code> <em>remove all stopped containers</em></li>
@@ -2780,13 +2854,15 @@
 <li><code>docker system prune</code> <em>remove all docker resources</em></li>
 <li><code>docker network prune</code> <em>remove all networks</em></li>
 </ul>
-<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<h2 id="simple-cheat-sheet">
+    <a href="#simple-cheat-sheet" class="header-anchor" aria-label="Link to Simple Cheat Sheet"></a>Simple Cheat Sheet</h2>
 <ul>
 <li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
 <li>demo image: <code>v8fg/demo[:latest]</code></li>
 <li>demo container name: <code>v8fg-demo</code></li>
 </ul>
-<h3 id="running-containers">Running Containers</h3>
+<h3 id="running-containers">
+    <a href="#running-containers" class="header-anchor" aria-label="Link to Running Containers"></a>Running Containers</h3>
 <table>
 <thead>
 <tr>
@@ -2866,7 +2942,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<h3 id="container-lifecycle-stuff">
+    <a href="#container-lifecycle-stuff" class="header-anchor" aria-label="Link to Container Lifecycle Stuff"></a>Container Lifecycle Stuff</h3>
 <table>
 <thead>
 <tr>
@@ -2925,7 +3002,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<h3 id="resource-limits-and-controls">
+    <a href="#resource-limits-and-controls" class="header-anchor" aria-label="Link to Resource Limits and Controls"></a>Resource Limits and Controls</h3>
 <table>
 <thead>
 <tr>
@@ -2964,7 +3042,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<h3 id="stats-logs-and-events">
+    <a href="#stats-logs-and-events" class="header-anchor" aria-label="Link to Stats, Logs, and Events"></a>Stats, Logs, and Events</h3>
 <table>
 <thead>
 <tr>
@@ -3003,7 +3082,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-images">Docker Images</h3>
+<h3 id="docker-images">
+    <a href="#docker-images" class="header-anchor" aria-label="Link to Docker Images"></a>Docker Images</h3>
 <table>
 <thead>
 <tr>
@@ -3066,7 +3146,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<h3 id="exportimportsaveload">
+    <a href="#exportimportsaveload" class="header-anchor" aria-label="Link to Export/Import/Save/Load"></a>Export/Import/Save/Load</h3>
 <ul>
 <li><strong>export, import</strong>: drops layer history; smaller — <strong>for base images, stripping history</strong></li>
 <li><em>save, load</em>: keeps layer history; larger</li>
@@ -3117,7 +3198,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<h3 id="docker-hubregistry">
+    <a href="#docker-hubregistry" class="header-anchor" aria-label="Link to Docker Hub/Registry"></a>Docker Hub/Registry</h3>
 <table>
 <thead>
 <tr>
@@ -3164,7 +3246,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<h3 id="building-docker-images-from-a-dockerfile">
+    <a href="#building-docker-images-from-a-dockerfile" class="header-anchor" aria-label="Link to Building Docker Images From A Dockerfile"></a>Building Docker Images From A Dockerfile</h3>
 <table>
 <thead>
 <tr>
@@ -3199,7 +3282,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<h3 id="simple-dockerfile-example">
+    <a href="#simple-dockerfile-example" class="header-anchor" aria-label="Link to Simple Dockerfile Example"></a>Simple Dockerfile Example</h3>
 <blockquote>
 <p><code>v8fg/demo:latest</code></p>
 </blockquote>
@@ -3236,7 +3320,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+</div><h3 id="big-dockerfile-example">
+    <a href="#big-dockerfile-example" class="header-anchor" aria-label="Link to Big Dockerfile Example"></a>Big Dockerfile Example</h3>
 <table>
 <thead>
 <tr>
@@ -3327,7 +3412,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="volumesstorage">Volumes/Storage</h3>
+<h3 id="volumesstorage">
+    <a href="#volumesstorage" class="header-anchor" aria-label="Link to Volumes/Storage"></a>Volumes/Storage</h3>
 <table>
 <thead>
 <tr>
@@ -3418,7 +3504,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="expose-ports">Expose Ports</h3>
+<h3 id="expose-ports">
+    <a href="#expose-ports" class="header-anchor" aria-label="Link to Expose Ports"></a>Expose Ports</h3>
 <table>
 <thead>
 <tr>
@@ -3457,7 +3544,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="networks">Networks</h3>
+<h3 id="networks">
+    <a href="#networks" class="header-anchor" aria-label="Link to Networks"></a>Networks</h3>
 <table>
 <thead>
 <tr>
@@ -3548,7 +3636,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
 <li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>
@@ -3557,10 +3646,12 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="dockerfile-overview">Dockerfile overview</h2>
+<h2 id="dockerfile-overview">
+    <a href="#dockerfile-overview" class="header-anchor" aria-label="Link to Dockerfile overview"></a>Dockerfile overview</h2>
 <p>A <code>Dockerfile</code> is a text file used to build an image, made up of the instructions (<code>instruction</code>) and notes needed to build it. Each instruction builds one layer.</p>
 <p>By default <code>docker build .</code> looks for a file named <code>Dockerfile</code> in the current directory; you can also pass a path and filename: <code>docker build -f xxx/path/DockerfileName .</code></p>
-<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<h2 id="dockerignore">
+    <a href="#dockerignore" class="header-anchor" aria-label="Link to .dockerignore"></a><code>.dockerignore</code></h2>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -3569,7 +3660,8 @@
             <div class="admonition-content">To speed up builds, add a <code>.dockerignore</code> file in the build context to exclude files and directories. If your project has many large files that don&rsquo;t need to be in the image, excluding them really helps build speed and image size.</div>
         </div>
     </div>
-<h2 id="basic-structure">Basic structure</h2>
+<h2 id="basic-structure">
+    <a href="#basic-structure" class="header-anchor" aria-label="Link to Basic structure"></a>Basic structure</h2>
 <blockquote>
 <p>Lines starting with <code>#</code> are comments and may appear anywhere; avoid extra spaces before <code>#</code>.</p>
 </blockquote>
@@ -3579,7 +3671,8 @@
 <li>Image-operation instructions</li>
 <li>Container-startup instruction</li>
 </ul>
-<h2 id="all-instructions">All instructions</h2>
+<h2 id="all-instructions">
+    <a href="#all-instructions" class="header-anchor" aria-label="Link to All instructions"></a>All instructions</h2>
 <blockquote>
 <ul>
 <li><a href="#from" rel=""><strong>FROM</strong></a></li>
@@ -3601,7 +3694,8 @@
 <li><a href="#shell" rel="">SHELL</a></li>
 </ul>
 </blockquote>
-<h2 id="from"><strong>FROM</strong></h2>
+<h2 id="from">
+    <a href="#from" class="header-anchor" aria-label="Link to FROM"></a><strong>FROM</strong></h2>
 <ul>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
 <li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
@@ -3615,7 +3709,8 @@
 <li><code>tag</code> and <code>digest</code> are optional. If omitted, the builder defaults to the <code>latest</code> tag. If the builder can&rsquo;t find the tag, it errors.</li>
 <li><code>--platform=&lt;platform&gt;</code> specifies which platform&rsquo;s image <code>FROM</code> refers to, e.g. <code>linux/amd64</code>, <code>linux/arm64</code>, <code>windows/amd64</code>. It defaults to the target platform of the build request. You can use global build args in this flag, e.g. <a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer ">automatic platform args in the global scope</a>, letting you force the build stage&rsquo;s native platform <code>(--platform=$BUILDPLATFORM)</code> and cross-compile to the target within it.</li>
 </ul>
-<h3 id="arg--from-interaction"><strong>ARG &amp; FROM interaction</strong></h3>
+<h3 id="arg--from-interaction">
+    <a href="#arg--from-interaction" class="header-anchor" aria-label="Link to ARG &amp; FROM interaction"></a><strong>ARG &amp; FROM interaction</strong></h3>
 <blockquote>
 <p>Variables declared by <code>ARG</code> may appear before the first <code>FROM</code>.</p>
 </blockquote>
@@ -3641,7 +3736,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="arg-scope">ARG scope</h3>
+</div><h3 id="arg-scope">
+    <a href="#arg-scope" class="header-anchor" aria-label="Link to ARG scope"></a>ARG scope</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3678,7 +3774,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="run">RUN</h2>
+</div><h2 id="run">
+    <a href="#run" class="header-anchor" aria-label="Link to RUN"></a>RUN</h2>
 <ul>
 <li><code>RUN &lt;command&gt;</code> (shell form; default on <em>linux</em>: <code>/bin/sh -c</code>, on <em>Windows</em>: <code>cmd /S /C</code>)</li>
 <li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> form)</li>
@@ -3731,20 +3828,23 @@
 </div></div>
         </div>
     </div>
-<h3 id="run-cache">RUN cache</h3>
+<h3 id="run-cache">
+    <a href="#run-cache" class="header-anchor" aria-label="Link to RUN cache"></a>RUN cache</h3>
 <ul>
 <li>The <code>RUN</code> cache is <strong>not</strong> invalidated automatically on the next build</li>
 <li>A command like <code>RUN apt-get dist-upgrade -y</code> has its cache reused on the next build</li>
 <li><code>--no-cache</code> invalidates the <code>RUN</code> cache: <code>docker build --no-cache</code></li>
 <li><strong><code>ADD</code> and <code>COPY</code> can invalidate the <code>RUN</code> cache</strong></li>
 </ul>
-<h2 id="cmd">CMD</h2>
+<h2 id="cmd">
+    <a href="#cmd" class="header-anchor" aria-label="Link to CMD"></a>CMD</h2>
 <ul>
 <li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
 <li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
 <li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
 </ul>
-<h3 id="notes">Notes</h3>
+<h3 id="notes">
+    <a href="#notes" class="header-anchor" aria-label="Link to Notes"></a>Notes</h3>
 <ul>
 <li>A <code>Dockerfile</code> may have only one <code>CMD</code>; if there are several, only the last takes effect.</li>
 <li><code>CMD</code>&rsquo;s main purpose is to provide defaults for an executing container. The defaults may include an executable, or omit it — in which case you must also specify <code>ENTRYPOINT</code>.</li>
@@ -3753,7 +3853,8 @@
 <li><strong>If the user passes arguments to <code>docker run</code>, they override the <code>CMD</code> defaults</strong></li>
 <li>Don&rsquo;t confuse <code>RUN</code> with <code>CMD</code>. <code>RUN</code> <em>actually runs a command and commits the result</em>; <code>CMD</code> <em>does nothing at build time but specifies the intended command for the image</em>.</li>
 </ul>
-<h2 id="label">LABEL</h2>
+<h2 id="label">
+    <a href="#label" class="header-anchor" aria-label="Link to LABEL"></a>LABEL</h2>
 <blockquote>
 <p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -3786,7 +3887,8 @@
 <blockquote>
 <p>View image labels: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
 </blockquote>
-<h2 id="expose">EXPOSE</h2>
+<h2 id="expose">
+    <a href="#expose" class="header-anchor" aria-label="Link to EXPOSE"></a>EXPOSE</h2>
 <blockquote>
 <p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
 </blockquote>
@@ -3811,7 +3913,8 @@
 </span></span><span class="line"><span class="cl">EXPOSE 80/udp
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="expose-for-run">expose for run</h3>
+</div><h3 id="expose-for-run">
+    <a href="#expose-for-run" class="header-anchor" aria-label="Link to expose for run"></a>expose for run</h3>
 <ul>
 <li>
 <p><code>P</code> Publish all exposed ports to the host interfaces</p>
@@ -3826,7 +3929,8 @@
 <p><code>docker run -p 80-81:80-81/tcp</code></p>
 </li>
 </ul>
-<h2 id="env">ENV</h2>
+<h2 id="env">
+    <a href="#env" class="header-anchor" aria-label="Link to ENV"></a>ENV</h2>
 <blockquote>
 <p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
 </blockquote>
@@ -3883,7 +3987,8 @@
 </span></span><span class="line"><span class="cl">ENV <span class="nv">ghi</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># ghi=bye</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="add">ADD</h2>
+</div><h2 id="add">
+    <a href="#add" class="header-anchor" aria-label="Link to ADD"></a>ADD</h2>
 <ul>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code>  <strong>required when paths contain spaces</strong></li>
@@ -3960,7 +4065,8 @@
 </div>
         </div>
     </div>
-<h2 id="copy">COPY</h2>
+<h2 id="copy">
+    <a href="#copy" class="header-anchor" aria-label="Link to COPY"></a>COPY</h2>
 <ul>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
 <li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code> <strong>required when paths contain spaces</strong></li>
@@ -4036,7 +4142,8 @@
 </div>
         </div>
     </div>
-<h2 id="entrypoint">ENTRYPOINT</h2>
+<h2 id="entrypoint">
+    <a href="#entrypoint" class="header-anchor" aria-label="Link to ENTRYPOINT"></a>ENTRYPOINT</h2>
 <ul>
 <li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> <code>exec form</code> <strong>recommended</strong></li>
 <li><code>ENTRYPOINT command param1 param2</code> <code>shell form</code> <strong>cannot accept args passed via CLI, <code>CMD</code>, or <code>run</code></strong></li>
@@ -4052,7 +4159,8 @@
 <li>The exec form does not invoke a <em>shell</em>; if you need one, specify <code>sh -c</code> in <code>ENTRYPOINT</code>, e.g. <code>ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
 <li>The shell form runs as a subcommand of <code>/bin/sh -c</code> and doesn&rsquo;t pass signals. The executable won&rsquo;t be <code>PID 1</code> and won&rsquo;t receive <code>Unix</code> signals, so it won&rsquo;t receive <code>SIGTERM</code> from <code>docker stop &lt;container&gt;</code></li>
 </ul>
-<h3 id="exec-form-entrypoint-example">exec form ENTRYPOINT example</h3>
+<h3 id="exec-form-entrypoint-example">
+    <a href="#exec-form-entrypoint-example" class="header-anchor" aria-label="Link to exec form ENTRYPOINT example"></a>exec form ENTRYPOINT example</h3>
 <blockquote>
 <p><a href="https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Exec form ENTRYPOINT example</a>*</p>
 </blockquote>
@@ -4132,11 +4240,13 @@
 </div></div>
         </div>
     </div>
-<h3 id="shell-form-entrypoint-example">shell form ENTRYPOINT example</h3>
+<h3 id="shell-form-entrypoint-example">
+    <a href="#shell-form-entrypoint-example" class="header-anchor" aria-label="Link to shell form ENTRYPOINT example"></a>shell form ENTRYPOINT example</h3>
 <blockquote>
 <p><em><a href="https://docs.docker.com/engine/reference/builder/#shell-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Shell form ENTRYPOINT example</a></em></p>
 </blockquote>
-<h4 id="shell-form-with-exec"><strong>shell form with <code>exec</code></strong></h4>
+<h4 id="shell-form-with-exec">
+    <a href="#shell-form-with-exec" class="header-anchor" aria-label="Link to shell form with exec"></a><strong>shell form with <code>exec</code></strong></h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -4208,7 +4318,8 @@
 </div></div>
         </div>
     </div>
-<h4 id="shell-form-no-exec">shell form (no exec)</h4>
+<h4 id="shell-form-no-exec">
+    <a href="#shell-form-no-exec" class="header-anchor" aria-label="Link to shell form (no exec)"></a>shell form (no exec)</h4>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -4287,7 +4398,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="cmd-and-entrypoint-interaction"><strong>CMD and ENTRYPOINT interaction</strong></h3>
+<h3 id="cmd-and-entrypoint-interaction">
+    <a href="#cmd-and-entrypoint-interaction" class="header-anchor" aria-label="Link to CMD and ENTRYPOINT interaction"></a><strong>CMD and ENTRYPOINT interaction</strong></h3>
 <blockquote>
 <p>Both define the command to run when the container starts.</p>
 </blockquote>
@@ -4297,7 +4409,8 @@
 <li><code>CMD</code> should be the way to define <em>default parameters</em> for the <code>ENTRYPOINT</code> command, or a transient command to run in the container</li>
 <li>When the container is run with other args, <code>CMD</code> is overridden</li>
 </ul>
-<h4 id="cmd-and-entrypoint-interaction-rules"><strong>CMD and ENTRYPOINT interaction rules</strong></h4>
+<h4 id="cmd-and-entrypoint-interaction-rules">
+    <a href="#cmd-and-entrypoint-interaction-rules" class="header-anchor" aria-label="Link to CMD and ENTRYPOINT interaction rules"></a><strong>CMD and ENTRYPOINT interaction rules</strong></h4>
 <blockquote>
 <p>If the base image defines a <code>CMD</code>, setting <code>ENTRYPOINT</code> resets <code>CMD</code> to empty.</p>
 </blockquote>
@@ -4337,7 +4450,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="volume">VOLUME</h2>
+<h2 id="volume">
+    <a href="#volume" class="header-anchor" aria-label="Link to VOLUME"></a>VOLUME</h2>
 <ul>
 <li><code>VOLUME [&quot;/data&quot;]</code></li>
 </ul>
@@ -4389,7 +4503,8 @@
 <li>JSON formatting: the list is parsed as a JSON array. You must use double-quotes (<code>&quot;</code>) not single-quotes (<code>'</code>).</li>
 <li>Host directories at runtime: host directories (mount points) are inherently host-dependent. This keeps images portable, since a given host directory isn&rsquo;t guaranteed on every host. For this reason you cannot mount a host directory from the Dockerfile. <code>VOLUME</code> does not support a <code>host-dir</code> argument. You must specify the mount point when creating/running the container.</li>
 </ul>
-<h2 id="user">USER</h2>
+<h2 id="user">
+    <a href="#user" class="header-anchor" aria-label="Link to USER"></a>USER</h2>
 <ul>
 <li><code>USER &lt;user&gt;[:&lt;group&gt;]</code></li>
 <li><code>USER &lt;UID&gt;[:&lt;GID&gt;]</code></li>
@@ -4398,7 +4513,8 @@
 <blockquote>
 <p><strong>When you specify a group for the user, the user has only that group&rsquo;s membership. Any other configured group memberships are ignored.</strong></p>
 </blockquote>
-<h2 id="workdir">WORKDIR</h2>
+<h2 id="workdir">
+    <a href="#workdir" class="header-anchor" aria-label="Link to WORKDIR"></a>WORKDIR</h2>
 <ul>
 <li>
 <p><code>WORKDIR /path/to/workdir</code></p>
@@ -4442,7 +4558,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="arg">ARG</h2>
+</div><h2 id="arg">
+    <a href="#arg" class="header-anchor" aria-label="Link to ARG"></a>ARG</h2>
 <ul>
 <li>
 <p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
@@ -4468,7 +4585,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="default-values">Default values</h3>
+</div><h3 id="default-values">
+    <a href="#default-values" class="header-anchor" aria-label="Link to Default values"></a>Default values</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4483,7 +4601,8 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="scope">Scope</h3>
+</div><h3 id="scope">
+    <a href="#scope" class="header-anchor" aria-label="Link to Scope"></a>Scope</h3>
 <ul>
 <li>An <code>ARG</code> variable is in effect <strong>from the line it&rsquo;s declared on, downward</strong> in the <code>Dockerfile</code>; nowhere else.</li>
 <li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>overrides <code>&lt;arg-name&gt;</code></strong></li>
@@ -4529,7 +4648,8 @@
 </span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="using-arg-variables"><strong>Using ARG variables</strong></h3>
+</div><h3 id="using-arg-variables">
+    <a href="#using-arg-variables" class="header-anchor" aria-label="Link to Using ARG variables"></a><strong>Using ARG variables</strong></h3>
 <ul>
 <li>For the same-named <code>ARG</code> and <code>ENV</code>, an <code>ENV</code> defined after the <code>ARG</code> overrides the nearest preceding <code>ARG</code> value.</li>
 <li><code>ARG VAR_NAME</code> may be repeated; each acts as a reset and can be overridden by the nearest following same-named <code>ENV</code>.</li>
@@ -4559,7 +4679,8 @@
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>outputs v1.0.0</em></p>
 </blockquote>
 <p>See <a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer ">environment replacement</a></p>
-<h3 id="built-in-args">Built-in args</h3>
+<h3 id="built-in-args">
+    <a href="#built-in-args" class="header-anchor" aria-label="Link to Built-in args"></a>Built-in args</h3>
 <blockquote>
 <p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
 </blockquote>
@@ -4573,7 +4694,8 @@
 <li>NO_PROXY</li>
 <li>no_proxy</li>
 </ul>
-<h3 id="platform-related-global-args">Platform-related global args</h3>
+<h3 id="platform-related-global-args">
+    <a href="#platform-related-global-args" class="header-anchor" aria-label="Link to Platform-related global args"></a>Platform-related global args</h3>
 <ul>
 <li><code>docker build --platform=</code></li>
 </ul>
@@ -4593,7 +4715,8 @@
 <li>BUILDARCH - architecture component of BUILDPLATFORM</li>
 <li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
 </ul>
-<h3 id="cache-invalidation-by-arg">Cache invalidation by ARG</h3>
+<h3 id="cache-invalidation-by-arg">
+    <a href="#cache-invalidation-by-arg" class="header-anchor" aria-label="Link to Cache invalidation by ARG"></a>Cache invalidation by ARG</h3>
 <blockquote>
 <p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
 </blockquote>
@@ -4620,7 +4743,8 @@
 <li>exec count 2: use cache</li>
 <li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>: everything before <code>ARG CONT_IMG_VER</code> used cache; everything after is cache-invalidated</li>
 </ul>
-<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<h2 id="onbuild">
+    <a href="#onbuild" class="header-anchor" aria-label="Link to ONBUILD"></a><strong>ONBUILD</strong></h2>
 <ul>
 <li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
 </ul>
@@ -4641,7 +4765,8 @@
 <p>This is very useful when you&rsquo;re building an image meant to be a base for others — e.g. an app build environment or a daemon customizable with user-specific config.</p>
 <p>For example, if your image is a reusable <code>Python</code> app builder, you need to <em>add the app source to a specific directory</em> and maybe call a build script afterwards. You can&rsquo;t just call <code>ADD</code> and <code>RUN</code> now because you don&rsquo;t have the app source yet, and it differs per app build. You could hand app developers a boilerplate <code>Dockerfile</code> to copy-paste, but that&rsquo;s <strong>inefficient, error-prone, and hard to update</strong>, since it&rsquo;s mixed into app-specific code.</p>
 <p><strong>The solution</strong> is <code>ONBUILD</code> to <strong>register pre-run instructions</strong> for the next build stage.</p>
-<h3 id="how-onbuild-works">How <code>ONBUILD</code> works</h3>
+<h3 id="how-onbuild-works">
+    <a href="#how-onbuild-works" class="header-anchor" aria-label="Link to How ONBUILD works"></a>How <code>ONBUILD</code> works</h3>
 <ul>
 <li>
 <ol>
@@ -4664,13 +4789,15 @@
 </ol>
 </li>
 </ul>
-<h2 id="stopsignal">STOPSIGNAL</h2>
+<h2 id="stopsignal">
+    <a href="#stopsignal" class="header-anchor" aria-label="Link to STOPSIGNAL"></a>STOPSIGNAL</h2>
 <blockquote>
 <p><code>STOPSIGNAL signal</code></p>
 </blockquote>
 <p><code>STOPSIGNAL</code> sets the system-call signal sent to the container to exit. It may be a signal name in <code>SIG&lt;name&gt;</code> form (e.g. <code>SIGKILL</code>) or an unsigned number matching a position in the kernel&rsquo;s syscall table (e.g. <code>9</code>). If unset, defaults to <code>SIGTERM</code>.</p>
 <p>The <code>--stop-signal</code> flag on <code>docker run</code> and <code>docker create</code> overrides the image&rsquo;s default stop signal per container.</p>
-<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<h2 id="healthcheck">
+    <a href="#healthcheck" class="header-anchor" aria-label="Link to HEALTHCHECK"></a><strong>HEALTHCHECK</strong></h2>
 <ul>
 <li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
 <li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
@@ -4693,7 +4820,8 @@
 <li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
 <li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
 </ul>
-<h3 id="healthcheck-example"><code>HEALTHCHECK</code> example</h3>
+<h3 id="healthcheck-example">
+    <a href="#healthcheck-example" class="header-anchor" aria-label="Link to HEALTHCHECK example"></a><code>HEALTHCHECK</code> example</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4704,7 +4832,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="shell">SHELL</h2>
+</div><h2 id="shell">
+    <a href="#shell" class="header-anchor" aria-label="Link to SHELL"></a>SHELL</h2>
 <blockquote>
 <p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
 </blockquote>
@@ -4764,7 +4893,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="example">Example</h2>
+<h2 id="example">
+    <a href="#example" class="header-anchor" aria-label="Link to Example"></a>Example</h2>
 <blockquote>
 <p><code>go1.18</code> base-image build; for more base images see <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 </blockquote>
@@ -4802,7 +4932,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="best-practices">Best practices</h2>
+</div><h2 id="best-practices">
+    <a href="#best-practices" class="header-anchor" aria-label="Link to Best practices"></a>Best practices</h2>
 <ul>
 <li>Each instruction creates a layer. For downstream images the upstream image is a read-only layer; the current build just <strong>appends layers</strong> on top.</li>
 <li>Prefer <code>COPY</code> over <code>ADD</code> — more transparent and direct</li>
@@ -4845,7 +4976,8 @@
 <li>On <code>docker stop</code>, a <code>PID=1</code> container exits cleanly; after the stop timeout, <code>SIGKILL</code> is sent</li>
 <li><a href="#cmd-and-entrypoint-interaction-rules" rel="">CMD and ENTRYPOINT interaction rules</a></li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer ">Docker reference</a></li>
 <li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer ">understand-how-arg-and-from-interact</a></li>
@@ -4857,7 +4989,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="common-signals">Common signals</h2>
+<h2 id="common-signals">
+    <a href="#common-signals" class="header-anchor" aria-label="Link to Common signals"></a>Common signals</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4890,7 +5023,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4924,11 +5058,13 @@
 </div><blockquote>
 <p>For a more convenient wrapper, see <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-testing">kill testing</h2>
+<h2 id="kill-testing">
+    <a href="#kill-testing" class="header-anchor" aria-label="Link to kill testing"></a>kill testing</h2>
 <blockquote>
 <p>Run <code>kill</code> on the host to stop the <code>app</code>. There are two runtime environments: <strong>host</strong> and <strong>docker</strong>.</p>
 </blockquote>
-<h3 id="host">Host</h3>
+<h3 id="host">
+    <a href="#host" class="header-anchor" aria-label="Link to Host"></a>Host</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -4948,7 +5084,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker">docker</h3>
+<h3 id="docker">
+    <a href="#docker" class="header-anchor" aria-label="Link to docker"></a>docker</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -4975,7 +5112,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">
+    <a href="#conclusion" class="header-anchor" aria-label="Link to Conclusion"></a>Conclusion</h2>
 <blockquote>
 <p>From the tests above, the <strong>commonly catchable, no-difference, return-0 signals</strong> are: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -4984,13 +5122,15 @@
 <li>2 <strong>SIGINT</strong> — trigger: <code>CTRL+C</code> or <code>kill -2</code></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="graceful-shutdown">Graceful shutdown</h2>
+<h2 id="graceful-shutdown">
+    <a href="#graceful-shutdown" class="header-anchor" aria-label="Link to Graceful shutdown"></a>Graceful shutdown</h2>
 <ol>
 <li>Send <code>kill</code> with <code>-15/-TERM/-SIGTERM</code></li>
 <li>After the program catches the signal: <strong>remove the node from discovery</strong>, <strong>release resources</strong>, <em>stop the program</em></li>
 <li>After a configured interval, check whether it stopped; if not, fall back to <code>kill -9/-KILL/-SIGKILL</code> per your policy</li>
 </ol>
-<h2 id="k8s-graceful-shutdown">k8s graceful shutdown</h2>
+<h2 id="k8s-graceful-shutdown">
+    <a href="#k8s-graceful-shutdown" class="header-anchor" aria-label="Link to k8s graceful shutdown"></a>k8s graceful shutdown</h2>
 <ol>
 <li><strong>Remove the node</strong></li>
 <li><code>preStop hook</code> <em>optional delay, to drain in-flight traffic</em></li>
@@ -5003,7 +5143,8 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>Current <code>Docker Compose version 2.2.2</code></li>
 </ul>
@@ -5011,7 +5152,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="recommended-mirrors">Recommended mirrors</h2>
+<h2 id="recommended-mirrors">
+    <a href="#recommended-mirrors" class="header-anchor" aria-label="Link to Recommended mirrors"></a>Recommended mirrors</h2>
 <ul>
 <li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
 <li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
@@ -5022,19 +5164,22 @@
 <li><a href="https://mirrors.zju.edu.cn/" target="_blank" rel="noopener noreffer ">ZJU (Zhejiang University) Open Source Mirror</a></li>
 <li><a href="https://mirror.lzu.edu.cn/" target="_blank" rel="noopener noreffer ">LZU (Lanzhou University) Open Source Community Mirror</a></li>
 </ul>
-<h2 id="enterprise-mirrors">Enterprise mirrors</h2>
+<h2 id="enterprise-mirrors">
+    <a href="#enterprise-mirrors" class="header-anchor" aria-label="Link to Enterprise mirrors"></a>Enterprise mirrors</h2>
 <ul>
 <li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
 <li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
 <li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">Alibaba Open Source Mirror</a></li>
 <li><a href="https://mirrors.163.com/" target="_blank" rel="noopener noreffer ">NetEase Open Source Mirror</a></li>
 </ul>
-<h2 id="education-network-mirrors">Education-network mirrors</h2>
+<h2 id="education-network-mirrors">
+    <a href="#education-network-mirrors" class="header-anchor" aria-label="Link to Education-network mirrors"></a>Education-network mirrors</h2>
 <p><a href="https://mirrorz.org/" target="_blank" rel="noopener noreffer ">MirrorZ — one-stop navigation for university open-source mirrors</a></p>]]></description></item><item><title>Handling Absolute Paths Correctly in Makefile and Shell</title><link>https://blog.xwi88.com/en/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/makefile-shell-path-get/</guid><description><![CDATA[<p>Handling absolute paths in <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> and shell (mainly <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>).</p>
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="makefile">Makefile</h2>
+<h2 id="makefile">
+    <a href="#makefile" class="header-anchor" aria-label="Link to Makefile"></a>Makefile</h2>
 <blockquote>
 <p>make version: <code>3.81</code></p>
 </blockquote>
@@ -5059,7 +5204,8 @@
 </span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="linux-shell">Linux Shell</h2>
+</div><h2 id="linux-shell">
+    <a href="#linux-shell" class="header-anchor" aria-label="Link to Linux Shell"></a>Linux Shell</h2>
 <blockquote>
 <p>Bash version: <code>5.1</code></p>
 </blockquote>
@@ -5083,7 +5229,8 @@
 </div>
         </div>
     </div>
-<h2 id="example">Example</h2>
+<h2 id="example">
+    <a href="#example" class="header-anchor" aria-label="Link to Example"></a>Example</h2>
 <p>For working examples of the above, see: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
 <ul>
 <li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>

@@ -5,14 +5,16 @@
 <li><a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">giscus 体验</a></li>
 </ul>
 </blockquote>
-<h2 id="giscus-集成使用">giscus 集成使用</h2>
+<h2 id="giscus-集成使用">
+    <a href="#giscus-%e9%9b%86%e6%88%90%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to giscus 集成使用"></a>giscus 集成使用</h2>
 <blockquote>
 <ul>
 <li><a href="https://giscus.app" target="_blank" rel="noopener noreffer ">giscus</a></li>
 <li><a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus zh-CN</a></li>
 </ul>
 </blockquote>
-<h3 id="介绍">介绍</h3>
+<h3 id="介绍">
+    <a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor" aria-label="Link to 介绍"></a>介绍</h3>
 <p>由 <a href="https://docs.github.com/en/discussions" target="_blank" rel="noopener noreffer ">GitHub Discussions</a> 驱动的评论系统。让访客借助 GitHub 在你的网站上留下评论和反应吧！本项目受 <a href="https://github.com/utterance/utterances" target="_blank" rel="noopener noreffer ">utterances</a> 强烈启发。</p>
 <ul>
 <li><a href="https://github.com/giscus/giscus" target="_blank" rel="noopener noreffer ">开源</a>。🌏</li>
@@ -30,7 +32,8 @@
 <li>giscus 仍处于活跃开发中。GitHub 也还在活跃地开发 <strong>Discussions</strong> 及其 API。因此，一些 giscus 的特性可能随时间损坏或改变。</li>
 </ul>
 </blockquote>
-<h3 id="配置">配置</h3>
+<h3 id="配置">
+    <a href="#%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 配置"></a>配置</h3>
 <blockquote>
 <p>要求</p>
 </blockquote>
@@ -79,7 +82,8 @@
 </div><blockquote>
 <p>你可以在嵌入的页面中使用 <strong>.giscus</strong> 和 <strong>.giscus-frame</strong> 选择器来自定义容器布局</p>
 </blockquote>
-<h4 id="部分参数获取">部分参数获取</h4>
+<h4 id="部分参数获取">
+    <a href="#%e9%83%a8%e5%88%86%e5%8f%82%e6%95%b0%e8%8e%b7%e5%8f%96" class="header-anchor" aria-label="Link to 部分参数获取"></a>部分参数获取</h4>
 <ul>
 <li><strong>repo-id</strong>, <strong>category-id</strong> <a href="https://docs.github.com/en/graphql/overview/explorer" target="_blank" rel="noopener noreffer ">github graphql api</a></li>
 <li><strong>category</strong> 一般为 <strong>Announcements</strong>, 或者根据需要选择其他的，务必保证与 <strong>category-id</strong> 一致！</li>
@@ -90,7 +94,8 @@
 <blockquote>
 <p>经过以上步骤，我们就可以轻松的使用此插件了，但是如果要将其嵌入到当前使用的模板中还需要做一些特殊的处理。</p>
 </blockquote>
-<h3 id="主题修改支持-giscus">主题修改支持 <strong>giscus</strong></h3>
+<h3 id="主题修改支持-giscus">
+    <a href="#%e4%b8%bb%e9%a2%98%e4%bf%ae%e6%94%b9%e6%94%af%e6%8c%81-giscus" class="header-anchor" aria-label="Link to 主题修改支持 giscus"></a>主题修改支持 <strong>giscus</strong></h3>
 <p>可以通过两种方式进行改造支持:</p>
 <ul>
 <li><strong>theme.js</strong> <em>JS 方式</em> <strong>需要重新编译 theme.js</strong> <em>具体参考项目文件</em> <code>Makefile</code> <code>make debug</code></li>
@@ -104,7 +109,8 @@
 <blockquote>
 <p>giscus iframe 主题配置异步修改: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer ">isetconfigmessage</a></p>
 </blockquote>
-<h3 id="效果查看">效果查看</h3>
+<h3 id="效果查看">
+    <a href="#%e6%95%88%e6%9e%9c%e6%9f%a5%e7%9c%8b" class="header-anchor" aria-label="Link to 效果查看"></a>效果查看</h3>
 <ul>
 <li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xwi88.com</a></li>
 </ul>

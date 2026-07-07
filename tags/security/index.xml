@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h2 id="概念">
+    <a href="#%e6%a6%82%e5%bf%b5" class="header-anchor" aria-label="Link to 概念"></a>概念</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -23,7 +24,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>服务器登录动态密码验证（云服务器登录, 企业管理平台登录等）</li>
 <li>github, twitter, google 登录双因素认证</li>
@@ -32,7 +34,8 @@
 <li>网银、网络游戏的实体动态口令牌</li>
 <li>双因素认证<code>2FA</code>，多因素认证<code>MFA</code>等</li>
 </ul>
-<h2 id="产品">产品</h2>
+<h2 id="产品">
+    <a href="#%e4%ba%a7%e5%93%81" class="header-anchor" aria-label="Link to 产品"></a>产品</h2>
 <ul>
 <li>Microsoft 身份认证器: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -44,7 +47,8 @@
 <li>银行网盾令牌: 仅限绑定账户卡</li>
 <li>支持OTP的游戏厂商的安全防护应用: 仅限指定厂商产品</li>
 </ul>
-<h2 id="原理">原理</h2>
+<h2 id="原理">
+    <a href="#%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 原理"></a>原理</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: 秘钥串</li>
@@ -61,12 +65,14 @@
 <li>按照下标偏移量开始，获取4个字节，按照大端方式组成一个整数</li>
 <li>截取这个整数的后6位或者8位转成字符串返回。</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li>
 <p><code>C</code>: 随机数，基于时间戳生成</p>
@@ -88,12 +94,14 @@
 <p>一般散列函数使用<code>SHA2</code>, 即：基于<code>SHA-256</code> or <code>SHA-512</code> [SHA2] 的散列函数做事件同步验证</p>
 </li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h2 id="实现参考">实现参考</h2>
+<h2 id="实现参考">
+    <a href="#%e5%ae%9e%e7%8e%b0%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 实现参考"></a>实现参考</h2>
 <table>
 <thead>
 <tr>
@@ -154,7 +162,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="使用">使用</h2>
+<h2 id="使用">
+    <a href="#%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 使用"></a>使用</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>

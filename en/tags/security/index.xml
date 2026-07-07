@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="concepts">Concepts</h2>
+<h2 id="concepts">
+    <a href="#concepts" class="header-anchor" aria-label="Link to Concepts"></a>Concepts</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -23,7 +24,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Server login dynamic-password verification (cloud servers, enterprise platforms, etc.)</li>
 <li>github, twitter, google login two-factor authentication</li>
@@ -32,7 +34,8 @@
 <li>Hardware tokens for online banking and online games</li>
 <li>2FA / MFA and the like</li>
 </ul>
-<h2 id="products">Products</h2>
+<h2 id="products">
+    <a href="#products" class="header-anchor" aria-label="Link to Products"></a>Products</h2>
 <ul>
 <li>Microsoft Authenticator: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -44,7 +47,8 @@
 <li>Bank token: bound to a specific account/card only</li>
 <li>Vendor-specific OTP security apps: limited to that vendor&rsquo;s products</li>
 </ul>
-<h2 id="principle">Principle</h2>
+<h2 id="principle">
+    <a href="#principle" class="header-anchor" aria-label="Link to Principle"></a>Principle</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: secret key string</li>
@@ -61,12 +65,14 @@
 <li>Starting at that offset, take 4 bytes and combine them into an integer (big-endian)</li>
 <li>Take the last 6 or 8 digits of that integer and return them as a string</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li><code>C</code>: a random value derived from a timestamp
 <ul>
@@ -83,12 +89,14 @@
 <li>Other parameters as defined above</li>
 <li>The hash function is usually <code>SHA2</code>, i.e. event-synchronous verification based on a <code>SHA-256</code> or <code>SHA-512</code> hash</li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: a number representing a random value</li>
 <li>Other parameters as defined above</li>
 </ul>
-<h2 id="implementations">Implementations</h2>
+<h2 id="implementations">
+    <a href="#implementations" class="header-anchor" aria-label="Link to Implementations"></a>Implementations</h2>
 <table>
 <thead>
 <tr>
@@ -149,7 +157,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="usage">Usage</h2>
+<h2 id="usage">
+    <a href="#usage" class="header-anchor" aria-label="Link to Usage"></a>Usage</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>

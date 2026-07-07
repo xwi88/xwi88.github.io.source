@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="概念">概念</h2>
+<h2 id="概念">
+    <a href="#%e6%a6%82%e5%bf%b5" class="header-anchor" aria-label="Link to 概念"></a>概念</h2>
 <ul>
 <li>OTP: One-Time Password.
 <ul>
@@ -23,7 +24,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>服务器登录动态密码验证（云服务器登录, 企业管理平台登录等）</li>
 <li>github, twitter, google 登录双因素认证</li>
@@ -32,7 +34,8 @@
 <li>网银、网络游戏的实体动态口令牌</li>
 <li>双因素认证<code>2FA</code>，多因素认证<code>MFA</code>等</li>
 </ul>
-<h2 id="产品">产品</h2>
+<h2 id="产品">
+    <a href="#%e4%ba%a7%e5%93%81" class="header-anchor" aria-label="Link to 产品"></a>产品</h2>
 <ul>
 <li>Microsoft 身份认证器: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
 <ul>
@@ -44,7 +47,8 @@
 <li>银行网盾令牌: 仅限绑定账户卡</li>
 <li>支持OTP的游戏厂商的安全防护应用: 仅限指定厂商产品</li>
 </ul>
-<h2 id="原理">原理</h2>
+<h2 id="原理">
+    <a href="#%e5%8e%9f%e7%90%86" class="header-anchor" aria-label="Link to 原理"></a>原理</h2>
 <p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
 <ul>
 <li><code>K</code>: 秘钥串</li>
@@ -61,12 +65,14 @@
 <li>按照下标偏移量开始，获取4个字节，按照大端方式组成一个整数</li>
 <li>截取这个整数的后6位或者8位转成字符串返回。</li>
 </ul>
-<h3 id="otp">OTP</h3>
+<h3 id="otp">
+    <a href="#otp" class="header-anchor" aria-label="Link to OTP"></a>OTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h3 id="totp">TOTP</h3>
+<h3 id="totp">
+    <a href="#totp" class="header-anchor" aria-label="Link to TOTP"></a>TOTP</h3>
 <ul>
 <li>
 <p><code>C</code>: 随机数，基于时间戳生成</p>
@@ -88,12 +94,14 @@
 <p>一般散列函数使用<code>SHA2</code>, 即：基于<code>SHA-256</code> or <code>SHA-512</code> [SHA2] 的散列函数做事件同步验证</p>
 </li>
 </ul>
-<h3 id="hotp">HOTP</h3>
+<h3 id="hotp">
+    <a href="#hotp" class="header-anchor" aria-label="Link to HOTP"></a>HOTP</h3>
 <ul>
 <li><code>C</code>: 数字，表示随机数</li>
 <li>其他参数与定义相同</li>
 </ul>
-<h2 id="实现参考">实现参考</h2>
+<h2 id="实现参考">
+    <a href="#%e5%ae%9e%e7%8e%b0%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 实现参考"></a>实现参考</h2>
 <table>
 <thead>
 <tr>
@@ -154,7 +162,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="使用">使用</h2>
+<h2 id="使用">
+    <a href="#%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 使用"></a>使用</h2>
 <blockquote>
 <p><code>go get -u github.com/v8fg/kit4go</code></p>
 </blockquote>
@@ -215,14 +224,16 @@
 </div><blockquote>
 <p>更多示例可以查看源码 <code>otp/*_test.go</code> 文件</p>
 </blockquote>]]></description></item><item><title>Go 对象池使用及优化-理论篇</title><link>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go 对象池用于<code>临时对象</code>重用，可以<code>减少对象频繁创建</code>造成的资源浪费，即<code>减少GC开销</code>及内存占用等，在一定程度上提升程序性能，降低服务成本。本文基于 <code>go1.18.2</code> ，给出对象池使用场景、<strong>处理流程及注意事项</strong>、开源示例、个人实例(包括<code>GRPC</code> 下对象池的使用)及最佳实践。</p>
-<h2 id="场景">场景</h2>
+<h2 id="场景">
+    <a href="#%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 场景"></a>场景</h2>
 <p><strong>需要频繁创建<code>同一类</code>对象，且创建成本较高时</strong></p>
 <ul>
 <li>单个对象内存占用超过一定阈值，优势越明显</li>
 <li>占用内存越大，优势越明显</li>
 <li>并发量越大，优势越明显</li>
 </ul>
-<h2 id="处理流程及注意事项"><strong>处理流程及注意事项</strong></h2>
+<h2 id="处理流程及注意事项">
+    <a href="#%e5%a4%84%e7%90%86%e6%b5%81%e7%a8%8b%e5%8f%8a%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to 处理流程及注意事项"></a><strong>处理流程及注意事项</strong></h2>
 <blockquote>
 <p>创建的临时对象放回池中后需尽可能的满足：<code>无状态</code>，<code>无引用</code></p>
 </blockquote>
@@ -253,7 +264,8 @@
 </div>
         </div>
     </div>
-<h2 id="对象池数据结构">对象池数据结构</h2>
+<h2 id="对象池数据结构">
+    <a href="#%e5%af%b9%e8%b1%a1%e6%b1%a0%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="header-anchor" aria-label="Link to 对象池数据结构"></a>对象池数据结构</h2>
 <ul>
 <li><code>sync.pool</code>: 适用于大多数场景，易用高效
 <ul>
@@ -312,8 +324,10 @@
 </div>
         </div>
     </div>
-<h2 id="源码示例">源码示例</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="源码示例">
+    <a href="#%e6%ba%90%e7%a0%81%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 源码示例"></a>源码示例</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -387,7 +401,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -439,7 +454,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -471,7 +487,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -641,7 +658,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -691,7 +709,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>
@@ -797,7 +816,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="consumer-group">Consumer Group</h2>
+<h2 id="consumer-group">
+    <a href="#consumer-group" class="header-anchor" aria-label="Link to Consumer Group"></a>Consumer Group</h2>
 <p><code>consumer group</code> 是 <code>kafka</code> 提供的可扩展且具有容错性的消费者机制。具有一些特性:</p>
 <ul>
 <li><code>consumer group</code> 由<strong>一个或多个</strong> <code>consumer</code> 组成，它们共同消费<strong>一个或多个</strong> <code>topic</code> 中的消息</li>
@@ -817,7 +837,8 @@
 </div>
         </div>
     </div>
-<h2 id="rebalance">Rebalance</h2>
+<h2 id="rebalance">
+    <a href="#rebalance" class="header-anchor" aria-label="Link to Rebalance"></a>Rebalance</h2>
 <p>分区的重平衡 (<code>Rebalance</code>) 是 <code>Kafka</code> 一个很重要特性，它可以保证系统的高可用和系统的水平扩展。以下几种情况会触发 <code>Kafka</code> 发生重平衡。</p>
 <ul>
 <li>消费者组成员变化:
@@ -842,8 +863,10 @@
 </div>
         </div>
     </div>
-<h2 id="go-consumer-group">GO Consumer Group</h2>
-<h3 id="consumergroup-接口及说明">ConsumerGroup 接口及说明</h3>
+<h2 id="go-consumer-group">
+    <a href="#go-consumer-group" class="header-anchor" aria-label="Link to GO Consumer Group"></a>GO Consumer Group</h2>
+<h3 id="consumergroup-接口及说明">
+    <a href="#consumergroup-%e6%8e%a5%e5%8f%a3%e5%8f%8a%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to ConsumerGroup 接口及说明"></a>ConsumerGroup 接口及说明</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -932,7 +955,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+</div><h3 id="consumergroup-demo">
+    <a href="#consumergroup-demo" class="header-anchor" aria-label="Link to ConsumerGroup Demo"></a>ConsumerGroup Demo</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1139,7 +1163,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="部分配置参数说明">部分配置参数说明</h2>
+</div><h2 id="部分配置参数说明">
+    <a href="#%e9%83%a8%e5%88%86%e9%85%8d%e7%bd%ae%e5%8f%82%e6%95%b0%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 部分配置参数说明"></a>部分配置参数说明</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
 <li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
@@ -1149,7 +1174,8 @@
 <li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
 <li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
 </ul>
-<h2 id="参数配置建议">参数配置建议</h2>
+<h2 id="参数配置建议">
+    <a href="#%e5%8f%82%e6%95%b0%e9%85%8d%e7%bd%ae%e5%bb%ba%e8%ae%ae" class="header-anchor" aria-label="Link to 参数配置建议"></a>参数配置建议</h2>
 <ul>
 <li><code>Net.ReadTimeout</code>: 默认值 <code>30s</code>，如果消费者常出现 <code>read tcp xxx i/o timeout</code> 可考虑增大此值
 <ul>
@@ -1182,12 +1208,14 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="为什么使用">为什么使用</h2>
+<h2 id="为什么使用">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 为什么使用"></a>为什么使用</h2>
 <ul>
 <li>了解应用程序的哪些部分消耗资源最多</li>
 <li>持续性分析增加了一个时间维度，允许您随着时间的推移了解系统资源使用情况(如 CPU、内存等) ，并使你能够定位、调试和修复与性能相关的问题。</li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>查找代码中的性能问题</li>
 <li>解决高 CPU 利用率的问题</li>
@@ -1195,14 +1223,16 @@
 <li>理解应用程序的调用树</li>
 <li>跟踪指标随时间的变化</li>
 </ul>
-<h2 id="负载消耗">负载消耗</h2>
+<h2 id="负载消耗">
+    <a href="#%e8%b4%9f%e8%bd%bd%e6%b6%88%e8%80%97" class="header-anchor" aria-label="Link to 负载消耗"></a>负载消耗</h2>
 <p>通过使用采样分析，<strong>Pyroscope</strong> 能够以最小的开销(约为 <code>2-5%</code>)收集数据。 特别构建的<em>存储引擎</em>能<em>高效地压缩和存储数据</em>。</p>
 <ul>
 <li>由于采样分析技术，CPU 开销较低</li>
 <li>控制分析数据粒度(<code>10s</code> 至多年)</li>
 <li>高效的压缩，低的磁盘空间需求和成本</li>
 </ul>
-<h2 id="工作模式">工作模式</h2>
+<h2 id="工作模式">
+    <a href="#%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f" class="header-anchor" aria-label="Link to 工作模式"></a>工作模式</h2>
 <blockquote>
 <p>类似于常见的数据采集处理工具，<code>Agent-Server</code> 模式。</p>
 </blockquote>
@@ -1212,8 +1242,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-安装">Server 安装</h2>
-<h3 id="安装部署方式">安装部署方式</h3>
+<h2 id="server-安装">
+    <a href="#server-%e5%ae%89%e8%a3%85" class="header-anchor" aria-label="Link to Server 安装"></a>Server 安装</h2>
+<h3 id="安装部署方式">
+    <a href="#%e5%ae%89%e8%a3%85%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 安装部署方式"></a>安装部署方式</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -1225,7 +1257,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos-与-linux-安装示例">MacOS 与 Linux 安装示例</h3>
+<h3 id="macos-与-linux-安装示例">
+    <a href="#macos-%e4%b8%8e-linux-%e5%ae%89%e8%a3%85%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to MacOS 与 Linux 安装示例"></a>MacOS 与 Linux 安装示例</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -1277,7 +1310,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="配置">配置</h3>
+<h3 id="配置">
+    <a href="#%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 配置"></a>配置</h3>
 <p>支持多种<a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">配置</a>，优先级如下：</p>
 <ol>
 <li><strong>命令行参数</strong></li>
@@ -1482,15 +1516,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="启动">启动</h3>
+<h3 id="启动">
+    <a href="#%e5%90%af%e5%8a%a8" class="header-anchor" aria-label="Link to 启动"></a>启动</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="go-agent-使用">Go Agent 使用</h2>
+<h2 id="go-agent-使用">
+    <a href="#go-agent-%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to Go Agent 使用"></a>Go Agent 使用</h2>
 <blockquote>
 <p>采用 <code>Push 模式</code>，简单高效。</p>
 </blockquote>
-<h3 id="依赖导入">依赖导入</h3>
+<h3 id="依赖导入">
+    <a href="#%e4%be%9d%e8%b5%96%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 依赖导入"></a>依赖导入</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-示例">Agent Push 示例</h3>
+<h3 id="agent-push-示例">
+    <a href="#agent-push-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to Agent Push 示例"></a>Agent Push 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1557,7 +1595,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="认证登录">认证登录</h2>
+</div><h2 id="认证登录">
+    <a href="#%e8%ae%a4%e8%af%81%e7%99%bb%e5%bd%95" class="header-anchor" aria-label="Link to 认证登录"></a>认证登录</h2>
 <blockquote>
 <p>默认用户及密码为: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -1566,7 +1605,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">内部身份验证</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="数据查询导出">数据查询导出</h2>
+<h2 id="数据查询导出">
+    <a href="#%e6%95%b0%e6%8d%ae%e6%9f%a5%e8%af%a2%e5%af%bc%e5%87%ba" class="header-anchor" aria-label="Link to 数据查询导出"></a>数据查询导出</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">配置</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -1582,7 +1622,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
@@ -1590,7 +1631,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="常用信号">常用信号</h2>
+<h2 id="常用信号">
+    <a href="#%e5%b8%b8%e7%94%a8%e4%bf%a1%e5%8f%b7" class="header-anchor" aria-label="Link to 常用信号"></a>常用信号</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1623,7 +1665,8 @@
 </span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="go-code">Go Code</h2>
+</div><h2 id="go-code">
+    <a href="#go-code" class="header-anchor" aria-label="Link to Go Code"></a>Go Code</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1657,11 +1700,13 @@
 </div><blockquote>
 <p>需要更便捷处理可以引入: <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
 </blockquote>
-<h2 id="kill-测试">kill 测试</h2>
+<h2 id="kill-测试">
+    <a href="#kill-%e6%b5%8b%e8%af%95" class="header-anchor" aria-label="Link to kill 测试"></a>kill 测试</h2>
 <blockquote>
 <p><em>宿主机上执行</em> <code>kill</code> 程序停止 <code>app</code> 运行，按照 <code>app</code> 运行环境分为：<strong>宿主环境</strong>，<strong>docker 环境</strong></p>
 </blockquote>
-<h3 id="宿主环境">宿主环境</h3>
+<h3 id="宿主环境">
+    <a href="#%e5%ae%bf%e4%b8%bb%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to 宿主环境"></a>宿主环境</h3>
 <p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -1681,7 +1726,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="docker-环境">docker 环境</h3>
+<h3 id="docker-环境">
+    <a href="#docker-%e7%8e%af%e5%a2%83" class="header-anchor" aria-label="Link to docker 环境"></a>docker 环境</h3>
 <blockquote>
 <p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
 </blockquote>
@@ -1708,7 +1754,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="结论">结论</h2>
+<h2 id="结论">
+    <a href="#%e7%bb%93%e8%ae%ba" class="header-anchor" aria-label="Link to 结论"></a>结论</h2>
 <blockquote>
 <p>经过以上测试，<strong>常用可正常捕获无差异性且返回 0 的 signal</strong>: <code>1, 2, 3, 6, 14, 15</code></p>
 </blockquote>
@@ -1717,13 +1764,15 @@
 <li>2 <strong>SIGINT</strong>  <strong>触发: <code>CTRL+C</code> 或 <code>kill -2</code></strong></li>
 <li>15 <strong>SIGTERM</strong></li>
 </ul>
-<h2 id="优雅停止服务">优雅停止服务</h2>
+<h2 id="优雅停止服务">
+    <a href="#%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to 优雅停止服务"></a>优雅停止服务</h2>
 <ol>
 <li>执行 kill 发送信号 <code>-15/-TERM/-SIGTERM</code></li>
 <li>程序捕获信号后<strong>节点摘除</strong>, <strong>释放资源</strong>，<em>停止程序</em></li>
 <li>间隔指定时间后，检测是否停止成功，未成功可根据设定策略执行 <code>kill -9/-KILL/-SIGKILL</code></li>
 </ol>
-<h2 id="k8s-优雅停止服务">k8s 优雅停止服务</h2>
+<h2 id="k8s-优雅停止服务">
+    <a href="#k8s-%e4%bc%98%e9%9b%85%e5%81%9c%e6%ad%a2%e6%9c%8d%e5%8a%a1" class="header-anchor" aria-label="Link to k8s 优雅停止服务"></a>k8s 优雅停止服务</h2>
 <ol>
 <li><strong>节点摘除</strong></li>
 <li><code>preStop hook</code> <em>可设置延迟时间，用于处理进入流量</em></li>
@@ -1736,13 +1785,16 @@
 </ul>
 </li>
 </ol>
-<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<h2 id="docker-compose-kill-issue">
+    <a href="#docker-compose-kill-issue" class="header-anchor" aria-label="Link to Docker-compose kill issue"></a>Docker-compose kill issue</h2>
 <ul>
 <li>当前 <code>Docker Compose version 2.2.2</code></li>
 </ul>
 <p><code>docker-compose</code> 启动 <code>CTRL+C</code> 退出失败，强制退出: <code>CTRL+\</code></p>]]></description></item><item><title>Go 版本管理工具 gvm</title><link>https://blog.xwi88.com/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> 是一个 <strong>Linux</strong>， <strong>MacOS</strong>， <strong>Windows</strong> 下的命令行工具，类似于 <strong>nvm</strong>，<em>anaconda</em> 可以为你提供一个便捷的多版本 <strong>go</strong> 环境的管理和切换，强烈推荐使用。</p>
-<h2 id="安装">安装</h2>
-<h3 id="mac-os-x-requirements">Mac OS X Requirements</h3>
+<h2 id="安装">
+    <a href="#%e5%ae%89%e8%a3%85" class="header-anchor" aria-label="Link to 安装"></a>安装</h2>
+<h3 id="mac-os-x-requirements">
+    <a href="#mac-os-x-requirements" class="header-anchor" aria-label="Link to Mac OS X Requirements"></a>Mac OS X Requirements</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1757,7 +1809,8 @@
 </span></span><span class="line"><span class="cl">brew install mercurial
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="安装-gvm">安装 gvm</h3>
+</div><h3 id="安装-gvm">
+    <a href="#%e5%ae%89%e8%a3%85-gvm" class="header-anchor" aria-label="Link to 安装 gvm"></a>安装 gvm</h3>
 <blockquote>
 <p><a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener noreffer ">gvm</a></p>
 </blockquote>
@@ -1797,7 +1850,8 @@
 </div><blockquote>
 <p>如果想同时支持多个 <code>shell</code> 环境，可手动复制上述内容到<em>相应</em> <strong>shell</strong> 配置文件!</p>
 </blockquote>
-<h3 id="go-环境配置">Go 环境配置</h3>
+<h3 id="go-环境配置">
+    <a href="#go-%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to Go 环境配置"></a>Go 环境配置</h3>
 <p>通过 <code>gvm use &lt;version&gt;</code> 切换 <code>go version</code>, 会改变部分环境变量，如:</p>
 <ul>
 <li><code>GOMODCACHE=&quot;$HOME/.gvm/pkgsets/go1.17.7/global/pkg/mod&quot;</code></li>
@@ -1833,7 +1887,8 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,https://goproxy.io/,https://mirrors.aliyun.com/goproxy/,https://gocenter.io/,https://proxy.golang.org,direct
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gvm-用法"><strong>gvm</strong> 用法</h2>
+</div><h2 id="gvm-用法">
+    <a href="#gvm-%e7%94%a8%e6%b3%95" class="header-anchor" aria-label="Link to gvm 用法"></a><strong>gvm</strong> 用法</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1882,7 +1937,8 @@
 </span></span><span class="line"><span class="cl">  pkgenv     - edit the environment <span class="k">for</span> a package <span class="nb">set</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gvm-install"><strong>gvm install</strong></h3>
+</div><h3 id="gvm-install">
+    <a href="#gvm-install" class="header-anchor" aria-label="Link to gvm install"></a><strong>gvm install</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1905,7 +1961,8 @@
 </span></span><span class="line"><span class="cl">    -h,  --help               Display this message.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="简单使用">简单使用</h3>
+</div><h3 id="简单使用">
+    <a href="#%e7%ae%80%e5%8d%95%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 简单使用"></a>简单使用</h3>
 <blockquote>
 <p><code>gvm use</code> <em>- select a go version to use (&ndash;default to set permanently)</em></p>
 </blockquote>
@@ -1918,7 +1975,8 @@
 <li><em>gvm install go1.17.7 -s=https://godoc.org/golang.org/dl/go1.17.7</em></li>
 <li><em>gvm implode</em> <strong>卸载 gvm</strong></li>
 </ul>
-<h2 id="示例">示例</h2>
+<h2 id="示例">
+    <a href="#%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 示例"></a>示例</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

@@ -3,8 +3,10 @@
 <blockquote>
 <p>Using the <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> project as an example: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
 </blockquote>
-<h2 id="solutions">Solutions</h2>
-<h3 id="github-mirror-repositories">GitHub mirror repositories</h3>
+<h2 id="solutions">
+    <a href="#solutions" class="header-anchor" aria-label="Link to Solutions"></a>Solutions</h2>
+<h3 id="github-mirror-repositories">
+    <a href="#github-mirror-repositories" class="header-anchor" aria-label="Link to GitHub mirror repositories"></a>GitHub mirror repositories</h3>
 <ul>
 <li><strong>Search the web for a mirror URL, swap it in, then download</strong>
 <ul>
@@ -16,24 +18,28 @@
 <li><em>Clone through another Git hosting mirror</em></li>
 <li><em>Download the ZIP directly in the browser</em></li>
 </ul>
-<h3 id="proxy-acceleration">Proxy acceleration</h3>
+<h3 id="proxy-acceleration">
+    <a href="#proxy-acceleration" class="header-anchor" aria-label="Link to Proxy acceleration"></a>Proxy acceleration</h3>
 <ul>
 <li><strong>proxy</strong> <em>not really recommended</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>recommended</strong>)</li>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>recommended ☆☆☆☆☆☆</strong>)</li>
 </ul>
-<h4 id="fastgithub">FastGithub</h4>
+<h4 id="fastgithub">
+    <a href="#fastgithub" class="header-anchor" aria-label="Link to FastGithub"></a>FastGithub</h4>
 <blockquote>
 <p>A miracle tool for GitHub acceleration: fixes GitHub failing to open, avatars not loading, releases failing to upload/download, and git-clone / git-pull / git-push errors.</p>
 </blockquote>
-<h5 id="features">Features</h5>
+<h5 id="features">
+    <a href="#features" class="header-anchor" aria-label="Link to Features"></a>Features</h5>
 <ul>
 <li>Clean IP resolution for the relevant domains</li>
 <li>IP speed testing, automatically picking the fastest IP</li>
 <li>Custom TLS connection configuration per domain</li>
 <li>Replaces Google CDN resources, fixing the failure to load JS and CSS on many overseas sites</li>
 </ul>
-<h5 id="install--configure">Install &amp; configure</h5>
+<h5 id="install--configure">
+    <a href="#install--configure" class="header-anchor" aria-label="Link to Install &amp; configure"></a>Install &amp; configure</h5>
 <blockquote>
 <ul>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
@@ -82,13 +88,15 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># disable git&#39;s certificate verification: git config --global http.sslverify false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="security--legality-note">Security &amp; legality note</h5>
+</div><h5 id="security--legality-note">
+    <a href="#security--legality-note" class="header-anchor" aria-label="Link to Security &amp; legality note"></a>Security &amp; legality note</h5>
 <blockquote>
 <p>Excerpted from <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub generates a self-signed CA certificate for each host, stored under the cacert folder. Client devices must install and unconditionally trust this self-signed CA certificate. Do not leak the certificate&rsquo;s private key to anyone, to avoid losses.</em></p>
 <p><em>&ldquo;FastGithub&rsquo;s local proxy only uses the international exit channels provided by the public telecom network. The traffic between overseas GitHub servers and the FastGithub program on a domestic user&rsquo;s machine flows over normal channels, with no extra encryption applied beyond the page&rsquo;s own TLS (unlike the encrypted traffic of a proxy). The entire proxy process after FastGithub retrieves the page data takes place domestically, so the regulations on international internetworking do not apply.&rdquo;</em></p>
-<h3 id="hosts-tweak">Hosts tweak</h3>
+<h3 id="hosts-tweak">
+    <a href="#hosts-tweak" class="header-anchor" aria-label="Link to Hosts tweak"></a>Hosts tweak</h3>
 <blockquote>
 <p>The idea is to use <code>nslookup</code> or <code>dig</code> to find a reachable IP for the domain, then add an <code>ip -&gt; domain</code> mapping to your hosts file and flush the DNS cache.</p>
 </blockquote>

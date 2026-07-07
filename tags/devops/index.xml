@@ -3,8 +3,10 @@
 <blockquote>
 <p>以项目 <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> clone 为例: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
 </blockquote>
-<h2 id="解决方案">解决方案</h2>
-<h3 id="github-镜像仓库">Github 镜像仓库</h3>
+<h2 id="解决方案">
+    <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="header-anchor" aria-label="Link to 解决方案"></a>解决方案</h2>
+<h3 id="github-镜像仓库">
+    <a href="#github-%e9%95%9c%e5%83%8f%e4%bb%93%e5%ba%93" class="header-anchor" aria-label="Link to Github 镜像仓库"></a>Github 镜像仓库</h3>
 <ul>
 <li><strong>浏览器搜索获取镜像地址替换后下载</strong>
 <ul>
@@ -16,24 +18,28 @@
 <li><em>通过其他 git 存储库进行镜像 clone</em></li>
 <li><em>浏览器直接下载 zip</em></li>
 </ul>
-<h3 id="代理加速">代理加速</h3>
+<h3 id="代理加速">
+    <a href="#%e4%bb%a3%e7%90%86%e5%8a%a0%e9%80%9f" class="header-anchor" aria-label="Link to 代理加速"></a>代理加速</h3>
 <ul>
 <li><strong>proxy</strong> <em>不太推荐</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>推荐方案</strong>)</li>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
 </ul>
-<h4 id="fastgithub">FastGithub</h4>
+<h4 id="fastgithub">
+    <a href="#fastgithub" class="header-anchor" aria-label="Link to FastGithub"></a>FastGithub</h4>
 <blockquote>
 <p>github 加速神器: 解决 github 打不开,用户头像无法加载,releases 无法上传下载, git-clone, git-pull, git-push 失败等问题。</p>
 </blockquote>
-<h5 id="功能">功能</h5>
+<h5 id="功能">
+    <a href="#%e5%8a%9f%e8%83%bd" class="header-anchor" aria-label="Link to 功能"></a>功能</h5>
 <ul>
 <li>提供域名的纯净 IP 解析；</li>
 <li>提供 IP 测速并选择最快的 IP；</li>
 <li>提供域名的 tls 连接自定义配置；</li>
 <li>google 的 CDN 资源替换，解决大量国外网站无法加载 js 和 cs s的问题；</li>
 </ul>
-<h5 id="安装配置">安装配置</h5>
+<h5 id="安装配置">
+    <a href="#%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 安装配置"></a>安装配置</h5>
 <blockquote>
 <ul>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
@@ -82,13 +88,15 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 需要关闭 git 的证书验证：git config --global http.sslverify false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="安全性及合法性说明">安全性及合法性说明</h5>
+</div><h5 id="安全性及合法性说明">
+    <a href="#%e5%ae%89%e5%85%a8%e6%80%a7%e5%8f%8a%e5%90%88%e6%b3%95%e6%80%a7%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 安全性及合法性说明"></a>安全性及合法性说明</h5>
 <blockquote>
 <p>以下内容摘录自 <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
 <p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
-<h3 id="hosts-修改">Hosts 修改</h3>
+<h3 id="hosts-修改">
+    <a href="#hosts-%e4%bf%ae%e6%94%b9" class="header-anchor" aria-label="Link to Hosts 修改"></a>Hosts 修改</h3>
 <blockquote>
 <p>主要是借助 <code>nslookup</code> or <code>dig</code> 获取域名对应的可访问 ip, 然后在 hosts 文件中加上 <code>ip–&gt;domain</code> 的映射，刷新 DNS 缓存便可。</p>
 </blockquote>

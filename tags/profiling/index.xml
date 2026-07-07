@@ -2,12 +2,14 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="为什么使用">为什么使用</h2>
+<h2 id="为什么使用">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to 为什么使用"></a>为什么使用</h2>
 <ul>
 <li>了解应用程序的哪些部分消耗资源最多</li>
 <li>持续性分析增加了一个时间维度，允许您随着时间的推移了解系统资源使用情况(如 CPU、内存等) ，并使你能够定位、调试和修复与性能相关的问题。</li>
 </ul>
-<h2 id="使用场景">使用场景</h2>
+<h2 id="使用场景">
+    <a href="#%e4%bd%bf%e7%94%a8%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 使用场景"></a>使用场景</h2>
 <ul>
 <li>查找代码中的性能问题</li>
 <li>解决高 CPU 利用率的问题</li>
@@ -15,14 +17,16 @@
 <li>理解应用程序的调用树</li>
 <li>跟踪指标随时间的变化</li>
 </ul>
-<h2 id="负载消耗">负载消耗</h2>
+<h2 id="负载消耗">
+    <a href="#%e8%b4%9f%e8%bd%bd%e6%b6%88%e8%80%97" class="header-anchor" aria-label="Link to 负载消耗"></a>负载消耗</h2>
 <p>通过使用采样分析，<strong>Pyroscope</strong> 能够以最小的开销(约为 <code>2-5%</code>)收集数据。 特别构建的<em>存储引擎</em>能<em>高效地压缩和存储数据</em>。</p>
 <ul>
 <li>由于采样分析技术，CPU 开销较低</li>
 <li>控制分析数据粒度(<code>10s</code> 至多年)</li>
 <li>高效的压缩，低的磁盘空间需求和成本</li>
 </ul>
-<h2 id="工作模式">工作模式</h2>
+<h2 id="工作模式">
+    <a href="#%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f" class="header-anchor" aria-label="Link to 工作模式"></a>工作模式</h2>
 <blockquote>
 <p>类似于常见的数据采集处理工具，<code>Agent-Server</code> 模式。</p>
 </blockquote>
@@ -32,8 +36,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-安装">Server 安装</h2>
-<h3 id="安装部署方式">安装部署方式</h3>
+<h2 id="server-安装">
+    <a href="#server-%e5%ae%89%e8%a3%85" class="header-anchor" aria-label="Link to Server 安装"></a>Server 安装</h2>
+<h3 id="安装部署方式">
+    <a href="#%e5%ae%89%e8%a3%85%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" class="header-anchor" aria-label="Link to 安装部署方式"></a>安装部署方式</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -45,7 +51,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos-与-linux-安装示例">MacOS 与 Linux 安装示例</h3>
+<h3 id="macos-与-linux-安装示例">
+    <a href="#macos-%e4%b8%8e-linux-%e5%ae%89%e8%a3%85%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to MacOS 与 Linux 安装示例"></a>MacOS 与 Linux 安装示例</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -97,7 +104,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="配置">配置</h3>
+<h3 id="配置">
+    <a href="#%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 配置"></a>配置</h3>
 <p>支持多种<a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">配置</a>，优先级如下：</p>
 <ol>
 <li><strong>命令行参数</strong></li>
@@ -302,15 +310,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="启动">启动</h3>
+<h3 id="启动">
+    <a href="#%e5%90%af%e5%8a%a8" class="header-anchor" aria-label="Link to 启动"></a>启动</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="go-agent-使用">Go Agent 使用</h2>
+<h2 id="go-agent-使用">
+    <a href="#go-agent-%e4%bd%bf%e7%94%a8" class="header-anchor" aria-label="Link to Go Agent 使用"></a>Go Agent 使用</h2>
 <blockquote>
 <p>采用 <code>Push 模式</code>，简单高效。</p>
 </blockquote>
-<h3 id="依赖导入">依赖导入</h3>
+<h3 id="依赖导入">
+    <a href="#%e4%be%9d%e8%b5%96%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 依赖导入"></a>依赖导入</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-示例">Agent Push 示例</h3>
+<h3 id="agent-push-示例">
+    <a href="#agent-push-%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to Agent Push 示例"></a>Agent Push 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -377,7 +389,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="认证登录">认证登录</h2>
+</div><h2 id="认证登录">
+    <a href="#%e8%ae%a4%e8%af%81%e7%99%bb%e5%bd%95" class="header-anchor" aria-label="Link to 认证登录"></a>认证登录</h2>
 <blockquote>
 <p>默认用户及密码为: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -386,7 +399,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">内部身份验证</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="数据查询导出">数据查询导出</h2>
+<h2 id="数据查询导出">
+    <a href="#%e6%95%b0%e6%8d%ae%e6%9f%a5%e8%af%a2%e5%af%bc%e5%87%ba" class="header-anchor" aria-label="Link to 数据查询导出"></a>数据查询导出</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">配置</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -402,7 +416,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>

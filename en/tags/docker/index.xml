@@ -6,8 +6,10 @@
 <li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
 <li>Compose version: <code>Docker Compose version 2.2.2</code></li>
 </ul>
-<h2 id="docker-reference-resources">Docker reference resources</h2>
-<h3 id="file-formats">File formats</h3>
+<h2 id="docker-reference-resources">
+    <a href="#docker-reference-resources" class="header-anchor" aria-label="Link to Docker reference resources"></a>Docker reference resources</h2>
+<h3 id="file-formats">
+    <a href="#file-formats" class="header-anchor" aria-label="Link to File formats"></a>File formats</h3>
 <table>
 <thead>
 <tr>
@@ -26,7 +28,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="command-line-interfaces-clis">Command-line interfaces (CLIs)</h3>
+<h3 id="command-line-interfaces-clis">
+    <a href="#command-line-interfaces-clis" class="header-anchor" aria-label="Link to Command-line interfaces (CLIs)"></a>Command-line interfaces (CLIs)</h3>
 <table>
 <thead>
 <tr>
@@ -49,7 +52,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="application-programming-interfaces-apis">Application programming interfaces (APIs)</h3>
+<h3 id="application-programming-interfaces-apis">
+    <a href="#application-programming-interfaces-apis" class="header-anchor" aria-label="Link to Application programming interfaces (APIs)"></a>Application programming interfaces (APIs)</h3>
 <table>
 <thead>
 <tr>
@@ -72,7 +76,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="drivers--specs">Drivers &amp; specs</h3>
+<h3 id="drivers--specs">
+    <a href="#drivers--specs" class="header-anchor" aria-label="Link to Drivers &amp; specs"></a>Drivers &amp; specs</h3>
 <table>
 <thead>
 <tr>
@@ -95,7 +100,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="docker-cli-usage">Docker CLI usage</h2>
+<h2 id="docker-cli-usage">
+    <a href="#docker-cli-usage" class="header-anchor" aria-label="Link to Docker CLI usage"></a>Docker CLI usage</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -276,7 +282,8 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-compose-cli-usage">Docker Compose CLI usage</h2>
+<h2 id="docker-compose-cli-usage">
+    <a href="#docker-compose-cli-usage" class="header-anchor" aria-label="Link to Docker Compose CLI usage"></a>Docker Compose CLI usage</h2>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -375,8 +382,10 @@
 </div></div>
         </div>
     </div>
-<h2 id="docker-commands">Docker commands</h2>
-<h3 id="common-management-commands">Common management commands</h3>
+<h2 id="docker-commands">
+    <a href="#docker-commands" class="header-anchor" aria-label="Link to Docker commands"></a>Docker commands</h2>
+<h3 id="common-management-commands">
+    <a href="#common-management-commands" class="header-anchor" aria-label="Link to Common management commands"></a>Common management commands</h3>
 <ul>
 <li><code>docker context [--help]</code> <strong>context management</strong></li>
 <li><code>docker compose [--help]</code> <strong>docker compose commands</strong> <code>v2.2.2+</code></li>
@@ -397,7 +406,8 @@
 <li><code>docker scan [--help]</code> scan and analyze images</li>
 <li><code>docker manifest [--help]</code> view image manifests; experimental</li>
 </ul>
-<h3 id="common-commands">Common commands</h3>
+<h3 id="common-commands">
+    <a href="#common-commands" class="header-anchor" aria-label="Link to Common commands"></a>Common commands</h3>
 <ul>
 <li><code>docker build [--help]</code> <strong>build an image</strong>
 <ul>
@@ -425,7 +435,8 @@
 <li><code>docker stop</code></li>
 <li><code>docker logs</code></li>
 </ul>
-<h3 id="docker-image-filtering">docker image filtering</h3>
+<h3 id="docker-image-filtering">
+    <a href="#docker-image-filtering" class="header-anchor" aria-label="Link to docker image filtering"></a>docker image filtering</h3>
 <blockquote>
 <p><code>docker images -f [filter params]</code></p>
 </blockquote>
@@ -474,7 +485,8 @@
             <div class="admonition-content">In testing, if <code>REPOSITORY</code> contains <code>/</code>, the <code>reference</code> regex must include <code>/</code> to match — the filter regex does not match <code>/</code>.</div>
         </div>
     </div>
-<h3 id="docker-commit--create-an-image-from-a-container">docker commit — create an image from a container</h3>
+<h3 id="docker-commit--create-an-image-from-a-container">
+    <a href="#docker-commit--create-an-image-from-a-container" class="header-anchor" aria-label="Link to docker commit — create an image from a container"></a>docker commit — create an image from a container</h3>
 <blockquote>
 <p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
 </blockquote>
@@ -502,7 +514,8 @@
 </span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">prune — one-shot cleanup of images, containers, etc.</h3>
+</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">
+    <a href="#prune--one-shot-cleanup-of-images-containers-etc" class="header-anchor" aria-label="Link to prune — one-shot cleanup of images, containers, etc."></a>prune — one-shot cleanup of images, containers, etc.</h3>
 <ul>
 <li><code>docker image prune -a</code> <strong>remove all images not used by any container</strong></li>
 <li><code>docker container prune</code> <em>remove all stopped containers</em></li>
@@ -510,13 +523,15 @@
 <li><code>docker system prune</code> <em>remove all docker resources</em></li>
 <li><code>docker network prune</code> <em>remove all networks</em></li>
 </ul>
-<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<h2 id="simple-cheat-sheet">
+    <a href="#simple-cheat-sheet" class="header-anchor" aria-label="Link to Simple Cheat Sheet"></a>Simple Cheat Sheet</h2>
 <ul>
 <li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
 <li>demo image: <code>v8fg/demo[:latest]</code></li>
 <li>demo container name: <code>v8fg-demo</code></li>
 </ul>
-<h3 id="running-containers">Running Containers</h3>
+<h3 id="running-containers">
+    <a href="#running-containers" class="header-anchor" aria-label="Link to Running Containers"></a>Running Containers</h3>
 <table>
 <thead>
 <tr>
@@ -596,7 +611,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<h3 id="container-lifecycle-stuff">
+    <a href="#container-lifecycle-stuff" class="header-anchor" aria-label="Link to Container Lifecycle Stuff"></a>Container Lifecycle Stuff</h3>
 <table>
 <thead>
 <tr>
@@ -655,7 +671,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<h3 id="resource-limits-and-controls">
+    <a href="#resource-limits-and-controls" class="header-anchor" aria-label="Link to Resource Limits and Controls"></a>Resource Limits and Controls</h3>
 <table>
 <thead>
 <tr>
@@ -694,7 +711,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<h3 id="stats-logs-and-events">
+    <a href="#stats-logs-and-events" class="header-anchor" aria-label="Link to Stats, Logs, and Events"></a>Stats, Logs, and Events</h3>
 <table>
 <thead>
 <tr>
@@ -733,7 +751,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-images">Docker Images</h3>
+<h3 id="docker-images">
+    <a href="#docker-images" class="header-anchor" aria-label="Link to Docker Images"></a>Docker Images</h3>
 <table>
 <thead>
 <tr>
@@ -796,7 +815,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<h3 id="exportimportsaveload">
+    <a href="#exportimportsaveload" class="header-anchor" aria-label="Link to Export/Import/Save/Load"></a>Export/Import/Save/Load</h3>
 <ul>
 <li><strong>export, import</strong>: drops layer history; smaller — <strong>for base images, stripping history</strong></li>
 <li><em>save, load</em>: keeps layer history; larger</li>
@@ -847,7 +867,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<h3 id="docker-hubregistry">
+    <a href="#docker-hubregistry" class="header-anchor" aria-label="Link to Docker Hub/Registry"></a>Docker Hub/Registry</h3>
 <table>
 <thead>
 <tr>
@@ -894,7 +915,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<h3 id="building-docker-images-from-a-dockerfile">
+    <a href="#building-docker-images-from-a-dockerfile" class="header-anchor" aria-label="Link to Building Docker Images From A Dockerfile"></a>Building Docker Images From A Dockerfile</h3>
 <table>
 <thead>
 <tr>
@@ -929,7 +951,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<h3 id="simple-dockerfile-example">
+    <a href="#simple-dockerfile-example" class="header-anchor" aria-label="Link to Simple Dockerfile Example"></a>Simple Dockerfile Example</h3>
 <blockquote>
 <p><code>v8fg/demo:latest</code></p>
 </blockquote>
@@ -966,7 +989,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+</div><h3 id="big-dockerfile-example">
+    <a href="#big-dockerfile-example" class="header-anchor" aria-label="Link to Big Dockerfile Example"></a>Big Dockerfile Example</h3>
 <table>
 <thead>
 <tr>
@@ -1057,7 +1081,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="volumesstorage">Volumes/Storage</h3>
+<h3 id="volumesstorage">
+    <a href="#volumesstorage" class="header-anchor" aria-label="Link to Volumes/Storage"></a>Volumes/Storage</h3>
 <table>
 <thead>
 <tr>
@@ -1148,7 +1173,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="expose-ports">Expose Ports</h3>
+<h3 id="expose-ports">
+    <a href="#expose-ports" class="header-anchor" aria-label="Link to Expose Ports"></a>Expose Ports</h3>
 <table>
 <thead>
 <tr>
@@ -1187,7 +1213,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="networks">Networks</h3>
+<h3 id="networks">
+    <a href="#networks" class="header-anchor" aria-label="Link to Networks"></a>Networks</h3>
 <table>
 <thead>
 <tr>
@@ -1278,7 +1305,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
 <li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>

@@ -2,12 +2,14 @@
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="why-use-it">Why use it</h2>
+<h2 id="why-use-it">
+    <a href="#why-use-it" class="header-anchor" aria-label="Link to Why use it"></a>Why use it</h2>
 <ul>
 <li>Understand which parts of your application consume the most resources</li>
 <li>Continuous profiling adds a time dimension, letting you track resource usage (CPU, memory, …) over time and locate, debug and fix performance issues</li>
 </ul>
-<h2 id="use-cases">Use cases</h2>
+<h2 id="use-cases">
+    <a href="#use-cases" class="header-anchor" aria-label="Link to Use cases"></a>Use cases</h2>
 <ul>
 <li>Find performance problems in your code</li>
 <li>Resolve high CPU utilization</li>
@@ -15,14 +17,16 @@
 <li>Understand your application&rsquo;s call tree</li>
 <li>Track how metrics change over time</li>
 </ul>
-<h2 id="overhead">Overhead</h2>
+<h2 id="overhead">
+    <a href="#overhead" class="header-anchor" aria-label="Link to Overhead"></a>Overhead</h2>
 <p>By using sampling-based profiling, <strong>Pyroscope</strong> collects data with minimal overhead (around <code>2-5%</code>). Its purpose-built <em>storage engine</em> <em>compresses and stores data efficiently</em>.</p>
 <ul>
 <li>Low CPU overhead thanks to sampling</li>
 <li>Control the granularity of profiling data (<code>10s</code> up to multiple years)</li>
 <li>Efficient compression, low disk-space needs and cost</li>
 </ul>
-<h2 id="working-mode">Working mode</h2>
+<h2 id="working-mode">
+    <a href="#working-mode" class="header-anchor" aria-label="Link to Working mode"></a>Working mode</h2>
 <blockquote>
 <p>Similar to common data-collection tools: an <code>Agent-Server</code> model.</p>
 </blockquote>
@@ -32,8 +36,10 @@
 </ul>
 <p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
     </figure></p>
-<h2 id="server-installation">Server installation</h2>
-<h3 id="install-methods">Install methods</h3>
+<h2 id="server-installation">
+    <a href="#server-installation" class="header-anchor" aria-label="Link to Server installation"></a>Server installation</h2>
+<h3 id="install-methods">
+    <a href="#install-methods" class="header-anchor" aria-label="Link to Install methods"></a>Install methods</h3>
 <ul>
 <li>Docker</li>
 <li>K8S</li>
@@ -45,7 +51,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="macos--linux-install-example">MacOS &amp; Linux install example</h3>
+<h3 id="macos--linux-install-example">
+    <a href="#macos--linux-install-example" class="header-anchor" aria-label="Link to MacOS &amp; Linux install example"></a>MacOS &amp; Linux install example</h3>
 <ul>
 <li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
 <li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
@@ -97,7 +104,8 @@
 </div></div>
         </div>
     </div>
-<h3 id="configuration">Configuration</h3>
+<h3 id="configuration">
+    <a href="#configuration" class="header-anchor" aria-label="Link to Configuration"></a>Configuration</h3>
 <p>Multiple <a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">configuration</a> sources are supported, with this precedence:</p>
 <ol>
 <li><strong>CLI flags</strong></li>
@@ -302,15 +310,19 @@
 </div></div>
         </div>
     </div>
-<h3 id="start">Start</h3>
+<h3 id="start">
+    <a href="#start" class="header-anchor" aria-label="Link to Start"></a>Start</h3>
 <p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
-<h2 id="using-the-go-agent">Using the Go agent</h2>
+<h2 id="using-the-go-agent">
+    <a href="#using-the-go-agent" class="header-anchor" aria-label="Link to Using the Go agent"></a>Using the Go agent</h2>
 <blockquote>
 <p>Uses <code>Push</code> mode — simple and efficient.</p>
 </blockquote>
-<h3 id="import-the-dependency">Import the dependency</h3>
+<h3 id="import-the-dependency">
+    <a href="#import-the-dependency" class="header-anchor" aria-label="Link to Import the dependency"></a>Import the dependency</h3>
 <p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
-<h3 id="agent-push-example">Agent Push example</h3>
+<h3 id="agent-push-example">
+    <a href="#agent-push-example" class="header-anchor" aria-label="Link to Agent Push example"></a>Agent Push example</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -377,7 +389,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="authentication">Authentication</h2>
+</div><h2 id="authentication">
+    <a href="#authentication" class="header-anchor" aria-label="Link to Authentication"></a>Authentication</h2>
 <blockquote>
 <p>Default username/password: <code>admin</code>:<code>admin</code></p>
 </blockquote>
@@ -386,7 +399,8 @@
 <li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">Internal authentication</a></li>
 </ul>
 <p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
-<h2 id="query--export">Query &amp; export</h2>
+<h2 id="query--export">
+    <a href="#query--export" class="header-anchor" aria-label="Link to Query &amp; export"></a>Query &amp; export</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">config</a></li>
 <li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
@@ -402,7 +416,8 @@
 </ul>
 <p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
     </figure></p>
-<h2 id="references">References</h2>
+<h2 id="references">
+    <a href="#references" class="header-anchor" aria-label="Link to References"></a>References</h2>
 <ul>
 <li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
 <li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>

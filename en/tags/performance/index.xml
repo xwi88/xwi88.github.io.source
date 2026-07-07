@@ -1,12 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>performance - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/performance/</link><description>performance - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Jun 2022 08:23:52 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/performance/" rel="self" type="application/rss+xml"/><item><title>Go Object Pool Usage &amp; Optimization — Theory</title><link>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go object pools reuse <code>temporary objects</code>, which <code>reduces the waste</code> from frequently creating them — i.e. <code>lower GC overhead</code> and memory usage — improving performance and lowering serving cost to some extent. Based on <code>go1.18.2</code>, this post covers use cases, <strong>the processing flow &amp; caveats</strong>, open-source examples, a personal example (incl. pooling under <code>gRPC</code>), and best practices.</p>
-<h2 id="when-to-use">When to use</h2>
+<h2 id="when-to-use">
+    <a href="#when-to-use" class="header-anchor" aria-label="Link to When to use"></a>When to use</h2>
 <p><strong>When you frequently create the <code>same kind</code> of object and creation is expensive</strong></p>
 <ul>
 <li>The larger each object&rsquo;s memory footprint, the more obvious the benefit</li>
 <li>The bigger the memory footprint, the more obvious the benefit</li>
 <li>The higher the concurrency, the more obvious the benefit</li>
 </ul>
-<h2 id="processing-flow--caveats"><strong>Processing flow &amp; caveats</strong></h2>
+<h2 id="processing-flow--caveats">
+    <a href="#processing-flow--caveats" class="header-anchor" aria-label="Link to Processing flow &amp; caveats"></a><strong>Processing flow &amp; caveats</strong></h2>
 <blockquote>
 <p>After a temporary object is returned to the pool, it should ideally be: <code>stateless</code>, <code>reference-free</code></p>
 </blockquote>
@@ -37,7 +39,8 @@
 </div>
         </div>
     </div>
-<h2 id="object-pool-data-structures">Object-pool data structures</h2>
+<h2 id="object-pool-data-structures">
+    <a href="#object-pool-data-structures" class="header-anchor" aria-label="Link to Object-pool data structures"></a>Object-pool data structures</h2>
 <ul>
 <li><code>sync.pool</code>: fits most scenarios; easy to use and efficient
 <ul>
@@ -96,8 +99,10 @@
 </div>
         </div>
     </div>
-<h2 id="source-examples">Source examples</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="source-examples">
+    <a href="#source-examples" class="header-anchor" aria-label="Link to Source examples"></a>Source examples</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -171,7 +176,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -223,7 +229,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -255,7 +262,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -425,7 +433,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -475,7 +484,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>

@@ -1,12 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>performance - 标签 - Coding Life Share</title><link>https://blog.xwi88.com/tags/performance/</link><description>performance - 标签 - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 03 Jun 2022 08:23:52 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/tags/performance/" rel="self" type="application/rss+xml"/><item><title>Go 对象池使用及优化-理论篇</title><link>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go 对象池用于<code>临时对象</code>重用，可以<code>减少对象频繁创建</code>造成的资源浪费，即<code>减少GC开销</code>及内存占用等，在一定程度上提升程序性能，降低服务成本。本文基于 <code>go1.18.2</code> ，给出对象池使用场景、<strong>处理流程及注意事项</strong>、开源示例、个人实例(包括<code>GRPC</code> 下对象池的使用)及最佳实践。</p>
-<h2 id="场景">场景</h2>
+<h2 id="场景">
+    <a href="#%e5%9c%ba%e6%99%af" class="header-anchor" aria-label="Link to 场景"></a>场景</h2>
 <p><strong>需要频繁创建<code>同一类</code>对象，且创建成本较高时</strong></p>
 <ul>
 <li>单个对象内存占用超过一定阈值，优势越明显</li>
 <li>占用内存越大，优势越明显</li>
 <li>并发量越大，优势越明显</li>
 </ul>
-<h2 id="处理流程及注意事项"><strong>处理流程及注意事项</strong></h2>
+<h2 id="处理流程及注意事项">
+    <a href="#%e5%a4%84%e7%90%86%e6%b5%81%e7%a8%8b%e5%8f%8a%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor" aria-label="Link to 处理流程及注意事项"></a><strong>处理流程及注意事项</strong></h2>
 <blockquote>
 <p>创建的临时对象放回池中后需尽可能的满足：<code>无状态</code>，<code>无引用</code></p>
 </blockquote>
@@ -37,7 +39,8 @@
 </div>
         </div>
     </div>
-<h2 id="对象池数据结构">对象池数据结构</h2>
+<h2 id="对象池数据结构">
+    <a href="#%e5%af%b9%e8%b1%a1%e6%b1%a0%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84" class="header-anchor" aria-label="Link to 对象池数据结构"></a>对象池数据结构</h2>
 <ul>
 <li><code>sync.pool</code>: 适用于大多数场景，易用高效
 <ul>
@@ -96,8 +99,10 @@
 </div>
         </div>
     </div>
-<h2 id="源码示例">源码示例</h2>
-<h3 id="fmtprintgo">fmt/print.go</h3>
+<h2 id="源码示例">
+    <a href="#%e6%ba%90%e7%a0%81%e7%a4%ba%e4%be%8b" class="header-anchor" aria-label="Link to 源码示例"></a>源码示例</h2>
+<h3 id="fmtprintgo">
+    <a href="#fmtprintgo" class="header-anchor" aria-label="Link to fmt/print.go"></a>fmt/print.go</h3>
 <blockquote>
 <p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
 </blockquote>
@@ -171,7 +176,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+</div><h3 id="grpc-transport-pool">
+    <a href="#grpc-transport-pool" class="header-anchor" aria-label="Link to grpc transport pool"></a>grpc transport pool</h3>
 <blockquote>
 <p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
 </blockquote>
@@ -223,7 +229,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gin-context-pool">gin Context pool</h3>
+</div><h3 id="gin-context-pool">
+    <a href="#gin-context-pool" class="header-anchor" aria-label="Link to gin Context pool"></a>gin Context pool</h3>
 <blockquote>
 <p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
 </blockquote>
@@ -255,7 +262,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+</div><h3 id="sarama-compress-pool">
+    <a href="#sarama-compress-pool" class="header-anchor" aria-label="Link to sarama compress pool"></a>sarama compress pool</h3>
 <blockquote>
 <p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
 </blockquote>
@@ -425,7 +433,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="zap-json-pool">zap json pool</h3>
+</div><h3 id="zap-json-pool">
+    <a href="#zap-json-pool" class="header-anchor" aria-label="Link to zap json pool"></a>zap json pool</h3>
 <blockquote>
 <p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
 </blockquote>
@@ -475,7 +484,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+</div><h3 id="leakbuf-base-channel">
+    <a href="#leakbuf-base-channel" class="header-anchor" aria-label="Link to leakbuf base channel"></a>leakbuf base channel</h3>
 <blockquote>
 <p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
 </blockquote>

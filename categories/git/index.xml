@@ -2,7 +2,8 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="账户基本配置">账户基本配置</h2>
+<h2 id="账户基本配置">
+    <a href="#%e8%b4%a6%e6%88%b7%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 账户基本配置"></a>账户基本配置</h2>
 <blockquote>
 <p><code>--global</code> <em>表示全局配置</em>，<strong>非全局配置需要在具体 git 项目目录下面设置</strong></p>
 </blockquote>
@@ -12,7 +13,8 @@
 <li><code>git config --global --list</code> <strong>全局 git 配置查看</strong></li>
 <li><code>git config --list</code> <em>项目 git 配置查看</em></li>
 </ul>
-<h3 id="签名提交设置">签名提交设置</h3>
+<h3 id="签名提交设置">
+    <a href="#%e7%ad%be%e5%90%8d%e6%8f%90%e4%ba%a4%e8%ae%be%e7%bd%ae" class="header-anchor" aria-label="Link to 签名提交设置"></a>签名提交设置</h3>
 <blockquote>
 <p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
 </blockquote>
@@ -21,7 +23,8 @@
 <li><code>git config --global commit.gpgsign true</code></li>
 </ul>
 <p>可参考: <a href="/git-sign-tags-commits-with-gpg/" rel="">Git 使用 GPG 对提交进行签名认证</a> 进行设置</p>
-<h2 id="密码存储">密码存储</h2>
+<h2 id="密码存储">
+    <a href="#%e5%af%86%e7%a0%81%e5%ad%98%e5%82%a8" class="header-anchor" aria-label="Link to 密码存储"></a>密码存储</h2>
 <blockquote>
 <p>为了避免每次都要输入密码，我们需要让机器记住密码。<em>MacOS</em> 会借助 <strong>keychain Access</strong> 存储你的密码及其他凭证。</p>
 </blockquote>
@@ -55,7 +58,8 @@
 </div>
         </div>
     </div>
-<h2 id="密码清除">密码清除</h2>
+<h2 id="密码清除">
+    <a href="#%e5%af%86%e7%a0%81%e6%b8%85%e9%99%a4" class="header-anchor" aria-label="Link to 密码清除"></a>密码清除</h2>
 <blockquote>
 <p>密码改变或过期后请务必清除存储的密码，否则可能造成<code>登录失败</code>，<code>无权限登录</code>等问题</p>
 </blockquote>
@@ -64,7 +68,8 @@
 <li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>或设置一个极短的过期时间，清除缓存密码</em></li>
 <li><code>git config --global credential.helper store</code> <strong>重新开启密码存储</strong></li>
 </ul>
-<h2 id="日志输出美化">日志输出美化</h2>
+<h2 id="日志输出美化">
+    <a href="#%e6%97%a5%e5%bf%97%e8%be%93%e5%87%ba%e7%be%8e%e5%8c%96" class="header-anchor" aria-label="Link to 日志输出美化"></a>日志输出美化</h2>
 <blockquote>
 <p>原始的 <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> 太过简陋不方便查看更具体的信息，我们需要对其进行格式化，借助 <code>git alias</code> 可以很方便的定义我们自己的 <em>git log</em> 命令，<strong>请务必不要覆盖掉 <code>git</code> 自带的命令</strong>。</p>
 </blockquote>
@@ -146,7 +151,8 @@
 </div>
         </div>
     </div>
-<h2 id="基本命令">基本命令</h2>
+<h2 id="基本命令">
+    <a href="#%e5%9f%ba%e6%9c%ac%e5%91%bd%e4%bb%a4" class="header-anchor" aria-label="Link to 基本命令"></a>基本命令</h2>
 <blockquote>
 <p>关于命令更多细节，可通过 <code>git &lt;command&gt; --help</code> 查看</p>
 </blockquote>
@@ -176,26 +182,31 @@
 <li><code>git rm</code> 从暂存区和工作目录删除文件</li>
 <li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>文件的重定向</em>，相当于：<code>mv old new</code> , <code>git add</code> 新文件 和 <code>git rm</code> 旧文件</li>
 </ul>
-<h2 id="分支操作">分支操作</h2>
-<h3 id="远程分支地址设置">远程分支地址设置</h3>
+<h2 id="分支操作">
+    <a href="#%e5%88%86%e6%94%af%e6%93%8d%e4%bd%9c" class="header-anchor" aria-label="Link to 分支操作"></a>分支操作</h2>
+<h3 id="远程分支地址设置">
+    <a href="#%e8%bf%9c%e7%a8%8b%e5%88%86%e6%94%af%e5%9c%b0%e5%9d%80%e8%ae%be%e7%bd%ae" class="header-anchor" aria-label="Link to 远程分支地址设置"></a>远程分支地址设置</h3>
 <ul>
 <li><code>git remote -v</code></li>
 <li><code>git remote add &lt;name&gt; &lt;url&gt;</code> 远程仓库地址配置</li>
 <li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> 远程仓库地址名修改</li>
 <li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> 远程仓库地址修改</li>
 </ul>
-<h3 id="代码下载-clone">代码下载 clone</h3>
+<h3 id="代码下载-clone">
+    <a href="#%e4%bb%a3%e7%a0%81%e4%b8%8b%e8%bd%bd-clone" class="header-anchor" aria-label="Link to 代码下载 clone"></a>代码下载 clone</h3>
 <ul>
 <li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> 单分支下载</li>
 <li><code>git clone &lt;url&gt; [dir]</code></li>
 </ul>
-<h3 id="代码拉取与同步">代码拉取与同步</h3>
+<h3 id="代码拉取与同步">
+    <a href="#%e4%bb%a3%e7%a0%81%e6%8b%89%e5%8f%96%e4%b8%8e%e5%90%8c%e6%ad%a5" class="header-anchor" aria-label="Link to 代码拉取与同步"></a>代码拉取与同步</h3>
 <ul>
 <li><code>git fetch --all</code> || <code>git merge</code> 仅拉取代码到<strong>本地远程分支</strong> 如 <code>origin/main</code>, <code>upstream/main</code> 等，不直接合并到相应本地分支，在需要时同步合并</li>
 <li><code>git pull</code> 拉取并合并远程分支代码到当前分支，一般情况不建议直接此操作，除非你很明确可能产生的后果</li>
 <li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> 主要用于本地新建分支与指定远程分支间的跟踪，<strong>一般用于新分支首次推送</strong></li>
 </ul>
-<h3 id="checkout-与-reset">checkout 与 reset</h3>
+<h3 id="checkout-与-reset">
+    <a href="#checkout-%e4%b8%8e-reset" class="header-anchor" aria-label="Link to checkout 与 reset"></a>checkout 与 reset</h3>
 <ul>
 <li><code>git chekout</code></li>
 <li><code>git reset</code></li>
@@ -255,7 +266,8 @@
 </div>
         </div>
     </div>
-<h3 id="代码合并提交">代码合并提交</h3>
+<h3 id="代码合并提交">
+    <a href="#%e4%bb%a3%e7%a0%81%e5%90%88%e5%b9%b6%e6%8f%90%e4%ba%a4" class="header-anchor" aria-label="Link to 代码合并提交"></a>代码合并提交</h3>
 <blockquote>
 <p>多人或大规模团队协作情况下，请务必掌握并使用 <code>git rebase</code> 进行操作，且要保证各自分支相比 <strong>base</strong> 分支有<strong>最小的 commits 数量</strong>，便于各自 <strong>rebase</strong> 及冲突解决。</p>
 <p>如果你提交了 <code>PR</code> 或 <code>MR</code>，<strong>reviewers</strong> 审查前，请务必保证你提交的分支相较 <strong>base</strong> 是 <code>Fast-Forward</code> 的，禁止在界面直接进行 <strong>Rebase</strong></p>
@@ -264,14 +276,16 @@
 <li><code>git rebase</code> <strong>慎重操作</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">演示，请点击</a></li>
 <li><code>git merge</code> <del><strong>不建议此操作</strong></del></li>
 </ul>
-<h3 id="分支推送与删除">分支推送与删除</h3>
+<h3 id="分支推送与删除">
+    <a href="#%e5%88%86%e6%94%af%e6%8e%a8%e9%80%81%e4%b8%8e%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to 分支推送与删除"></a>分支推送与删除</h3>
 <ul>
 <li><code>git push</code> 当前分支推送，需要与远程分支建立追踪；首次推送，请使用 <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
 <li><code>git push -f</code> 强制推送当前分支到对应远程仓库</li>
 <li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> 推送空分支到远程仓库，即<strong>删除远程仓库对应分支</strong></li>
 <li><code>git branch -d</code> 本地分支删除</li>
 </ul>
-<h2 id="撤销设置项">撤销设置项</h2>
+<h2 id="撤销设置项">
+    <a href="#%e6%92%a4%e9%94%80%e8%ae%be%e7%bd%ae%e9%a1%b9" class="header-anchor" aria-label="Link to 撤销设置项"></a>撤销设置项</h2>
 <blockquote>
 <p><strong>Remove the line matching the key from config file.</strong></p>
 </blockquote>
@@ -289,12 +303,14 @@
 </div>
         </div>
     </div>
-<h2 id="配置文件编辑">配置文件编辑</h2>
+<h2 id="配置文件编辑">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%bc%96%e8%be%91" class="header-anchor" aria-label="Link to 配置文件编辑"></a>配置文件编辑</h2>
 <ul>
 <li><code>git config --global -e</code> 全局配置文件编辑，文件位置: <code>~/.gitconfig</code></li>
 <li><code>git config -e</code> 项目配置文件编辑，文件位置: <code>.git/config</code></li>
 </ul>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
 <li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>
@@ -304,13 +320,16 @@
 <blockquote>
 <p><strong>版权声明</strong>：本文为博主 <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong> 的原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a> 版权协议，禁止商用，转载请注明出处，欢迎关注 <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
-<h2 id="开启-vigilant-模式">开启 vigilant 模式</h2>
+<h2 id="开启-vigilant-模式">
+    <a href="#%e5%bc%80%e5%90%af-vigilant-%e6%a8%a1%e5%bc%8f" class="header-anchor" aria-label="Link to 开启 vigilant 模式"></a>开启 vigilant 模式</h2>
 <p>开启 <strong><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode" target="_blank" rel="noopener noreffer ">vigilant</a></strong> <em>警惕</em>模式后，属于你的未签名提交将被标记为 <strong>Unverified</strong> 标记。这可以<strong>提醒你和其他人关于真实性的潜在问题</strong>。Git 提交的作者和提交者很容易被欺骗。例如，有人可以推送一个声明是你的提交，但实际上不是。</p>
 <blockquote>
 <p>设置路径: <strong>Settings</strong>-&gt;<strong><a href="https://github.com/settings/keys" target="_blank" rel="noopener noreffer ">SSH and GPG keys</a></strong>&gt;<strong>Vigilant mode</strong>-&gt;select <strong>Flag unsigned commits as unverified</strong></p>
 </blockquote>
-<h2 id="gpg-command">GPG Command</h2>
-<h3 id="man-gpg"><strong>man gpg</strong></h3>
+<h2 id="gpg-command">
+    <a href="#gpg-command" class="header-anchor" aria-label="Link to GPG Command"></a>GPG Command</h2>
+<h3 id="man-gpg">
+    <a href="#man-gpg" class="header-anchor" aria-label="Link to man gpg"></a><strong>man gpg</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -521,7 +540,8 @@
 </span></span><span class="line"><span class="cl">Please report bugs to &lt;https://bugs.gnupg.org&gt;.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="gpg-shell-command"><strong>gpg shell command</strong></h3>
+</div><h3 id="gpg-shell-command">
+    <a href="#gpg-shell-command" class="header-anchor" aria-label="Link to gpg shell command"></a><strong>gpg shell command</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -588,7 +608,8 @@
 </span></span><span class="line"><span class="cl">  <span class="o">(</span>nrsign<span class="o">)</span>, or any combination thereof <span class="o">(</span>ltsign, tnrsign, etc.<span class="o">)</span>.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gpg-key-生成与配置">GPG Key 生成与配置</h2>
+</div><h2 id="gpg-key-生成与配置">
+    <a href="#gpg-key-%e7%94%9f%e6%88%90%e4%b8%8e%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to GPG Key 生成与配置"></a>GPG Key 生成与配置</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -597,7 +618,8 @@
             <div class="admonition-content">GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href="https://www.gnupg.org/download/" target="_blank" rel="noopener noreffer ">GnuPG&rsquo;s Download page</a>.</div>
         </div>
     </div>
-<h3 id="已存在-gpg-keys"><em>已存在 GPG keys</em></h3>
+<h3 id="已存在-gpg-keys">
+    <a href="#%e5%b7%b2%e5%ad%98%e5%9c%a8-gpg-keys" class="header-anchor" aria-label="Link to 已存在 GPG keys"></a><em>已存在 GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -626,7 +648,8 @@
 </div>
         </div>
     </div>
-<h3 id="新生成-gpg-key">新生成 <em>GPG key</em></h3>
+<h3 id="新生成-gpg-key">
+    <a href="#%e6%96%b0%e7%94%9f%e6%88%90-gpg-key" class="header-anchor" aria-label="Link to 新生成 GPG key"></a>新生成 <em>GPG key</em></h3>
 <blockquote>
 <p>如果当前已存在旧的 GPG key 可不必重新生成!</p>
 </blockquote>
@@ -684,7 +707,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="最新-gpg-keys">最新 <em>GPG keys</em></h3>
+<h3 id="最新-gpg-keys">
+    <a href="#%e6%9c%80%e6%96%b0-gpg-keys" class="header-anchor" aria-label="Link to 最新 GPG keys"></a>最新 <em>GPG keys</em></h3>
 <p><code>gpg --list-secret-keys --keyid-format=long</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -708,7 +732,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">uid                 [ultimate] tmp<span class="nb">_</span>gpg &lt;278810732@qq.com&gt;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="导出-gpg-key">导出 <em>GPG key</em></h3>
+</div><h3 id="导出-gpg-key">
+    <a href="#%e5%af%bc%e5%87%ba-gpg-key" class="header-anchor" aria-label="Link to 导出 GPG key"></a>导出 <em>GPG key</em></h3>
 <ul>
 <li><code>gpg --armor --export FE47519758053257</code></li>
 <li>或 <code>gpg -a -o --export FE47519758053257</code></li>
@@ -746,7 +771,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="查找-gpg-key">查找 <em>GPG key</em></h3>
+</div><h3 id="查找-gpg-key">
+    <a href="#%e6%9f%a5%e6%89%be-gpg-key" class="header-anchor" aria-label="Link to 查找 GPG key"></a>查找 <em>GPG key</em></h3>
 <blockquote>
 <p><strong>keyIDs</strong> 可以为: <em>name</em>, <strong>keyID</strong>, <em>email</em></p>
 </blockquote>
@@ -813,7 +839,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="导入-gpg-key">导入 <em>GPG key</em></h3>
+<h3 id="导入-gpg-key">
+    <a href="#%e5%af%bc%e5%85%a5-gpg-key" class="header-anchor" aria-label="Link to 导入 GPG key"></a>导入 <em>GPG key</em></h3>
 <blockquote>
 <p><strong>key server 导入</strong> 如果不指定地址则默认从 <code>hkps://keyserver.ubuntu.com</code> 导入, <strong>地址可能会不同，此为本机输出</strong></p>
 </blockquote>
@@ -846,7 +873,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="私钥备份导出与导入">私钥备份导出与导入</h3>
+<h3 id="私钥备份导出与导入">
+    <a href="#%e7%a7%81%e9%92%a5%e5%a4%87%e4%bb%bd%e5%af%bc%e5%87%ba%e4%b8%8e%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 私钥备份导出与导入"></a>私钥备份导出与导入</h3>
 <blockquote>
 <p>主要用于: <strong>个人多机共享</strong></p>
 </blockquote>
@@ -864,7 +892,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="私钥导出">私钥导出</h4>
+<h4 id="私钥导出">
+    <a href="#%e7%a7%81%e9%92%a5%e5%af%bc%e5%87%ba" class="header-anchor" aria-label="Link to 私钥导出"></a>私钥导出</h4>
 <p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -878,7 +907,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h4 id="私钥导入">私钥导入</h4>
+<h4 id="私钥导入">
+    <a href="#%e7%a7%81%e9%92%a5%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to 私钥导入"></a>私钥导入</h4>
 <p><code>gpg --import secKeyFile</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -906,7 +936,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="秘钥回收"><strong>秘钥回收</strong></h3>
+<h3 id="秘钥回收">
+    <a href="#%e7%a7%98%e9%92%a5%e5%9b%9e%e6%94%b6" class="header-anchor" aria-label="Link to 秘钥回收"></a><strong>秘钥回收</strong></h3>
 <p><em>当重新生成秘钥对后，如果其他的秘钥对不再使用，需要立即发布秘钥回收证书，声明以前的公钥不再生效，防止被恶意使用。</em></p>
 <blockquote>
 <p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p>
@@ -1018,18 +1049,22 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h3 id="秘钥删除">秘钥删除</h3>
+<h3 id="秘钥删除">
+    <a href="#%e7%a7%98%e9%92%a5%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to 秘钥删除"></a>秘钥删除</h3>
 <ul>
 <li><code>gpg --delete-secret-keys keyID</code> <strong>需要先删除</strong></li>
 <li><code>gpg --delete-keys keyID</code></li>
 </ul>
-<h2 id="重启-gpg-agent">重启 GPG Agent</h2>
+<h2 id="重启-gpg-agent">
+    <a href="#%e9%87%8d%e5%90%af-gpg-agent" class="header-anchor" aria-label="Link to 重启 GPG Agent"></a>重启 GPG Agent</h2>
 <blockquote>
 <p>GPG会在需要时重新启动它</p>
 </blockquote>
 <p><code>gpgconf --kill gpg-agent</code></p>
-<h2 id="git-配置使用-gpg">Git 配置使用 GPG</h2>
-<h3 id="设置-gpg-key">设置 <strong>GPG key</strong></h3>
+<h2 id="git-配置使用-gpg">
+    <a href="#git-%e9%85%8d%e7%bd%ae%e4%bd%bf%e7%94%a8-gpg" class="header-anchor" aria-label="Link to Git 配置使用 GPG"></a>Git 配置使用 GPG</h2>
+<h3 id="设置-gpg-key">
+    <a href="#%e8%ae%be%e7%bd%ae-gpg-key" class="header-anchor" aria-label="Link to 设置 GPG key"></a>设置 <strong>GPG key</strong></h3>
 <blockquote>
 <ul>
 <li>
@@ -1040,7 +1075,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </li>
 </ul>
 </blockquote>
-<h3 id="配置-sign-使用的-gpg-key">配置 sign 使用的 <em>GPG key</em></h3>
+<h3 id="配置-sign-使用的-gpg-key">
+    <a href="#%e9%85%8d%e7%bd%ae-sign-%e4%bd%bf%e7%94%a8%e7%9a%84-gpg-key" class="header-anchor" aria-label="Link to 配置 sign 使用的 GPG key"></a>配置 sign 使用的 <em>GPG key</em></h3>
 <blockquote>
 <p>注意你是否需要全局配置，如果进行了全局配置，单个项目也可重新配置! <strong>local</strong> 替换 <del>&ndash;global</del></p>
 </blockquote>
@@ -1060,7 +1096,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git config --global commit.gpgsign <span class="nb">true</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="提交带签名的-commit">提交带签名的 commit</h3>
+</div><h3 id="提交带签名的-commit">
+    <a href="#%e6%8f%90%e4%ba%a4%e5%b8%a6%e7%ad%be%e5%90%8d%e7%9a%84-commit" class="header-anchor" aria-label="Link to 提交带签名的 commit"></a>提交带签名的 commit</h3>
 <p><code>git commit -S -m &quot;your commit message&quot;</code></p>
 <blockquote>
 <p>如果你设置了默认对提交进行签名，也可以如下操作</p>
@@ -1081,7 +1118,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="sign-tag">sign tag</h3>
+<h3 id="sign-tag">
+    <a href="#sign-tag" class="header-anchor" aria-label="Link to sign tag"></a>sign tag</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1098,7 +1136,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl">git tag -v my_tag
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="提交签名查看">提交签名查看</h3>
+</div><h3 id="提交签名查看">
+    <a href="#%e6%8f%90%e4%ba%a4%e7%ad%be%e5%90%8d%e6%9f%a5%e7%9c%8b" class="header-anchor" aria-label="Link to 提交签名查看"></a>提交签名查看</h3>
 <blockquote>
 <ul>
 <li><a href="https://www.git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer ">git log usage</a></li>
@@ -1148,7 +1187,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h3 id="本地签名校验问题"><strong>本地签名校验问题</strong></h3>
+<h3 id="本地签名校验问题">
+    <a href="#%e6%9c%ac%e5%9c%b0%e7%ad%be%e5%90%8d%e6%a0%a1%e9%aa%8c%e9%97%ae%e9%a2%98" class="header-anchor" aria-label="Link to 本地签名校验问题"></a><strong>本地签名校验问题</strong></h3>
 <p>通过命令 <code>git log --show-signature</code> 查看提交签名信息时可能会出现如下信息:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1168,7 +1208,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <p>也可通过命令 <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code> 校验指定提交签名是否合法</p>
 </blockquote>
 <p><strong>出现上述现象原因是因为你当前代码不存在对应 <code>commits</code> 使用的 <code>gpg public key</code>。我们可以通过导入对应提交者 <code>gpg public keys</code> 的方法解决。</strong></p>
-<h3 id="缺失-gpg-keys-导入认证"><strong>缺失 gpg keys</strong> 导入认证</h3>
+<h3 id="缺失-gpg-keys-导入认证">
+    <a href="#%e7%bc%ba%e5%a4%b1-gpg-keys-%e5%af%bc%e5%85%a5%e8%ae%a4%e8%af%81" class="header-anchor" aria-label="Link to 缺失 gpg keys 导入认证"></a><strong>缺失 gpg keys</strong> 导入认证</h3>
 <p>为了准确获取完整提交的签名校验信息，我们需要对缺失 <strong>public keys</strong> 进行导入。我们的实验导入源参考如下：</p>
 <ul>
 <li><code>https://github.com/&lt;username&gt;.gpg</code> <em>需要你在 github 进行 GPG keys 上传配置</em></li>
@@ -1222,7 +1263,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="github-gpg-public-key-导入">Github GPG public key 导入</h2>
+<h2 id="github-gpg-public-key-导入">
+    <a href="#github-gpg-public-key-%e5%af%bc%e5%85%a5" class="header-anchor" aria-label="Link to Github GPG public key 导入"></a>Github GPG public key 导入</h2>
 <blockquote>
 <p><a href="https://github.com/web-flow.gpg" target="_blank" rel="noopener noreffer ">github public GPG key for web-flow</a></p>
 </blockquote>
@@ -1231,7 +1273,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><code>gpg --edit-key noreply@github.com trust quit</code> <strong>trust and save, you choose: <code>4</code></strong></li>
 <li><code>gpg --lsign-key noreply@github.com</code> <em>sign selected user IDs locally</em></li>
 </ol>
-<h2 id="gpg-keys-更新续期处理"><strong>GPG keys 更新续期处理</strong></h2>
+<h2 id="gpg-keys-更新续期处理">
+    <a href="#gpg-keys-%e6%9b%b4%e6%96%b0%e7%bb%ad%e6%9c%9f%e5%a4%84%e7%90%86" class="header-anchor" aria-label="Link to GPG keys 更新续期处理"></a><strong>GPG keys 更新续期处理</strong></h2>
 <p><code>gpg --edit-key [GPG key ID]</code></p>
 <div class="details admonition example open">
         <div class="details-summary admonition-title">
@@ -1398,7 +1441,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="gpg-sign-key-重新绑定">GPG sign key 重新绑定</h2>
+<h2 id="gpg-sign-key-重新绑定">
+    <a href="#gpg-sign-key-%e9%87%8d%e6%96%b0%e7%bb%91%e5%ae%9a" class="header-anchor" aria-label="Link to GPG sign key 重新绑定"></a>GPG sign key 重新绑定</h2>
 <blockquote>
 <p><strong>以下设置如无需要，请勿更新</strong></p>
 </blockquote>
@@ -1425,7 +1469,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div>
         </div>
     </div>
-<h2 id="gpg-keys-删除"><em>GPG keys 删除</em></h2>
+<h2 id="gpg-keys-删除">
+    <a href="#gpg-keys-%e5%88%a0%e9%99%a4" class="header-anchor" aria-label="Link to GPG keys 删除"></a><em>GPG keys 删除</em></h2>
 <ul>
 <li><code>gpg --delete-secret-key [uid]</code></li>
 <li><code>gpg --delete-secret-key [uid1] [uid2]</code></li>
@@ -1481,7 +1526,8 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </div></div>
         </div>
     </div>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+    <a href="#%e5%8f%82%e8%80%83" class="header-anchor" aria-label="Link to 参考"></a>参考</h2>
 <ul>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification" target="_blank" rel="noopener noreffer ">managing-commit-signature-verification</a></li>
 <li><a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification" target="_blank" rel="noopener noreffer ">S/MIME commit signature verification</a></li>
@@ -1491,8 +1537,10 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <blockquote>
 <p>以项目 <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> clone 为例: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
 </blockquote>
-<h2 id="解决方案">解决方案</h2>
-<h3 id="github-镜像仓库">Github 镜像仓库</h3>
+<h2 id="解决方案">
+    <a href="#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88" class="header-anchor" aria-label="Link to 解决方案"></a>解决方案</h2>
+<h3 id="github-镜像仓库">
+    <a href="#github-%e9%95%9c%e5%83%8f%e4%bb%93%e5%ba%93" class="header-anchor" aria-label="Link to Github 镜像仓库"></a>Github 镜像仓库</h3>
 <ul>
 <li><strong>浏览器搜索获取镜像地址替换后下载</strong>
 <ul>
@@ -1504,24 +1552,28 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <li><em>通过其他 git 存储库进行镜像 clone</em></li>
 <li><em>浏览器直接下载 zip</em></li>
 </ul>
-<h3 id="代理加速">代理加速</h3>
+<h3 id="代理加速">
+    <a href="#%e4%bb%a3%e7%90%86%e5%8a%a0%e9%80%9f" class="header-anchor" aria-label="Link to 代理加速"></a>代理加速</h3>
 <ul>
 <li><strong>proxy</strong> <em>不太推荐</em></li>
 <li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>推荐方案</strong>)</li>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>推荐方案 ☆☆☆☆☆☆</strong>)</li>
 </ul>
-<h4 id="fastgithub">FastGithub</h4>
+<h4 id="fastgithub">
+    <a href="#fastgithub" class="header-anchor" aria-label="Link to FastGithub"></a>FastGithub</h4>
 <blockquote>
 <p>github 加速神器: 解决 github 打不开,用户头像无法加载,releases 无法上传下载, git-clone, git-pull, git-push 失败等问题。</p>
 </blockquote>
-<h5 id="功能">功能</h5>
+<h5 id="功能">
+    <a href="#%e5%8a%9f%e8%83%bd" class="header-anchor" aria-label="Link to 功能"></a>功能</h5>
 <ul>
 <li>提供域名的纯净 IP 解析；</li>
 <li>提供 IP 测速并选择最快的 IP；</li>
 <li>提供域名的 tls 连接自定义配置；</li>
 <li>google 的 CDN 资源替换，解决大量国外网站无法加载 js 和 cs s的问题；</li>
 </ul>
-<h5 id="安装配置">安装配置</h5>
+<h5 id="安装配置">
+    <a href="#%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae" class="header-anchor" aria-label="Link to 安装配置"></a>安装配置</h5>
 <blockquote>
 <ul>
 <li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
@@ -1570,13 +1622,15 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 </span></span><span class="line"><span class="cl"><span class="c1"># 需要关闭 git 的证书验证：git config --global http.sslverify false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="安全性及合法性说明">安全性及合法性说明</h5>
+</div><h5 id="安全性及合法性说明">
+    <a href="#%e5%ae%89%e5%85%a8%e6%80%a7%e5%8f%8a%e5%90%88%e6%b3%95%e6%80%a7%e8%af%b4%e6%98%8e" class="header-anchor" aria-label="Link to 安全性及合法性说明"></a>安全性及合法性说明</h5>
 <blockquote>
 <p>以下内容摘录自 <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
 </blockquote>
 <p><em>FastGithub为每台不同的主机生成自颁发CA证书，保存在cacert文件夹下。客户端设备需要安装和无条件信任自颁发的CA证书，请不要将证书私钥泄露给他人，以免造成损失。</em></p>
 <p><em>《国际联网暂行规定》第六条规定：“计算机信息网络直接进行国际联网，必须使用邮电部国家公用电信网提供的国际出入口信道。任何单位和个人不得自行建立或者使用其他信道进行国际联网。” FastGithub本地代理使用的都是“公用电信网提供的国际出入口信道”，从国外Github服务器到国内用户电脑上FastGithub程序的流量，使用的是正常流量通道，其间未对流量进行任何额外加密（仅有网页原有的TLS加密，区别于</em>proxy<em>的流量加密），而FastGithub获取到网页数据之后发生的整个代理过程完全在国内，不再适用国际互联网相关之规定。</em></p>
-<h3 id="hosts-修改">Hosts 修改</h3>
+<h3 id="hosts-修改">
+    <a href="#hosts-%e4%bf%ae%e6%94%b9" class="header-anchor" aria-label="Link to Hosts 修改"></a>Hosts 修改</h3>
 <blockquote>
 <p>主要是借助 <code>nslookup</code> or <code>dig</code> 获取域名对应的可访问 ip, 然后在 hosts 文件中加上 <code>ip–&gt;domain</code> 的映射，刷新 DNS 缓存便可。</p>
 </blockquote>
