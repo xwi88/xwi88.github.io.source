@@ -54,8 +54,11 @@ linkcheck:
 	@${HUGO} --quiet 2>/dev/null || true
 	@bash ${BASEDIR}/scripts/linkcheck.sh ${BASEDIR}/public
 
-# External link check (best-effort, needs lychee installed). Same args as the
-# .github/workflows/linkcheck.yml job. No-op if lychee is not on PATH.
+# External link check (best-effort, needs lychee installed). CI scopes the scan
+# to public/**/*.html (the lychee-action expands the glob). The local lychee
+# binary does not expand globs, so this scans the dir and skips non-HTML noise
+# sources via --exclude-path: robots.txt (holds a URL inside a User-agent token)
+# and *.md (anonymized placeholder URLs in example commands).
 linkcheck-external:
 	@${HUGO} --quiet 2>/dev/null || true
 ifeq ($(shell command -v lychee 2>/dev/null),)
@@ -69,6 +72,8 @@ else
 		--exclude '^https?://beian\.(miit|mps)\.gov\.cn' \
 		--exclude '^https?://([a-z]+\.)?studygolang\.com/' \
 		--exclude-private \
+		--exclude-path 'robots\.txt$$' \
+		--exclude-path '\.md$$' \
 		--accept 200,206,301,302,303,307,308,403,429,999 \
 		${BASEDIR}/public
 endif
