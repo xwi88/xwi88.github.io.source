@@ -4,6 +4,10 @@
 // little horizontal breathing room so logos/headers don't hug the border.
 .favirote-box {
 	width: 100%;
+	/* flow-root re-establishes a block formatting context (the old float:right
+	   did this as a side effect). Without it, the first .section's top margin
+	   collapses up into the page title, gluing 常用 to 超实用收藏. */
+	display: flow-root;
 }
 
 .favirote-box .section {
