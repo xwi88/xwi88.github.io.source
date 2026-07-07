@@ -216,15 +216,16 @@ body[theme="dark"] .single .content td {
     transition: color 0.2s ease, opacity 0.2s ease;
 }
 // external-link indicator: subtle ↗ after links that open in a new tab
-// (scoped to article body so the favorite logo grid isn't affected)
-.single .content a[target="_blank"]::after {
+// (scoped to article body; excludes the favorite logo grid .favirote-box,
+// which is inside .single .content but is a card grid where ↗ clutters)
+.single .content a[target="_blank"]:not(.favirote-box a)::after {
     content: " ↗";
     font-size: 0.8em;
     color: var(--accent-light);
     opacity: 0.55;
     text-decoration: none;
 }
-body[theme="dark"] .single .content a[target="_blank"]::after {
+body[theme="dark"] .single .content a[target="_blank"]:not(.favirote-box a)::after {
     color: var(--accent-dark);
 }
 
