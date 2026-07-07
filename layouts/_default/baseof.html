@@ -48,6 +48,22 @@
         {{- /* toc side (left/right): applied before paint so #toc-auto lands on the
              chosen side immediately, no flash from theme.js's default placement. */ -}}
         <script type="text/javascript">(function(){try{if(localStorage.getItem('toc-side')==='right')document.body.setAttribute('data-toc-side','right');}catch(e){}})();</script>
+        {{- /* theme-color: sync the mobile-browser chrome with the active appearance
+             variant (sepia/green/oleg/navy). Plain light/dark/auto keep the static
+             prefers-color-scheme metas from head/meta.html. */ -}}
+        <script type="text/javascript">(function () {
+            var map = { sepia: '#f3ead3', green: '#cce8cf', oled: '#000000', navy: '#0f172a' };
+            function sync() {
+                var v = document.body.getAttribute('data-variant');
+                var bg = map[v];
+                if (!bg) return;
+                document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', bg); });
+            }
+            sync();
+            if (window.MutationObserver && document.body) {
+                new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['data-variant'] });
+            }
+        })();</script>
 
         <div id="mask"></div>
 
