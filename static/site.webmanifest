@@ -1,21 +1,26 @@
 {
     "name": "Coding Life Share",
     "short_name": "xwi88",
+    "description": "xwi88 的技术博客 — Go / 后端 / 容器 / 折腾笔记 (Coding life share)",
+    "lang": "zh-CN",
     "start_url": "/",
     "scope": "/",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "display": "standalone"
+    "display": "standalone",
+    "categories": ["education", "developer", "productivity"]
 }
