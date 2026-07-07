@@ -1,0 +1,7 @@
+{{- /* Heading permalink: add a hover-reveal anchor link for deep-linking.
+     Preserves the Goldmark-generated id (which the auto-TOC relies on) and the
+     rendered heading content. The anchor is hidden on narrow screens. */ -}}
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">
+    <a href="#{{ .Anchor | safeURL }}" class="header-anchor" aria-label="{{ i18n "linkToHeading" | default (printf "Link to %v" .PlainText) }}"></a>
+    {{- .Text | safeHTML -}}
+</h{{ .Level }}>

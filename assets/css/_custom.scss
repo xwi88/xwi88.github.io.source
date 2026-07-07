@@ -547,6 +547,31 @@ html {
     }
 }
 
+// ===== heading permalink anchors: hover-reveal "#" for deep-linking =====
+// (rendered by layouts/_default/_markup/render-heading.html). Hidden on narrow
+// screens to avoid horizontal overflow into the gutter.
+.single .content h2,
+.single .content h3,
+.single .content h4 { position: relative; }
+.single .content .header-anchor {
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    padding-right: 0.4rem;
+    color: var(--accent-light);
+    opacity: 0;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+}
+.single .content .header-anchor::before { content: "#"; }
+.single .content h2:hover > .header-anchor,
+.single .content h3:hover > .header-anchor,
+.single .content h4:hover > .header-anchor { opacity: 1; }
+body[theme="dark"] .single .content .header-anchor { color: var(--accent-dark); }
+@media (max-width: 768px) {
+    .single .content .header-anchor { display: none; }
+}
+
 // print: clean article for print / save-as-PDF (hide chrome)
 @media print {
     #header-desktop,
