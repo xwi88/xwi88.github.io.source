@@ -586,15 +586,32 @@ body[theme="dark"] .single .content .header-anchor { color: var(--accent-dark); 
     .post-nav,
     #view-comments,
     .comment,
-    .skip-link {
+    .skip-link,
+    #live2d-widget {
         display: none !important;
     }
+    // force a clean light page regardless of the active theme/variant
+    body { background: #fff !important; color: #000 !important; }
     .single .content {
         max-width: 100%;
+        a { color: #000; }
     }
-    a {
-        color: inherit;
+    // don't strand a heading at the bottom of a page
+    h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+    // keep code blocks and images intact across page breaks
+    .highlight, pre, img, figure, table { break-inside: avoid; page-break-inside: avoid; }
+    // ink-friendly code blocks (override the Dracula dark theme)
+    .highlight { background: #f5f6f8 !important; color: #1f1f23 !important; border: 1px solid #ddd; }
+    .highlight .chroma { background: #f5f6f8 !important; color: #1f1f23 !important; }
+    // expand external link URLs so a printed copy stays navigable
+    .single .content a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em;
+        color: #444;
+        word-break: break-all;
     }
+    // hide interactive cruft that has no meaning on paper
+    .header-anchor, .copy-btn, .code-lang-label { display: none !important; }
 }
 
 // ===== theme: Indigo accent — unify link color + deepen dark bg =====
