@@ -1,0 +1,1286 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>docker - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/docker/</link><description>docker - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Mar 2022 23:50:02 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Docker Commands Cheat Sheet</title><link>https://blog.xwi88.com/en/cheat-sheet-docker-related/</link><pubDate>Sat, 19 Mar 2022 23:50:02 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/cheat-sheet-docker-related/</guid><description><![CDATA[<p>A cheat-sheet reference for Docker-related commands, focused on the <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer ">Docker CLI</a> and <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer ">Compose CLI</a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<ul>
+<li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
+<li>Compose version: <code>Docker Compose version 2.2.2</code></li>
+</ul>
+<h2 id="docker-reference-resources">Docker reference resources</h2>
+<h3 id="file-formats">File formats</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">File format</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer ">Dockerfile</a></td>
+<td style="text-align:left">Defines the contents and startup behavior of a single container</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer ">Compose file</a></td>
+<td style="text-align:left">Defines a multi-container application</td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-line-interfaces-clis">Command-line interfaces (CLIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CLI</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer ">Docker CLI</a></td>
+<td style="text-align:left">The main CLI for Docker, includes all docker commands</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">Compose CLI</a></td>
+<td style="text-align:left">The CLI, which allows you to build and run multi-container applications</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank" rel="noopener noreffer ">dockerd</a></td>
+<td style="text-align:left">Persistent process that manages containers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="application-programming-interfaces-apis">Application programming interfaces (APIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/api/" target="_blank" rel="noopener noreffer ">Engine API</a></td>
+<td style="text-align:left">The main API for Docker, provides programmatic access to a daemon</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/api/" target="_blank" rel="noopener noreffer ">Registry API</a></td>
+<td style="text-align:left">Facilitates distribution of images to the engine</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/docker-hub/api/latest/" target="_blank" rel="noopener noreffer ">Docker Hub API</a></td>
+<td style="text-align:left">API to interact with Docker Hub</td>
+</tr>
+</tbody>
+</table>
+<h3 id="drivers--specs">Drivers &amp; specs</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Driver</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/manifest-v2-2/" target="_blank" rel="noopener noreffer ">Image specification</a></td>
+<td style="text-align:left">Describes the various components of a Docker image</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/auth/" target="_blank" rel="noopener noreffer ">Registry token authentication</a></td>
+<td style="text-align:left">Outlines the Docker registry authentication scheme</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/storage-drivers/" target="_blank" rel="noopener noreffer ">Registry storage drivers</a></td>
+<td style="text-align:left">Enables support for given cloud providers when storing images with Registry</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-cli-usage">Docker CLI usage</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">A self-sufficient runtime for containers
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config string      Location of client config files (default &#34;/Users/wangxin/.docker&#34;)
+</span></span><span class="line"><span class="cl">  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER<span class="nb">_</span>HOST env var and default context set with &#34;docker context use&#34;)
+</span></span><span class="line"><span class="cl">  -D, --debug              Enable debug mode
+</span></span><span class="line"><span class="cl">  -H, --host list          Daemon socket(s) to connect to
+</span></span><span class="line"><span class="cl">  -l, --log-level string   Set the logging level (&#34;debug&#34;|&#34;info&#34;|&#34;warn&#34;|&#34;error&#34;|&#34;fatal&#34;) (default &#34;info&#34;)
+</span></span><span class="line"><span class="cl">      --tls                Use TLS; implied by --tlsverify
+</span></span><span class="line"><span class="cl">      --tlscacert string   Trust certs signed only by this CA (default &#34;/Users/wangxin/.docker/ca.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlscert string     Path to TLS certificate file (default &#34;/Users/wangxin/.docker/cert.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlskey string      Path to TLS key file (default &#34;/Users/wangxin/.docker/key.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlsverify          Use TLS and verify the remote
+</span></span><span class="line"><span class="cl">  -v, --version            Print version information and quit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Management Commands:
+</span></span><span class="line"><span class="cl">  builder     Manage builds
+</span></span><span class="line"><span class="cl">  buildx*     Docker Buildx (Docker Inc., v0.7.1)
+</span></span><span class="line"><span class="cl">  compose*    Docker Compose (Docker Inc., 2.2.2)
+</span></span><span class="line"><span class="cl">  config      Manage Docker configs
+</span></span><span class="line"><span class="cl">  container   Manage containers
+</span></span><span class="line"><span class="cl">  context     Manage contexts
+</span></span><span class="line"><span class="cl">  image       Manage images
+</span></span><span class="line"><span class="cl">  manifest    Manage Docker image manifests and manifest lists
+</span></span><span class="line"><span class="cl">  network     Manage networks
+</span></span><span class="line"><span class="cl">  node        Manage Swarm nodes
+</span></span><span class="line"><span class="cl">  plugin      Manage plugins
+</span></span><span class="line"><span class="cl">  scan*       Docker Scan (Docker Inc., v0.17.0)
+</span></span><span class="line"><span class="cl">  secret      Manage Docker secrets
+</span></span><span class="line"><span class="cl">  service     Manage services
+</span></span><span class="line"><span class="cl">  stack       Manage Docker stacks
+</span></span><span class="line"><span class="cl">  swarm       Manage Swarm
+</span></span><span class="line"><span class="cl">  system      Manage Docker
+</span></span><span class="line"><span class="cl">  trust       Manage trust on Docker images
+</span></span><span class="line"><span class="cl">  volume      Manage volumes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  attach      Attach local standard input, output, and error streams to a running container
+</span></span><span class="line"><span class="cl">  build       Build an image from a Dockerfile
+</span></span><span class="line"><span class="cl">  commit      Create a new image from a container&#39;s changes
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Create a new container
+</span></span><span class="line"><span class="cl">  diff        Inspect changes to files or directories on a container&#39;s filesystem
+</span></span><span class="line"><span class="cl">  events      Get real time events from the server
+</span></span><span class="line"><span class="cl">  exec        Run a command in a running container
+</span></span><span class="line"><span class="cl">  export      Export a container&#39;s filesystem as a tar archive
+</span></span><span class="line"><span class="cl">  history     Show the history of an image
+</span></span><span class="line"><span class="cl">  images      List images
+</span></span><span class="line"><span class="cl">  import      Import the contents from a tarball to create a filesystem image
+</span></span><span class="line"><span class="cl">  info        Display system-wide information
+</span></span><span class="line"><span class="cl">  inspect     Return low-level information on Docker objects
+</span></span><span class="line"><span class="cl">  kill        Kill one or more running containers
+</span></span><span class="line"><span class="cl">  load        Load an image from a tar archive or STDIN
+</span></span><span class="line"><span class="cl">  login       Log in to a Docker registry
+</span></span><span class="line"><span class="cl">  logout      Log out from a Docker registry
+</span></span><span class="line"><span class="cl">  logs        Fetch the logs of a container
+</span></span><span class="line"><span class="cl">  pause       Pause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  port        List port mappings or a specific mapping for the container
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull an image or a repository from a registry
+</span></span><span class="line"><span class="cl">  push        Push an image or a repository to a registry
+</span></span><span class="line"><span class="cl">  rename      Rename a container
+</span></span><span class="line"><span class="cl">  restart     Restart one or more containers
+</span></span><span class="line"><span class="cl">  rm          Remove one or more containers
+</span></span><span class="line"><span class="cl">  rmi         Remove one or more images
+</span></span><span class="line"><span class="cl">  run         Run a command in a new container
+</span></span><span class="line"><span class="cl">  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+</span></span><span class="line"><span class="cl">  search      Search the Docker Hub for images
+</span></span><span class="line"><span class="cl">  start       Start one or more stopped containers
+</span></span><span class="line"><span class="cl">  stats       Display a live stream of container(s) resource usage statistics
+</span></span><span class="line"><span class="cl">  stop        Stop one or more running containers
+</span></span><span class="line"><span class="cl">  tag         Create a tag TARGET<span class="nb">_</span>IMAGE that refers to SOURCE<span class="nb">_</span>IMAGE
+</span></span><span class="line"><span class="cl">  top         Display the running processes of a container
+</span></span><span class="line"><span class="cl">  unpause     Unpause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  update      Update configuration of one or more containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker version information
+</span></span><span class="line"><span class="cl">  wait        Block until one or more containers stop, then print their exit codes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker COMMAND --help&#39; for more information on a command.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-compose-cli-usage">Docker Compose CLI usage</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker compose [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Docker Compose
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --ansi string                Control when to print ANSI control characters (&#34;never&#34;|&#34;always&#34;|&#34;auto&#34;) (default &#34;auto&#34;)
+</span></span><span class="line"><span class="cl">      --compatibility              Run compose in backward compatibility mode
+</span></span><span class="line"><span class="cl">      --env-file string            Specify an alternate environment file.
+</span></span><span class="line"><span class="cl">  -f, --file stringArray           Compose configuration files
+</span></span><span class="line"><span class="cl">      --profile stringArray        Specify a profile to enable
+</span></span><span class="line"><span class="cl">      --project-directory string   Specify an alternate working directory
+</span></span><span class="line"><span class="cl">                                   (default: the path of the Compose file)
+</span></span><span class="line"><span class="cl">  -p, --project-name string        Project name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  build       Build or rebuild services
+</span></span><span class="line"><span class="cl">  convert     Converts the compose file to platform&#39;s canonical format
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a service container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Creates containers for a service.
+</span></span><span class="line"><span class="cl">  down        Stop and remove containers, networks
+</span></span><span class="line"><span class="cl">  events      Receive real time events from containers.
+</span></span><span class="line"><span class="cl">  exec        Execute a command in a running container.
+</span></span><span class="line"><span class="cl">  images      List images used by the created containers
+</span></span><span class="line"><span class="cl">  kill        Force stop service containers.
+</span></span><span class="line"><span class="cl">  logs        View output from containers
+</span></span><span class="line"><span class="cl">  ls          List running compose projects
+</span></span><span class="line"><span class="cl">  pause       Pause services
+</span></span><span class="line"><span class="cl">  port        Print the public port for a port binding.
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull service images
+</span></span><span class="line"><span class="cl">  push        Push service images
+</span></span><span class="line"><span class="cl">  restart     Restart containers
+</span></span><span class="line"><span class="cl">  rm          Removes stopped service containers
+</span></span><span class="line"><span class="cl">  run         Run a one-off command on a service.
+</span></span><span class="line"><span class="cl">  start       Start services
+</span></span><span class="line"><span class="cl">  stop        Stop services
+</span></span><span class="line"><span class="cl">  top         Display the running processes
+</span></span><span class="line"><span class="cl">  unpause     Unpause services
+</span></span><span class="line"><span class="cl">  up          Create and start containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker Compose version information
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker compose COMMAND --help&#39; for more information on a command.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-commands">Docker commands</h2>
+<h3 id="common-management-commands">Common management commands</h3>
+<ul>
+<li><code>docker context [--help]</code> <strong>context management</strong></li>
+<li><code>docker compose [--help]</code> <strong>docker compose commands</strong> <code>v2.2.2+</code></li>
+<li><code>docker container [--help]</code> <strong>container commands</strong></li>
+<li><code>docker image [--help]</code> <strong>image commands</strong>
+<ul>
+<li><code>docker image prune</code> <strong>remove untagged (<code>&lt;none&gt;</code>) images and images not used by any container</strong></li>
+</ul>
+</li>
+<li><code>docker volume [--help]</code> <em>volume (directory mount) commands</em></li>
+<li><code>docker network [--help]</code> <em>network commands</em></li>
+<li><code>docker system [--help]</code> <em>system commands</em>
+<ul>
+<li><code>docker system df</code> show disk usage</li>
+<li><code>docker system info</code> == <code>docker info</code> <em>Display system-wide information</em></li>
+</ul>
+</li>
+<li><code>docker scan [--help]</code> scan and analyze images</li>
+<li><code>docker manifest [--help]</code> view image manifests; experimental</li>
+</ul>
+<h3 id="common-commands">Common commands</h3>
+<ul>
+<li><code>docker build [--help]</code> <strong>build an image</strong>
+<ul>
+<li><code>docker build [[-t tag] ...] -f [PATH/Dockerfile] .</code></li>
+<li><code>docker build -t tag1 -t tag2 -f [PATH/Dockerfile] .</code> <strong>build multiple tags at once</strong></li>
+</ul>
+</li>
+<li><code>docker commit [OPTIONS] &lt;container&gt; &lt;REPOSITORY[:TAG]&gt;</code> <em>create an image from a container</em></li>
+<li><code>docker cp</code> copy files between a container and the local filesystem
+<ul>
+<li><code>docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-</code></li>
+<li><code>docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></li>
+</ul>
+</li>
+<li><em><code>docker create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></em> — usually you just use <code>docker run</code> <strong>to create and run</strong></li>
+<li><code>docker history</code> = <code>docker image history</code> view image history</li>
+<li><code>docker images</code> <strong><a href="#docker-image-filtering" rel="">list images</a></strong></li>
+<li><code>docker login</code></li>
+<li><code>docker search</code></li>
+<li><code>docker tag</code></li>
+<li><code>docker pull</code></li>
+<li><code>docker build</code></li>
+<li><code>docker run</code></li>
+<li><code>docker push</code></li>
+<li><code>docker stop</code></li>
+<li><code>docker logs</code></li>
+</ul>
+<h3 id="docker-image-filtering">docker image filtering</h3>
+<blockquote>
+<p><code>docker images -f [filter params]</code></p>
+</blockquote>
+<ul>
+<li><code>dangling=(true|false)</code> <strong>none-tag images</strong></li>
+<li><code>label=&lt;key&gt;</code> or <code>label=&lt;key&gt;=&lt;value&gt;</code> <em>filter by <code>label</code></em></li>
+<li><code>before=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>since=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>reference=(pattern of an image reference)</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images -f <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span>author
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span><span class="nv">author</span><span class="o">=</span>xwi88
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine:*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:*1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;[REPOSITORY:TAG]&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;tes*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test*2&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">In testing, if <code>REPOSITORY</code> contains <code>/</code>, the <code>reference</code> regex must include <code>/</code> to match — the filter regex does not match <code>/</code>.</div>
+        </div>
+    </div>
+<h3 id="docker-commit--create-an-image-from-a-container">docker commit — create an image from a container</h3>
+<blockquote>
+<p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage:  docker commit <span class="o">[</span>OPTIONS<span class="o">]</span> CONTAINER <span class="o">[</span>REPOSITORY<span class="o">[</span>:TAG<span class="o">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Create a new image from a container<span class="err">&#39;</span>s changes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -a, --author string    Author <span class="o">(</span>e.g., <span class="s2">&#34;John Hannibal Smith &lt;hannibal@a-team.com&gt;&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -c, --change list      Apply Dockerfile instruction to the created image
+</span></span><span class="line"><span class="cl">  -m, --message string   Commit message
+</span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">prune — one-shot cleanup of images, containers, etc.</h3>
+<ul>
+<li><code>docker image prune -a</code> <strong>remove all images not used by any container</strong></li>
+<li><code>docker container prune</code> <em>remove all stopped containers</em></li>
+<li><code>docker volume prune</code> <em>remove all unmounted volumes</em></li>
+<li><code>docker system prune</code> <em>remove all docker resources</em></li>
+<li><code>docker network prune</code> <em>remove all networks</em></li>
+</ul>
+<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<ul>
+<li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
+<li>demo image: <code>v8fg/demo[:latest]</code></li>
+<li>demo container name: <code>v8fg-demo</code></li>
+</ul>
+<h3 id="running-containers">Running Containers</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo bash</td>
+<td style="text-align:left">Run container and specify command</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo</td>
+<td style="text-align:left">Run container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid v8fg/demo</td>
+<td style="text-align:left">Run container detatched, -tty</td>
+</tr>
+<tr>
+<td style="text-align:left">docker create -ti v8fg/demo</td>
+<td style="text-align:left">Create a container without starting it</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">named container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps</td>
+<td style="text-align:left">show running containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps -a</td>
+<td style="text-align:left">show all containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=v8fg</code></td>
+<td style="text-align:left">show matching containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=demo -q</code></td>
+<td style="text-align:left">show matching container ID</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">inspect container</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>After the above, partial output:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">CONTAINER ID   IMAGE       COMMAND     CREATED              STATUS                          PORTS     NAMES
+</span></span><span class="line"><span class="cl">01430cc7b2c0   v8fg/demo   &#34;/bin/sh&#34;   11 seconds ago       Up 11 seconds                             v8fg-demo
+</span></span><span class="line"><span class="cl">83ce7dee0346   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Created                                   thirsty<span class="nb">_</span>bassi
+</span></span><span class="line"><span class="cl">1bd61cc802f1   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Up About a minute                         relaxed<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">be104825d061   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">8cfe1c19773f   v8fg/demo   &#34;bash&#34;      About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>euclid
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker start v8fg-demo</td>
+<td style="text-align:left">start</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo</td>
+<td style="text-align:left">stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">stop mutliple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker restart v8fg-demo</td>
+<td style="text-align:left">restart container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker pause v8fg-demo</td>
+<td style="text-align:left">pauses a running container, freeze in place</td>
+</tr>
+<tr>
+<td style="text-align:left">docker unpause v8fg-demo</td>
+<td style="text-align:left">unpause a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker wait v8fg-demo</td>
+<td style="text-align:left">blocks until running container stops</td>
+</tr>
+<tr>
+<td style="text-align:left">docker kill v8fg-demo</td>
+<td style="text-align:left">sends SIGKILL, faster than stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo</td>
+<td style="text-align:left">remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">remove multiple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm -f v8fg-demo</td>
+<td style="text-align:left">force remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker container rm -f $(docker ps -aq)</td>
+<td style="text-align:left">Remove all containers, running or stopped</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -tid -c 512 v8fg/demo</td>
+<td style="text-align:left">50% cpu</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpu-shares 2 v8fg/demo</code></td>
+<td style="text-align:left">CPU shares (relative weight)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpus 2 v8fg/demo</code></td>
+<td style="text-align:left">number of CPUs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpuset-cpus=0,4,6 v8fg/demo</code></td>
+<td style="text-align:left">use these cpus</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid -m 300M v8fg/demo</td>
+<td style="text-align:left">limit memory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker create -ti --storage-opt size=5G v8fg/demo</code></td>
+<td style="text-align:left">limit storage, not on aufs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -m 300M --cpus 1 --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">limit memory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker stats</td>
+<td style="text-align:left">resourse stats for all containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stats v8fg-demo</td>
+<td style="text-align:left">resource stats for one container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker top v8fg-demo</td>
+<td style="text-align:left">shows processes in a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logs v8fg-demo</td>
+<td style="text-align:left">container logs</td>
+</tr>
+<tr>
+<td style="text-align:left">docker events</td>
+<td style="text-align:left">watch events in real time</td>
+</tr>
+<tr>
+<td style="text-align:left">docker port v8fg-demo</td>
+<td style="text-align:left">shows public facing port of container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker diff v8fg-demo</td>
+<td style="text-align:left">show changes to a container&rsquo;s file system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-images">Docker Images</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker history v8fg/demo</td>
+<td style="text-align:left">show history of image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image rm v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove ddd4b27c1c67</td>
+<td style="text-align:left">remove by id</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi $(docker images -q)</td>
+<td style="text-align:left">remove all images</td>
+</tr>
+<tr>
+<td style="text-align:left">Commit container to an image:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo</td>
+<td style="text-align:left">no repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:my-update</td>
+<td style="text-align:left">tagged</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:v1.2.3</td>
+<td style="text-align:left">tagged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<ul>
+<li><strong>export, import</strong>: drops layer history; smaller — <strong>for base images, stripping history</strong></li>
+<li><em>save, load</em>: keeps layer history; larger</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker export</td>
+<td style="text-align:left">export container to tarball archive stream</td>
+</tr>
+<tr>
+<td style="text-align:left">docker import</td>
+<td style="text-align:left">create image from tarball, excludes history ( smaller image )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker save</td>
+<td style="text-align:left">save image to tar archive stream ( includes parent layers )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker load</td>
+<td style="text-align:left">load an image from tarball, includes history ( larger image )</td>
+</tr>
+<tr>
+<td style="text-align:left">Examples:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker export v8fg-demo | gzip &gt; v8fg-demo-container-export.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">cat v8fg-demo-container-export.tar.gz | docker import - v8fg-demo:latest-import</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker save v8fg/demo | gzip &gt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker load &lt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker login</td>
+<td style="text-align:left">Login to Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logout</td>
+<td style="text-align:left">Logout of Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker tag ddd4b27c1c67 v8fg/demo:local-v1</td>
+<td style="text-align:left">Tag an image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker push v8fg/demo</td>
+<td style="text-align:left">Push to registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg/golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker pull v8fg/demo</td>
+<td style="text-align:left">Pull it down, default latest</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run v8fg/demo:alpine</td>
+<td style="text-align:left">Will be downloaded if it isn`t here</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mkdir mydockerbuild</td>
+<td style="text-align:left">Create build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">cd mydockerbuild</td>
+<td style="text-align:left">cd into build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">vi Dockerfile</td>
+<td style="text-align:left">Edit build instructions</td>
+</tr>
+<tr>
+<td style="text-align:left">docker build -t mydockerimage .</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">Show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run mydockerimage</td>
+<td style="text-align:left">Run the new image</td>
+</tr>
+</tbody>
+</table>
+<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<blockquote>
+<p><code>v8fg/demo:latest</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">ARG</span> <span class="nv">FROM_REPOSITORY</span><span class="o">=</span>alpine <span class="nv">FROM_TAG</span><span class="o">=</span><span class="m">3</span>.15.1<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> ${FROM_REPOSITORY}:${FROM_TAG}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>latest <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add --no-cache tzdata bash<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>v8fg/demo:ubuntu</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>ubuntu <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install nginx -y <span class="o">&amp;&amp;</span> apt-get clean <span class="o">&amp;&amp;</span> apt-get autoclean <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FROM ubuntu</td>
+<td style="text-align:left">base image</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt update</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt install nginx -y</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>WORKDIR ~/</code></td>
+<td style="text-align:left">working dir that CMD is run from</td>
+</tr>
+<tr>
+<td style="text-align:left">ENTRYPOINT echo</td>
+<td style="text-align:left">default application</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;echo&rdquo; &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">main command / default application</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CMD [&quot;--port 27017&quot;]</code></td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">ENV SERVER_WORKS 4</td>
+<td style="text-align:left">set env variable</td>
+</tr>
+<tr>
+<td style="text-align:left">EXPOSE 8080</td>
+<td style="text-align:left">expose a port, not published to the host</td>
+</tr>
+<tr>
+<td style="text-align:left">MAINTAINER authors_name</td>
+<td style="text-align:left">deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL version=&ldquo;1.0&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL author=&ldquo;User One&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">USER 751</td>
+<td style="text-align:left">UID (or username) to run as</td>
+</tr>
+<tr>
+<td style="text-align:left">VOLUME [&quot;/my_files&quot;]</td>
+<td style="text-align:left">sets up a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test relativeDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to <code>WORKDIR</code>/relativeDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test /absoluteDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to /absoluteDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY ssh_config /etc/ssh/ssh_config</td>
+<td style="text-align:left">copy over a vile</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>COPY --chown=user1:group1 files* /data/</code></td>
+<td style="text-align:left">also changes ownership</td>
+</tr>
+<tr>
+<td style="text-align:left">ADD /dir1 /dir2</td>
+<td style="text-align:left">like copy but does more &hellip;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="volumesstorage">Volumes/Storage</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker info | grep -i storage</td>
+<td style="text-align:left">check storage driver</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">look for &ldquo;Mounts&rdquo;</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls</td>
+<td style="text-align:left">show voluems</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume create testvol1</td>
+<td style="text-align:left">create a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume inspect testvol1</td>
+<td style="text-align:left">inspect a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls -f dangling=true</td>
+<td style="text-align:left">find dangling ( unused ) volumes</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume rm volume1</td>
+<td style="text-align:left">remove volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Running containers with volumes:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test1 -v /data v8fg/demo</code></td>
+<td style="text-align:left">unamed volume mounted on /data</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test2 -v vol1:/data v8fg/demo</code></td>
+<td style="text-align:left">named volume</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test3 -v /src/data:/data v8fg/demo</code></td>
+<td style="text-align:left">bind mount</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test4 -v /src/data:/data:ro v8fg/demo</code></td>
+<td style="text-align:left">RO</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --volumes-from test2 --name test5 v8fg/demo</code></td>
+<td style="text-align:left">storage can be shared</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker rm -v test1</code></td>
+<td style="text-align:left">remove container and unnamed volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Access and sharing parameters:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">:ro</td>
+<td style="text-align:left">for read only</td>
+</tr>
+<tr>
+<td style="text-align:left">:z</td>
+<td style="text-align:left">shared all containers can read/write</td>
+</tr>
+<tr>
+<td style="text-align:left">:Z</td>
+<td style="text-align:left">private, unshared</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`/var/lib/docker/overlay2</td>
+<td style="text-align:left">`Defalt volume storage location on Ubuntu Linux</td>
+</tr>
+</tbody>
+</table>
+<h3 id="expose-ports">Expose Ports</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 1234:80 nginx</code></td>
+<td style="text-align:left">expose container port 80 on host port 1234</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000 ubuntu</td>
+<td style="text-align:left">`bind port</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 8000-9000:5000 ubuntu</code></td>
+<td style="text-align:left">bind port to range</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000/udp ubuntu</td>
+<td style="text-align:left">`udp ports</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 127.0.0.1:80:5000 ubuntu</td>
+<td style="text-align:left">`bind port on an interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 127.0.0.1::5000 ubuntu</code></td>
+<td style="text-align:left">bind any port, specific interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -P ubuntu</code></td>
+<td style="text-align:left">exposed ports to random ports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="networks">Networks</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker network ls</td>
+<td style="text-align:left">show networks, bridge is default</td>
+</tr>
+<tr>
+<td style="text-align:left">docker network inspect bridge</td>
+<td style="text-align:left">show network details and connected containers</td>
+</tr>
+<tr>
+<td style="text-align:left">Create Bridge Network, Specify Subnet and Gateway:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network create -d bridge my-network</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create -d bridge --subnet 172.25.0.0/16 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create --subnet 203.0.113.0/24 --gateway 203.0.113.254 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network rm my-network</td>
+<td style="text-align:left">remove network</td>
+</tr>
+<tr>
+<td style="text-align:left">Run container and specify network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --name test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Run container, specify network and IP:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --ip=172.25.3.3 --name=test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Connect container to network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network connect net1 test1</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network connect net1 test2 --ip 172.25.0.102</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Disconnect container from network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`docker network disconnect net1 test1</td>
+<td style="text-align:left">`Disconnect container from this network</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network disconnect -f test1 test2</code></td>
+<td style="text-align:left">Force disconnect</td>
+</tr>
+<tr>
+<td style="text-align:left">Find container&rsquo;s IP address:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{json .NetworkSettings.Networks}}' container1</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container1</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
+<li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>
+<li><a href="https://low-orbit.net/docker-cheat-sheet" target="_blank" rel="noopener noreffer ">docker-cheat-sheet</a></li>
+</ul>]]></description></item></channel></rss>

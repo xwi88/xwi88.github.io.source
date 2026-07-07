@@ -1,0 +1,612 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Signing Git Commits & Tags with GPG - Coding Life Share</title><meta name=Description content="Signing git tags or commits with GPG, plus GPG key updates, renewal, and expiration handling"><meta property="og:title" content="Signing Git Commits & Tags with GPG"><meta property="og:description" content="Signing git tags or commits with GPG, plus GPG key updates, renewal, and expiration handling"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/"><meta property="og:site_name" content="Coding Life Share"><meta property="og:locale" content="en"><meta property="og:image" content="https://blog.xwi88.com/og/en/git-sign-tags-commits-with-gpg.png"><meta property="article:author" content="xwi88"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-03-09T12:31:34+08:00"><meta property="article:modified_time" content="2026-07-07T10:59:54+08:00"><meta property="article:tag" content="gpg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Signing Git Commits & Tags with GPG"><meta name=twitter:description content="Signing git tags or commits with GPG, plus GPG key updates, renewal, and expiration handling"><meta name=twitter:site content="@xwi88"><meta name=twitter:image content="https://blog.xwi88.com/og/en/git-sign-tags-commits-with-gpg.png"><meta name=application-name content="xwi88 tech blog"><meta name=apple-mobile-web-app-title content="xwi88 tech blog"><meta name=theme-color content="#ffffff" media="(prefers-color-scheme: light)"><meta name=theme-color content="#292a2d" media="(prefers-color-scheme: dark)"><meta name=msapplication-TileColor content="#da532c"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Article","headline":"\"Signing Git Commits \\u0026 Tags with GPG\"","datePublished":"\"2022-03-09T12:31:34+08:00\"","dateModified":"\"2026-07-07T10:59:54+08:00\"","author":{"@type":"Person","name":"\"xwi88\""},"mainEntityOfPage":"\"https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/\"","publisher":{"@type":"Organization","name":"\"Coding Life Share\""}}</script><link rel=preconnect href=https://cdn.jsdelivr.net crossorigin><link rel=dns-prefetch href=https://hm.baidu.com><link rel=dns-prefetch href=https://busuanzi.ibruce.info><link rel=dns-prefetch href=https://giscus.app><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/><link rel=alternate hreflang=zh-cn href=https://blog.xwi88.com/git-sign-tags-commits-with-gpg/><link rel=alternate hreflang=en href=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/><link rel=prev href=https://blog.xwi88.com/en/go-vcs-gvm/><link rel=next href=https://blog.xwi88.com/en/git-common-config/><link rel=stylesheet href=/css/style.min.5466e4d1894d486c16c973f86d9b34999862591293758ae1a9ff04ce2babf2d4.css integrity="sha256-VGbk0YlNSGwWyXP4bZs0mZhiWRKTdYrhqf8Eziur8tQ="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Signing Git Commits \u0026 Tags with GPG","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.xwi88.com\/en\/git-sign-tags-commits-with-gpg\/"},"genre":"posts","keywords":"gpg","wordcount":3132,"url":"https:\/\/blog.xwi88.com\/en\/git-sign-tags-commits-with-gpg\/","datePublished":"2022-03-09T12:31:34+08:00","dateModified":"2026-07-07T10:59:54+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xwi88","logo":{"@type":"ImageObject","url":"https:\/\/blog.xwi88.com\/images\/avatar.jpg","width":725,"height":967}},"author":{"@type":"Person","name":"xwi88"},"description":"Signing git tags or commits with GPG, plus GPG key updates, renewal, and expiration handling"}</script><script>(function(){e=document.documentElement,t=e.style;try{if(n=localStorage.getItem("accent-custom"),n){var e,t,n,i,s=n.replace("#",""),a=parseInt(s.slice(0,2),16),r=parseInt(s.slice(2,4),16),c=parseInt(s.slice(4,6),16),o=function(e){return Math.round(e+(255-e)*.32).toString(16).padStart(2,"0")};t.setProperty("--accent-light",n),t.setProperty("--accent-dark","#"+o(a)+o(r)+o(c)),t.setProperty("--accent-rgb",a+", "+r+", "+c)}else e.setAttribute("data-accent",localStorage.getItem("accent")||"indigo");e.setAttribute("data-fontscale",localStorage.getItem("font-scale")||"2"),i=localStorage.getItem("font-family"),i&&e.setAttribute("data-fontfamily",i)}catch{e.setAttribute("data-accent","indigo"),e.setAttribute("data-fontscale","2")}})()</script></head><body data-header-desktop=fixed data-header-mobile=auto><a class=skip-link href=#main-content>Skip to main content</a><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><script type=text/javascript>(function(){try{var e=localStorage.getItem("appearance");({sepia:1,green:1,oled:1,navy:1}[e]&&document.body.setAttribute("data-variant",e))}catch{}})()</script><script type=text/javascript>(function(){try{localStorage.getItem("toc-side")==="right"&&document.body.setAttribute("data-toc-side","right")}catch{}})()</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/en/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/en/posts/>Posts </a><a class=menu-item href=/en/archives/>Archives </a><a class=menu-item href=/en/tags/>Tags </a><a class=menu-item href=/en/categories/>Categories </a><a class=menu-item href=/en/categories/documentation/>Docs </a><a class=menu-item href=/en/favorite/>Favorites </a><a class=menu-item href=/en/about/>About </a><a class=menu-item href=/en/resume/>Resume </a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i> </a><a class=menu-item href=/en/search/ title=Search><i class='fas fa-search fa-fw'></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item accent-switch" id=accent-switch-desktop title=主题配色><i class="fas fa-palette fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item font-switch" id=font-switch-desktop title="字号 / 字体"><i class="fas fa-font fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title="Select Language"><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/git-sign-tags-commits-with-gpg/>简体中文</option><option value=/en/git-sign-tags-commits-with-gpg/ selected>English</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/en/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/en/posts/ title>Posts</a><a class=menu-item href=/en/archives/ title>Archives</a><a class=menu-item href=/en/tags/ title>Tags</a><a class=menu-item href=/en/categories/ title>Categories</a><a class=menu-item href=/en/categories/documentation/ title>Docs</a><a class=menu-item href=/en/favorite/ title>Favorites</a><a class=menu-item href=/en/about/ title>About</a><a class=menu-item href=/en/resume/ title>Resume</a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i></a><a class=menu-item href=/en/search/ title=Search><i class='fas fa-search fa-fw'></i></a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item accent-switch" id=accent-switch-mobile title=主题配色><i class="fas fa-palette fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item font-switch" id=font-switch-mobile title="字号 / 字体"><i class="fas fa-font fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language"><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/git-sign-tags-commits-with-gpg/>简体中文</option><option value=/en/git-sign-tags-commits-with-gpg/ selected>English</option></select></a></div></div></header><main class=main id=main-content tabindex=-1><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Signing Git Commits & Tags with GPG</h1><div class=post-meta><div class=post-meta-line><span class="post-author meta-field"><a href=https://github.com/xwi88 title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>xwi88</a></span><span class="post-category meta-field">included in <a href=/en/categories/git/><i class="far fa-folder fa-fw"></i>git</a></span></div><div class=post-meta-line><span class=meta-field><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-03-09>2022-03-09</time></span><span class=meta-field><i class="far fa-calendar-check fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2026-07-07>2026-07-07</time></span><span class=meta-field><i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;3132 words</span>
+<span class=meta-field><i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;15 minutes</span>
+<span id=busuanzi_container_value_page_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_page_pv></span>&nbsp;views</span></div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#enable-vigilant-mode>Enable vigilant mode</a></li><li><a href=#gpg-command>GPG Command</a><ul><li><a href=#man-gpg><strong>man gpg</strong></a></li><li><a href=#gpg-shell-command><strong>gpg shell command</strong></a></li></ul></li><li><a href=#gpg-key-generation--config>GPG key generation & config</a><ul><li><a href=#existing-gpg-keys><em>Existing GPG keys</em></a></li><li><a href=#generate-a-new-gpg-key>Generate a new <em>GPG key</em></a></li><li><a href=#latest-gpg-keys>Latest <em>GPG keys</em></a></li><li><a href=#export-a-gpg-key>Export a <em>GPG key</em></a></li><li><a href=#find-a-gpg-key>Find a <em>GPG key</em></a></li><li><a href=#import-a-gpg-key>Import a <em>GPG key</em></a></li><li><a href=#secret-key-backup-export--import>Secret-key backup, export & import</a><ul><li><a href=#export-a-secret-key>Export a secret key</a></li><li><a href=#import-a-secret-key>Import a secret key</a></li></ul></li><li><a href=#key-revocation><strong>Key revocation</strong></a></li><li><a href=#delete-keys>Delete keys</a></li></ul></li><li><a href=#restart-the-gpg-agent>Restart the GPG Agent</a></li><li><a href=#configure-git-to-use-gpg>Configure git to use GPG</a><ul><li><a href=#set-the-gpg-key>Set the <strong>GPG key</strong></a></li><li><a href=#configure-the-gpg-key-used-for-signing>Configure the <em>GPG key</em> used for signing</a></li><li><a href=#create-a-signed-commit>Create a signed commit</a></li><li><a href=#sign-a-tag>Sign a tag</a></li><li><a href=#view-commit-signatures>View commit signatures</a></li><li><a href=#local-signature-verification-issues><strong>Local signature-verification issues</strong></a></li><li><a href=#importing-missing-gpg-keys--verifying>Importing <strong>missing gpg keys</strong> & verifying</a></li></ul></li><li><a href=#importing-githubs-gpg-public-key>Importing Github&rsquo;s GPG public key</a></li><li><a href=#gpg-key-update--renewal><strong>GPG key update & renewal</strong></a></li><li><a href=#rebinding-the-gpg-sign-key>Rebinding the GPG sign key</a></li><li><a href=#deleting-gpg-keys><em>Deleting GPG keys</em></a></li><li><a href=#references>References</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><span data-pagefind-meta=title hidden>Signing Git Commits & Tags with GPG</span><span data-pagefind-filter=分类 hidden>git</span><span data-pagefind-filter=标签 hidden>gpg</span><p>Using <em><a href=https://gnupg.org/ target=_blank rel="noopener noreffer">GPG</a></em> or <em><a href=https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo target=_blank rel="noopener noreffer">S/MIME</a></em>, you can sign <em>tags</em> or <em>commits</em> locally. Those <em>tags</em>/<em>commits</em> are then marked as trusted on <em>GitHub</em>, so others can be confident the changes came from a trusted source.</p><blockquote><p><strong>Copyright notice</strong>: This is an original article by <strong><a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">xwi88</a></strong>, licensed under <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel="noopener noreffer">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">https://github.com/xwi88</a></p></blockquote><h2 id=enable-vigilant-mode>Enable vigilant mode</h2><p>With <strong><a href=https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode target=_blank rel="noopener noreffer">vigilant</a></strong> mode on, your own unsigned commits are flagged <strong>Unverified</strong>. This <strong>alerts you and others to potential authenticity issues</strong>. The author and committer of a Git commit are easily spoofed — someone could push a commit that claims to be yours but isn&rsquo;t.</p><blockquote><p>Path: <strong>Settings</strong>-><strong><a href=https://github.com/settings/keys target=_blank rel="noopener noreffer">SSH and GPG keys</a></strong>><strong>Vigilant mode</strong>->select <strong>Flag unsigned commits as unverified</strong></p></blockquote><h2 id=gpg-command>GPG Command</h2><h3 id=man-gpg><strong>man gpg</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gpg <span class=o>(</span>GnuPG<span class=o>)</span> 2.2.34
+</span></span><span class=line><span class=cl>libgcrypt 1.9.4
+</span></span><span class=line><span class=cl>Copyright <span class=o>(</span>C<span class=o>)</span> <span class=m>2022</span> g10 Code GmbH
+</span></span><span class=line><span class=cl>License GNU GPL-3.0-or-later &lt;https://gnu.org/licenses/gpl.html&gt;
+</span></span><span class=line><span class=cl>This is free software: you are free to change and redistribute it.
+</span></span><span class=line><span class=cl>There is NO WARRANTY, to the extent permitted by law.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Home: ~/.gnupg
+</span></span><span class=line><span class=cl>Supported algorithms:
+</span></span><span class=line><span class=cl>Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+</span></span><span class=line><span class=cl>Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+</span></span><span class=line><span class=cl>        CAMELLIA128, CAMELLIA192, CAMELLIA256
+</span></span><span class=line><span class=cl>Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+</span></span><span class=line><span class=cl>Compression: Uncompressed, ZIP, ZLIB, BZIP2
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Syntax: gpg <span class=o>[</span>options<span class=o>]</span> <span class=o>[</span>files<span class=o>]</span>
+</span></span><span class=line><span class=cl>Sign, check, encrypt or decrypt
+</span></span><span class=line><span class=cl>Default operation depends on the input data
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Commands:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> -s, --sign                         make a signature
+</span></span><span class=line><span class=cl>     --clear-sign                   make a clear text signature
+</span></span><span class=line><span class=cl> -b, --detach-sign                  make a detached signature
+</span></span><span class=line><span class=cl> -e, --encrypt                      encrypt data
+</span></span><span class=line><span class=cl> -c, --symmetric                    encryption only with symmetric cipher
+</span></span><span class=line><span class=cl> -d, --decrypt                      decrypt data <span class=o>(</span>default<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --verify                       verify a signature
+</span></span><span class=line><span class=cl> -k, --list-keys                    list keys
+</span></span><span class=line><span class=cl>     --list-signatures              list keys and signatures
+</span></span><span class=line><span class=cl>     --check-signatures             list and check key signatures
+</span></span><span class=line><span class=cl>     --fingerprint                  list keys and fingerprints
+</span></span><span class=line><span class=cl> -K, --list-secret-keys             list secret keys
+</span></span><span class=line><span class=cl>     --generate-key                 generate a new key pair
+</span></span><span class=line><span class=cl>     --quick-generate-key           quickly generate a new key pair
+</span></span><span class=line><span class=cl>     --quick-add-uid                quickly add a new user-id
+</span></span><span class=line><span class=cl>     --quick-revoke-uid             quickly revoke a user-id
+</span></span><span class=line><span class=cl>     --quick-set-expire             quickly <span class=nb>set</span> a new expiration date
+</span></span><span class=line><span class=cl>     --full-generate-key            full featured key pair generation
+</span></span><span class=line><span class=cl>     --generate-revocation          generate a revocation certificate
+</span></span><span class=line><span class=cl>     --delete-keys                  remove keys from the public keyring
+</span></span><span class=line><span class=cl>     --delete-secret-keys           remove keys from the secret keyring
+</span></span><span class=line><span class=cl>     --quick-sign-key               quickly sign a key
+</span></span><span class=line><span class=cl>     --quick-lsign-key              quickly sign a key locally
+</span></span><span class=line><span class=cl>     --quick-revoke-sig             quickly revoke a key signature
+</span></span><span class=line><span class=cl>     --sign-key                     sign a key
+</span></span><span class=line><span class=cl>     --lsign-key                    sign a key locally
+</span></span><span class=line><span class=cl>     --edit-key                     sign or edit a key
+</span></span><span class=line><span class=cl>     --change-passphrase            change a passphrase
+</span></span><span class=line><span class=cl>     --export                       <span class=nb>export</span> keys
+</span></span><span class=line><span class=cl>     --send-keys                    <span class=nb>export</span> keys to a keyserver
+</span></span><span class=line><span class=cl>     --receive-keys                 import keys from a keyserver
+</span></span><span class=line><span class=cl>     --search-keys                  search <span class=k>for</span> keys on a keyserver
+</span></span><span class=line><span class=cl>     --refresh-keys                 update all keys from a keyserver
+</span></span><span class=line><span class=cl>     --import                       import/merge keys
+</span></span><span class=line><span class=cl>     --card-status                  print the card status
+</span></span><span class=line><span class=cl>     --edit-card                    change data on a card
+</span></span><span class=line><span class=cl>     --change-pin                   change a card<span class=err>&#39;</span>s PIN
+</span></span><span class=line><span class=cl>     --update-trustdb               update the trust database
+</span></span><span class=line><span class=cl>     --print-md                     print message digests
+</span></span><span class=line><span class=cl>     --server                       run in server mode
+</span></span><span class=line><span class=cl>     --tofu-policy VALUE            <span class=nb>set</span> the TOFU policy <span class=k>for</span> a key
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Options controlling the diagnostic output:
+</span></span><span class=line><span class=cl> -v, --verbose                      verbose
+</span></span><span class=line><span class=cl> -q, --quiet                        be somewhat more quiet
+</span></span><span class=line><span class=cl>     --options FILE                 <span class=nb>read</span> options from FILE
+</span></span><span class=line><span class=cl>     --log-file FILE                write server mode logs to FILE
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Options controlling the configuration:
+</span></span><span class=line><span class=cl>     --default-key NAME             use NAME as default secret key
+</span></span><span class=line><span class=cl>     --encrypt-to NAME              encrypt to user ID NAME as well
+</span></span><span class=line><span class=cl>     --group SPEC                   <span class=nb>set</span> up email aliases
+</span></span><span class=line><span class=cl>     --openpgp                      use strict OpenPGP behavior
+</span></span><span class=line><span class=cl> -n, --dry-run                      <span class=k>do</span> not make any changes
+</span></span><span class=line><span class=cl> -i, --interactive                  prompt before overwriting
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Options controlling the output:
+</span></span><span class=line><span class=cl> -a, --armor                        create ascii armored output
+</span></span><span class=line><span class=cl> -o, --output FILE                  write output to FILE
+</span></span><span class=line><span class=cl>     --textmode                     use canonical text mode
+</span></span><span class=line><span class=cl> -z N                               <span class=nb>set</span> compress level to N <span class=o>(</span><span class=m>0</span> disables<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Options controlling key import and export:
+</span></span><span class=line><span class=cl>     --auto-key-locate MECHANISMS   use MECHANISMS to locate keys by mail address
+</span></span><span class=line><span class=cl>     --disable-dirmngr              disable all access to the dirmngr
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Options to specify keys:
+</span></span><span class=line><span class=cl> -r, --recipient USER-ID            encrypt <span class=k>for</span> USER-ID
+</span></span><span class=line><span class=cl> -u, --local-user USER-ID           use USER-ID to sign or decrypt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>(</span>See the man page <span class=k>for</span> a <span class=nb>complete</span> listing of all commands and options<span class=o>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Examples:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl> -se -r Bob <span class=o>[</span>file<span class=o>]</span>          sign and encrypt <span class=k>for</span> user Bob
+</span></span><span class=line><span class=cl> --clear-sign <span class=o>[</span>file<span class=o>]</span>        make a clear text signature
+</span></span><span class=line><span class=cl> --detach-sign <span class=o>[</span>file<span class=o>]</span>       make a detached signature
+</span></span><span class=line><span class=cl> --list-keys <span class=o>[</span>names<span class=o>]</span>        show keys
+</span></span><span class=line><span class=cl> --fingerprint <span class=o>[</span>names<span class=o>]</span>      show fingerprints
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Please report bugs to &lt;https://bugs.gnupg.org&gt;.
+</span></span></code></pre></td></tr></table></div></div><h3 id=gpg-shell-command><strong>gpg shell command</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gpg&gt; <span class=nb>help</span>
+</span></span><span class=line><span class=cl>quit        quit this menu
+</span></span><span class=line><span class=cl>save        save and quit
+</span></span><span class=line><span class=cl><span class=nb>help</span>        show this <span class=nb>help</span>
+</span></span><span class=line><span class=cl>fpr         show key fingerprint
+</span></span><span class=line><span class=cl>grip        show the keygrip
+</span></span><span class=line><span class=cl>list        list key and user IDs
+</span></span><span class=line><span class=cl>uid         <span class=k>select</span> user ID N
+</span></span><span class=line><span class=cl>key         <span class=k>select</span> subkey N
+</span></span><span class=line><span class=cl>check       check signatures
+</span></span><span class=line><span class=cl>sign        sign selected user IDs <span class=o>[</span>* see below <span class=k>for</span> related commands<span class=o>]</span>
+</span></span><span class=line><span class=cl>lsign       sign selected user IDs locally
+</span></span><span class=line><span class=cl>tsign       sign selected user IDs with a trust signature
+</span></span><span class=line><span class=cl>nrsign      sign selected user IDs with a non-revocable signature
+</span></span><span class=line><span class=cl>deluid      delete selected user IDs
+</span></span><span class=line><span class=cl>delkey      delete selected subkeys
+</span></span><span class=line><span class=cl>delsig      delete signatures from the selected user IDs
+</span></span><span class=line><span class=cl>pref        list preferences <span class=o>(</span>expert<span class=o>)</span>
+</span></span><span class=line><span class=cl>showpref    list preferences <span class=o>(</span>verbose<span class=o>)</span>
+</span></span><span class=line><span class=cl>trust       change the ownertrust
+</span></span><span class=line><span class=cl>revsig      revoke signatures on the selected user IDs
+</span></span><span class=line><span class=cl><span class=nb>enable</span>      <span class=nb>enable</span> key
+</span></span><span class=line><span class=cl>disable     disable key
+</span></span><span class=line><span class=cl>showphoto   show selected photo IDs
+</span></span><span class=line><span class=cl>clean       compact unusable user IDs and remove unusable signatures from key
+</span></span><span class=line><span class=cl>minimize    compact unusable user IDs and remove all signatures from key
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>* The <span class=s1>&#39;sign&#39;</span> <span class=nb>command</span> may be prefixed with an <span class=s1>&#39;l&#39;</span> <span class=k>for</span> <span class=nb>local</span> signatures <span class=o>(</span>lsign<span class=o>)</span>,
+</span></span><span class=line><span class=cl>  a <span class=s1>&#39;t&#39;</span> <span class=k>for</span> trust signatures <span class=o>(</span>tsign<span class=o>)</span>, an <span class=s1>&#39;nr&#39;</span> <span class=k>for</span> non-revocable signatures
+</span></span><span class=line><span class=cl>  <span class=o>(</span>nrsign<span class=o>)</span>, or any combination thereof <span class=o>(</span>ltsign, tnrsign, etc.<span class=o>)</span>.
+</span></span></code></pre></td></tr></table></div></div><h2 id=gpg-key-generation--config>GPG key generation & config</h2><div class="details admonition note open"><div class="details-summary admonition-title"><i class="icon fas fa-pencil-alt fa-fw" aria-hidden=true></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see <a href=https://www.gnupg.org/download/ target=_blank rel="noopener noreffer">GnuPG&rsquo;s Download page</a>.</div></div></div><h3 id=existing-gpg-keys><em>Existing GPG keys</em></h3><p><code>gpg --list-secret-keys --keyid-format=long</code></p><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>~/.gnupg/pubring.kbx
+</span></span><span class=line><span class=cl>-----------------------------------
+</span></span><span class=line><span class=cl>sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class=line><span class=cl>      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class=line><span class=cl>uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><ul><li><em>the GPG key ID</em>: <strong>325ACD1FD3B6AA80</strong></li></ul></div></div></div><h3 id=generate-a-new-gpg-key>Generate a new <em>GPG key</em></h3><blockquote><p>If an old GPG key already exists, you don&rsquo;t need to generate a new one!</p></blockquote><p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>Algorithms <em>github</em> supports for generating <em>gpg keys</em></p><ul><li><strong>RSA</strong></li><li>ElGamal</li><li>DSA</li><li>ECDH</li><li>ECDSA</li><li>EdDSA</li></ul></div></div></div><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><code>gpg --default-new-key-algo rsa4096 --gen-key</code></p><ul><li>Real name: <code>tmp_gpg</code></li><li>Email address: <code>278810732@qq.com</code></li></ul><p>You selected this <strong>USER-ID</strong>:
+&ldquo;tmp_gpg <a href=mailto:278810732@qq.com rel>278810732@qq.com</a>&rdquo;</p><ul><li>Change (N)ame, (E)mail, or (O)kay/(Q)uit? <code>O</code></li></ul><p>We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.</p><p>Note that this key cannot be used for encryption. You may want to use
+the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>pub   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class=line><span class=cl>uid                      tmp_gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h3 id=latest-gpg-keys>Latest <em>GPG keys</em></h3><p><code>gpg --list-secret-keys --keyid-format=long</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>-----------------------------------
+</span></span><span class=line><span class=cl>sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+</span></span><span class=line><span class=cl>      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+</span></span><span class=line><span class=cl>uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sec   rsa4096/FE47519758053257 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      F09FC9FB34FA457ED2F7090AFE47519758053257
+</span></span><span class=line><span class=cl>uid                 [ultimate] tmp<span class=nb>_</span>gpg &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><h3 id=export-a-gpg-key>Export a <em>GPG key</em></h3><ul><li><code>gpg --armor --export FE47519758053257</code></li><li>or <code>gpg -a -o --export FE47519758053257</code></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>-----BEGIN PGP PUBLIC KEY BLOCK-----
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>xxxxxxxxxxxxxxx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-----END PGP PUBLIC KEY BLOCK-----
+</span></span></code></pre></td></tr></table></div></div><p>Export a <em>gpg public key</em> to a specific destination:</p><ul><li><code>gpg --export --armor [uid] > gpgkey.pub.asc</code> <strong>export to file</strong> <em>uid: keyID/name/email</em></li><li><code>gpg --keyserver [keyserverAddress] --send-keys keyIDs</code> <em>export to a specific key server</em></li><li><code>gpg --send-keys keyIDs</code> <strong>export to the default key server</strong></li></ul><blockquote><p><strong>Output when exporting to the default key server</strong></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
+</span></span></code></pre></td></tr></table></div></div><h3 id=find-a-gpg-key>Find a <em>GPG key</em></h3><blockquote><p><strong>keyIDs</strong> may be: <em>name</em>, <strong>keyID</strong>, <em>email</em></p></blockquote><ul><li><code>gpg --keyserver keyserverAddress --search-keys keyIDs</code></li><li><code>gpg --search-keys keyIDs</code> <strong>search the default key server</strong></li></ul><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg --search-keys xwi88</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: data source: https://162.213.33.8:443
+</span></span><span class=line><span class=cl>(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class=line><span class=cl>Keys 1-1 of 1 for &#34;xwi88&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>gpg --search-keys 90684042688CB9BE</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: data source: https://162.213.33.8:443
+</span></span><span class=line><span class=cl>(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class=line><span class=cl>Keys 1-1 of 1 for &#34;90684042688CB9BE&#34;.  Enter number(s), N)ext, or Q)uit &gt; q
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>gpg --search-keys 278810732@qq.com</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: data source: https://162.213.33.8:443
+</span></span><span class=line><span class=cl>(1)	xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+</span></span><span class=line><span class=cl>Keys 1-1 of 1 for &#34;278810732@qq.com&#34;.  Enter number(s), N)ext, or Q)uit &gt; y
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h3 id=import-a-gpg-key>Import a <em>GPG key</em></h3><blockquote><p><strong>Key-server import</strong> — without an address it defaults to <code>hkps://keyserver.ubuntu.com</code> <strong>(your address may differ; this is local output)</strong></p></blockquote><ul><li><code>gpg --import [GPG public key]</code> <em>import from file</em></li><li><code>gpg --keyserver [keyserverAddress] --recv-keys keyIDs</code> <em>import from key server</em></li><li><code>gpg --recv-keys keyIDs</code> <strong>import from the default key server</strong></li><li><code>gpg --refresh-keys</code> <em>update all keys from the key server</em></li></ul><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg --recv-keys 90684042688CB9BE</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: key 90684042688CB9BE: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class=line><span class=cl>gpg: Total number processed: 1
+</span></span><span class=line><span class=cl>gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h3 id=secret-key-backup-export--import>Secret-key backup, export & import</h3><blockquote><p>Mainly for: <strong>sharing across your own machines</strong></p></blockquote><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ul><li><strong>Never upload a secret key to a key server</strong></li><li><strong>Back up the secret-key file securely</strong></li><li><em>Secret-key file permission</em>: <code>600</code></li><li><em>Public-key file permission</em>: <code>644</code></li></ul></div></div></div><h4 id=export-a-secret-key>Export a secret key</h4><p><code>gpg -a -o test_secKey.asc --export-secret-keys keyID</code></p><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg -K</code> view local secret keys</p><p><code>gpg -a -o test_secKey.asc --export-secret-keys 1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80</code> export the secret key</p></blockquote></div></div></div><h4 id=import-a-secret-key>Import a secret key</h4><p><code>gpg --import secKeyFile</code></p><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg --import test_secKey.asc</code> import a secret key — same operation as importing a public key</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; not changed
+</span></span><span class=line><span class=cl>gpg: Total number processed: 1
+</span></span><span class=line><span class=cl>gpg:              unchanged: 1
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>gpg -K</code> view local secret keys</p></blockquote></div></div></div><h3 id=key-revocation><strong>Key revocation</strong></h3><p><em>After generating a new key pair, if other key pairs are no longer used, publish a revocation certificate immediately to declare the old public key invalid and prevent malicious use.</em></p><blockquote><p><code>gpg --output test_revoke.asc --gen-revoke keyID</code></p><p><code>gpg --import test_revoke.asc</code> import the revocation certificate</p><p><code>gpg --send-keys keyID</code> send the revocation certificate to the server, declaring the original <em>GPG Key</em> revoked</p></blockquote><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg --output test_revoke.asc --gen-revoke 325ACD1FD3B6AA80</code></p><p>or <code>gpg --output test_revoke.asc --generate-revocation 325ACD1FD3B6AA80</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/325ACD1FD3B6AA80 2022-03-07 xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Create a revocation certificate for this key? (y/N) y
+</span></span><span class=line><span class=cl>Please select the reason for the revocation:
+</span></span><span class=line><span class=cl>  0 = No reason specified
+</span></span><span class=line><span class=cl>  1 = Key has been compromised
+</span></span><span class=line><span class=cl>  2 = Key is superseded
+</span></span><span class=line><span class=cl>  3 = Key is no longer used
+</span></span><span class=line><span class=cl>  Q = Cancel
+</span></span><span class=line><span class=cl>(Probably you want to select 1 here)
+</span></span><span class=line><span class=cl>Your decision? 3
+</span></span><span class=line><span class=cl>Enter an optional description; end it with an empty line:
+</span></span><span class=line><span class=cl>&gt;
+</span></span><span class=line><span class=cl>Reason for revocation: Key is no longer used
+</span></span><span class=line><span class=cl>(No description given)
+</span></span><span class=line><span class=cl>Is this okay? (y/N) y
+</span></span><span class=line><span class=cl>ASCII armored output forced.
+</span></span><span class=line><span class=cl>Revocation certificate created.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Please move it to a medium which you can hide away; if Mallory gets
+</span></span><span class=line><span class=cl>access to this certificate he can use it to make your key unusable.
+</span></span><span class=line><span class=cl>It is smart to print this certificate and store it away, just in case
+</span></span><span class=line><span class=cl>your media become unreadable.  But have some caution:  The print system of
+</span></span><span class=line><span class=cl>your machine might store the data and make it available to others!
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>gpg --import test_revoke.asc</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: key 325ACD1FD3B6AA80: &#34;xwi88 &lt;278810732@qq.com&gt;&#34; revocation certificate imported
+</span></span><span class=line><span class=cl>gpg: Total number processed: 1
+</span></span><span class=line><span class=cl>gpg:    new key revocations: 1
+</span></span><span class=line><span class=cl>gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+</span></span><span class=line><span class=cl>gpg: depth: 0  valid:   3  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 3u
+</span></span><span class=line><span class=cl>gpg: next trustdb check due at 2024-03-06
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><code>gpg --send-keys 325ACD1FD3B6AA80</code></p><p><code>gpg --search-keys 325ACD1FD3B6AA80</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>gpg: data source: https://162.213.33.8:443
+</span></span><span class=line><span class=cl>gpg: key &#34;325ACD1FD3B6AA80&#34; not found on keyserver
+</span></span><span class=line><span class=cl>gpg: keyserver search failed: Not found
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h3 id=delete-keys>Delete keys</h3><ul><li><code>gpg --delete-secret-keys keyID</code> <strong>delete this first</strong></li><li><code>gpg --delete-keys keyID</code></li></ul><h2 id=restart-the-gpg-agent>Restart the GPG Agent</h2><blockquote><p>GPG restarts it on demand</p></blockquote><p><code>gpgconf --kill gpg-agent</code></p><h2 id=configure-git-to-use-gpg>Configure git to use GPG</h2><h3 id=set-the-gpg-key>Set the <strong>GPG key</strong></h3><blockquote><ul><li><p>Copy the <strong>GPG key</strong> you want to use, <em>beginning with</em> <strong>&mdash;&ndash;BEGIN PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong> and <em>ending with</em> <strong>&mdash;&ndash;END PGP PUBLIC KEY BLOCK&mdash;&ndash;</strong></p></li><li><p>Paste it into <em>github</em>: <strong>Settings</strong>-><strong>SSH and GPG keys</strong>-><strong>GPG keys</strong>. If the <em>key</em> already exists, ignore; otherwise create a new entry and paste.</p></li></ul></blockquote><h3 id=configure-the-gpg-key-used-for-signing>Configure the <em>GPG key</em> used for signing</h3><blockquote><p>Mind whether you want this global; with a global config, an individual project can still override it! Replace <del>&ndash;global</del> with <strong>local</strong></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># global config</span>
+</span></span><span class=line><span class=cl>git config --global user.signingkey 325ACD1FD3B6AA80
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</span>
+</span></span><span class=line><span class=cl>git config --global commit.gpgsign <span class=nb>true</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=create-a-signed-commit>Create a signed commit</h3><p><code>git commit -S -m "your commit message"</code></p><blockquote><p>If you&rsquo;ve set commits to be signed by default, you can also just:</p><p><code>git commit -m "your commit message"</code></p></blockquote><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p>If your <strong>GPG key</strong> uses a <em>GPG key passphrase</em>, you&rsquo;ll need to enter your <em>passphrase</em> when committing.</p><p>You can store the <strong>GPG key passphrase</strong> to avoid entering it on every sign:</p><ul><li>Mac users, <strong><a href=https://gpgtools.org/ target=_blank rel="noopener noreffer">GPG Suite</a></strong> can store your <em>GPG key passphrase</em> in <strong>Mac OS Keychain</strong></li><li>Windows users, <strong><a href=https://www.gpg4win.org/ target=_blank rel="noopener noreffer">Gpg4win</a></strong></li><li>Manually configure <strong><a href=http://linux.die.net/man/1/gpg-agent target=_blank rel="noopener noreffer">gpg-agent</a></strong> to store it</li></ul></div></div></div><h3 id=sign-a-tag>Sign a tag</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># sign a tag</span>
+</span></span><span class=line><span class=cl>git tag -s my_tag
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># verify your signed tag</span>
+</span></span><span class=line><span class=cl>git tag -v my_tag
+</span></span></code></pre></td></tr></table></div></div><h3 id=view-commit-signatures>View commit signatures</h3><blockquote><ul><li><a href=https://www.git-scm.com/docs/git-log target=_blank rel="noopener noreffer">git log usage</a></li><li><em>git version</em> <strong>2.34.1</strong></li></ul></blockquote><p><code>git log --show-signature</code></p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p>Format the log to show signatures — define your own log view:</p></blockquote><p><code>git log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an>%Creset | [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>* G fb56816 - fixed rsync dir <span class=o>(</span><span class=m>2</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>325ACD1FD3B6AA80 trust:ultimate<span class=o>]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>* G 63d6ec2 - fixed rsync deploy <span class=o>(</span><span class=m>2</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>325ACD1FD3B6AA80 trust:ultimate<span class=o>]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>* N 1ac5368 - workflow add remote deploy <span class=o>(</span><span class=m>2</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span> trust:undefined<span class=o>]</span>
+</span></span><span class=line><span class=cl>* E 289ae51 - add domain ICP info <span class=o>(</span><span class=m>2</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>EEA29F407613E698 trust:<span class=o>]</span>
+</span></span><span class=line><span class=cl>* E f0e44bd - switch comment store repo:x <span class=o>(</span><span class=m>2</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>EEA29F407613E698 trust:<span class=o>]</span>
+</span></span><span class=line><span class=cl>* E fbd5778 - fixed giscus issue <span class=o>(</span><span class=m>3</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>EEA29F407613E698 trust:<span class=o>]</span>
+</span></span><span class=line><span class=cl>* E 5fa8d41 - replace utterances by giscus <span class=o>(</span><span class=m>3</span> days ago<span class=o>)</span> &lt;xwi88&gt; <span class=p>|</span> <span class=o>[</span>EEA29F407613E698 trust:<span class=o>]</span>
+</span></span></code></pre></td></tr></table></div></div><ul><li><strong>G</strong>: for a good (valid) signature</li><li>B: for a bad signature</li><li>U: for a good signature with unknown validity</li><li>X: for a good signature that has expired</li><li>Y: for a good signature made by an expired key</li><li>R: for a good signature made by a revoked key</li><li><strong>E</strong>: if the signature cannot be checked (e.g. missing key)</li><li><em>N</em>: for no signature</li></ul></div></div></div><h3 id=local-signature-verification-issues><strong>Local signature-verification issues</strong></h3><p>When viewing commit signatures via <code>git log --show-signature</code>, you may see:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>commit e39e0920b68648b0751b7f91fffdd07080391945 (HEAD -&gt; main, origin/main, origin/HEAD)
+</span></span><span class=line><span class=cl>gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class=line><span class=cl>gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class=line><span class=cl>gpg: Can&#39;t check signature: No public key
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>You can also verify a specific commit&rsquo;s signature with <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code></p></blockquote><p><strong>This happens because your local repo doesn&rsquo;t have the <code>gpg public key</code> used for those <code>commits</code>. Fix it by importing the committer&rsquo;s <code>gpg public keys</code>.</strong></p><h3 id=importing-missing-gpg-keys--verifying>Importing <strong>missing gpg keys</strong> & verifying</h3><p>To get full signature verification, we import the missing <strong>public keys</strong>. Suggested import sources:</p><ul><li><code>https://github.com/&lt;username>.gpg</code> <em>requires you to have uploaded GPG keys to github</em></li><li><code>hkps://keyserver.ubuntu.com</code> <em>requires you to have uploaded keys</em></li></ul><blockquote><p>Certify the imported <em>public key</em></p></blockquote><ul><li><code>gpg --list-keys --keyid-format=long</code> find the key you want to certify</li><li><code>gpg --lsign-key [GPG key ID]</code> <em>local sign</em></li><li><code>gpg --edit-key [GPG key ID]</code> <em>local sign — pick one of this or the above</em></li></ul><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><strong>Import the missing public key from github</strong> <code>gpg --keyserver https://github.com/xwi88.gpg --recv-keys 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p><p><strong>Certify the key</strong> <code>gpg --lsign-key 7E7F28C4EFFD7721E0133ED490684042688CB9BE</code></p><p><strong>Check the certified key</strong> <code>gpg --list-keys --keyid-format=long</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>pub   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class=line><span class=cl>uid                 [  full  ] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Verify our commit again <code>git verify-commit e39e0920b68648b0751b7f91fffdd07080391945</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+</span></span><span class=line><span class=cl>gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class=line><span class=cl>gpg: Good signature from &#34;xwi88 &lt;278810732@qq.com&gt;&#34; [full]
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=importing-githubs-gpg-public-key>Importing Github&rsquo;s GPG public key</h2><blockquote><p><a href=https://github.com/web-flow.gpg target=_blank rel="noopener noreffer">github public GPG key for web-flow</a></p></blockquote><ol><li><code>curl https://github.com/web-flow.gpg | gpg --import</code> <strong>import github public gpg key</strong></li><li><code>gpg --edit-key noreply@github.com trust quit</code> <strong>trust and save, you choose: <code>4</code></strong></li><li><code>gpg --lsign-key noreply@github.com</code> <em>sign selected user IDs locally</em></li></ol><h2 id=gpg-key-update--renewal><strong>GPG key update & renewal</strong></h2><p><code>gpg --edit-key [GPG key ID]</code></p><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class=line><span class=cl>uid           [ultimate] tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><em>This GPG key is regenerated, for demo purposes only</em></p></blockquote><p><code>gpg --edit-key CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</code></p><blockquote><p>Key output:</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/73758EF02856F877
+</span></span><span class=line><span class=cl>     created: 2022-03-09  expires: 2024-03-08  usage: SC
+</span></span><span class=line><span class=cl>     trust: ultimate      validity: ultimate
+</span></span><span class=line><span class=cl>[ultimate] (1). tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><p>Enter <code>expire</code> to update the expiry</p><blockquote><p>gpg> <code>expire</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>Changing expiration time for the primary key.
+</span></span><span class=line><span class=cl>Please specify how long the key should be valid.
+</span></span><span class=line><span class=cl>         0 = key does not expire
+</span></span><span class=line><span class=cl>      &lt;n&gt;  = key expires in n days
+</span></span><span class=line><span class=cl>      &lt;n&gt;w = key expires in n weeks
+</span></span><span class=line><span class=cl>      &lt;n&gt;m = key expires in n months
+</span></span><span class=line><span class=cl>      &lt;n&gt;y = key expires in n years
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Key is valid for? (0) <code>180d</code></p></blockquote><p>Key expires at Mon Sep 5 21:48:04 2022 CST</p><blockquote><p>Is this correct? (y/N) <code>y</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class=line><span class=cl>     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class=line><span class=cl>     trust: ultimate      validity: ultimate
+</span></span><span class=line><span class=cl>[ultimate] (1). tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>gpg> <code>trust</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class=line><span class=cl>     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class=line><span class=cl>     trust: ultimate      validity: ultimate
+</span></span><span class=line><span class=cl>[ultimate] (1). tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Please decide how far you trust this user to correctly verify other users&#39; keys
+</span></span><span class=line><span class=cl>(by looking at passports, checking fingerprints from different sources, etc.)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  1 = I don&#39;t know or won&#39;t say
+</span></span><span class=line><span class=cl>  2 = I do NOT trust
+</span></span><span class=line><span class=cl>  3 = I trust marginally
+</span></span><span class=line><span class=cl>  4 = I trust fully
+</span></span><span class=line><span class=cl>  5 = I trust ultimately
+</span></span><span class=line><span class=cl>  m = back to the main menu
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Your decision? <code>5</code></p><p>Do you really want to set this key to ultimate trust? (y/N) <code>y</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/13431F2AC47C4AE0
+</span></span><span class=line><span class=cl>     created: 2022-03-09  expires: 2022-09-05  usage: SC
+</span></span><span class=line><span class=cl>     trust: ultimate      validity: ultimate
+</span></span><span class=line><span class=cl>[ultimate] (1). tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>gpg> <code>save</code></p><p><code>gpg --list-secret-keys --keyid-format=long</code> verify the expiry updated</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class=line><span class=cl>uid                 [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sec   rsa4096/13431F2AC47C4AE0 2022-03-09 [SC] [expires: 2022-09-05]
+</span></span><span class=line><span class=cl>      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+</span></span><span class=line><span class=cl>uid                 [ultimate] tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=rebinding-the-gpg-sign-key>Rebinding the GPG sign key</h2><blockquote><p><strong>Don&rsquo;t change this unless you need to.</strong></p></blockquote><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><ul><li><p><strong>Don&rsquo;t update the following unless needed</strong></p></li><li><p>For a <em>single project</em>, you may replace <del>&ndash;global</del> with <strong>local</strong></p></li></ul></blockquote><ul><li><code>git config --global commit.gpgSign true</code></li><li><code>git config --global user.signingKey 13431F2AC47C4AE0</code></li></ul><p>If anything changes, sync the <strong>GPG key</strong> in your <strong>git</strong> repo too.</p></div></div></div><h2 id=deleting-gpg-keys><em>Deleting GPG keys</em></h2><ul><li><code>gpg --delete-secret-key [uid]</code></li><li><code>gpg --delete-secret-key [uid1] [uid2]</code></li></ul><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><strong>Don&rsquo;t delete unless necessary</strong> — if it&rsquo;s just expiry, do a <strong>renewal</strong> instead.</p><p><em>uid for tmp_gpg</em> may be any of the following; prefer the <em>GPG key ID</em>:</p><ul><li><em>tmp_gpg</em></li><li><strong>13431F2AC47C4AE0</strong></li><li><em>CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0</em></li></ul></div></div></div><div class="details admonition example open"><div class="details-summary admonition-title"><i class="icon fas fa-list-ol fa-fw" aria-hidden=true></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><blockquote><p><code>gpg --delete-secret-key 13431F2AC47C4AE0</code></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec  rsa4096/13431F2AC47C4AE0 2022-03-09 tmp<span class=nb>_</span>gpg<span class=nb>_</span>local &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>Delete this key from the keyring? (y/N) <code>y</code></p><p>This is a secret key! - really delete? (y/N) <code>y</code></p></blockquote><p>Verify deletion: <code>gpg --list-secret-keys</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-tex data-lang=tex><span class=line><span class=cl>sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+</span></span><span class=line><span class=cl>      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+</span></span><span class=line><span class=cl>uid           [ultimate] xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table></div></div></div></div></div><h2 id=references>References</h2><ul><li><a href=https://docs.github.com/en/authentication/managing-commit-signature-verification target=_blank rel="noopener noreffer">managing-commit-signature-verification</a></li><li><a href=https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification target=_blank rel="noopener noreffer">S/MIME commit signature verification</a></li><li><a href=https://www.hifis.net/tutorial/2020/04/15/smime-signing-git-commits.html target=_blank rel="noopener noreffer">smime-signing-git-commits</a></li></ul></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2026-07-07&nbsp;<a class=git-hash href=https://github.com/xwi88/xwi88.github.io.source/commit/8c8a6601ea1e2eba3a5dc2362620668f8abdee7a target=_blank title="commit by xwi88(278810732@qq.com) 8c8a6601ea1e2eba3a5dc2362620668f8abdee7a: content(i18n): add English versions for the final 5 posts — site is now fully bilingual">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>8c8a660</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/en/git-sign-tags-commits-with-gpg/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/ data-title="Signing Git Commits & Tags with GPG" data-via=xwi88 data-hashtags=gpg><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/ data-hashtag=gpg><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/ data-title="Signing Git Commits & Tags with GPG"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.xwi88.com/en/git-sign-tags-commits-with-gpg/ data-title="Signing Git Commits & Tags with GPG"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/en/tags/gpg/>gpg</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/en/>Home</a></span></section></div><div class=post-nav><a href=/en/go-vcs-gvm/ class=prev rel=prev title="gvm: Go Version Manager"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>gvm: Go Version Manager</a>
+<a href=/en/git-common-config/ class=next rel=next title="Common Git Commands & Config">Common Git Commands & Config<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=giscus class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>Giscus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-container><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section><span id=busuanzi_container_value_site_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_site_pv></span></span>
+&nbsp;|&nbsp;
+<span id=busuanzi_container_value_site_uv><i class="fa fa-user"></i>
+<span id=busuanzi_value_site_uv></span></span></section></div><div class=footer-line><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2026</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/xwi88 target=_blank>xwi88</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/>京ICP备2022005973号-1</a></span>
+<span class=icp-splitter>&nbsp;|&nbsp;</span>
+<span class=icp><img src=/images/beian.png width=16 height=19 align=center></span>
+<span class=icp-splitter></span><br class=icp-br><span class=icp><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel=noreferrer target=_blank>京公网安备11010602200802</a></span></div></div><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script><script type=text/javascript src=/js/L2Dwidget.min.js></script>
+<script type=text/javascript src=/js/L2Dwidget.0.min.js></script>
+<script type=text/javascript>L2Dwidget.init({model:{scale:1,hHeadPos:.5,vHeadPos:.618,jsonPath:"https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json"},display:{superSample:1,width:120,height:300,position:"left",hOffset:0,vOffset:0},mobile:{show:!1,scale:1,motion:!0},react:{opacityDefault:1,opacityOnHover:1}})</script><script type=text/javascript>(function(){var e="l2d-pos";function t(e){var t=0;(function n(){var s=document.getElementById("live2d-widget");s?e(s):t++<100&&setTimeout(n,100)})()}t(function(t){t.style.touchAction="none";function u(e,n){var s=t.offsetWidth||120,o=t.offsetHeight||300;return[Math.max(4,Math.min(e,innerWidth-s-4)),Math.max(4,Math.min(n,innerHeight-o-4))]}function i(e,n){var s=u(e,n);t.style.left=s[0]+"px",t.style.top=s[1]+"px",t.style.right="auto",t.style.bottom="auto",t.style.margin="0"}try{n=JSON.parse(localStorage.getItem(e)),n&&typeof n.x=="number"&&i(n.x,n.y)}catch{}var n,s=!1,a=0,r=0,c=0,l=0,o=!1;t.addEventListener("pointerdown",function(e){s=!0,o=!1,a=e.clientX,r=e.clientY;var n=t.getBoundingClientRect();c=n.left,l=n.top,t.classList.add("dragging"),t.style.zIndex=1e3;try{t.setPointerCapture(e.pointerId)}catch{}}),t.addEventListener("pointermove",function(e){if(!s)return;var t=e.clientX-a,n=e.clientY-r;Math.abs(t)+Math.abs(n)>4&&(o=!0),i(c+t,l+n)});function d(){if(!s)return;s=!1,t.classList.remove("dragging");var n=t.getBoundingClientRect();try{localStorage.setItem(e,JSON.stringify({x:Math.round(n.left),y:Math.round(n.top)}))}catch{}}t.addEventListener("pointerup",d),t.addEventListener("pointercancel",d),t.addEventListener("click",function(e){o&&(e.preventDefault(),e.stopPropagation(),o=!1)},!0),t.addEventListener("dblclick",function(){try{localStorage.removeItem(e)}catch{}t.style.left="",t.style.top="",t.style.right="",t.style.bottom="",t.style.margin=""}),window.addEventListener("resize",function(){var e=t.getBoundingClientRect();(e.left<0||e.top<0||e.right>innerWidth||e.bottom>innerHeight)&&i(e.left,e.top)})})})()</script></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><div id=accent-popover class="hdr-popover accent-popover" hidden role=dialog aria-label=主题与配色><span class=hdr-popover-title>外观模式</span><div class=theme-modes id=theme-modes><button type=button class=theme-mode data-mode=light title=浅色><i class="fas fa-sun fa-fw" aria-hidden=true></i>浅色</button>
+<button type=button class=theme-mode data-mode=sepia title=米黄(护眼)><i class="fas fa-book-open fa-fw" aria-hidden=true></i>米黄</button>
+<button type=button class=theme-mode data-mode=green title=护眼绿(豆沙绿)><i class="fas fa-leaf fa-fw" aria-hidden=true></i>护眼</button>
+<button type=button class=theme-mode data-mode=dark title=深色><i class="fas fa-moon fa-fw" aria-hidden=true></i>深色</button>
+<button type=button class=theme-mode data-mode=oled title=纯黑(OLED)><i class="fas fa-circle fa-fw" aria-hidden=true></i>纯黑</button>
+<button type=button class=theme-mode data-mode=navy title=午夜蓝(护眼深色)><i class="fas fa-water fa-fw" aria-hidden=true></i>夜蓝</button>
+<button type=button class=theme-mode data-mode=auto title=跟随系统><i class="fas fa-desktop fa-fw" aria-hidden=true></i>跟随</button></div><span class=hdr-popover-title>主题配色</span><div class=accent-swatches id=accent-swatches><button type=button class=accent-swatch data-accent=indigo title="靛蓝 Indigo" style=--sw:linear-gradient(135deg,#4f46e5,#818cf8)></button>
+<button type=button class=accent-swatch data-accent=teal title="青色 Teal" style=--sw:linear-gradient(135deg,#0d9488,#2dd4bf)></button>
+<button type=button class=accent-swatch data-accent=blue title="蓝色 Blue" style=--sw:linear-gradient(135deg,#2563eb,#60a5fa)></button>
+<button type=button class=accent-swatch data-accent=green title="绿色 Green" style=--sw:linear-gradient(135deg,#059669,#34d399)></button>
+<button type=button class=accent-swatch data-accent=purple title="紫色 Purple" style=--sw:linear-gradient(135deg,#7c3aed,#a78bfa)></button>
+<button type=button class=accent-swatch data-accent=rose title="玫红 Rose" style=--sw:linear-gradient(135deg,#e11d48,#fb7185)></button>
+<button type=button class=accent-swatch data-accent=amber title="琥珀 Amber" style=--sw:linear-gradient(135deg,#d97706,#fbbf24)></button>
+<button type=button class=accent-swatch data-accent=slate title="石板 Slate" style=--sw:linear-gradient(135deg,#475569,#94a3b8)></button></div><label class=accent-custom title=自定义任意颜色><input type=color id=accent-custom-input value=#4f46e5 aria-label=自定义颜色>
+<span class=accent-custom-label>自定义</span></label></div><div id=font-popover class="hdr-popover font-popover" hidden role=dialog aria-label=字号与字体><span class=hdr-popover-title>字号</span><div class=font-sizes id=font-sizes><button type=button class=font-size data-fs=0>XS</button>
+<button type=button class=font-size data-fs=1>S</button>
+<button type=button class=font-size data-fs=2>M</button>
+<button type=button class=font-size data-fs=3>L</button>
+<button type=button class=font-size data-fs=4>XL</button></div><span class=hdr-popover-title>字体</span><div class=font-families id=font-families><button type=button class=font-family data-ff=sans>无衬线</button>
+<button type=button class=font-family data-ff=serif>衬线</button></div><span class=hdr-popover-title>目录位置</span><div class=toc-sides id=toc-sides><button type=button class=toc-side data-side=left title=目录在左><i class="fas fa-align-left fa-fw" aria-hidden=true></i>左侧</button>
+<button type=button class=toc-side data-side=right title=目录在右>右侧<i class="fas fa-align-right fa-fw" aria-hidden=true></i></button></div></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:15},comment:{giscus:{category:"Announcements",categoryId:"DIC_kwDOG7xEcs4CN-KB",darkTheme:"dark",emitMetadata:"0",inputPosition:"bottom",lang:"en",lazyLoading:!0,lightTheme:"light",mapping:"pathname",reactionsEnabled:"1",repo:"xwi88/hugo-comment",repoId:"R_kgDOG7xEcg"}}}</script><script type=text/javascript src=/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-78W9SMKZVE",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script><div id=pf-modal hidden><div id=pf-modal-box role=dialog aria-modal=true aria-label="搜索 / Search"><div id=pf-modal-search></div></div></div><script>(function(){var t,e=document.getElementById("pf-modal");if(!e)return;t=!1;function n(){e.hidden=!0}function s(){e.hidden=!1,t?o():i()}function i(){var e,n=document.createElement("link");n.rel="stylesheet",n.href="/pagefind/pagefind-ui.css",document.head.appendChild(n),e=document.createElement("script"),e.src="/pagefind/pagefind-ui.js",e.onload=function(){try{window.PagefindUI&&(new PagefindUI({element:"#pf-modal-search",showSubResults:!0,pageSize:8,excerptLength:12,translations:{placeholder:"搜索文章 / Search posts…"}}),t=!0,o())}catch(e){console.warn("Pagefind modal init failed:",e)}},document.body.appendChild(e)}function o(){var t=e.querySelector("input");t&&t.focus()}document.addEventListener("keydown",function(t){(t.ctrlKey||t.metaKey)&&(t.key==="k"||t.key==="K")?(t.preventDefault(),e.hidden?s():n()):t.key==="Escape"&&!e.hidden&&n()}),e.addEventListener("click",function(t){t.target===e&&n()}),document.querySelectorAll('a[href="/search/"]').forEach(function(e){e.addEventListener("click",function(e){if(location.pathname.replace(/\/$/,"")==="/search")return;e.preventDefault(),s()})})})()</script><div id=reading-progress aria-hidden=true></div><script>(function(){var e,t,n=document.getElementById("reading-progress");n&&(t=!1,window.addEventListener("scroll",function(){if(t)return;t=!0,window.requestAnimationFrame(function(){var e=document.documentElement,s=e.scrollHeight-e.clientHeight;n.style.width=(s>0?e.scrollTop/s*100:0)+"%",t=!1})},{passive:!0})),e=document.createElement("div"),e.id="img-zoom",e.hidden=!0,e.title="关闭 / Close",e.innerHTML='<img alt="">',e.addEventListener("click",function(){e.hidden=!0}),document.body.appendChild(e),document.addEventListener("click",function(t){var n=t.target.closest&&t.target.closest(".single .content img");n&&(t.preventDefault(),e.querySelector("img").src=n.currentSrc||n.src,e.hidden=!1)}),document.addEventListener("keydown",function(t){t.key==="Escape"&&(e.hidden=!0)}),document.querySelectorAll(".single .content .highlight").forEach(function(e){var t,s,n=e.querySelector("code[data-lang]")||e.querySelector('code[class*="language-"]'),o=n&&(n.getAttribute("data-lang")||(n.className.match(/language-([a-z0-9]+)/)||[])[1]);o&&(s=document.createElement("span"),s.className="code-lang-label",s.textContent=o,e.appendChild(s)),t=document.createElement("button"),t.className="copy-btn",t.type="button",t.setAttribute("aria-label","复制代码"),t.innerHTML='<i class="fas fa-copy"></i>',t.addEventListener("click",function(){var s=n?n.innerText:"";function e(){t.innerHTML='<i class="fas fa-check"></i>',setTimeout(function(){t.innerHTML='<i class="fas fa-copy"></i>'},1500)}navigator.clipboard?navigator.clipboard.writeText(s).then(e,e):e()}),e.appendChild(t)}),"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})})(),function(){var e,t,n=document.querySelector(".post-info-share span");if(!n)return;t=document.createElement("a"),t.href="javascript:void(0);",t.title="分享到微信(扫码)",t.innerHTML='<i class="fas fa-comment-dots fa-fw" aria-hidden="true"></i>',t.addEventListener("click",function(e){e.preventDefault();var t=document.getElementById("img-zoom");t&&(t.querySelector("img").src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data="+encodeURIComponent(location.href),t.hidden=!1)}),n.appendChild(t),e=document.createElement("a"),e.href="javascript:void(0);",e.title="分享到百度",e.setAttribute("data-sharer","baidu"),e.setAttribute("data-url",location.href),e.setAttribute("data-title",document.title),e.innerHTML='<i class="fas fa-search fa-fw" aria-hidden="true"></i>',n.appendChild(e)}(),function(){function d(e){if(n=document.querySelectorAll(e.btnSel),t=document.getElementById(e.popId),!n.length||!t)return;var t,n,s=null,r=3e3;function o(){clearTimeout(s),t.hidden=!0}function i(){clearTimeout(s),s=setTimeout(function(){t.hidden=!0},r)}function a(){document.querySelectorAll(".hdr-popover").forEach(function(e){e.hidden=!0}),clearTimeout(s),t.hidden=!1,e.onOpen&&e.onOpen()}n.forEach(function(e){e.addEventListener("click",function(e){e.preventDefault(),t.hidden?a():o()})});function c(){clearTimeout(s)}function l(){t.hidden||i()}return[t].concat([].slice.call(n)).forEach(function(e){e.addEventListener("mouseenter",c),e.addEventListener("mouseleave",l)}),t.addEventListener("click",function(){t.hidden||i()}),document.addEventListener("click",function(e){if(t.hidden)return;var s=e.target;if(t.contains(s))return;if([].some.call(n,function(e){return e===s||e.contains(s)}))return;i()}),document.addEventListener("keydown",function(e){e.key==="Escape"&&o()}),{open:a,close:o}}var t,n,o,i,c,f=function(e){return e=e.replace("#",""),[parseInt(e.slice(0,2),16),parseInt(e.slice(2,4),16),parseInt(e.slice(4,6),16)]},a=function(e){return Math.round(e+(255-e)*.32).toString(16).padStart(2,"0")},p=d({btnSel:".accent-switch",popId:"accent-popover",onOpen:function(){e(),l()}});function u(t){var n=f(t),s=document.documentElement.style;s.setProperty("--accent-light",t),s.setProperty("--accent-dark","#"+a(n[0])+a(n[1])+a(n[2])),s.setProperty("--accent-rgb",n.join(", ")),document.documentElement.removeAttribute("data-accent");try{localStorage.setItem("accent-custom",t),localStorage.removeItem("accent")}catch{}e()}function e(){var e,t,n,o,s=document.getElementById("accent-popover");if(!s)return;o=s.querySelectorAll(".accent-swatch"),t=document.documentElement.getAttribute("data-accent")||"",e=null;try{e=localStorage.getItem("accent-custom")}catch{}o.forEach(function(e){e.classList.toggle("active",t&&e.getAttribute("data-accent")===t)}),n=document.getElementById("accent-custom-input"),n&&(e&&(n.value=e),n.parentElement.classList.toggle("active",!!e&&!t))}c=document.getElementById("accent-popover"),c&&(c.querySelectorAll(".accent-swatch").forEach(function(t){t.addEventListener("click",function(){var n,s=t.getAttribute("data-accent");document.documentElement.setAttribute("data-accent",s);try{localStorage.setItem("accent",s),localStorage.removeItem("accent-custom")}catch{}n=document.documentElement.style,n.removeProperty("--accent-light"),n.removeProperty("--accent-dark"),n.removeProperty("--accent-rgb"),e()})}),t=document.getElementById("accent-custom-input"),t&&t.addEventListener("input",function(){u(t.value)})),e();function m(){var e;try{e=localStorage.getItem("appearance")||localStorage.getItem("theme")}catch{}return e||"auto"}function l(){var t,e=document.getElementById("accent-popover");if(!e)return;t=m(),e.querySelectorAll(".theme-mode").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-mode")===t)})}function h(e){var n,s={oled:"oled",navy:"navy"},i={sepia:"sepia",green:"green"},o=s[e]||i[e]||"",t=e==="dark"||e in s?"dark":e==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":"light",a=document.body.getAttribute("theme")==="dark";try{localStorage.setItem("appearance",e),localStorage.setItem("theme",e==="auto"?"auto":t)}catch{}if(t==="dark"!==a){n=document.querySelector(".theme-switch"),n&&n.click();try{e==="auto"&&localStorage.setItem("theme","auto")}catch{}}else t==="dark"?document.body.setAttribute("theme","dark"):document.body.removeAttribute("theme");o?document.body.setAttribute("data-variant",o):document.body.removeAttribute("data-variant"),l()}o=document.getElementById("theme-modes"),o&&o.querySelectorAll(".theme-mode").forEach(function(e){e.addEventListener("click",function(){h(e.getAttribute("data-mode"))})}),l(),d({btnSel:".font-switch",popId:"font-popover",onOpen:function(){s(),r()}});function s(){var t,n,e=document.getElementById("font-popover");if(!e)return;t=document.documentElement.getAttribute("data-fontscale")||"1",n=document.documentElement.getAttribute("data-fontfamily")||"sans",e.querySelectorAll(".font-size").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-fs")===t)}),e.querySelectorAll(".font-family").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-ff")===n)})}n=document.getElementById("font-popover"),n&&(n.querySelectorAll(".font-size").forEach(function(e){e.addEventListener("click",function(){document.documentElement.setAttribute("data-fontscale",e.getAttribute("data-fs"));try{localStorage.setItem("font-scale",e.getAttribute("data-fs"))}catch{}s()})}),n.querySelectorAll(".font-family").forEach(function(e){e.addEventListener("click",function(){document.documentElement.setAttribute("data-fontfamily",e.getAttribute("data-ff"));try{localStorage.setItem("font-family",e.getAttribute("data-ff"))}catch{}s()})})),s();function r(){var t,e=document.getElementById("font-popover");if(!e)return;t=document.body.getAttribute("data-toc-side")==="right"?"right":"left",e.querySelectorAll(".toc-side").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-side")===t)})}i=document.getElementById("toc-sides"),i&&i.querySelectorAll(".toc-side").forEach(function(e){e.addEventListener("click",function(){var t=e.getAttribute("data-side");t==="right"?document.body.setAttribute("data-toc-side","right"):document.body.removeAttribute("data-toc-side");try{localStorage.setItem("toc-side",t)}catch{}r()})}),r()}()</script><script>(function(){var e=location.pathname.replace(/\/index\.html$/,"").replace(/\/+$/,"");document.querySelectorAll("#header-desktop .menu .menu-item > a").forEach(function(t){var s=t.getAttribute("href")||"",n=s.replace(/^https?:\/\/[^/]+/,"").replace(/\/index\.html$/,"").replace(/\/+$/,"");n&&(n===e||e.indexOf(n+"/")===0)&&t.parentElement.classList.add("active")})})()</script></body></html>

@@ -1,0 +1,741 @@
+# Signing Git Commits & Tags with GPG
+
+
+Using *[GPG](https://gnupg.org/)* or *[S/MIME](https://docs.microsoft.com/en-us/exchange/security-and-compliance/smime-exo/smime-exo)*, you can sign *tags* or *commits* locally. Those *tags*/*commits* are then marked as trusted on *GitHub*, so others can be confident the changes came from a trusted source.
+
+<!--more-->
+
+>**Copyright notice**: This is an original article by **[xwi88](https://github.com/xwi88)**, licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). Commercial use is prohibited; please cite the source when reposting. Follow at <https://github.com/xwi88>
+
+## Enable vigilant mode
+
+With **[vigilant](https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits#about-vigilant-mode)** mode on, your own unsigned commits are flagged **Unverified**. This **alerts you and others to potential authenticity issues**. The author and committer of a Git commit are easily spoofed — someone could push a commit that claims to be yours but isn't.
+
+>Path: **Settings**->**[SSH and GPG keys](https://github.com/settings/keys)**>**Vigilant mode**->select **Flag unsigned commits as unverified**
+
+## GPG Command
+
+### **man gpg**
+
+```bash
+gpg (GnuPG) 2.2.34
+libgcrypt 1.9.4
+Copyright (C) 2022 g10 Code GmbH
+License GNU GPL-3.0-or-later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home: ~/.gnupg
+Supported algorithms:
+Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+        CAMELLIA128, CAMELLIA192, CAMELLIA256
+Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+Compression: Uncompressed, ZIP, ZLIB, BZIP2
+
+Syntax: gpg [options] [files]
+Sign, check, encrypt or decrypt
+Default operation depends on the input data
+
+Commands:
+
+ -s, --sign                         make a signature
+     --clear-sign                   make a clear text signature
+ -b, --detach-sign                  make a detached signature
+ -e, --encrypt                      encrypt data
+ -c, --symmetric                    encryption only with symmetric cipher
+ -d, --decrypt                      decrypt data (default)
+     --verify                       verify a signature
+ -k, --list-keys                    list keys
+     --list-signatures              list keys and signatures
+     --check-signatures             list and check key signatures
+     --fingerprint                  list keys and fingerprints
+ -K, --list-secret-keys             list secret keys
+     --generate-key                 generate a new key pair
+     --quick-generate-key           quickly generate a new key pair
+     --quick-add-uid                quickly add a new user-id
+     --quick-revoke-uid             quickly revoke a user-id
+     --quick-set-expire             quickly set a new expiration date
+     --full-generate-key            full featured key pair generation
+     --generate-revocation          generate a revocation certificate
+     --delete-keys                  remove keys from the public keyring
+     --delete-secret-keys           remove keys from the secret keyring
+     --quick-sign-key               quickly sign a key
+     --quick-lsign-key              quickly sign a key locally
+     --quick-revoke-sig             quickly revoke a key signature
+     --sign-key                     sign a key
+     --lsign-key                    sign a key locally
+     --edit-key                     sign or edit a key
+     --change-passphrase            change a passphrase
+     --export                       export keys
+     --send-keys                    export keys to a keyserver
+     --receive-keys                 import keys from a keyserver
+     --search-keys                  search for keys on a keyserver
+     --refresh-keys                 update all keys from a keyserver
+     --import                       import/merge keys
+     --card-status                  print the card status
+     --edit-card                    change data on a card
+     --change-pin                   change a card's PIN
+     --update-trustdb               update the trust database
+     --print-md                     print message digests
+     --server                       run in server mode
+     --tofu-policy VALUE            set the TOFU policy for a key
+
+Options controlling the diagnostic output:
+ -v, --verbose                      verbose
+ -q, --quiet                        be somewhat more quiet
+     --options FILE                 read options from FILE
+     --log-file FILE                write server mode logs to FILE
+
+Options controlling the configuration:
+     --default-key NAME             use NAME as default secret key
+     --encrypt-to NAME              encrypt to user ID NAME as well
+     --group SPEC                   set up email aliases
+     --openpgp                      use strict OpenPGP behavior
+ -n, --dry-run                      do not make any changes
+ -i, --interactive                  prompt before overwriting
+
+Options controlling the output:
+ -a, --armor                        create ascii armored output
+ -o, --output FILE                  write output to FILE
+     --textmode                     use canonical text mode
+ -z N                               set compress level to N (0 disables)
+
+Options controlling key import and export:
+     --auto-key-locate MECHANISMS   use MECHANISMS to locate keys by mail address
+     --disable-dirmngr              disable all access to the dirmngr
+
+Options to specify keys:
+ -r, --recipient USER-ID            encrypt for USER-ID
+ -u, --local-user USER-ID           use USER-ID to sign or decrypt
+
+(See the man page for a complete listing of all commands and options)
+
+Examples:
+
+ -se -r Bob [file]          sign and encrypt for user Bob
+ --clear-sign [file]        make a clear text signature
+ --detach-sign [file]       make a detached signature
+ --list-keys [names]        show keys
+ --fingerprint [names]      show fingerprints
+
+Please report bugs to <https://bugs.gnupg.org>.
+```
+
+### **gpg shell command**
+
+```bash
+gpg> help
+quit        quit this menu
+save        save and quit
+help        show this help
+fpr         show key fingerprint
+grip        show the keygrip
+list        list key and user IDs
+uid         select user ID N
+key         select subkey N
+check       check signatures
+sign        sign selected user IDs [* see below for related commands]
+lsign       sign selected user IDs locally
+tsign       sign selected user IDs with a trust signature
+nrsign      sign selected user IDs with a non-revocable signature
+deluid      delete selected user IDs
+delkey      delete selected subkeys
+delsig      delete signatures from the selected user IDs
+pref        list preferences (expert)
+showpref    list preferences (verbose)
+trust       change the ownertrust
+revsig      revoke signatures on the selected user IDs
+enable      enable key
+disable     disable key
+showphoto   show selected photo IDs
+clean       compact unusable user IDs and remove unusable signatures from key
+minimize    compact unusable user IDs and remove all signatures from key
+
+* The 'sign' command may be prefixed with an 'l' for local signatures (lsign),
+  a 't' for trust signatures (tsign), an 'nr' for non-revocable signatures
+  (nrsign), or any combination thereof (ltsign, tnrsign, etc.).
+```
+
+## GPG key generation & config
+
+{{< admonition note >}} GPG does not come installed by default on macOS or Windows. To install GPG command line tools, see [GnuPG's Download page](https://www.gnupg.org/download/).{{< /admonition >}}
+
+### *Existing GPG keys*
+
+`gpg --list-secret-keys --keyid-format=long`
+
+{{< admonition example >}}
+
+```text
+~/.gnupg/pubring.kbx
+-----------------------------------
+sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+uid                 [ultimate] xwi88 <278810732@qq.com>
+```
+
+- *the GPG key ID*: **325ACD1FD3B6AA80**
+
+{{< /admonition >}}
+
+### Generate a new *GPG key*
+
+>If an old GPG key already exists, you don't need to generate a new one!
+
+`gpg --default-new-key-algo rsa4096 --gen-key`
+
+{{< admonition tip >}}
+Algorithms *github* supports for generating *gpg keys*
+
+- **RSA**
+- ElGamal
+- DSA
+- ECDH
+- ECDSA
+- EdDSA
+
+{{< /admonition >}}
+
+{{< admonition example >}}
+`gpg --default-new-key-algo rsa4096 --gen-key`
+
+- Real name: `tmp_gpg`
+- Email address: `278810732@qq.com`
+
+You selected this **USER-ID**:
+    "tmp_gpg <278810732@qq.com>"
+
+- Change (N)ame, (E)mail, or (O)kay/(Q)uit? `O`
+
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+
+Note that this key cannot be used for encryption.  You may want to use
+the command "--edit-key" to generate a subkey for this purpose.
+
+```text
+pub   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+      F09FC9FB34FA457ED2F7090AFE47519758053257
+uid                      tmp_gpg <278810732@qq.com>
+```
+
+{{< /admonition >}}
+
+### Latest *GPG keys*
+
+`gpg --list-secret-keys --keyid-format=long`
+
+```tex
+-----------------------------------
+sec   rsa4096/325ACD1FD3B6AA80 2022-03-07 [SC] [expires: 2024-03-06]
+      1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80
+uid                 [ultimate] xwi88 <278810732@qq.com>
+
+sec   rsa4096/FE47519758053257 2022-03-09 [SC] [expires: 2024-03-08]
+      F09FC9FB34FA457ED2F7090AFE47519758053257
+uid                 [ultimate] tmp_gpg <278810732@qq.com>
+```
+
+### Export a *GPG key*
+
+- `gpg --armor --export FE47519758053257`
+- or `gpg -a -o --export FE47519758053257`
+
+```tex
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xxxxxxxxxxxxxxx
+
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+Export a *gpg public key* to a specific destination:
+
+- `gpg --export --armor [uid] > gpgkey.pub.asc` **export to file** *uid: keyID/name/email*
+- `gpg --keyserver [keyserverAddress] --send-keys keyIDs` *export to a specific key server*
+- `gpg --send-keys keyIDs` **export to the default key server**
+
+>**Output when exporting to the default key server**
+
+```tex
+output: gpg: sending key 90684042688CB9BE to hkps://keyserver.ubuntu.com
+```
+
+### Find a *GPG key*
+
+>**keyIDs** may be: *name*, **keyID**, *email*
+
+- `gpg --keyserver keyserverAddress --search-keys keyIDs`
+- `gpg --search-keys keyIDs` **search the default key server**
+
+{{< admonition example >}}
+
+>`gpg --search-keys xwi88`
+
+```tex
+gpg: data source: https://162.213.33.8:443
+(1)	xwi88 <278810732@qq.com>
+	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+Keys 1-1 of 1 for "xwi88".  Enter number(s), N)ext, or Q)uit > q
+```
+
+>`gpg --search-keys 90684042688CB9BE`
+
+```tex
+gpg: data source: https://162.213.33.8:443
+(1)	xwi88 <278810732@qq.com>
+	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+Keys 1-1 of 1 for "90684042688CB9BE".  Enter number(s), N)ext, or Q)uit > q
+```
+
+>`gpg --search-keys 278810732@qq.com`
+
+```tex
+gpg: data source: https://162.213.33.8:443
+(1)	xwi88 <278810732@qq.com>
+	  4096 bit RSA key 90684042688CB9BE, created: 2022-03-09
+Keys 1-1 of 1 for "278810732@qq.com".  Enter number(s), N)ext, or Q)uit > y
+```
+
+{{< /admonition >}}
+
+### Import a *GPG key*
+
+>**Key-server import** — without an address it defaults to `hkps://keyserver.ubuntu.com` **(your address may differ; this is local output)**
+
+- `gpg --import [GPG public key]` *import from file*
+- `gpg --keyserver [keyserverAddress] --recv-keys keyIDs`  *import from key server*
+- `gpg --recv-keys keyIDs` **import from the default key server**
+- `gpg --refresh-keys` *update all keys from the key server*
+
+{{< admonition example >}}
+>`gpg --recv-keys 90684042688CB9BE`
+
+```tex
+gpg: key 90684042688CB9BE: "xwi88 <278810732@qq.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+```
+
+{{< /admonition >}}
+
+### Secret-key backup, export & import
+
+>Mainly for: **sharing across your own machines**
+
+{{< admonition warning >}}
+
+- **Never upload a secret key to a key server**
+- **Back up the secret-key file securely**
+- *Secret-key file permission*: `600`
+- *Public-key file permission*: `644`
+
+{{< /admonition >}}
+
+#### Export a secret key
+
+`gpg -a -o test_secKey.asc --export-secret-keys keyID`
+
+{{< admonition example >}}
+>`gpg -K` view local secret keys
+>
+>`gpg -a -o test_secKey.asc --export-secret-keys 1F11E9A019E23C53C11C8D4C325ACD1FD3B6AA80` export the secret key
+
+{{< /admonition >}}
+
+#### Import a secret key
+
+`gpg --import secKeyFile`
+
+{{< admonition example >}}
+>`gpg --import test_secKey.asc` import a secret key — same operation as importing a public key
+
+```tex
+gpg: key 325ACD1FD3B6AA80: "xwi88 <278810732@qq.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+```
+
+>`gpg -K` view local secret keys
+
+{{< /admonition >}}
+
+### **Key revocation**
+
+*After generating a new key pair, if other key pairs are no longer used, publish a revocation certificate immediately to declare the old public key invalid and prevent malicious use.*
+
+>`gpg --output test_revoke.asc --gen-revoke keyID`
+>
+>`gpg --import test_revoke.asc` import the revocation certificate
+>
+>`gpg --send-keys keyID` send the revocation certificate to the server, declaring the original *GPG Key* revoked
+
+{{< admonition example >}}
+>`gpg --output test_revoke.asc --gen-revoke 325ACD1FD3B6AA80`
+>
+>or `gpg --output test_revoke.asc --generate-revocation 325ACD1FD3B6AA80`
+
+```tex
+sec  rsa4096/325ACD1FD3B6AA80 2022-03-07 xwi88 <278810732@qq.com>
+
+Create a revocation certificate for this key? (y/N) y
+Please select the reason for the revocation:
+  0 = No reason specified
+  1 = Key has been compromised
+  2 = Key is superseded
+  3 = Key is no longer used
+  Q = Cancel
+(Probably you want to select 1 here)
+Your decision? 3
+Enter an optional description; end it with an empty line:
+>
+Reason for revocation: Key is no longer used
+(No description given)
+Is this okay? (y/N) y
+ASCII armored output forced.
+Revocation certificate created.
+
+Please move it to a medium which you can hide away; if Mallory gets
+access to this certificate he can use it to make your key unusable.
+It is smart to print this certificate and store it away, just in case
+your media become unreadable.  But have some caution:  The print system of
+your machine might store the data and make it available to others!
+```
+
+>`gpg --import test_revoke.asc`
+
+```tex
+gpg: key 325ACD1FD3B6AA80: "xwi88 <278810732@qq.com>" revocation certificate imported
+gpg: Total number processed: 1
+gpg:    new key revocations: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   3  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 3u
+gpg: next trustdb check due at 2024-03-06
+```
+
+>`gpg --send-keys 325ACD1FD3B6AA80`
+>
+>`gpg --search-keys 325ACD1FD3B6AA80`
+
+```tex
+
+gpg: data source: https://162.213.33.8:443
+gpg: key "325ACD1FD3B6AA80" not found on keyserver
+gpg: keyserver search failed: Not found
+```
+
+{{< /admonition >}}
+
+### Delete keys
+
+- `gpg --delete-secret-keys keyID` **delete this first**
+- `gpg --delete-keys keyID`
+
+## Restart the GPG Agent
+
+>GPG restarts it on demand
+
+`gpgconf --kill gpg-agent`
+
+## Configure git to use GPG
+
+### Set the **GPG key**
+
+>- Copy the **GPG key** you want to use, *beginning with* **-----BEGIN PGP PUBLIC KEY BLOCK-----** and *ending with* **-----END PGP PUBLIC KEY BLOCK-----**
+>
+>- Paste it into *github*: **Settings**->**SSH and GPG keys**->**GPG keys**. If the *key* already exists, ignore; otherwise create a new entry and paste.
+
+### Configure the *GPG key* used for signing
+
+>Mind whether you want this global; with a global config, an individual project can still override it! Replace ~~--global~~ with **local**
+
+```bash
+# global config
+git config --global user.signingkey 325ACD1FD3B6AA80
+
+# configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above
+git config --global commit.gpgsign true
+```
+
+### Create a signed commit
+
+`git commit -S -m "your commit message"`
+
+>If you've set commits to be signed by default, you can also just:
+>
+>`git commit -m "your commit message"`
+
+{{< admonition warning >}}
+If your **GPG key** uses a *GPG key passphrase*, you'll need to enter your *passphrase* when committing.
+
+You can store the **GPG key passphrase** to avoid entering it on every sign:
+
+- Mac users, **[GPG Suite](https://gpgtools.org/)** can store your *GPG key passphrase* in **Mac OS Keychain**
+- Windows users, **[Gpg4win](https://www.gpg4win.org/)**
+- Manually configure **[gpg-agent](http://linux.die.net/man/1/gpg-agent)** to store it
+
+{{< /admonition >}}
+
+### Sign a tag
+
+```bash
+# sign a tag
+git tag -s my_tag
+
+# verify your signed tag
+git tag -v my_tag
+```
+
+### View commit signatures
+
+>- [git log usage](https://www.git-scm.com/docs/git-log)
+>- *git version* **2.34.1**
+
+`git log --show-signature`
+
+{{< admonition tip>}}
+
+> Format the log to show signatures — define your own log view:
+
+`git log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset | [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit`
+
+```bash
+* G fb56816 - fixed rsync dir (2 days ago) <xwi88> | [325ACD1FD3B6AA80 trust:ultimate] xwi88 <278810732@qq.com>
+* G 63d6ec2 - fixed rsync deploy (2 days ago) <xwi88> | [325ACD1FD3B6AA80 trust:ultimate] xwi88 <278810732@qq.com>
+* N 1ac5368 - workflow add remote deploy (2 days ago) <xwi88> | [ trust:undefined]
+* E 289ae51 - add domain ICP info (2 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E f0e44bd - switch comment store repo:x (2 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E fbd5778 - fixed giscus issue (3 days ago) <xwi88> | [EEA29F407613E698 trust:]
+* E 5fa8d41 - replace utterances by giscus (3 days ago) <xwi88> | [EEA29F407613E698 trust:]
+```
+
+- **G**: for a good (valid) signature
+- B: for a bad signature
+- U: for a good signature with unknown validity
+- X: for a good signature that has expired
+- Y: for a good signature made by an expired key
+- R: for a good signature made by a revoked key
+- **E**: if the signature cannot be checked (e.g. missing key)
+- *N*: for no signature
+
+{{< /admonition >}}
+
+### **Local signature-verification issues**
+
+When viewing commit signatures via `git log --show-signature`, you may see:
+
+```tex
+commit e39e0920b68648b0751b7f91fffdd07080391945 (HEAD -> main, origin/main, origin/HEAD)
+gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+gpg: Can't check signature: No public key
+```
+
+>You can also verify a specific commit's signature with `git verify-commit e39e0920b68648b0751b7f91fffdd07080391945`
+
+**This happens because your local repo doesn't have the `gpg public key` used for those `commits`. Fix it by importing the committer's `gpg public keys`.**
+
+### Importing **missing gpg keys** & verifying
+
+To get full signature verification, we import the missing **public keys**. Suggested import sources:
+
+- `https://github.com/<username>.gpg` *requires you to have uploaded GPG keys to github*
+- `hkps://keyserver.ubuntu.com` *requires you to have uploaded keys*
+
+>Certify the imported *public key*
+
+- `gpg --list-keys --keyid-format=long` find the key you want to certify
+- `gpg --lsign-key [GPG key ID]` *local sign*
+- `gpg --edit-key [GPG key ID]` *local sign — pick one of this or the above*
+
+{{< admonition example >}}
+>**Import the missing public key from github** `gpg --keyserver https://github.com/xwi88.gpg --recv-keys 7E7F28C4EFFD7721E0133ED490684042688CB9BE`
+>
+>**Certify the key** `gpg --lsign-key 7E7F28C4EFFD7721E0133ED490684042688CB9BE`
+>
+>**Check the certified key** `gpg --list-keys --keyid-format=long`
+
+```tex
+pub   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+uid                 [  full  ] xwi88 <278810732@qq.com>
+```
+
+>Verify our commit again `git verify-commit e39e0920b68648b0751b7f91fffdd07080391945`
+
+```tex
+gpg: Signature made Thu Mar 10 00:19:37 2022 CST
+gpg:                using RSA key 7E7F28C4EFFD7721E0133ED490684042688CB9BE
+gpg: Good signature from "xwi88 <278810732@qq.com>" [full]
+```
+
+{{< /admonition >}}
+
+## Importing Github's GPG public key
+
+>[github public GPG key for web-flow](https://github.com/web-flow.gpg)
+
+1. `curl https://github.com/web-flow.gpg | gpg --import` **import github public gpg key**
+2. `gpg --edit-key noreply@github.com trust quit` **trust and save, you choose: `4`**
+3. `gpg --lsign-key noreply@github.com` *sign selected user IDs locally*
+
+## **GPG key update & renewal**
+
+`gpg --edit-key [GPG key ID]`
+
+{{< admonition example >}}
+
+```tex
+sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+uid           [ultimate] tmp_gpg_local <278810732@qq.com>
+```
+
+>*This GPG key is regenerated, for demo purposes only*
+
+`gpg --edit-key CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0`
+
+>Key output:
+
+```tex
+sec  rsa4096/73758EF02856F877
+     created: 2022-03-09  expires: 2024-03-08  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+Enter `expire` to update the expiry
+
+>gpg> `expire`
+
+```tex
+Changing expiration time for the primary key.
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+```
+
+>Key is valid for? (0) `180d`
+
+Key expires at Mon Sep  5 21:48:04 2022 CST
+
+>Is this correct? (y/N) `y`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+>gpg> `trust`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+
+Please decide how far you trust this user to correctly verify other users' keys
+(by looking at passports, checking fingerprints from different sources, etc.)
+
+  1 = I don't know or won't say
+  2 = I do NOT trust
+  3 = I trust marginally
+  4 = I trust fully
+  5 = I trust ultimately
+  m = back to the main menu
+```
+
+>Your decision? `5`
+>
+>Do you really want to set this key to ultimate trust? (y/N) `y`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0
+     created: 2022-03-09  expires: 2022-09-05  usage: SC
+     trust: ultimate      validity: ultimate
+[ultimate] (1). tmp_gpg_local <278810732@qq.com>
+```
+
+>gpg> `save`
+>
+>`gpg --list-secret-keys --keyid-format=long` verify the expiry updated
+
+```tex
+sec   rsa4096/90684042688CB9BE 2022-03-09 [SC] [expires: 2024-03-08]
+      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+uid                 [ultimate] xwi88 <278810732@qq.com>
+
+sec   rsa4096/13431F2AC47C4AE0 2022-03-09 [SC] [expires: 2022-09-05]
+      CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0
+uid                 [ultimate] tmp_gpg_local <278810732@qq.com>
+```
+
+{{< /admonition >}}
+
+## Rebinding the GPG sign key
+
+>**Don't change this unless you need to.**
+
+{{< admonition warning >}}
+
+>- **Don't update the following unless needed**
+>
+>- For a *single project*, you may replace ~~--global~~ with **local**
+
+- `git config --global commit.gpgSign true`
+- `git config --global user.signingKey 13431F2AC47C4AE0`
+
+If anything changes, sync the **GPG key** in your **git** repo too.
+
+{{< /admonition >}}
+
+## *Deleting GPG keys*
+
+- `gpg --delete-secret-key [uid]`
+- `gpg --delete-secret-key [uid1] [uid2]`
+
+{{< admonition warning >}}
+**Don't delete unless necessary** — if it's just expiry, do a **renewal** instead.
+
+*uid for tmp_gpg* may be any of the following; prefer the *GPG key ID*:
+
+- *tmp_gpg*
+- **13431F2AC47C4AE0**
+- *CE70FE5A7EB462DDA68EE86913431F2AC47C4AE0*
+{{< /admonition >}}
+
+{{< admonition example >}}
+>`gpg --delete-secret-key 13431F2AC47C4AE0`
+
+```tex
+sec  rsa4096/13431F2AC47C4AE0 2022-03-09 tmp_gpg_local <278810732@qq.com>
+```
+
+>Delete this key from the keyring? (y/N) `y`
+>
+>This is a secret key! - really delete? (y/N) `y`
+
+Verify deletion: `gpg --list-secret-keys`
+
+```tex
+sec   rsa4096 2022-03-09 [SC] [expires: 2024-03-08]
+      7E7F28C4EFFD7721E0133ED490684042688CB9BE
+uid           [ultimate] xwi88 <278810732@qq.com>
+```
+
+{{< /admonition >}}
+
+## References
+
+- [managing-commit-signature-verification](https://docs.github.com/en/authentication/managing-commit-signature-verification)
+- [S/MIME commit signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#smime-commit-signature-verification)
+- [smime-signing-git-commits](https://www.hifis.net/tutorial/2020/04/15/smime-signing-git-commits.html)
+

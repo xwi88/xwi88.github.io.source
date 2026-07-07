@@ -1,0 +1,2586 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>cheat-sheet - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/cheat-sheet/</link><description>cheat-sheet - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Mar 2022 23:50:02 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/cheat-sheet/" rel="self" type="application/rss+xml"/><item><title>Docker Commands Cheat Sheet</title><link>https://blog.xwi88.com/en/cheat-sheet-docker-related/</link><pubDate>Sat, 19 Mar 2022 23:50:02 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/cheat-sheet-docker-related/</guid><description><![CDATA[<p>A cheat-sheet reference for Docker-related commands, focused on the <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer ">Docker CLI</a> and <a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer ">Compose CLI</a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<ul>
+<li>Docker version: <code>Docker version 20.10.12, build e91ed57</code></li>
+<li>Compose version: <code>Docker Compose version 2.2.2</code></li>
+</ul>
+<h2 id="docker-reference-resources">Docker reference resources</h2>
+<h3 id="file-formats">File formats</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">File format</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer ">Dockerfile</a></td>
+<td style="text-align:left">Defines the contents and startup behavior of a single container</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener noreffer ">Compose file</a></td>
+<td style="text-align:left">Defines a multi-container application</td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-line-interfaces-clis">Command-line interfaces (CLIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CLI</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank" rel="noopener noreffer ">Docker CLI</a></td>
+<td style="text-align:left">The main CLI for Docker, includes all docker commands</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">Compose CLI</a></td>
+<td style="text-align:left">The CLI, which allows you to build and run multi-container applications</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank" rel="noopener noreffer ">dockerd</a></td>
+<td style="text-align:left">Persistent process that manages containers</td>
+</tr>
+</tbody>
+</table>
+<h3 id="application-programming-interfaces-apis">Application programming interfaces (APIs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/engine/api/" target="_blank" rel="noopener noreffer ">Engine API</a></td>
+<td style="text-align:left">The main API for Docker, provides programmatic access to a daemon</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/api/" target="_blank" rel="noopener noreffer ">Registry API</a></td>
+<td style="text-align:left">Facilitates distribution of images to the engine</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/docker-hub/api/latest/" target="_blank" rel="noopener noreffer ">Docker Hub API</a></td>
+<td style="text-align:left">API to interact with Docker Hub</td>
+</tr>
+</tbody>
+</table>
+<h3 id="drivers--specs">Drivers &amp; specs</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Driver</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/manifest-v2-2/" target="_blank" rel="noopener noreffer ">Image specification</a></td>
+<td style="text-align:left">Describes the various components of a Docker image</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/spec/auth/" target="_blank" rel="noopener noreffer ">Registry token authentication</a></td>
+<td style="text-align:left">Outlines the Docker registry authentication scheme</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://docs.docker.com/registry/storage-drivers/" target="_blank" rel="noopener noreffer ">Registry storage drivers</a></td>
+<td style="text-align:left">Enables support for given cloud providers when storing images with Registry</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-cli-usage">Docker CLI usage</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">A self-sufficient runtime for containers
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config string      Location of client config files (default &#34;/Users/wangxin/.docker&#34;)
+</span></span><span class="line"><span class="cl">  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER<span class="nb">_</span>HOST env var and default context set with &#34;docker context use&#34;)
+</span></span><span class="line"><span class="cl">  -D, --debug              Enable debug mode
+</span></span><span class="line"><span class="cl">  -H, --host list          Daemon socket(s) to connect to
+</span></span><span class="line"><span class="cl">  -l, --log-level string   Set the logging level (&#34;debug&#34;|&#34;info&#34;|&#34;warn&#34;|&#34;error&#34;|&#34;fatal&#34;) (default &#34;info&#34;)
+</span></span><span class="line"><span class="cl">      --tls                Use TLS; implied by --tlsverify
+</span></span><span class="line"><span class="cl">      --tlscacert string   Trust certs signed only by this CA (default &#34;/Users/wangxin/.docker/ca.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlscert string     Path to TLS certificate file (default &#34;/Users/wangxin/.docker/cert.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlskey string      Path to TLS key file (default &#34;/Users/wangxin/.docker/key.pem&#34;)
+</span></span><span class="line"><span class="cl">      --tlsverify          Use TLS and verify the remote
+</span></span><span class="line"><span class="cl">  -v, --version            Print version information and quit
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Management Commands:
+</span></span><span class="line"><span class="cl">  builder     Manage builds
+</span></span><span class="line"><span class="cl">  buildx*     Docker Buildx (Docker Inc., v0.7.1)
+</span></span><span class="line"><span class="cl">  compose*    Docker Compose (Docker Inc., 2.2.2)
+</span></span><span class="line"><span class="cl">  config      Manage Docker configs
+</span></span><span class="line"><span class="cl">  container   Manage containers
+</span></span><span class="line"><span class="cl">  context     Manage contexts
+</span></span><span class="line"><span class="cl">  image       Manage images
+</span></span><span class="line"><span class="cl">  manifest    Manage Docker image manifests and manifest lists
+</span></span><span class="line"><span class="cl">  network     Manage networks
+</span></span><span class="line"><span class="cl">  node        Manage Swarm nodes
+</span></span><span class="line"><span class="cl">  plugin      Manage plugins
+</span></span><span class="line"><span class="cl">  scan*       Docker Scan (Docker Inc., v0.17.0)
+</span></span><span class="line"><span class="cl">  secret      Manage Docker secrets
+</span></span><span class="line"><span class="cl">  service     Manage services
+</span></span><span class="line"><span class="cl">  stack       Manage Docker stacks
+</span></span><span class="line"><span class="cl">  swarm       Manage Swarm
+</span></span><span class="line"><span class="cl">  system      Manage Docker
+</span></span><span class="line"><span class="cl">  trust       Manage trust on Docker images
+</span></span><span class="line"><span class="cl">  volume      Manage volumes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  attach      Attach local standard input, output, and error streams to a running container
+</span></span><span class="line"><span class="cl">  build       Build an image from a Dockerfile
+</span></span><span class="line"><span class="cl">  commit      Create a new image from a container&#39;s changes
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Create a new container
+</span></span><span class="line"><span class="cl">  diff        Inspect changes to files or directories on a container&#39;s filesystem
+</span></span><span class="line"><span class="cl">  events      Get real time events from the server
+</span></span><span class="line"><span class="cl">  exec        Run a command in a running container
+</span></span><span class="line"><span class="cl">  export      Export a container&#39;s filesystem as a tar archive
+</span></span><span class="line"><span class="cl">  history     Show the history of an image
+</span></span><span class="line"><span class="cl">  images      List images
+</span></span><span class="line"><span class="cl">  import      Import the contents from a tarball to create a filesystem image
+</span></span><span class="line"><span class="cl">  info        Display system-wide information
+</span></span><span class="line"><span class="cl">  inspect     Return low-level information on Docker objects
+</span></span><span class="line"><span class="cl">  kill        Kill one or more running containers
+</span></span><span class="line"><span class="cl">  load        Load an image from a tar archive or STDIN
+</span></span><span class="line"><span class="cl">  login       Log in to a Docker registry
+</span></span><span class="line"><span class="cl">  logout      Log out from a Docker registry
+</span></span><span class="line"><span class="cl">  logs        Fetch the logs of a container
+</span></span><span class="line"><span class="cl">  pause       Pause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  port        List port mappings or a specific mapping for the container
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull an image or a repository from a registry
+</span></span><span class="line"><span class="cl">  push        Push an image or a repository to a registry
+</span></span><span class="line"><span class="cl">  rename      Rename a container
+</span></span><span class="line"><span class="cl">  restart     Restart one or more containers
+</span></span><span class="line"><span class="cl">  rm          Remove one or more containers
+</span></span><span class="line"><span class="cl">  rmi         Remove one or more images
+</span></span><span class="line"><span class="cl">  run         Run a command in a new container
+</span></span><span class="line"><span class="cl">  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+</span></span><span class="line"><span class="cl">  search      Search the Docker Hub for images
+</span></span><span class="line"><span class="cl">  start       Start one or more stopped containers
+</span></span><span class="line"><span class="cl">  stats       Display a live stream of container(s) resource usage statistics
+</span></span><span class="line"><span class="cl">  stop        Stop one or more running containers
+</span></span><span class="line"><span class="cl">  tag         Create a tag TARGET<span class="nb">_</span>IMAGE that refers to SOURCE<span class="nb">_</span>IMAGE
+</span></span><span class="line"><span class="cl">  top         Display the running processes of a container
+</span></span><span class="line"><span class="cl">  unpause     Unpause all processes within one or more containers
+</span></span><span class="line"><span class="cl">  update      Update configuration of one or more containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker version information
+</span></span><span class="line"><span class="cl">  wait        Block until one or more containers stop, then print their exit codes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker COMMAND --help&#39; for more information on a command.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-compose-cli-usage">Docker Compose CLI usage</h2>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Usage:  docker compose [OPTIONS] COMMAND
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Docker Compose
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --ansi string                Control when to print ANSI control characters (&#34;never&#34;|&#34;always&#34;|&#34;auto&#34;) (default &#34;auto&#34;)
+</span></span><span class="line"><span class="cl">      --compatibility              Run compose in backward compatibility mode
+</span></span><span class="line"><span class="cl">      --env-file string            Specify an alternate environment file.
+</span></span><span class="line"><span class="cl">  -f, --file stringArray           Compose configuration files
+</span></span><span class="line"><span class="cl">      --profile stringArray        Specify a profile to enable
+</span></span><span class="line"><span class="cl">      --project-directory string   Specify an alternate working directory
+</span></span><span class="line"><span class="cl">                                   (default: the path of the Compose file)
+</span></span><span class="line"><span class="cl">  -p, --project-name string        Project name
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  build       Build or rebuild services
+</span></span><span class="line"><span class="cl">  convert     Converts the compose file to platform&#39;s canonical format
+</span></span><span class="line"><span class="cl">  cp          Copy files/folders between a service container and the local filesystem
+</span></span><span class="line"><span class="cl">  create      Creates containers for a service.
+</span></span><span class="line"><span class="cl">  down        Stop and remove containers, networks
+</span></span><span class="line"><span class="cl">  events      Receive real time events from containers.
+</span></span><span class="line"><span class="cl">  exec        Execute a command in a running container.
+</span></span><span class="line"><span class="cl">  images      List images used by the created containers
+</span></span><span class="line"><span class="cl">  kill        Force stop service containers.
+</span></span><span class="line"><span class="cl">  logs        View output from containers
+</span></span><span class="line"><span class="cl">  ls          List running compose projects
+</span></span><span class="line"><span class="cl">  pause       Pause services
+</span></span><span class="line"><span class="cl">  port        Print the public port for a port binding.
+</span></span><span class="line"><span class="cl">  ps          List containers
+</span></span><span class="line"><span class="cl">  pull        Pull service images
+</span></span><span class="line"><span class="cl">  push        Push service images
+</span></span><span class="line"><span class="cl">  restart     Restart containers
+</span></span><span class="line"><span class="cl">  rm          Removes stopped service containers
+</span></span><span class="line"><span class="cl">  run         Run a one-off command on a service.
+</span></span><span class="line"><span class="cl">  start       Start services
+</span></span><span class="line"><span class="cl">  stop        Stop services
+</span></span><span class="line"><span class="cl">  top         Display the running processes
+</span></span><span class="line"><span class="cl">  unpause     Unpause services
+</span></span><span class="line"><span class="cl">  up          Create and start containers
+</span></span><span class="line"><span class="cl">  version     Show the Docker Compose version information
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Run &#39;docker compose COMMAND --help&#39; for more information on a command.
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="docker-commands">Docker commands</h2>
+<h3 id="common-management-commands">Common management commands</h3>
+<ul>
+<li><code>docker context [--help]</code> <strong>context management</strong></li>
+<li><code>docker compose [--help]</code> <strong>docker compose commands</strong> <code>v2.2.2+</code></li>
+<li><code>docker container [--help]</code> <strong>container commands</strong></li>
+<li><code>docker image [--help]</code> <strong>image commands</strong>
+<ul>
+<li><code>docker image prune</code> <strong>remove untagged (<code>&lt;none&gt;</code>) images and images not used by any container</strong></li>
+</ul>
+</li>
+<li><code>docker volume [--help]</code> <em>volume (directory mount) commands</em></li>
+<li><code>docker network [--help]</code> <em>network commands</em></li>
+<li><code>docker system [--help]</code> <em>system commands</em>
+<ul>
+<li><code>docker system df</code> show disk usage</li>
+<li><code>docker system info</code> == <code>docker info</code> <em>Display system-wide information</em></li>
+</ul>
+</li>
+<li><code>docker scan [--help]</code> scan and analyze images</li>
+<li><code>docker manifest [--help]</code> view image manifests; experimental</li>
+</ul>
+<h3 id="common-commands">Common commands</h3>
+<ul>
+<li><code>docker build [--help]</code> <strong>build an image</strong>
+<ul>
+<li><code>docker build [[-t tag] ...] -f [PATH/Dockerfile] .</code></li>
+<li><code>docker build -t tag1 -t tag2 -f [PATH/Dockerfile] .</code> <strong>build multiple tags at once</strong></li>
+</ul>
+</li>
+<li><code>docker commit [OPTIONS] &lt;container&gt; &lt;REPOSITORY[:TAG]&gt;</code> <em>create an image from a container</em></li>
+<li><code>docker cp</code> copy files between a container and the local filesystem
+<ul>
+<li><code>docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-</code></li>
+<li><code>docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH</code></li>
+</ul>
+</li>
+<li><em><code>docker create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></em> — usually you just use <code>docker run</code> <strong>to create and run</strong></li>
+<li><code>docker history</code> = <code>docker image history</code> view image history</li>
+<li><code>docker images</code> <strong><a href="#docker-image-filtering" rel="">list images</a></strong></li>
+<li><code>docker login</code></li>
+<li><code>docker search</code></li>
+<li><code>docker tag</code></li>
+<li><code>docker pull</code></li>
+<li><code>docker build</code></li>
+<li><code>docker run</code></li>
+<li><code>docker push</code></li>
+<li><code>docker stop</code></li>
+<li><code>docker logs</code></li>
+</ul>
+<h3 id="docker-image-filtering">docker image filtering</h3>
+<blockquote>
+<p><code>docker images -f [filter params]</code></p>
+</blockquote>
+<ul>
+<li><code>dangling=(true|false)</code> <strong>none-tag images</strong></li>
+<li><code>label=&lt;key&gt;</code> or <code>label=&lt;key&gt;=&lt;value&gt;</code> <em>filter by <code>label</code></em></li>
+<li><code>before=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>since=(&lt;image-name&gt;[:tag]|&lt;image-id&gt;|&lt;image@digest&gt;)</code></li>
+<li><code>reference=(pattern of an image reference)</code></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker images -f <span class="nv">dangling</span><span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span>author
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">label</span><span class="o">=</span><span class="nv">author</span><span class="o">=</span>xwi88
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/alpine:*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;v8fg/golang:*1.18*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;[REPOSITORY:TAG]&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;tes*&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test&#34;</span>
+</span></span><span class="line"><span class="cl">docker images -f <span class="nv">reference</span><span class="o">=</span><span class="s2">&#34;test*2&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">In testing, if <code>REPOSITORY</code> contains <code>/</code>, the <code>reference</code> regex must include <code>/</code> to match — the filter regex does not match <code>/</code>.</div>
+        </div>
+    </div>
+<h3 id="docker-commit--create-an-image-from-a-container">docker commit — create an image from a container</h3>
+<blockquote>
+<p><code>docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage:  docker commit <span class="o">[</span>OPTIONS<span class="o">]</span> CONTAINER <span class="o">[</span>REPOSITORY<span class="o">[</span>:TAG<span class="o">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Create a new image from a container<span class="err">&#39;</span>s changes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -a, --author string    Author <span class="o">(</span>e.g., <span class="s2">&#34;John Hannibal Smith &lt;hannibal@a-team.com&gt;&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  -c, --change list      Apply Dockerfile instruction to the created image
+</span></span><span class="line"><span class="cl">  -m, --message string   Commit message
+</span></span><span class="line"><span class="cl">  -p, --pause            Pause container during commit <span class="o">(</span>default <span class="nb">true</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="prune--one-shot-cleanup-of-images-containers-etc">prune — one-shot cleanup of images, containers, etc.</h3>
+<ul>
+<li><code>docker image prune -a</code> <strong>remove all images not used by any container</strong></li>
+<li><code>docker container prune</code> <em>remove all stopped containers</em></li>
+<li><code>docker volume prune</code> <em>remove all unmounted volumes</em></li>
+<li><code>docker system prune</code> <em>remove all docker resources</em></li>
+<li><code>docker network prune</code> <em>remove all networks</em></li>
+</ul>
+<h2 id="simple-cheat-sheet">Simple Cheat Sheet</h2>
+<ul>
+<li><strong>demo images</strong>: <a href="https://github.com/v8fg/docker-compose-resources/tree/release/demo" target="_blank" rel="noopener noreffer ">v8fg/demo</a></li>
+<li>demo image: <code>v8fg/demo[:latest]</code></li>
+<li>demo container name: <code>v8fg-demo</code></li>
+</ul>
+<h3 id="running-containers">Running Containers</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo bash</td>
+<td style="text-align:left">Run container and specify command</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -it v8fg/demo</td>
+<td style="text-align:left">Run container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid v8fg/demo</td>
+<td style="text-align:left">Run container detatched, -tty</td>
+</tr>
+<tr>
+<td style="text-align:left">docker create -ti v8fg/demo</td>
+<td style="text-align:left">Create a container without starting it</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">named container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps</td>
+<td style="text-align:left">show running containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker ps -a</td>
+<td style="text-align:left">show all containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=v8fg</code></td>
+<td style="text-align:left">show matching containers</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker ps --filter name=demo -q</code></td>
+<td style="text-align:left">show matching container ID</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">inspect container</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>After the above, partial output:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">CONTAINER ID   IMAGE       COMMAND     CREATED              STATUS                          PORTS     NAMES
+</span></span><span class="line"><span class="cl">01430cc7b2c0   v8fg/demo   &#34;/bin/sh&#34;   11 seconds ago       Up 11 seconds                             v8fg-demo
+</span></span><span class="line"><span class="cl">83ce7dee0346   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Created                                   thirsty<span class="nb">_</span>bassi
+</span></span><span class="line"><span class="cl">1bd61cc802f1   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Up About a minute                         relaxed<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">be104825d061   v8fg/demo   &#34;/bin/sh&#34;   About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>beaver
+</span></span><span class="line"><span class="cl">8cfe1c19773f   v8fg/demo   &#34;bash&#34;      About a minute ago   Exited (0) About a minute ago             flamboyant<span class="nb">_</span>euclid
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="container-lifecycle-stuff">Container Lifecycle Stuff</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker start v8fg-demo</td>
+<td style="text-align:left">start</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo</td>
+<td style="text-align:left">stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stop v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">stop mutliple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker restart v8fg-demo</td>
+<td style="text-align:left">restart container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker pause v8fg-demo</td>
+<td style="text-align:left">pauses a running container, freeze in place</td>
+</tr>
+<tr>
+<td style="text-align:left">docker unpause v8fg-demo</td>
+<td style="text-align:left">unpause a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker wait v8fg-demo</td>
+<td style="text-align:left">blocks until running container stops</td>
+</tr>
+<tr>
+<td style="text-align:left">docker kill v8fg-demo</td>
+<td style="text-align:left">sends SIGKILL, faster than stop</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo</td>
+<td style="text-align:left">remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm v8fg-demo relaxed_beaver</td>
+<td style="text-align:left">remove multiple</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rm -f v8fg-demo</td>
+<td style="text-align:left">force remove</td>
+</tr>
+<tr>
+<td style="text-align:left">docker container rm -f $(docker ps -aq)</td>
+<td style="text-align:left">Remove all containers, running or stopped</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-limits-and-controls">Resource Limits and Controls</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker run -tid -c 512 v8fg/demo</td>
+<td style="text-align:left">50% cpu</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpu-shares 2 v8fg/demo</code></td>
+<td style="text-align:left">CPU shares (relative weight)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpus 2 v8fg/demo</code></td>
+<td style="text-align:left">number of CPUs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --cpuset-cpus=0,4,6 v8fg/demo</code></td>
+<td style="text-align:left">use these cpus</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run -tid -m 300M v8fg/demo</td>
+<td style="text-align:left">limit memory</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker create -ti --storage-opt size=5G v8fg/demo</code></td>
+<td style="text-align:left">limit storage, not on aufs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -m 300M --cpus 1 --name v8fg-demo v8fg/demo</code></td>
+<td style="text-align:left">limit memory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stats-logs-and-events">Stats, Logs, and Events</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker stats</td>
+<td style="text-align:left">resourse stats for all containers</td>
+</tr>
+<tr>
+<td style="text-align:left">docker stats v8fg-demo</td>
+<td style="text-align:left">resource stats for one container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker top v8fg-demo</td>
+<td style="text-align:left">shows processes in a container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logs v8fg-demo</td>
+<td style="text-align:left">container logs</td>
+</tr>
+<tr>
+<td style="text-align:left">docker events</td>
+<td style="text-align:left">watch events in real time</td>
+</tr>
+<tr>
+<td style="text-align:left">docker port v8fg-demo</td>
+<td style="text-align:left">shows public facing port of container</td>
+</tr>
+<tr>
+<td style="text-align:left">docker diff v8fg-demo</td>
+<td style="text-align:left">show changes to a container&rsquo;s file system</td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-images">Docker Images</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker history v8fg/demo</td>
+<td style="text-align:left">show history of image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image rm v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove ddd4b27c1c67</td>
+<td style="text-align:left">remove by id</td>
+</tr>
+<tr>
+<td style="text-align:left">docker image remove v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi v8fg/demo</td>
+<td style="text-align:left">remove image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker rmi $(docker images -q)</td>
+<td style="text-align:left">remove all images</td>
+</tr>
+<tr>
+<td style="text-align:left">Commit container to an image:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo</td>
+<td style="text-align:left">no repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1</td>
+<td style="text-align:left">repo name</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:my-update</td>
+<td style="text-align:left">tagged</td>
+</tr>
+<tr>
+<td style="text-align:left">docker commit v8fg-demo v8fg/test1:v1.2.3</td>
+<td style="text-align:left">tagged</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exportimportsaveload">Export/Import/Save/Load</h3>
+<ul>
+<li><strong>export, import</strong>: drops layer history; smaller — <strong>for base images, stripping history</strong></li>
+<li><em>save, load</em>: keeps layer history; larger</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker export</td>
+<td style="text-align:left">export container to tarball archive stream</td>
+</tr>
+<tr>
+<td style="text-align:left">docker import</td>
+<td style="text-align:left">create image from tarball, excludes history ( smaller image )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker save</td>
+<td style="text-align:left">save image to tar archive stream ( includes parent layers )</td>
+</tr>
+<tr>
+<td style="text-align:left">docker load</td>
+<td style="text-align:left">load an image from tarball, includes history ( larger image )</td>
+</tr>
+<tr>
+<td style="text-align:left">Examples:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker export v8fg-demo | gzip &gt; v8fg-demo-container-export.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">cat v8fg-demo-container-export.tar.gz | docker import - v8fg-demo:latest-import</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker save v8fg/demo | gzip &gt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker load &lt; v8fg-demo-image-save.tar.gz</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="docker-hubregistry">Docker Hub/Registry</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker login</td>
+<td style="text-align:left">Login to Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker logout</td>
+<td style="text-align:left">Logout of Registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker tag ddd4b27c1c67 v8fg/demo:local-v1</td>
+<td style="text-align:left">Tag an image</td>
+</tr>
+<tr>
+<td style="text-align:left">docker push v8fg/demo</td>
+<td style="text-align:left">Push to registry</td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search v8fg/golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker search golang</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker pull v8fg/demo</td>
+<td style="text-align:left">Pull it down, default latest</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run v8fg/demo:alpine</td>
+<td style="text-align:left">Will be downloaded if it isn`t here</td>
+</tr>
+</tbody>
+</table>
+<h3 id="building-docker-images-from-a-dockerfile">Building Docker Images From A Dockerfile</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">mkdir mydockerbuild</td>
+<td style="text-align:left">Create build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">cd mydockerbuild</td>
+<td style="text-align:left">cd into build dir</td>
+</tr>
+<tr>
+<td style="text-align:left">vi Dockerfile</td>
+<td style="text-align:left">Edit build instructions</td>
+</tr>
+<tr>
+<td style="text-align:left">docker build -t mydockerimage .</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">docker images</td>
+<td style="text-align:left">Show images</td>
+</tr>
+<tr>
+<td style="text-align:left">docker run mydockerimage</td>
+<td style="text-align:left">Run the new image</td>
+</tr>
+</tbody>
+</table>
+<h3 id="simple-dockerfile-example">Simple Dockerfile Example</h3>
+<blockquote>
+<p><code>v8fg/demo:latest</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">ARG</span> <span class="nv">FROM_REPOSITORY</span><span class="o">=</span>alpine <span class="nv">FROM_TAG</span><span class="o">=</span><span class="m">3</span>.15.1<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> ${FROM_REPOSITORY}:${FROM_TAG}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>latest <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add --no-cache tzdata bash<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Shanghai<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>v8fg/demo:ubuntu</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">author</span><span class="o">=</span>xwi88 <span class="nv">type</span><span class="o">=</span>demo <span class="nv">name</span><span class="o">=</span>ubuntu <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt-get update <span class="o">&amp;&amp;</span> apt-get install nginx -y <span class="o">&amp;&amp;</span> apt-get clean <span class="o">&amp;&amp;</span> apt-get autoclean <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;/usr/sbin/nginx&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="big-dockerfile-example">Big Dockerfile Example</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FROM ubuntu</td>
+<td style="text-align:left">base image</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt update</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left">RUN apt install nginx -y</td>
+<td style="text-align:left">run commands while building</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>WORKDIR ~/</code></td>
+<td style="text-align:left">working dir that CMD is run from</td>
+</tr>
+<tr>
+<td style="text-align:left">ENTRYPOINT echo</td>
+<td style="text-align:left">default application</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;echo&rdquo; &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">main command / default application</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CMD [&quot;--port 27017&quot;]</code></td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">CMD &ldquo;Hello docker!&rdquo;</td>
+<td style="text-align:left">params for ENTRYPOINT</td>
+</tr>
+<tr>
+<td style="text-align:left">ENV SERVER_WORKS 4</td>
+<td style="text-align:left">set env variable</td>
+</tr>
+<tr>
+<td style="text-align:left">EXPOSE 8080</td>
+<td style="text-align:left">expose a port, not published to the host</td>
+</tr>
+<tr>
+<td style="text-align:left">MAINTAINER authors_name</td>
+<td style="text-align:left">deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL version=&ldquo;1.0&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">LABEL author=&ldquo;User One&rdquo;</td>
+<td style="text-align:left">add metadata</td>
+</tr>
+<tr>
+<td style="text-align:left">USER 751</td>
+<td style="text-align:left">UID (or username) to run as</td>
+</tr>
+<tr>
+<td style="text-align:left">VOLUME [&quot;/my_files&quot;]</td>
+<td style="text-align:left">sets up a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test relativeDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to <code>WORKDIR</code>/relativeDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY test /absoluteDir/</td>
+<td style="text-align:left">copies &ldquo;test&rdquo; to /absoluteDir/</td>
+</tr>
+<tr>
+<td style="text-align:left">COPY ssh_config /etc/ssh/ssh_config</td>
+<td style="text-align:left">copy over a vile</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>COPY --chown=user1:group1 files* /data/</code></td>
+<td style="text-align:left">also changes ownership</td>
+</tr>
+<tr>
+<td style="text-align:left">ADD /dir1 /dir2</td>
+<td style="text-align:left">like copy but does more &hellip;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="volumesstorage">Volumes/Storage</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker info | grep -i storage</td>
+<td style="text-align:left">check storage driver</td>
+</tr>
+<tr>
+<td style="text-align:left">docker inspect v8fg-demo</td>
+<td style="text-align:left">look for &ldquo;Mounts&rdquo;</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls</td>
+<td style="text-align:left">show voluems</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume create testvol1</td>
+<td style="text-align:left">create a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume inspect testvol1</td>
+<td style="text-align:left">inspect a volume</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume ls -f dangling=true</td>
+<td style="text-align:left">find dangling ( unused ) volumes</td>
+</tr>
+<tr>
+<td style="text-align:left">docker volume rm volume1</td>
+<td style="text-align:left">remove volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Running containers with volumes:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test1 -v /data v8fg/demo</code></td>
+<td style="text-align:left">unamed volume mounted on /data</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test2 -v vol1:/data v8fg/demo</code></td>
+<td style="text-align:left">named volume</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test3 -v /src/data:/data v8fg/demo</code></td>
+<td style="text-align:left">bind mount</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --name test4 -v /src/data:/data:ro v8fg/demo</code></td>
+<td style="text-align:left">RO</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -d --volumes-from test2 --name test5 v8fg/demo</code></td>
+<td style="text-align:left">storage can be shared</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker rm -v test1</code></td>
+<td style="text-align:left">remove container and unnamed volume</td>
+</tr>
+<tr>
+<td style="text-align:left">Access and sharing parameters:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">:ro</td>
+<td style="text-align:left">for read only</td>
+</tr>
+<tr>
+<td style="text-align:left">:z</td>
+<td style="text-align:left">shared all containers can read/write</td>
+</tr>
+<tr>
+<td style="text-align:left">:Z</td>
+<td style="text-align:left">private, unshared</td>
+</tr>
+<tr>
+<td style="text-align:left">-</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`/var/lib/docker/overlay2</td>
+<td style="text-align:left">`Defalt volume storage location on Ubuntu Linux</td>
+</tr>
+</tbody>
+</table>
+<h3 id="expose-ports">Expose Ports</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 1234:80 nginx</code></td>
+<td style="text-align:left">expose container port 80 on host port 1234</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000 ubuntu</td>
+<td style="text-align:left">`bind port</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 8000-9000:5000 ubuntu</code></td>
+<td style="text-align:left">bind port to range</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 80:5000/udp ubuntu</td>
+<td style="text-align:left">`udp ports</td>
+</tr>
+<tr>
+<td style="text-align:left">`docker run -tid -p 127.0.0.1:80:5000 ubuntu</td>
+<td style="text-align:left">`bind port on an interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -p 127.0.0.1::5000 ubuntu</code></td>
+<td style="text-align:left">bind any port, specific interface</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid -P ubuntu</code></td>
+<td style="text-align:left">exposed ports to random ports</td>
+</tr>
+</tbody>
+</table>
+<h3 id="networks">Networks</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">command</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">docker network ls</td>
+<td style="text-align:left">show networks, bridge is default</td>
+</tr>
+<tr>
+<td style="text-align:left">docker network inspect bridge</td>
+<td style="text-align:left">show network details and connected containers</td>
+</tr>
+<tr>
+<td style="text-align:left">Create Bridge Network, Specify Subnet and Gateway:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network create -d bridge my-network</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create -d bridge --subnet 172.25.0.0/16 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network create --subnet 203.0.113.0/24 --gateway 203.0.113.254 my-network</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network rm my-network</td>
+<td style="text-align:left">remove network</td>
+</tr>
+<tr>
+<td style="text-align:left">Run container and specify network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --name test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Run container, specify network and IP:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker run -tid --net=my-network --ip=172.25.3.3 --name=test1 ubuntu</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Connect container to network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">docker network connect net1 test1</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network connect net1 test2 --ip 172.25.0.102</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Disconnect container from network:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">`docker network disconnect net1 test1</td>
+<td style="text-align:left">`Disconnect container from this network</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker network disconnect -f test1 test2</code></td>
+<td style="text-align:left">Force disconnect</td>
+</tr>
+<tr>
+<td style="text-align:left">Find container&rsquo;s IP address:</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{json .NetworkSettings.Networks}}' container1</code></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container1</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener noreffer ">docker run reference</a></li>
+<li><a href="https://docs.docker.com/compose/reference/" target="_blank" rel="noopener noreffer ">compose reference</a></li>
+<li><a href="https://low-orbit.net/docker-cheat-sheet" target="_blank" rel="noopener noreffer ">docker-cheat-sheet</a></li>
+</ul>]]></description></item><item><title>Dockerfile Instructions Cheat Sheet &amp; Build Examples</title><link>https://blog.xwi88.com/en/dockerfile-cheat-sheet-demo/</link><pubDate>Thu, 17 Mar 2022 21:16:08 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/dockerfile-cheat-sheet-demo/</guid><description><![CDATA[<p>An overview of the <a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer "><code>Dockerfile</code></a> format and instructions, plus image-build examples and operations.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="dockerfile-overview">Dockerfile overview</h2>
+<p>A <code>Dockerfile</code> is a text file used to build an image, made up of the instructions (<code>instruction</code>) and notes needed to build it. Each instruction builds one layer.</p>
+<p>By default <code>docker build .</code> looks for a file named <code>Dockerfile</code> in the current directory; you can also pass a path and filename: <code>docker build -f xxx/path/DockerfileName .</code></p>
+<h2 id="dockerignore"><code>.dockerignore</code></h2>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">To speed up builds, add a <code>.dockerignore</code> file in the build context to exclude files and directories. If your project has many large files that don&rsquo;t need to be in the image, excluding them really helps build speed and image size.</div>
+        </div>
+    </div>
+<h2 id="basic-structure">Basic structure</h2>
+<blockquote>
+<p>Lines starting with <code>#</code> are comments and may appear anywhere; avoid extra spaces before <code>#</code>.</p>
+</blockquote>
+<ul>
+<li>Base image info</li>
+<li>Maintainer info</li>
+<li>Image-operation instructions</li>
+<li>Container-startup instruction</li>
+</ul>
+<h2 id="all-instructions">All instructions</h2>
+<blockquote>
+<ul>
+<li><a href="#from" rel=""><strong>FROM</strong></a></li>
+<li><a href="#run" rel="">RUN</a></li>
+<li><a href="#cmd" rel="">CMD</a></li>
+<li><a href="#label" rel="">LABEL</a></li>
+<li><a href="#expose" rel="">EXPOSE</a></li>
+<li><a href="#env" rel="">ENV</a></li>
+<li><a href="#add" rel="">ADD</a></li>
+<li><a href="#copy" rel="">COPY</a></li>
+<li><a href="#entrypoint" rel="">ENTRYPOINT</a></li>
+<li><a href="#volume" rel="">VOLUME</a></li>
+<li><a href="#user" rel="">USER</a></li>
+<li><a href="#workdir" rel="">WORKDIR</a></li>
+<li><a href="#arg" rel="">ARG</a></li>
+<li><a href="#onbuild" rel="">ONBUILD</a></li>
+<li><a href="#stopsignal" rel="">STOPSIGNAL</a></li>
+<li><a href="#healthcheck" rel="">HEALTHCHECK</a></li>
+<li><a href="#shell" rel="">SHELL</a></li>
+</ul>
+</blockquote>
+<h2 id="from"><strong>FROM</strong></h2>
+<ul>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt; [AS &lt;name&gt;]</code></li>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[:&lt;tag&gt;] [AS &lt;name&gt;]</code></li>
+<li><code>FROM [--platform=&lt;platform&gt;] &lt;image&gt;[@&lt;digest&gt;] [AS &lt;name&gt;]</code></li>
+</ul>
+<p>The <code>FROM</code> instruction <strong>initializes a new build stage and sets the base image for subsequent instructions</strong>. Therefore <strong>a valid <code>Dockerfile</code> must start with a <code>FROM</code> instruction</strong>.</p>
+<ul>
+<li><code>ARG</code> is the only instruction that may appear before <code>FROM</code>.</li>
+<li><code>FROM</code> may appear multiple times in a single <code>Dockerfile</code> to <em>create multiple images</em> or to <strong>use one build stage as a dependency of another</strong>. Just record the last image ID committed before each new <code>FROM</code>. Each <code>FROM</code> clears any state created by previous instructions.</li>
+<li>Adding <code>AS &lt;name&gt;</code> to <code>FROM</code> names the new build stage. You can reference it in later <code>FROM</code> and <code>COPY --from=&lt;name&gt;</code> instructions.</li>
+<li><code>tag</code> and <code>digest</code> are optional. If omitted, the builder defaults to the <code>latest</code> tag. If the builder can&rsquo;t find the tag, it errors.</li>
+<li><code>--platform=&lt;platform&gt;</code> specifies which platform&rsquo;s image <code>FROM</code> refers to, e.g. <code>linux/amd64</code>, <code>linux/arm64</code>, <code>windows/amd64</code>. It defaults to the target platform of the build request. You can use global build args in this flag, e.g. <a href="https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope" target="_blank" rel="noopener noreffer ">automatic platform args in the global scope</a>, letting you force the build stage&rsquo;s native platform <code>(--platform=$BUILDPLATFORM)</code> and cross-compile to the target within it.</li>
+</ul>
+<h3 id="arg--from-interaction"><strong>ARG &amp; FROM interaction</strong></h3>
+<blockquote>
+<p>Variables declared by <code>ARG</code> may appear before the first <code>FROM</code>.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c"># FROM instructions support variables that are declared by any ARG instructions that occur before the first FROM.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">CODE_VERSION</span><span class="o">=</span>latest
+</span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> base:${CODE_VERSION}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-app<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> extras:${CODE_VERSION}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span>  /code/run-extras<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="arg-scope">ARG scope</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="c"># VERSION outside of a build stage, can`t be used in any instruction after a FROM</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">VERSION</span><span class="o">=</span>latest
+</span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> busybox:$VERSION</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># To use the default value of an ARG declared before the first FROM use an ARG instruction without a value inside of a build stage</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> VERSION<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">VERSION</span><span class="o">=</span>old
+</span></span><span class="line"><span class="cl"><span class="c"># guess what? old</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> VERSION<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># guess what? latest, again use ARG VERSION without value will override the before $VERSION</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$VERSION</span> &gt; image_version<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="run">RUN</h2>
+<ul>
+<li><code>RUN &lt;command&gt;</code> (shell form; default on <em>linux</em>: <code>/bin/sh -c</code>, on <em>Windows</em>: <code>cmd /S /C</code>)</li>
+<li><code>RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> (<em>exec</em> form)</li>
+</ul>
+<p><code>RUN</code> runs any command on top of the current image in a <strong>new layer</strong> and commits the result. The committed image is used for the next step in the <code>Dockerfile</code>.</p>
+<p>The exec form avoids shell-string munging and lets you run commands in a base image that doesn&rsquo;t contain a shell.</p>
+<ul>
+<li>Use the <code>SHELL</code> command to change the default shell</li>
+<li>Use a <code>\</code> <em>backslash</em> to span a single <code>RUN</code> across lines for long commands</li>
+</ul>
+<blockquote>
+<p>Replacing the default shell</p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">RUN /bin/bash -c <span class="s1">&#39;source $HOME/.bashrc; \
+</span></span></span><span class="line"><span class="cl"><span class="s1">echo $HOME&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># equivalent to</span>
+</span></span><span class="line"><span class="cl">RUN /bin/bash -c <span class="s1">&#39;source $HOME/.bashrc; echo $HOME&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>The <code>exec</code> form is parsed as a <strong>JSON array</strong>, which means that you must use double-quotes (<code>&quot;</code>) around words not single-quotes (<code>'</code>).</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># To use a different shell, other than &#39;/bin/sh&#39;, use the exec form passing in the desired shell. For example:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RUN <span class="o">[</span><span class="s2">&#34;/bin/bash&#34;</span>, <span class="s2">&#34;-c&#34;</span>, <span class="s2">&#34;echo hello&#34;</span><span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="run-cache">RUN cache</h3>
+<ul>
+<li>The <code>RUN</code> cache is <strong>not</strong> invalidated automatically on the next build</li>
+<li>A command like <code>RUN apt-get dist-upgrade -y</code> has its cache reused on the next build</li>
+<li><code>--no-cache</code> invalidates the <code>RUN</code> cache: <code>docker build --no-cache</code></li>
+<li><strong><code>ADD</code> and <code>COPY</code> can invalidate the <code>RUN</code> cache</strong></li>
+</ul>
+<h2 id="cmd">CMD</h2>
+<ul>
+<li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code> (<em>exec</em> form, this is the preferred form)</li>
+<li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code> (as <em>default parameters</em> to <strong>ENTRYPOINT</strong>)</li>
+<li><code>CMD command param1 param2</code> (<em>shell</em> form)</li>
+</ul>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>A <code>Dockerfile</code> may have only one <code>CMD</code>; if there are several, only the last takes effect.</li>
+<li><code>CMD</code>&rsquo;s main purpose is to provide defaults for an executing container. The defaults may include an executable, or omit it — in which case you must also specify <code>ENTRYPOINT</code>.</li>
+<li>If you use <code>CMD</code> to provide default args to <code>ENTRYPOINT</code>, both should use the JSON-array form.</li>
+<li><strong>If you want the container to run the same executable every time, combine <code>ENTRYPOINT</code> and <code>CMD</code></strong></li>
+<li><strong>If the user passes arguments to <code>docker run</code>, they override the <code>CMD</code> defaults</strong></li>
+<li>Don&rsquo;t confuse <code>RUN</code> with <code>CMD</code>. <code>RUN</code> <em>actually runs a command and commits the result</em>; <code>CMD</code> <em>does nothing at build time but specifies the intended command for the image</em>.</li>
+</ul>
+<h2 id="label">LABEL</h2>
+<blockquote>
+<p><code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">LABEL multi.label1<span class="o">=</span><span class="s2">&#34;value1&#34;</span> multi.label2<span class="o">=</span><span class="s2">&#34;value2&#34;</span> <span class="nv">other</span><span class="o">=</span><span class="s2">&#34;value3&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># equivalent</span>
+</span></span><span class="line"><span class="cl">LABEL multi.label1<span class="o">=</span><span class="s2">&#34;value1&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      multi.label2<span class="o">=</span><span class="s2">&#34;value2&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      <span class="nv">other</span><span class="o">=</span><span class="s2">&#34;value3&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<blockquote>
+<p>View image labels: <code>docker image inspect --format='' &lt;image_id | image_name&gt;</code></p>
+</blockquote>
+<h2 id="expose">EXPOSE</h2>
+<blockquote>
+<p><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</code></p>
+</blockquote>
+<p><code>EXPOSE</code> tells Docker the container listens on the specified network ports at runtime. You can specify TCP or UDP; if no protocol is given, TCP is the default.</p>
+<p><code>EXPOSE</code> <strong>does not actually publish the port</strong>. It&rsquo;s documentation between the person building the image and the person running the container about which ports to publish. To actually publish at runtime, use <code>-p</code> on <code>docker run</code> to publish and map one or more ports, or <code>-P</code> to publish all exposed ports to high ports.</p>
+<p>By default <code>EXPOSE</code> assumes TCP. You can also specify UDP:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># expose udp</span>
+</span></span><span class="line"><span class="cl">EXPOSE 80/udp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># expose both: tcp and udp</span>
+</span></span><span class="line"><span class="cl">EXPOSE 80/tcp
+</span></span><span class="line"><span class="cl">EXPOSE 80/udp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="expose-for-run">expose for run</h3>
+<ul>
+<li>
+<p><code>P</code> Publish all exposed ports to the host interfaces</p>
+</li>
+<li>
+<p><code>p=[]</code> Publish a container&rsquo;s port or a range of ports to the host</p>
+</li>
+<li>
+<p><code>docker run -p 80:80/tcp -p 80:80/udp ...</code></p>
+</li>
+<li>
+<p><code>docker run -p 80-81:80-81/tcp</code></p>
+</li>
+</ul>
+<h2 id="env">ENV</h2>
+<blockquote>
+<p><code>ENV &lt;key&gt;=&lt;value&gt; ...</code></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><code>ENV MY_NAME=&quot;John Doe&quot;</code></li>
+<li><code>ENV MY_DOG=Rex\ The\ Dog</code></li>
+<li><code>ENV MY_CAT=fluffy</code></li>
+<li><strong>multiple <code>&lt;key&gt;=&lt;value&gt; ...</code></strong></li>
+<li><del><code>ENV key value</code> <strong>avoid — may be removed later; error-prone</strong></del></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">ENV MY<span class="nb">_</span>NAME=&#34;John Doe&#34; MY<span class="nb">_</span>DOG=Rex<span class="k">\ </span>The<span class="k">\ </span>Dog <span class="k">\</span>
+</span></span><span class="line"><span class="cl">    MY<span class="nb">_</span>CAT=fluffy
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<ul>
+<li>Takes effect during the build stage; can be overridden</li>
+<li>The value is in the environment of all <strong>subsequent instructions</strong> in the build stage and can be substituted inline. Substitution uses the same value for each variable across the whole instruction.</li>
+<li>Values set by <code>ENV</code> are <strong>persisted</strong> into the output image.
+<ul>
+<li>Viewable via <code>docker inspect</code></li>
+<li>Overridable at run time: <code>docker run --env &lt;key&gt;=&lt;value&gt;</code></li>
+</ul>
+</li>
+<li><strong>Side effect</strong>: env vars you set may affect later build behavior — use carefully.
+<ul>
+<li>Use <code>RUN &lt;key&gt;=&lt;value&gt; [&lt;command&gt;]</code> to scope a value to a single instruction</li>
+<li>Use <code>ARG</code> for build-time values that are not persisted into the image</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ENV <span class="nv">abc</span><span class="o">=</span>hello <span class="c1"># hello</span>
+</span></span><span class="line"><span class="cl">ENV <span class="nv">abc</span><span class="o">=</span>bye <span class="nv">def</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># abc=bye, def=hello;</span>
+</span></span><span class="line"><span class="cl">ENV <span class="nv">ghi</span><span class="o">=</span><span class="nv">$abc</span> <span class="c1"># ghi=bye</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="add">ADD</h2>
+<ul>
+<li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
+<li><code>ADD [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code>  <strong>required when paths contain spaces</strong></li>
+</ul>
+<blockquote>
+<p>Notes</p>
+</blockquote>
+<ul>
+<li><code>--chown</code> applies only to <code>Linux</code> containers
+<ul>
+<li>needs <code>/etc/passwd</code> / <code>/etc/group</code> to resolve <code>user</code>, <code>group</code></li>
+</ul>
+</li>
+<li>Copies from sources that may be <code>files</code>, <code>directories</code>, or remote <code>URLs</code>
+<ul>
+<li><strong>Copies from outside into the image being built</strong></li>
+<li><code>src</code> supports multiple sources into one target</li>
+<li><code>src</code> may contain wildcards (regex matching)</li>
+</ul>
+</li>
+<li><code>dest</code> may be absolute or relative to <code>WORKDIR</code></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><code>ADD hom* /mydir/</code></li>
+<li><code>ADD hom?.txt /mydir/</code></li>
+<li><code>ADD test.txt relativeDir/</code></li>
+<li><code>ADD test.txt /absoluteDir/</code></li>
+<li><code>ADD arr[[]0].txt /mydir/</code> <strong><code>arr[0].txt</code></strong> <em>following the <code>Golang rules</code></em></li>
+</ul>
+<p>Without <code>--chown</code>, <code>UID=GID=0</code> by default; <strong>UID/GID</strong> may be <code>username</code>, <code>groupname</code>, or a <code>UID/GID</code> combo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ADD --chown<span class="o">=</span>55:mygroup files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span>bin files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span><span class="m">1</span> files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span>10:11 files* /somedir/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>If you use <code>username/groupname</code> and no matching <code>user</code>/<code>group</code> exists, the instruction fails</li>
+<li>Numeric <code>IDs</code> are not checked and don&rsquo;t depend on the container&rsquo;s rootfs contents</li>
+<li><code>docker build - &lt; somefile</code> <strong>has no build context; <code>ADD</code> only supports URLs in this mode</strong></li>
+<li>If the <code>URL</code> file requires auth, use <code>RUN wget</code>, <code>RUN curl</code> or another in-container tool — <strong><code>ADD</code> does not support authentication</strong></li>
+<li><strong><code>&lt;src&gt;</code> paths must be inside the build context</strong>; <code>docker build</code> sends the context path to the docker daemon</li>
+<li>When <code>src</code> is a <em>URL</em>, a trailing slash on <code>dest</code> (<code>dir/</code>) vs no slash (<code>filename</code>) behaves differently
+<ul>
+<li><code>trailing slash</code>, e.g. <code>dir/</code> creates the file inside directory <code>dir/</code></li>
+<li><code>no trailing slash</code>, e.g. <code>filename</code> creates a file named <code>filename</code></li>
+</ul>
+</li>
+<li>A recognized <code>local tar archive</code> (<code>identity</code>, <code>gzip</code>, <code>bzip2</code> or <code>xz</code>) is extracted as a directory</li>
+<li>If <code>dest</code> does not end with a slash, it&rsquo;s treated as a <strong>regular file</strong> and <code>src</code>&rsquo;s contents are written into it</li>
+<li>If <code>dest</code> doesn&rsquo;t exist, it&rsquo;s created along with any missing directories in its path</li>
+</ul>
+</div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+<h2 id="copy">COPY</h2>
+<ul>
+<li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</code></li>
+<li><code>COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</code> <strong>required when paths contain spaces</strong></li>
+</ul>
+<blockquote>
+<p>Notes</p>
+</blockquote>
+<ul>
+<li><code>--chown</code> applies only to <code>Linux</code> containers
+<ul>
+<li>needs <code>/etc/passwd</code> / <code>/etc/group</code> to resolve <code>user</code>, <code>group</code></li>
+</ul>
+</li>
+<li><strong>Copies from sources that may be <code>files</code> or <code>directories</code></strong>
+<ul>
+<li><strong>Copies from outside into the image being built</strong></li>
+<li><code>src</code> supports multiple sources into one target</li>
+<li><code>src</code> may contain wildcards (regex matching)</li>
+<li><strong>Unlike <code>ADD</code>, URLs are not supported</strong></li>
+</ul>
+</li>
+<li><code>dest</code> may be absolute or relative to <code>WORKDIR</code></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><code>ADD hom* /mydir/</code></li>
+<li><code>ADD hom?.txt /mydir/</code></li>
+<li><code>ADD test.txt relativeDir/</code></li>
+<li><code>ADD test.txt /absoluteDir/</code></li>
+<li><code>ADD arr[[]0].txt /mydir/</code> <strong><code>arr[0].txt</code></strong> <em>following the <code>Golang rules</code></em></li>
+</ul>
+<p>Without <code>--chown</code>, <code>UID=GID=0</code> by default; <strong>UID/GID</strong> may be <code>username</code>, <code>groupname</code>, or a <code>UID/GID</code> combo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ADD --chown<span class="o">=</span>55:mygroup files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span>bin files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span><span class="m">1</span> files* /somedir/
+</span></span><span class="line"><span class="cl">ADD --chown<span class="o">=</span>10:11 files* /somedir/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>If you use <code>username/groupname</code> and no matching <code>user</code>/<code>group</code> exists, the instruction fails</li>
+<li>Numeric <code>IDs</code> are not checked and don&rsquo;t depend on the container&rsquo;s rootfs contents</li>
+<li>Without a build context, <code>COPY</code> is unavailable</li>
+<li><strong>Supports <code>COPY --from=&lt;name&gt;</code></strong>
+<ul>
+<li><strong><code>name</code> comes from <code>FROM .. AS &lt;name&gt;</code></strong></li>
+<li><strong>If no build stage named <code>name</code> is found, an image of the same name is tried instead</strong></li>
+</ul>
+</li>
+<li><strong><code>&lt;src&gt;</code> paths must be inside the build context</strong>; <code>docker build</code> sends the context path to the docker daemon</li>
+<li>If <code>dest</code> does not end with a slash, it&rsquo;s treated as a <strong>regular file</strong> and <code>src</code>&rsquo;s contents are written into it</li>
+<li>If <code>dest</code> doesn&rsquo;t exist, it&rsquo;s created along with any missing directories in its path</li>
+</ul>
+</div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+<h2 id="entrypoint">ENTRYPOINT</h2>
+<ul>
+<li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> <code>exec form</code> <strong>recommended</strong></li>
+<li><code>ENTRYPOINT command param1 param2</code> <code>shell form</code> <strong>cannot accept args passed via CLI, <code>CMD</code>, or <code>run</code></strong></li>
+</ul>
+<blockquote>
+<p>Notes</p>
+</blockquote>
+<ul>
+<li><code>ENTRYPOINT</code> lets you configure the container as an executable</li>
+<li>Only the last <code>ENTRYPOINT</code> takes effect</li>
+<li><code>docker run &lt;image&gt;</code> args are appended to the exec-form <code>ENTRYPOINT</code> and override <code>CMD</code> args, so you can pass args to <code>ENTRYPOINT</code> from the CLI</li>
+<li>Override with <code>docker run --entrypoint</code></li>
+<li>The exec form does not invoke a <em>shell</em>; if you need one, specify <code>sh -c</code> in <code>ENTRYPOINT</code>, e.g. <code>ENTRYPOINT [ &quot;sh&quot;, &quot;-c&quot;, &quot;echo $HOME&quot; ]</code></li>
+<li>The shell form runs as a subcommand of <code>/bin/sh -c</code> and doesn&rsquo;t pass signals. The executable won&rsquo;t be <code>PID 1</code> and won&rsquo;t receive <code>Unix</code> signals, so it won&rsquo;t receive <code>SIGTERM</code> from <code>docker stop &lt;container&gt;</code></li>
+</ul>
+<h3 id="exec-form-entrypoint-example">exec form ENTRYPOINT example</h3>
+<blockquote>
+<p><a href="https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Exec form ENTRYPOINT example</a>*</p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;top&#34;</span><span class="p">,</span> <span class="s2">&#34;-b&#34;</span><span class="p">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;-c&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Build the <code>top</code> image: <code>docker build -t top .</code></p>
+<p>Start the container: <code>docker run -it --rm --name test top -H</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">top - 16:04:58 up  8:38,  0 users,  load average: 0.25, 0.10, 0.04
+</span></span><span class="line"><span class="cl">Threads:   1 total,   1 running,   0 sleeping,   0 stopped,   0 zombie
+</span></span><span class="line"><span class="cl"><span class="c">%Cpu(s): 33.3 us, 33.3 sy,  0.0 ni, 33.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>MiB Mem :   4180.6 total,    560.5 free,    326.4 used,   3293.7 buff/cache
+</span></span><span class="line"><span class="cl">MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3242.2 avail Mem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  PID USER      PR  NI    VIRT    RES    SHR S  <span class="c">%CPU  %MEM     TIME+ COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    1 root      20   0    5972   3136   2712 R   0.0   0.1   0:00.03 top
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To examine the result further, you can use <code>docker exec</code></p>
+<blockquote>
+<p><code>docker exec -it test ps aux</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">USER       PID <span class="c">%CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>root         1  3.0  0.0   5972  3216 pts/0    Ss+  16:05   0:00 top -b -H
+</span></span><span class="line"><span class="cl">root         8  0.0  0.0   5900  2920 pts/1    Rs+  16:05   0:00 ps aux
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And you can gracefully request <code>top</code> to shut down using <code>docker stop test</code></p>
+<blockquote>
+<p><code>/usr/bin/time docker stop test</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">test
+</span></span><span class="line"><span class="cl">        0.35 real         0.14 user         0.07 sys
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="shell-form-entrypoint-example">shell form ENTRYPOINT example</h3>
+<blockquote>
+<p><em><a href="https://docs.docker.com/engine/reference/builder/#shell-form-entrypoint-example" target="_blank" rel="noopener noreffer ">Shell form ENTRYPOINT example</a></em></p>
+</blockquote>
+<h4 id="shell-form-with-exec"><strong>shell form with <code>exec</code></strong></h4>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="nb">exec</span> top -b<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>docker run -it --rm --name test top</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">top - 16:37:19 up  9:10,  0 users,  load average: 0.20, 0.08, 0.02
+</span></span><span class="line"><span class="cl">Tasks:   1 total,   1 running,   0 sleeping,   0 stopped,   0 zombie
+</span></span><span class="line"><span class="cl"><span class="c">%Cpu(s): 20.0 us, 40.0 sy,  0.0 ni, 20.0 id, 20.0 wa,  0.0 hi,  0.0 si,  0.0 st
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>MiB Mem :   4180.6 total,    560.9 free,    323.7 used,   3296.0 buff/cache
+</span></span><span class="line"><span class="cl">MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3244.9 avail Mem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  PID USER      PR  NI    VIRT    RES    SHR S  <span class="c">%CPU  %MEM     TIME+ COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    1 root      20   0    5972   3236   2812 R   0.0   0.1   0:00.04 top
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>docker exec -it test ps aux</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">USER       PID <span class="c">%CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>root         1  1.0  0.0   5972  3200 pts/0    Ss+  16:55   0:00 top -b
+</span></span><span class="line"><span class="cl">root         8  0.0  0.0   5900  2924 pts/1    Rs+  16:55   0:00 ps aux
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>/usr/bin/time docker stop test</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">test
+</span></span><span class="line"><span class="cl">        0.35 real         0.15 user         0.08 sys
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h4 id="shell-form-no-exec">shell form (no exec)</h4>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> top -b<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="s2">&#34;param_inner&#34;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>docker run -it --rm --name test top param_outer</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">top - 16:34:25 up  9:08,  0 users,  load average: 0.06, 0.06, 0.02
+</span></span><span class="line"><span class="cl">Tasks:   2 total,   1 running,   1 sleeping,   0 stopped,   0 zombie
+</span></span><span class="line"><span class="cl"><span class="c">%Cpu(s): 50.0 us, 50.0 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>MiB Mem :   4180.6 total,    560.9 free,    324.3 used,   3295.4 buff/cache
+</span></span><span class="line"><span class="cl">MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   3244.4 avail Mem
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  PID USER      PR  NI    VIRT    RES    SHR S  <span class="c">%CPU  %MEM     TIME+ COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>    1 root      20   0    2616    592    528 S   0.0   0.0   0:00.03 sh
+</span></span><span class="line"><span class="cl">    8 root      20   0    5972   3188   2772 R   0.0   0.1   0:00.00 top
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>docker stop test</code> doesn&rsquo;t exit immediately — it exits after the timeout; verify with</strong></p>
+<blockquote>
+<p><code>docker exec -it test ps aux</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">USER       PID <span class="c">%CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>root         1  0.3  0.0   2616   600 pts/0    Ss+  16:46   0:00 /bin/sh -c top
+</span></span><span class="line"><span class="cl">root         7  0.0  0.0   5972  3128 pts/0    S+   16:46   0:00 top -b
+</span></span><span class="line"><span class="cl">root        24  0.0  0.0   5900  2836 pts/1    Rs+  16:46   0:00 ps aux
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>/usr/bin/time docker stop test</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">test
+</span></span><span class="line"><span class="cl">       10.33 real         0.13 user         0.07 sys
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="cmd-and-entrypoint-interaction"><strong>CMD and ENTRYPOINT interaction</strong></h3>
+<blockquote>
+<p>Both define the command to run when the container starts.</p>
+</blockquote>
+<ul>
+<li>A <code>Dockerfile</code> must have at least one <code>CMD</code> or <code>ENTRYPOINT</code></li>
+<li><code>ENTRYPOINT</code> when using the container as an executable</li>
+<li><code>CMD</code> should be the way to define <em>default parameters</em> for the <code>ENTRYPOINT</code> command, or a transient command to run in the container</li>
+<li>When the container is run with other args, <code>CMD</code> is overridden</li>
+</ul>
+<h4 id="cmd-and-entrypoint-interaction-rules"><strong>CMD and ENTRYPOINT interaction rules</strong></h4>
+<blockquote>
+<p>If the base image defines a <code>CMD</code>, setting <code>ENTRYPOINT</code> resets <code>CMD</code> to empty.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>No ENTRYPOINT</th>
+<th>ENTRYPOINT exec_entry p1_entry</th>
+<th>ENTRYPOINT [“exec_entry”, “p1_entry”]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No CMD</td>
+<td>error, not allowed</td>
+<td>/bin/sh -c exec_entry p1_entry</td>
+<td>exec_entry p1_entry</td>
+</tr>
+<tr>
+<td>CMD [“exec_cmd”, “p1_cmd”]</td>
+<td>exec_cmd p1_cmd</td>
+<td>/bin/sh -c exec_entry p1_entry</td>
+<td>exec_entry p1_entry exec_cmd p1_cmd</td>
+</tr>
+<tr>
+<td>CMD [“p1_cmd”, “p2_cmd”]</td>
+<td>p1_cmd p2_cmd</td>
+<td>/bin/sh -c exec_entry p1_entry</td>
+<td>exec_entry p1_entry p1_cmd p2_cmd</td>
+</tr>
+<tr>
+<td>CMD exec_cmd p1_cmd</td>
+<td>/bin/sh -c exec_cmd p1_cmd</td>
+<td>/bin/sh -c exec_entry p1_entry</td>
+<td>exec_entry p1_entry /bin/sh -c exec_cmd p1_cmd</td>
+</tr>
+</tbody>
+</table>
+<h2 id="volume">VOLUME</h2>
+<ul>
+<li><code>VOLUME [&quot;/data&quot;]</code></li>
+</ul>
+<blockquote>
+<p>The <code>VOLUME</code> instruction creates a mount point with the specified name and marks it as holding externally-mounted volumes from the host or other containers. The value may be a <code>JSON</code> array, <code>VOLUME [”/var/log/”]</code>, or a plain string with multiple args, e.g. <code>VOLUME /var/log</code> or <code>VOLUME /var/log /var/db</code>.</p>
+<p>See <a href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener noreffer ">Share Directories via Volumes</a></p>
+</blockquote>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir /myvol<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="s2">&#34;hello world&#34;</span> &gt; /myvol/greeting<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">VOLUME</span><span class="s"> /myvol</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>This creates a mount directory <code>/myvol</code> inside the container</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">root@abef26d10e25:/# ll myvol/*
+</span></span><span class="line"><span class="cl">-rw-r--r-- 1 root root 12 Mar 18 17:21 myvol/greeting
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<ul>
+<li>Changing a volume from the Dockerfile: if any build step changes data in a volume after it&rsquo;s declared, those changes are discarded.
+<ul>
+<li>Declare volumes at the end of the file!</li>
+</ul>
+</li>
+<li>JSON formatting: the list is parsed as a JSON array. You must use double-quotes (<code>&quot;</code>) not single-quotes (<code>'</code>).</li>
+<li>Host directories at runtime: host directories (mount points) are inherently host-dependent. This keeps images portable, since a given host directory isn&rsquo;t guaranteed on every host. For this reason you cannot mount a host directory from the Dockerfile. <code>VOLUME</code> does not support a <code>host-dir</code> argument. You must specify the mount point when creating/running the container.</li>
+</ul>
+<h2 id="user">USER</h2>
+<ul>
+<li><code>USER &lt;user&gt;[:&lt;group&gt;]</code></li>
+<li><code>USER &lt;UID&gt;[:&lt;GID&gt;]</code></li>
+</ul>
+<p><code>USER</code> sets the username (or <code>UID</code>) and optional group (or <code>GID</code>) to use when running the image, and for any <code>RUN</code>, <code>CMD</code>, and <code>ENTRYPOINT</code> that follow it in the <code>Dockerfile</code>.</p>
+<blockquote>
+<p><strong>When you specify a group for the user, the user has only that group&rsquo;s membership. Any other configured group memberships are ignored.</strong></p>
+</blockquote>
+<h2 id="workdir">WORKDIR</h2>
+<ul>
+<li>
+<p><code>WORKDIR /path/to/workdir</code></p>
+</li>
+<li>
+<p>Sets the <strong>working directory</strong> for any <code>RUN</code>, <code>CMD</code>, <code>ENTRYPOINT</code>, <code>COPY</code>, and <code>ADD</code> that follow it. If <code>WORKDIR</code> doesn&rsquo;t exist, it&rsquo;s created — even if it&rsquo;s not used in any later instruction.</p>
+</li>
+<li>
+<p><code>WORKDIR</code> can be used multiple times. A relative path is relative to the previous <code>WORKDIR</code>.</p>
+</li>
+<li>
+<p><code>WORKDIR</code> resolves <code>ENV</code> variables set before it</p>
+</li>
+<li>
+<p>If unset, <code>WORKDIR</code> defaults to <code>/</code></p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">WORKDIR /a
+</span></span><span class="line"><span class="cl">WORKDIR b
+</span></span><span class="line"><span class="cl">WORKDIR c
+</span></span><span class="line"><span class="cl">RUN <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># output /a/b/c</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ENV <span class="nv">DIRPATH</span><span class="o">=</span>/path
+</span></span><span class="line"><span class="cl">WORKDIR <span class="nv">$DIRPATH</span>/<span class="nv">$DIRNAME</span>
+</span></span><span class="line"><span class="cl">RUN <span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># output /path/$DIRNAME</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="arg">ARG</h2>
+<ul>
+<li>
+<p><code>ARG &lt;name&gt;[=&lt;default value&gt;]</code></p>
+</li>
+<li>
+<p><code>ARG</code> defines a variable users can pass at build time with the <strong><code>--build-arg &lt;varname&gt;=&lt;value&gt;</code></strong> flag of <code>docker build</code>. <em>If a user passes a build arg not defined in the <code>Dockerfile</code>, the build prints a warning.</em></p>
+</li>
+<li>
+<p>Don&rsquo;t use build-time variables to pass secrets like <code>github keys</code> or <code>user credentials</code>. With <code>docker history</code>, build-time values are visible to anyone with the image.</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG user1
+</span></span><span class="line"><span class="cl">ARG buildno
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="default-values">Default values</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG <span class="nv">user1</span><span class="o">=</span>someuser
+</span></span><span class="line"><span class="cl">ARG <span class="nv">buildno</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ..</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="scope">Scope</h3>
+<ul>
+<li>An <code>ARG</code> variable is in effect <strong>from the line it&rsquo;s declared on, downward</strong> in the <code>Dockerfile</code>; nowhere else.</li>
+<li><code>docker build --build-arg &lt;name&gt;=&lt;value&gt;</code> <strong>overrides <code>&lt;arg-name&gt;</code></strong></li>
+<li>An <code>ARG</code> goes out of scope at the end of the build stage that declares it. To use an <code>ARG</code> across stages, each stage must declare it.
+<ul>
+<li>Each <code>FROM</code> starts a build stage</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">USER <span class="si">${</span><span class="nv">user</span><span class="k">:-</span><span class="nv">some_user</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl">ARG user
+</span></span><span class="line"><span class="cl">USER <span class="nv">$user</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------multi build stage 1 -----------</span>
+</span></span><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG SETTINGS <span class="c1"># declare it to use next</span>
+</span></span><span class="line"><span class="cl">RUN ./run/setup <span class="nv">$SETTINGS</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -------multi build stage 2 -----------</span>
+</span></span><span class="line"><span class="cl">FROM busybox
+</span></span><span class="line"><span class="cl">ARG SETTINGS  <span class="c1"># declare it to use next</span>
+</span></span><span class="line"><span class="cl">RUN ./run/other <span class="nv">$SETTINGS</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="using-arg-variables"><strong>Using ARG variables</strong></h3>
+<ul>
+<li>For the same-named <code>ARG</code> and <code>ENV</code>, an <code>ENV</code> defined after the <code>ARG</code> overrides the nearest preceding <code>ARG</code> value.</li>
+<li><code>ARG VAR_NAME</code> may be repeated; each acts as a reset and can be overridden by the nearest following same-named <code>ENV</code>.</li>
+<li>Avoid:
+<ul>
+<li>declaring <code>ARG VAR_NAME</code> multiple times</li>
+<li>using the same name for an ARG and an ENV</li>
+<li>naming a variable the same as a system one, unless you mean to</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> CONT_IMG_VER<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">CONT_IMG_VER</span><span class="o">=</span>v1.0.0<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$CONT_IMG_VER</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code> <em>outputs v1.0.0</em></p>
+</blockquote>
+<p>See <a href="https://docs.docker.com/engine/reference/builder/#environment-replacement" target="_blank" rel="noopener noreffer ">environment replacement</a></p>
+<h3 id="built-in-args">Built-in args</h3>
+<blockquote>
+<p><code>docker build --build-arg HTTPS_PROXY=https://my-proxy.example.com .</code></p>
+</blockquote>
+<ul>
+<li>HTTP_PROXY</li>
+<li>http_proxy</li>
+<li>HTTPS_PROXY</li>
+<li>https_proxy</li>
+<li>FTP_PROXY</li>
+<li>ftp_proxy</li>
+<li>NO_PROXY</li>
+<li>no_proxy</li>
+</ul>
+<h3 id="platform-related-global-args">Platform-related global args</h3>
+<ul>
+<li><code>docker build --platform=</code></li>
+</ul>
+<blockquote>
+<ul>
+<li>Requires <a href="https://github.com/moby/buildkit" target="_blank" rel="noopener noreffer ">BuildKit</a> <code>18.09+</code></li>
+<li><code>DOCKER_BUILDKIT=1</code></li>
+</ul>
+</blockquote>
+<ul>
+<li>TARGETPLATFORM - platform of the build result. Eg linux/amd64, linux/arm/v7, windows/amd64.</li>
+<li>TARGETOS - OS component of TARGETPLATFORM</li>
+<li>TARGETARCH - architecture component of TARGETPLATFORM</li>
+<li>TARGETVARIANT - variant component of TARGETPLATFORM</li>
+<li>BUILDPLATFORM - platform of the node performing the build.</li>
+<li>BUILDOS - OS component of BUILDPLATFORM</li>
+<li>BUILDARCH - architecture component of BUILDPLATFORM</li>
+<li>BUILDVARIANT - variant component of BUILDPLATFORM</li>
+</ul>
+<h3 id="cache-invalidation-by-arg">Cache invalidation by ARG</h3>
+<blockquote>
+<p><code>docker build --build-arg CONT_IMG_VER=v2.0.1 .</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RUN echo 123
+</span></span><span class="line"><span class="cl">ARG CONT_IMG_VER
+</span></span><span class="line"><span class="cl">ENV CONT_IMG_VER=$CONT_IMG_VER
+</span></span><span class="line"><span class="cl">RUN echo $CONT_IMG_VER
+</span></span><span class="line"><span class="cl">RUN echo 456
+</span></span><span class="line"><span class="cl">RUN echo 789
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>exec count 1: no use cache</li>
+<li>exec count 2: use cache</li>
+<li>exec count 3, but change <code>CONT_IMG_VER=v2.0.2</code>: everything before <code>ARG CONT_IMG_VER</code> used cache; everything after is cache-invalidated</li>
+</ul>
+<h2 id="onbuild"><strong>ONBUILD</strong></h2>
+<ul>
+<li><code>ONBUILD &lt;INSTRUCTION&gt;</code></li>
+</ul>
+<blockquote>
+<p>Notes</p>
+</blockquote>
+<ul>
+<li>Any build instruction may be registered as a trigger except <code>FROM</code>, <code>MAINTAINER</code>, <code>ONBUILD</code></li>
+<li>Standardize the base-image build flow; downstream users just follow your trigger setup</li>
+<li>Example: copy source/files into a given dir by default <code>ONBUILD ADD . /app/src</code> or <code>ONBUILD COPY . /app/src</code>
+<ul>
+<li>Note the <code>Dockerfile</code> must then be at your project root or beside your resource files</li>
+<li>Exclude files that don&rsquo;t need to be in the build via <code>.dockerignore</code></li>
+</ul>
+</li>
+</ul>
+<p><code>ONBUILD</code> adds a trigger instruction to the image, to run later when this image is used as the base for another build. The trigger runs in the downstream build context as if inserted right after the downstream <code>Dockerfile</code>&rsquo;s <code>FROM</code>.</p>
+<p>This is very useful when you&rsquo;re building an image meant to be a base for others — e.g. an app build environment or a daemon customizable with user-specific config.</p>
+<p>For example, if your image is a reusable <code>Python</code> app builder, you need to <em>add the app source to a specific directory</em> and maybe call a build script afterwards. You can&rsquo;t just call <code>ADD</code> and <code>RUN</code> now because you don&rsquo;t have the app source yet, and it differs per app build. You could hand app developers a boilerplate <code>Dockerfile</code> to copy-paste, but that&rsquo;s <strong>inefficient, error-prone, and hard to update</strong>, since it&rsquo;s mixed into app-specific code.</p>
+<p><strong>The solution</strong> is <code>ONBUILD</code> to <strong>register pre-run instructions</strong> for the next build stage.</p>
+<h3 id="how-onbuild-works">How <code>ONBUILD</code> works</h3>
+<ul>
+<li>
+<ol>
+<li>On encountering <code>ONBUILD</code>, the builder adds a trigger to the image&rsquo;s metadata. Otherwise it doesn&rsquo;t affect the current build.</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>At the end of the build, all triggers are stored under the <code>OnBuild</code> key in the image manifest. They can be inspected via <code>docker inspect</code>.</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Later, that image can be used as a base via <code>FROM</code>. As part of <code>FROM</code>, the downstream builder looks up the <code>ONBUILD</code> <strong>triggers</strong> and runs them <strong>in registration order</strong>. If any trigger fails, <code>FROM</code> aborts, which aborts the build. If all succeed, <code>FROM</code> completes and the build continues.</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><strong>Triggers are cleared from the final image after execution</strong> — they are not inherited by &ldquo;child&rdquo; builds.</li>
+</ol>
+</li>
+</ul>
+<h2 id="stopsignal">STOPSIGNAL</h2>
+<blockquote>
+<p><code>STOPSIGNAL signal</code></p>
+</blockquote>
+<p><code>STOPSIGNAL</code> sets the system-call signal sent to the container to exit. It may be a signal name in <code>SIG&lt;name&gt;</code> form (e.g. <code>SIGKILL</code>) or an unsigned number matching a position in the kernel&rsquo;s syscall table (e.g. <code>9</code>). If unset, defaults to <code>SIGTERM</code>.</p>
+<p>The <code>--stop-signal</code> flag on <code>docker run</code> and <code>docker create</code> overrides the image&rsquo;s default stop signal per container.</p>
+<h2 id="healthcheck"><strong>HEALTHCHECK</strong></h2>
+<ul>
+<li><code>HEALTHCHECK [OPTIONS] CMD command</code> (check container health by running a command inside the container)</li>
+<li><code>HEALTHCHECK NONE</code> (disable any healthcheck inherited from the base image)</li>
+</ul>
+<blockquote>
+<p>Used to detect whether the service in the container is healthy — e.g. stuck in an infinite loop unable to handle new requests while the service still appears &ldquo;up&rdquo;.</p>
+</blockquote>
+<p><strong><code>OPTIONS</code></strong> (all optional):</p>
+<ul>
+<li><code>--interval=DURATION (default: 30s)</code></li>
+<li><code>--timeout=DURATION (default: 30s)</code></li>
+<li><code>--start-period=DURATION (default: 0s)</code></li>
+<li><code>--retries=N (default: 3)</code></li>
+</ul>
+<blockquote>
+<p>The command&rsquo;s <code>exit status</code> indicates health. Values:</p>
+</blockquote>
+<ul>
+<li><strong>0</strong>: <code>success</code> - the container is healthy and ready for use</li>
+<li><strong>1</strong>: <code>unhealthy</code> - the container is not working correctly</li>
+<li><strong>2</strong>: <code>reserved</code> - do not use this exit code</li>
+</ul>
+<h3 id="healthcheck-example"><code>HEALTHCHECK</code> example</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="err">HEALTHCHECK --interval=5m --timeout=3s \
+</span></span></span><span class="line"><span class="cl"><span class="err">  </span><span class="k">CMD</span> curl -f http://localhost/ <span class="o">||</span> <span class="nb">exit</span> <span class="m">1</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="shell">SHELL</h2>
+<blockquote>
+<p><code>SHELL [&quot;executable&quot;, &quot;parameters&quot;]</code></p>
+</blockquote>
+<ul>
+<li><code>SHELL</code> overrides the default shell used for shell-form commands
+<ul>
+<li>Default shell on Linux is <code>[&quot;/bin/sh&quot;, &quot;-c&quot;]</code></li>
+<li>Default shell on Windows is <code>[&quot;cmd&quot;, &quot;/s&quot;, &quot;/c&quot;]</code></li>
+<li><code>SHELL</code> must be written as JSON in the <code>Dockerfile</code></li>
+</ul>
+</li>
+<li><code>SHELL</code> is especially useful on Windows, which has two common, quite different native shells: <code>cmd</code> and <code>powershell</code>, plus optional shells including <code>sh</code></li>
+<li><code>SHELL</code> may appear multiple times. <strong>Each <code>SHELL</code> overrides all previous ones and affects all later instructions</strong></li>
+<li>If you need another shell — <code>zsh</code>, <code>csh</code>, <code>tcsh</code>, etc. — you can use <code>SHELL</code> on Linux too</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> microsoft/windowsservercore</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C echo default</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> default<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C powershell -command Write-Host default</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> powershell -command Write-Host default<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as powershell -command Write-Host hello</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">SHELL</span> <span class="p">[</span><span class="s2">&#34;powershell&#34;</span><span class="p">,</span> <span class="s2">&#34;-command&#34;</span><span class="p">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> Write-Host hello<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Executed as cmd /S /C echo hello</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">SHELL</span> <span class="p">[</span><span class="s2">&#34;cmd&#34;</span><span class="p">,</span> <span class="s2">&#34;/S&#34;</span><span class="p">,</span> <span class="s2">&#34;/C&#34;</span><span class="p">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> hello<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="example">Example</h2>
+<blockquote>
+<p><code>go1.18</code> base-image build; for more base images see <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> v8fg/golang:official-1.18-alpine3.13</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">maintainer</span><span class="o">=</span><span class="s2">&#34;278810732@qq.com&#34;</span> <span class="nv">github</span><span class="o">=</span><span class="s2">&#34;https://github.com/xwi88&#34;</span> <span class="nv">group</span><span class="o">=</span><span class="s2">&#34;https://github.com/v8fg&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Version of upx to be used(without the &#39;v&#39; prefix)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># For all releases, see https://github.com/upx/upx/releases</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ARG</span> <span class="nv">UPX_VERSION</span><span class="o">=</span><span class="m">3</span>.96<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># Fetch upx, decompress it, make it executable.</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ADD</span> https://github.com/upx/upx/releases/download/v<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>/upx-<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>-amd64_linux.tar.xz /tmp/upx.tar.xy<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk add --no-cache tzdata git make bash <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>tar -xJOf /tmp/upx.tar.xy upx-<span class="si">${</span><span class="nv">UPX_VERSION</span><span class="si">}</span>-amd64_linux/upx &gt; /bin/upx <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="o">&amp;&amp;</span> chmod +x /bin/upx <span class="o">&amp;&amp;</span> rm /tmp/upx.tar.xy<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="best-practices">Best practices</h2>
+<ul>
+<li>Each instruction creates a layer. For downstream images the upstream image is a read-only layer; the current build just <strong>appends layers</strong> on top.</li>
+<li>Prefer <code>COPY</code> over <code>ADD</code> — more transparent and direct</li>
+<li><code>docker build [OPTIONS] -f PATH</code>; for stdin input use <code>docker build [OPTIONS] -f- PATH</code></li>
+<li><code>.dockerignore</code> excludes files that don&rsquo;t need to be in the build — see <a href="https://docs.docker.com/engine/reference/builder/#dockerignore-file" target="_blank" rel="noopener noreffer ">dockerignore-file</a></li>
+<li>Optimize image size
+<ul>
+<li><strong>Use <a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener noreffer ">multi-stage builds</a></strong> to <strong>shrink the final image</strong>
+<ul>
+<li>You can target a specific stage: <code>docker build --target builder -t xxxx .</code></li>
+<li>A stage can copy from earlier stages or existing images: <code>COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf</code></li>
+</ul>
+</li>
+<li><em>Don&rsquo;t install unnecessary packages</em></li>
+<li><em>Copy only the files you need (pair with .dockerignore)</em></li>
+<li>One container, one concern — avoid running multiple services in one container</li>
+<li><strong>Compress executables</strong> when you can</li>
+<li><strong>Minimize the layer count</strong>
+<ul>
+<li><strong>Only <code>RUN</code>, <code>COPY</code>, <code>ADD</code> create layers — merge/trim related instructions into one or a few lines</strong></li>
+<li><strong>Merge and reorder instructions</strong>; use a backslash for multi-line; <em>clean up temp files afterwards</em></li>
+<li>For pipes, use them directly: <code>RUN set -o pipefail &amp;&amp; wget -O - https://some.site | wc -l &gt; /number</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Build-cache invalidation
+<ul>
+<li><strong><code>ADD</code>/<code>COPY</code></strong> <code>src</code> changes invalidate later <code>RUN</code> caches</li>
+<li><code>ARG</code>/<code>ENV</code> changes invalidate the first instruction that uses them <code>and everything after</code></li>
+</ul>
+</li>
+<li>Cache-invalidation tips
+<ul>
+<li>Push such steps to the end, or replace with other commands</li>
+<li>Keep <code>src</code> and other references stable</li>
+</ul>
+</li>
+<li>Only <code>PID=1</code> can be terminated by <code>docker stop</code>; the <code>sh -c</code> of shell form has <code>PID!=1</code></li>
+<li>On <code>docker stop</code>, a <code>PID=1</code> container exits cleanly; after the stop timeout, <code>SIGKILL</code> is sent</li>
+<li><a href="#cmd-and-entrypoint-interaction-rules" rel="">CMD and ENTRYPOINT interaction rules</a></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.docker.com/reference/" target="_blank" rel="noopener noreffer ">Docker reference</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact" target="_blank" rel="noopener noreffer ">understand-how-arg-and-from-interact</a></li>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreffer ">Dockerfile reference</a></li>
+<li><strong><a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices" target="_blank" rel="noopener noreffer ">dockerfile_best-practices</a></strong></li>
+<li><a href="https://docs.docker.com/storage/storagedriver/" target="_blank" rel="noopener noreffer ">storage driver</a></li>
+<li><a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener noreffer ">multistage-build</a></li>
+</ul>]]></description></item></channel></rss>

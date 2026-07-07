@@ -1,0 +1,688 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>ai - Category - Coding Life Share</title><link>https://blog.xwi88.com/en/categories/ai/</link><description>ai - Category - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 Apr 2023 11:52:48 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/categories/ai/" rel="self" type="application/rss+xml"/><item><title>Self-Hosting a ChatGPT Web UI</title><link>https://blog.xwi88.com/en/chatgpt-web-local-build/</link><pubDate>Sun, 16 Apr 2023 11:52:48 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/chatgpt-web-local-build/</guid><description><![CDATA[<p>ChatGPT is an AI-powered interactive bot that chats with users and helps them — answering questions, translating between Chinese and English, and offering jokes, philosophy, maxims and more. It can also learn and remember your preferences and habits to serve you in a more personalized, professional way. This post covers the relevant principles, a few competitors, environment setup, and use cases.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="history">History</h2>
+<p>ChatGPT was first developed by the OpenAI team. The series of language-generation models it spawned (GPT-2, GPT-3, …) has drawn wide attention since 2018. ChatGPT&rsquo;s own history began in 2019, when AI researchers found the GPT model could generate natural conversation. Building on that, they ran a series of studies and adjustments that gradually shaped today&rsquo;s ChatGPT.</p>
+<h3 id="gpt-versions-at-a-glance">GPT versions at a glance</h3>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">ChatGPT is based on GPT-3.5; when calling the API, pick a model no older than this.</div>
+        </div>
+    </div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Open/Closed</th>
+<th style="text-align:left">Release</th>
+<th style="text-align:left">Usage limit</th>
+<th style="text-align:left">Params</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GPT-1</td>
+<td style="text-align:left">Open</td>
+<td style="text-align:left">2018-06</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">117M</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-2</td>
+<td style="text-align:left">Open</td>
+<td style="text-align:left">2019-02</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">1.5B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-3</td>
+<td style="text-align:left">Closed</td>
+<td style="text-align:left">2020-06</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">175B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-3.5</td>
+<td style="text-align:left">Closed</td>
+<td style="text-align:left">2022-11</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">200B</td>
+</tr>
+<tr>
+<td style="text-align:left">GPT-4</td>
+<td style="text-align:left">Closed</td>
+<td style="text-align:left">2023-03</td>
+<td style="text-align:left">Plus</td>
+<td style="text-align:left">1000B</td>
+</tr>
+</tbody>
+</table>
+<h2 id="principle">Principle</h2>
+<p>ChatGPT is built on GPT (Generative Pre-training Transformer) — a deep-neural-network natural-language generation model. The GPT model, developed by OpenAI, is pre-trained on a large corpus so it can produce high-quality natural language. ChatGPT is trained and tuned on top of GPT; its core is recognizing the user&rsquo;s topic and intent through context, then generating a suitable answer.</p>
+<h3 id="model-principle">Model principle</h3>
+<ol>
+<li>Architecture: OpenAI ChatGPT is a deep-learning model based on the transformer architecture. Through multi-head self-attention and feed-forward networks it encodes and decodes sequential data, with strong representational and generalization power.</li>
+<li>Pre-training: OpenAI ChatGPT is pre-trained on a large corpus, mainly in two steps: a masked language model and a next-sentence prediction model.
+<ol>
+<li>Masked Language Model (MLM): some words in the input sequence are randomly masked and the model predicts them — like cloze — which helps it learn grammar, semantics and vocabulary from context.</li>
+<li>Next Sentence Prediction (NSP): given two sentences, the model predicts whether the second follows the first, which helps it understand context and produce coherent text.</li>
+</ol>
+</li>
+<li>Fine-tuning: after pre-training, OpenAI ChatGPT is fine-tuned for specific tasks (e.g. dialogue generation) to further improve performance.</li>
+<li>Sequence-to-sequence generation: in use, it takes the user&rsquo;s question as an input sequence, processes it, and returns an output sequence that is fine-tuned into natural language. Through supervised learning it keeps optimizing its parameters and structure to improve answer quality and relevance.</li>
+</ol>
+<h3 id="how-it-works">How it works</h3>
+<ol>
+<li>Input encoding: when the user sends a message, ChatGPT&rsquo;s transformer encoder encodes it into a semantic vector.</li>
+<li>Decoder initialization: it then initializes the transformer decoder to maximize the probability of generating the next reply.</li>
+<li>Greedy search: during decoding it generates output tokens step by step with greedy search — at each step picking the highest-probability next word. Simple and fast, but can produce incoherent output.</li>
+<li>Attention: the decoder attends to the encoded input to model input–output dependencies, yielding more relevant replies.</li>
+<li>Repetition check: to avoid meaningless repetition, it checks whether the reply is too close to the input and regenerates if so.</li>
+<li>Reply output: once a satisfying reply is produced, it&rsquo;s returned to the user.</li>
+<li>Continual learning: as a pre-trained model, it keeps learning across interactions, refining its expression and generation.</li>
+</ol>
+<p>So in short, ChatGPT relies on the transformer encoder–decoder framework, generates sequences with attention and greedy search, and keeps learning from large dialogue datasets — which makes it one of the most effective open-domain chatbot systems today.</p>
+<h2 id="competitors">Competitors</h2>
+<blockquote>
+<p>Analysis below reflects the state at the time of writing; forgive any inaccuracy.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Competitor</th>
+<th style="text-align:left">Recommend</th>
+<th style="text-align:left">Proxy</th>
+<th style="text-align:left">Fee</th>
+<th style="text-align:left">Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ChatGPT</td>
+<td style="text-align:left">★★★★★</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Pay</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+<tr>
+<td style="text-align:left">Claude</td>
+<td style="text-align:left">★★★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Slack APP: Claude</td>
+</tr>
+<tr>
+<td style="text-align:left">Tongyi Qianwen</td>
+<td style="text-align:left">★★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+<tr>
+<td style="text-align:left">Wenxin Yige</td>
+<td style="text-align:left">★★★</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">Free</td>
+<td style="text-align:left">Official or API</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">&ldquo;Free&rdquo; above refers only to the official web access at this time; always refer to the official pricing.</div>
+        </div>
+    </div>
+<h3 id="chatgpt-api-billing">ChatGPT API billing</h3>
+<ul>
+<li>OpenAI pricing: <a href="https://openai.com/pricing#language-models" target="_blank" rel="noopener noreffer ">pricing#language-models</a></li>
+<li>OpenAI charges by token; 1000 tokens ≈ 750 English words or 500 Chinese characters.</li>
+<li>Input (Prompt) and output (Completion) are billed separately.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Model</th>
+<th style="text-align:left">Prompt</th>
+<th style="text-align:left">Completion</th>
+<th style="text-align:left">Max tokens per interaction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">gpt-3.5</td>
+<td style="text-align:left">$0.002 / 1K tokens</td>
+<td style="text-align:left">$0.002 / 1K tokens</td>
+<td style="text-align:left">4096</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt-4</td>
+<td style="text-align:left">$0.03 / 1K tokens</td>
+<td style="text-align:left">$0.06 / 1K tokens</td>
+<td style="text-align:left">8192</td>
+</tr>
+<tr>
+<td style="text-align:left">gpt-4-32K</td>
+<td style="text-align:left">$0.06 / 1K tokens</td>
+<td style="text-align:left">$0.12 / 1K tokens</td>
+<td style="text-align:left">32768</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>Mind the security of your API key</li>
+<li>Mind the context length you send each time — too much context burns tokens faster</li>
+<li>Mind the model version — costs differ across versions</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="access-environment-setup">Access environment setup</h2>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">We use ChatGPT as the example for setting up access for personal research only. For commercial use, stay lawful and compliant.</div>
+        </div>
+    </div>
+<h3 id="options">Options</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Access Way</th>
+<th style="text-align:left">Proxy</th>
+<th style="text-align:left">Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Official Web</td>
+<td style="text-align:left">local overseas proxy</td>
+<td style="text-align:left">ban</td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">local overseas proxy</td>
+<td style="text-align:left">ban</td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">server overseas proxy</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">API</td>
+<td style="text-align:left">overseas cloud function</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">To call it through your own domain, reverse-proxy via Nginx or similar on your server.</div>
+        </div>
+    </div>
+<h3 id="recommended-approach">Recommended approach</h3>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Create and test a cloud function in a suitable region. Currently usable: Tencent Cloud, Alibaba Cloud; explore other providers yourself.</div>
+        </div>
+    </div>
+<h4 id="creation-steps">Creation steps</h4>
+<blockquote>
+<p>More at: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy" target="_blank" rel="noopener noreffer ">openai-scf-proxy</a> or <a href="https://github.com/riba2534/openai-scf-goproxy" target="_blank" rel="noopener noreffer ">openai-scf-goproxy</a></p>
+</blockquote>
+<ol>
+<li>Log in to your cloud provider and find the <em>cloud function console</em></li>
+<li>Create &amp; configure the function
+<ul>
+<li>New
+<ul>
+<li>Tencent Cloud: create from scratch</li>
+<li>Alibaba Cloud: custom runtime, handling HTTP requests</li>
+</ul>
+</li>
+<li>Choose a web function</li>
+<li>Pick a region that meets your needs (one that can reach the service you call)</li>
+<li>Runtime:
+<ul>
+<li>NodeJS
+<ul>
+<li>Env: Nodejs 16.13 (or newer)</li>
+<li>zip: <a href="https://github.com/Ice-Hazymoon/openai-scf-proxy/releases" target="_blank" rel="noopener noreffer ">download the zip for your version</a></li>
+</ul>
+</li>
+<li>GO
+<ul>
+<li>Env: <em>Go1</em></li>
+<li>zip: <a href="https://github.com/riba2534/openai-scf-goproxy/releases" target="_blank" rel="noopener noreffer ">download the zip for your version</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Upload the zip you downloaded</li>
+<li>Set the timezone as needed</li>
+<li>Configure logging as needed</li>
+<li>Trigger:
+<ul>
+<li>Method: Any</li>
+<li>Auth: No</li>
+</ul>
+</li>
+<li>Advanced:
+<ul>
+<li>Memory: 64M+</li>
+<li>Execution timeout: 900s</li>
+<li>Concurrency: 2 (tune to a sane value to avoid frequent calls getting you banned or rate-limited)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Once created, find the access path / public URL
+<ul>
+<li>On Tencent Cloud, strip the trailing <code>/release</code> from the generated URL</li>
+</ul>
+</li>
+</ol>
+<h2 id="api-testing">API testing</h2>
+<h3 id="balance">Balance</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Check balance — browser request only</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/dashboard/billing/credit_grants <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/dashboard/billing/credit_grants <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="subscription">Subscription</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Subscription query</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/dashboard/billing/subscription <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Subscription query</span>
+</span></span><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/dashboard/billing/subscription <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;object&#34;</span><span class="p">:</span> <span class="s2">&#34;billing_subscription&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;has_payment_method&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;canceled&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;canceled_at&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;delinquent&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;access_until&#34;</span><span class="p">:</span> <span class="mi">1688169600</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;soft_limit&#34;</span><span class="p">:</span> <span class="mi">66667</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hard_limit&#34;</span><span class="p">:</span> <span class="mi">83334</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;system_hard_limit&#34;</span><span class="p">:</span> <span class="mi">83334</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;soft_limit_usd&#34;</span><span class="p">:</span> <span class="mf">4.00002</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hard_limit_usd&#34;</span><span class="p">:</span> <span class="mf">5.00004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;system_hard_limit_usd&#34;</span><span class="p">:</span> <span class="mf">5.00004</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;plan&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Explore&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;free&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;account_name&#34;</span><span class="p">:</span> <span class="s2">&#34;xyz&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;po_number&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;billing_email&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tax_ids&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;billing_address&#34;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;business_address&#34;</span><span class="p">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="chat">Chat</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Chat test</span>
+</span></span><span class="line"><span class="cl">curl <span class="si">${</span><span class="nv">YOUR_PROXY_URL</span><span class="si">}</span>/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer </span><span class="si">${</span><span class="nv">OPENAI_API_KEY</span><span class="si">}</span><span class="s2">&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;Benefits and usage of Astragalus&#34;}]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://api.openai-proxy.com/v1/chat/completions <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -H <span class="s2">&#34;Authorization: Bearer sk-xxxxxx&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -d <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;model&#34;: &#34;gpt-3.5-turbo&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;max_tokens&#34;: 2000,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;temperature&#34;: 1.0,
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;messages&#34;: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;Benefits and usage of Astragalus&#34;}]
+</span></span></span><span class="line"><span class="cl"><span class="s1">  }&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;chatcmpl-75sXKeiaLI75HtMXgXsulhlQFeXpA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;object&#34;</span><span class="p">:</span> <span class="s2">&#34;chat.completion&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;created&#34;</span><span class="p">:</span> <span class="mi">1681635634</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;model&#34;</span><span class="p">:</span> <span class="s2">&#34;gpt-3.5-turbo-0301&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;usage&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;prompt_tokens&#34;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;completion_tokens&#34;</span><span class="p">:</span> <span class="mi">632</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total_tokens&#34;</span><span class="p">:</span> <span class="mi">649</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;choices&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;assistant&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;Astragalus (Huang Qi) is a well-known herb in traditional Chinese medicine, widely used to support health. Its main benefits and uses include:\n\n1. Immune support: Astragalus helps strengthen the body&#39;s resistance and immunity, and is useful for people with weak constitution, frequent colds, or chronic fatigue.\n\n2. Antioxidant: rich in antioxidants, it helps neutralize free radicals and protects cells from oxidative damage.\n\n3. Anti-inflammatory: it modulates the immune system and helps restrain inflammation, benefiting chronic inflammatory conditions.\n\n4. Spleen &amp; qi tonic: it tonifies spleen qi, supports digestion, and helps with poor appetite and digestive discomfort.\n\n5. Anti-fatigue: it supports energy metabolism and helps relieve tiredness, weakness and poor sleep.\n\nCommon ways to use it:\n1. Tea: simmer dried slices and drink the water — for daily conditioning and cold prevention.\n2. In soups or congee: pair with other herbs to flavor food while keeping the benefit.\n3. Syrup/paste: decoct with other herbs into a paste for respiratory support.\n4. External use: pound and mix into an oil-based paste for skin issues.&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;finish_reason&#34;</span><span class="p">:</span> <span class="s2">&#34;stop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h2 id="building-the-chatgpt-web-ui">Building the ChatGPT Web UI</h2>
+<p>Using the open-source ChatGPT Web project as a container, I&rsquo;ve set up a domain-accessible <strong>ChatGPT UI</strong>. Chain: <code>(Domain -&gt; DNS -&gt; Nginx -&gt;) Cloud Function Proxy -&gt; OpenAI</code></p>
+<h3 id="container-config">Container config</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.8&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">chatgpt-next-web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">chatgpt-next-web-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">v8fg/chatgpt-next-web:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">OPENAI_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="c"># Your openai api key.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">CODE</span><span class="p">:</span><span class="w"> </span><span class="c"># Access passsword, separated by comma.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">BASE_URL: # proxy api URL, default</span><span class="p">:</span><span class="w"> </span><span class="l">api.openai.com, without scheme</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># PROTOCOL: https # http | https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">3690</span><span class="p">:</span><span class="m">3000</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="environment-variables">Environment variables</h3>
+<ul>
+<li>OPENAI_API_KEY: Your openai api key
+<ul>
+<li>If not set server-side, configure it in the web UI per session</li>
+</ul>
+</li>
+<li>CODE: access code
+<ul>
+<li>If <code>OPENAI_API_KEY</code> is set server-side AND <code>CODE</code> is set, the access code is required</li>
+<li>If <code>OPENAI_API_KEY</code> is set in the web UI, the code is not required</li>
+</ul>
+</li>
+<li>BASE_URL: Proxy URL, domain only
+<ul>
+<li>default: <code>api.openai.com</code></li>
+<li>example: <code>api.openai-proxy.com</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="more-web--app-projects">More Web / App projects</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Link</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">Stars</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ChatGPT-Next-Web</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/Yidadaa/ChatGPT-Next-Web" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatgpt-web</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/Chanzhaoyu/chatgpt-web" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">Vue3</td>
+<td style="text-align:left">☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatgpt-demo</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/ddiu8081/chatgpt-demo" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chatbot-ui</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/mckaywrigley/chatbot-ui" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">whatsapp-chatgpt</td>
+<td style="text-align:left">Web UI</td>
+<td style="text-align:left"><a href="https://github.com/askrella/whatsapp-chatgpt" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">lencx/ChatGPT</td>
+<td style="text-align:left">Desktop App</td>
+<td style="text-align:left"><a href="https://github.com/lencx/ChatGPT" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆☆☆☆</td>
+</tr>
+<tr>
+<td style="text-align:left">chat-ai-desktop</td>
+<td style="text-align:left">Desktop App</td>
+<td style="text-align:left"><a href="https://github.com/sonnylazuardi/chat-ai-desktop" target="_blank" rel="noopener noreffer ">Code</a></td>
+<td style="text-align:left">TypeScript</td>
+<td style="text-align:left">☆☆☆</td>
+</tr>
+</tbody>
+</table>
+<h2 id="nginx-config-notes">Nginx config notes</h2>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>If you use Nginx as a reverse proxy, add the following to the config</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># No caching, support streaming output</span>
+</span></span><span class="line"><span class="cl">proxy_cache off<span class="p">;</span>  <span class="c1"># disable cache</span>
+</span></span><span class="line"><span class="cl">proxy_buffering off<span class="p">;</span>  <span class="c1"># disable proxy buffering</span>
+</span></span><span class="line"><span class="cl">chunked_transfer_encoding on<span class="p">;</span>  <span class="c1"># enable chunked transfer encoding</span>
+</span></span><span class="line"><span class="cl">tcp_nopush on<span class="p">;</span>  <span class="c1"># enable TCP NOPUSH, disable Nagle</span>
+</span></span><span class="line"><span class="cl">tcp_nodelay on<span class="p">;</span>  <span class="c1"># enable TCP NODELAY, disable delayed ACK</span>
+</span></span><span class="line"><span class="cl">keepalive_timeout 300<span class="p">;</span>  <span class="c1"># keep-alive timeout</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>]]></description></item></channel></rss>
