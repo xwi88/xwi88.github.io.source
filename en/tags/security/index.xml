@@ -1,0 +1,212 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>security - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/security/</link><description>security - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/security/" rel="self" type="application/rss+xml"/><item><title>Go OTP TOTP HOTP</title><link>https://blog.xwi88.com/en/go-otp-totp-hotp/</link><pubDate>Sat, 22 Oct 2022 12:09:20 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-otp-totp-hotp/</guid><description><![CDATA[<p>More and more systems add multi-factor authentication for security. OTP is one of the relatively simple and convenient MFA schemes. This post briefly covers the concepts and gives <code>totp</code> and <code>hotp</code> examples based on <code>go1.19.2</code>. For more, see <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="concepts">Concepts</h2>
+<ul>
+<li>OTP: One-Time Password.
+<ul>
+<li>A single-use password</li>
+</ul>
+</li>
+<li>TOTP: Time-based One-time Password Algorithm (RFC 6238): time-based OTP, the most commonly used method.
+<ul>
+<li>A one-time password generated from a timestamp algorithm</li>
+<li>Generated from a secret key and the current time</li>
+<li>Usually produces a new code every 30 or 60 seconds</li>
+<li>Requires the client and server to keep fairly accurate clocks</li>
+</ul>
+</li>
+<li>HOTP: HMAC-based One-time Password Algorithm (RFC 4226): counter-based OTP, which TOTP builds upon.
+<ul>
+<li>A one-time password generated from the <code>HMAC</code> algorithm</li>
+</ul>
+</li>
+</ul>
+<h2 id="use-cases">Use cases</h2>
+<ul>
+<li>Server login dynamic-password verification (cloud servers, enterprise platforms, etc.)</li>
+<li>github, twitter, google login two-factor authentication</li>
+<li>Corporate intranet proxy login 2FA</li>
+<li>Bank transfer dynamic passwords</li>
+<li>Hardware tokens for online banking and online games</li>
+<li>2FA / MFA and the like</li>
+</ul>
+<h2 id="products">Products</h2>
+<ul>
+<li>Microsoft Authenticator: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
+<ul>
+<li>Cross-app, simple, fast and highly secure 2FA</li>
+<li>Recommended for personal use ☆☆☆☆☆</li>
+</ul>
+</li>
+<li>Google Authenticator: <a href="https://github.com/google/google-authenticator" target="_blank" rel="noopener noreffer ">google-authenticator</a></li>
+<li>Bank token: bound to a specific account/card only</li>
+<li>Vendor-specific OTP security apps: limited to that vendor&rsquo;s products</li>
+</ul>
+<h2 id="principle">Principle</h2>
+<p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
+<ul>
+<li><code>K</code>: secret key string</li>
+<li><code>C</code>: a number</li>
+<li><code>HMAC-SHA-1</code>: HMAC using SHA-1</li>
+<li><code>Truncate</code>: truncates the encrypted string</li>
+</ul>
+<blockquote>
+<p>For HMAC-SHA-1 encryption, Truncate works as follows:</p>
+</blockquote>
+<ul>
+<li>HMAC-SHA-1 produces a 20-byte secret string</li>
+<li>Take the last byte of those 20 bytes, and use its low 4 bits as the index offset into the encrypted string</li>
+<li>Starting at that offset, take 4 bytes and combine them into an integer (big-endian)</li>
+<li>Take the last 6 or 8 digits of that integer and return them as a string</li>
+</ul>
+<h3 id="otp">OTP</h3>
+<ul>
+<li><code>C</code>: a number representing a random value</li>
+<li>Other parameters as defined above</li>
+</ul>
+<h3 id="totp">TOTP</h3>
+<ul>
+<li><code>C</code>: a random value derived from a timestamp
+<ul>
+<li><code>C = (T - T0) / T1</code></li>
+<li>T: the current timestamp</li>
+<li>T0: the epoch start, usually 0</li>
+<li>T1: the time step, customized per your needs
+<ul>
+<li>Usually <strong>30</strong>, meaning the generated code is valid for <code>30s</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Other parameters as defined above</li>
+<li>The hash function is usually <code>SHA2</code>, i.e. event-synchronous verification based on a <code>SHA-256</code> or <code>SHA-512</code> hash</li>
+</ul>
+<h3 id="hotp">HOTP</h3>
+<ul>
+<li><code>C</code>: a number representing a random value</li>
+<li>Other parameters as defined above</li>
+</ul>
+<h2 id="implementations">Implementations</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">URL</th>
+<th style="text-align:left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">https://github.com/v8fg/kit4go</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">https://github.com/pquerna/otp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">pyotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">https://github.com/pyauth/pyotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">gotp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">https://github.com/xlzd/gotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">otplib</a></td>
+<td style="text-align:left">Node</td>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">https://github.com/yeojz/otplib</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">otphp</a></td>
+<td style="text-align:left">PHP</td>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">https://github.com/Spomky-Labs/otphp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">mintotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">https://github.com/susam/mintotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Erlang</td>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">https://github.com/erlang/otp</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<blockquote>
+<p><code>go get -u github.com/v8fg/kit4go</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/v8fg/kit4go/otp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">secret</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">RandomSecret</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// generate a 10-byte secret string, e.g. JBSWY3DPEHPK3PXP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// otp url
+</span></span></span><span class="line"><span class="cl"><span class="c1">// otpauth://totp/Twitter:@xwi88?issuer=Twitter&amp;secret=JJBFGV2ZGNCFARKIKBFTGUCYKA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">totpURL</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">GenerateURLTOTP</span><span class="p">(</span><span class="nx">otp</span><span class="p">.</span><span class="nx">KeyOpts</span><span class="p">{</span><span class="nx">Issuer</span><span class="p">:</span> <span class="s">&#34;Twitter&#34;</span><span class="p">,</span> <span class="nx">AccountName</span><span class="p">:</span> <span class="s">&#34;@xwi88&#34;</span><span class="p">,</span> <span class="nx">Secret</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;JJBFGV2ZGNCFARKIKBFTGUCYKA&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// now time: 2022-10-22 18:00:00 +0000 UTC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.Code(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">Code</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">)</span> <span class="c1">// 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCode(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCodeCustom(&#34;JBSWY3DPEHPK3PXP&#34;, now, nil) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">TOTPCodeCustom</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">otp</span><span class="p">.</span><span class="nx">Opts</span><span class="p">{</span><span class="nx">Skew</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1">// allow clock skew in [Before(30s) ~ Present(30s) ~ After(30s)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// verify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTP</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">)</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTPCustom</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// true
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>More examples are in the source <code>otp/*_test.go</code> files</p>
+</blockquote>]]></description></item></channel></rss>

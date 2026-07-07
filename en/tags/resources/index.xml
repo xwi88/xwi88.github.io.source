@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>resources - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/resources/</link><description>resources - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 13 Mar 2022 19:07:30 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/resources/" rel="self" type="application/rss+xml"/><item><title>Open-Source Software Mirror Sites (China)</title><link>https://blog.xwi88.com/en/mirrors-cn/</link><pubDate>Sun, 13 Mar 2022 19:07:30 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/mirrors-cn/</guid><description><![CDATA[<p>A collection of open-source software mirror sites in China. The recommended ones are preferred. You can also browse the <a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer ">public open-source mirrors</a> or the <a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer ">education-network open-source mirrors</a> directly.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="recommended-mirrors">Recommended mirrors</h2>
+<ul>
+<li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
+<li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
+<li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">Alibaba Open Source Mirror</a></li>
+<li><a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener noreffer ">USTC (Univ. of Science and Technology of China) Open Source Mirror</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener noreffer ">TUNA (Tsinghua University) Open Source Mirror</a> <a href="https://github.com/tuna/" target="_blank" rel="noopener noreffer ">github</a></li>
+<li><a href="https://mirrors.bfsu.edu.cn/" target="_blank" rel="noopener noreffer ">BFSU (Beijing Foreign Studies Univ.) Open Source Mirror</a></li>
+<li><a href="https://mirrors.zju.edu.cn/" target="_blank" rel="noopener noreffer ">ZJU (Zhejiang University) Open Source Mirror</a></li>
+<li><a href="https://mirror.lzu.edu.cn/" target="_blank" rel="noopener noreffer ">LZU (Lanzhou University) Open Source Community Mirror</a></li>
+</ul>
+<h2 id="enterprise-mirrors">Enterprise mirrors</h2>
+<ul>
+<li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
+<li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
+<li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">Alibaba Open Source Mirror</a></li>
+<li><a href="https://mirrors.163.com/" target="_blank" rel="noopener noreffer ">NetEase Open Source Mirror</a></li>
+</ul>
+<h2 id="education-network-mirrors">Education-network mirrors</h2>
+<p><a href="https://mirrorz.org/" target="_blank" rel="noopener noreffer ">MirrorZ — one-stop navigation for university open-source mirrors</a></p>]]></description></item></channel></rss>

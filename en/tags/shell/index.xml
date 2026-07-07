@@ -1,0 +1,59 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>shell - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/shell/</link><description>shell - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 12 Mar 2022 09:15:14 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/shell/" rel="self" type="application/rss+xml"/><item><title>Handling Absolute Paths Correctly in Makefile and Shell</title><link>https://blog.xwi88.com/en/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/makefile-shell-path-get/</guid><description><![CDATA[<p>Handling absolute paths in <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> and shell (mainly <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>).</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="makefile">Makefile</h2>
+<blockquote>
+<p>make version: <code>3.81</code></p>
+</blockquote>
+<p><code>BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">GNU Make 3.81
+</span></span><span class="line"><span class="cl">Copyright (C) 2006  Free Software Foundation, Inc.
+</span></span><span class="line"><span class="cl">This is free software; see the source for copying conditions.
+</span></span><span class="line"><span class="cl">There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+</span></span><span class="line"><span class="cl">PARTICULAR PURPOSE.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="linux-shell">Linux Shell</h2>
+<blockquote>
+<p>Bash version: <code>5.1</code></p>
+</blockquote>
+<ul>
+<li><code>DIR=$(cd $(dirname $0) &amp;&amp; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname $0); pwd)</code></li>
+<li><code>DIR=$(cd dirname $0; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname &quot;${BASH_SOURCE[0]}&quot;) &amp;&amp; pwd)</code></li>
+<li><code>ROOT_DIR=&quot;${DIR##*/}&quot;</code></li>
+<li><code>FILE_NAME=$(basename &quot;$0&quot;)</code></li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>BASH_SOURCE</code> only works where a <strong>bash</strong> shell is available</p>
+<blockquote>
+<p><code>cat /etc/shells</code> lists the shells supported on this machine</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h2 id="example">Example</h2>
+<p>For working examples of the above, see: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
+<ul>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/scripts/docker-build.sh" target="_blank" rel="noopener noreffer ">docker-build.sh</a></li>
+</ul>]]></description></item></channel></rss>

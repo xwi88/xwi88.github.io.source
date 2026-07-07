@@ -1,4 +1,761 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Coding Life Share</title><link>https://blog.xwi88.com/en/posts/</link><description>All Posts | Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/posts/" rel="self" type="application/rss+xml"/><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Coding Life Share</title><link>https://blog.xwi88.com/en/posts/</link><description>All Posts | Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 Oct 2022 12:09:20 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/posts/" rel="self" type="application/rss+xml"/><item><title>Go OTP TOTP HOTP</title><link>https://blog.xwi88.com/en/go-otp-totp-hotp/</link><pubDate>Sat, 22 Oct 2022 12:09:20 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-otp-totp-hotp/</guid><description><![CDATA[<p>More and more systems add multi-factor authentication for security. OTP is one of the relatively simple and convenient MFA schemes. This post briefly covers the concepts and gives <code>totp</code> and <code>hotp</code> examples based on <code>go1.19.2</code>. For more, see <a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="concepts">Concepts</h2>
+<ul>
+<li>OTP: One-Time Password.
+<ul>
+<li>A single-use password</li>
+</ul>
+</li>
+<li>TOTP: Time-based One-time Password Algorithm (RFC 6238): time-based OTP, the most commonly used method.
+<ul>
+<li>A one-time password generated from a timestamp algorithm</li>
+<li>Generated from a secret key and the current time</li>
+<li>Usually produces a new code every 30 or 60 seconds</li>
+<li>Requires the client and server to keep fairly accurate clocks</li>
+</ul>
+</li>
+<li>HOTP: HMAC-based One-time Password Algorithm (RFC 4226): counter-based OTP, which TOTP builds upon.
+<ul>
+<li>A one-time password generated from the <code>HMAC</code> algorithm</li>
+</ul>
+</li>
+</ul>
+<h2 id="use-cases">Use cases</h2>
+<ul>
+<li>Server login dynamic-password verification (cloud servers, enterprise platforms, etc.)</li>
+<li>github, twitter, google login two-factor authentication</li>
+<li>Corporate intranet proxy login 2FA</li>
+<li>Bank transfer dynamic passwords</li>
+<li>Hardware tokens for online banking and online games</li>
+<li>2FA / MFA and the like</li>
+</ul>
+<h2 id="products">Products</h2>
+<ul>
+<li>Microsoft Authenticator: <a href="https://www.microsoft.com/zh-cn/security/mobile-authenticator-app" target="_blank" rel="noopener noreffer ">microsoft-authenticator</a>
+<ul>
+<li>Cross-app, simple, fast and highly secure 2FA</li>
+<li>Recommended for personal use ☆☆☆☆☆</li>
+</ul>
+</li>
+<li>Google Authenticator: <a href="https://github.com/google/google-authenticator" target="_blank" rel="noopener noreffer ">google-authenticator</a></li>
+<li>Bank token: bound to a specific account/card only</li>
+<li>Vendor-specific OTP security apps: limited to that vendor&rsquo;s products</li>
+</ul>
+<h2 id="principle">Principle</h2>
+<p><strong><code>OTP(K, C) = Truncate(HMAC-SHA-1(K, C))</code></strong></p>
+<ul>
+<li><code>K</code>: secret key string</li>
+<li><code>C</code>: a number</li>
+<li><code>HMAC-SHA-1</code>: HMAC using SHA-1</li>
+<li><code>Truncate</code>: truncates the encrypted string</li>
+</ul>
+<blockquote>
+<p>For HMAC-SHA-1 encryption, Truncate works as follows:</p>
+</blockquote>
+<ul>
+<li>HMAC-SHA-1 produces a 20-byte secret string</li>
+<li>Take the last byte of those 20 bytes, and use its low 4 bits as the index offset into the encrypted string</li>
+<li>Starting at that offset, take 4 bytes and combine them into an integer (big-endian)</li>
+<li>Take the last 6 or 8 digits of that integer and return them as a string</li>
+</ul>
+<h3 id="otp">OTP</h3>
+<ul>
+<li><code>C</code>: a number representing a random value</li>
+<li>Other parameters as defined above</li>
+</ul>
+<h3 id="totp">TOTP</h3>
+<ul>
+<li><code>C</code>: a random value derived from a timestamp
+<ul>
+<li><code>C = (T - T0) / T1</code></li>
+<li>T: the current timestamp</li>
+<li>T0: the epoch start, usually 0</li>
+<li>T1: the time step, customized per your needs
+<ul>
+<li>Usually <strong>30</strong>, meaning the generated code is valid for <code>30s</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Other parameters as defined above</li>
+<li>The hash function is usually <code>SHA2</code>, i.e. event-synchronous verification based on a <code>SHA-256</code> or <code>SHA-512</code> hash</li>
+</ul>
+<h3 id="hotp">HOTP</h3>
+<ul>
+<li><code>C</code>: a number representing a random value</li>
+<li>Other parameters as defined above</li>
+</ul>
+<h2 id="implementations">Implementations</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Language</th>
+<th style="text-align:left">URL</th>
+<th style="text-align:left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">kit4go/otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/v8fg/kit4go" target="_blank" rel="noopener noreffer ">https://github.com/v8fg/kit4go</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/pquerna/otp" target="_blank" rel="noopener noreffer ">https://github.com/pquerna/otp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">pyotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/pyauth/pyotp" target="_blank" rel="noopener noreffer ">https://github.com/pyauth/pyotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">gotp</a></td>
+<td style="text-align:left">Go</td>
+<td style="text-align:left"><a href="https://github.com/xlzd/gotp" target="_blank" rel="noopener noreffer ">https://github.com/xlzd/gotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">otplib</a></td>
+<td style="text-align:left">Node</td>
+<td style="text-align:left"><a href="https://github.com/yeojz/otplib" target="_blank" rel="noopener noreffer ">https://github.com/yeojz/otplib</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">otphp</a></td>
+<td style="text-align:left">PHP</td>
+<td style="text-align:left"><a href="https://github.com/Spomky-Labs/otphp" target="_blank" rel="noopener noreffer ">https://github.com/Spomky-Labs/otphp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">mintotp</a></td>
+<td style="text-align:left">Python</td>
+<td style="text-align:left"><a href="https://github.com/susam/mintotp" target="_blank" rel="noopener noreffer ">https://github.com/susam/mintotp</a></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">otp</a></td>
+<td style="text-align:left">Erlang</td>
+<td style="text-align:left"><a href="https://github.com/erlang/otp" target="_blank" rel="noopener noreffer ">https://github.com/erlang/otp</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<blockquote>
+<p><code>go get -u github.com/v8fg/kit4go</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/v8fg/kit4go/otp&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">secret</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">RandomSecret</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">// generate a 10-byte secret string, e.g. JBSWY3DPEHPK3PXP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// otp url
+</span></span></span><span class="line"><span class="cl"><span class="c1">// otpauth://totp/Twitter:@xwi88?issuer=Twitter&amp;secret=JJBFGV2ZGNCFARKIKBFTGUCYKA
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">totpURL</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">GenerateURLTOTP</span><span class="p">(</span><span class="nx">otp</span><span class="p">.</span><span class="nx">KeyOpts</span><span class="p">{</span><span class="nx">Issuer</span><span class="p">:</span> <span class="s">&#34;Twitter&#34;</span><span class="p">,</span> <span class="nx">AccountName</span><span class="p">:</span> <span class="s">&#34;@xwi88&#34;</span><span class="p">,</span> <span class="nx">Secret</span><span class="p">:</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;JJBFGV2ZGNCFARKIKBFTGUCYKA&#34;</span><span class="p">)})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// now time: 2022-10-22 18:00:00 +0000 UTC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.Code(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">Code</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">)</span> <span class="c1">// 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// totp
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCode(&#34;JBSWY3DPEHPK3PXP&#34;) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1">// code := otp.TOTPCodeCustom(&#34;JBSWY3DPEHPK3PXP&#34;, now, nil) // 527484
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">code</span> <span class="o">:=</span> <span class="nx">otp</span><span class="p">.</span><span class="nf">TOTPCodeCustom</span><span class="p">(</span><span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">otp</span><span class="p">.</span><span class="nx">Opts</span><span class="p">{</span><span class="nx">Skew</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span> <span class="c1">// allow clock skew in [Before(30s) ~ Present(30s) ~ After(30s)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// verify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTP</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">)</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">otp</span><span class="p">.</span><span class="nf">VerifyTOTPCustom</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="s">&#34;JBSWY3DPEHPK3PXP&#34;</span><span class="p">,</span> <span class="nx">now</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span> <span class="c1">// true
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>More examples are in the source <code>otp/*_test.go</code> files</p>
+</blockquote>]]></description></item><item><title>Common kill Signals and How to Catch Them in Go</title><link>https://blog.xwi88.com/en/go-kill-signal-catch/</link><pubDate>Wed, 16 Mar 2022 01:30:10 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-kill-signal-catch/</guid><description><![CDATA[<p>Common kill signals for Go programs and how to catch them. Verified on <em>MacOS</em>, based on <code>go1.17.7</code>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="common-signals">Common signals</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">Some of the more commonly used signals:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 1       HUP (hang up)
+</span></span><span class="line"><span class="cl"> 2       INT (interrupt)
+</span></span><span class="line"><span class="cl"> 3       QUIT (quit)
+</span></span><span class="line"><span class="cl"> 6       ABRT (abort)
+</span></span><span class="line"><span class="cl"> 9       KILL (non-catchable, non-ignorable kill)
+</span></span><span class="line"><span class="cl"> 14      ALRM (alarm clock)
+</span></span><span class="line"><span class="cl"> 15      TERM (software termination signal)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 30      USR1 (user defined signal 1)
+</span></span><span class="line"><span class="cl"> 31      USR2 (user defined signal 2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-code">Go Code</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">done</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">ch</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGHUP</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGQUIT</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGABRT</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGKILL</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGALRM</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGUSR1</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGUSR2</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGTERM</span><span class="p">,</span> <span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGINT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sgName</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;receive kill signal [%v], ready to exit ...&#34;</span><span class="p">,</span> <span class="nx">sgName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// resource release and other deals
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;-</span><span class="nx">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>For a more convenient wrapper, see <a href="https://github.com/love-wheel/signal" target="_blank" rel="noopener noreffer ">signal</a></p>
+</blockquote>
+<h2 id="kill-testing">kill testing</h2>
+<blockquote>
+<p>Run <code>kill</code> on the host to stop the <code>app</code>. There are two runtime environments: <strong>host</strong> and <strong>docker</strong>.</p>
+</blockquote>
+<h3 id="host">Host</h3>
+<p><code>kill -&lt;signal_number | signal_name&gt; &lt;pid&gt;</code></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">linux/unix <code>kill</code> defaults to <code>signal_number=15</code> <strong>TERM</strong></div>
+        </div>
+    </div>
+<p>Tested — <strong>signals that can be caught normally and return 0</strong>:</p>
+<ul>
+<li><code>1, 2, 3, 6, 14, 15</code>, <strong><code>30, 31</code></strong></li>
+<li><code>HUP, INT, QUIT, ABRT, ALRM, TERM, USR1, USR2</code>
+<ul>
+<li><strong>case-insensitive</strong></li>
+<li><strong><code>SIG</code> prefix allowed</strong>, also <strong>case-insensitive</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="docker">docker</h3>
+<blockquote>
+<p><code>docker kill -&lt;signal_number | signal_name&gt; &lt;container_id&gt;</code></p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>docker kill</code> defaults to <code>signal_number=9</code> <strong>KILL</strong></div>
+        </div>
+    </div>
+<p>Tested — <strong>signals that can be caught normally and return 0</strong>:</p>
+<ul>
+<li><code>1, 2, 3, 6, 14, 15</code>, <strong><code>10, 12</code></strong>
+<ul>
+<li><strong>In testing, <code>docker kill</code> only recognizes <code>10</code> and <code>12</code> as <code>USR1</code> and <code>USR2</code></strong></li>
+<li>Reason unclear; <strong><code>USR1</code> / <code>USR2</code> not recommended</strong></li>
+</ul>
+</li>
+<li><code>HUP, INT, QUIT, ABRT, ALRM, TERM, USR1, USR2</code>
+<ul>
+<li><strong>case-insensitive</strong></li>
+<li><strong><code>SIG</code> prefix allowed</strong>, also <strong>case-insensitive</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<blockquote>
+<p>From the tests above, the <strong>commonly catchable, no-difference, return-0 signals</strong> are: <code>1, 2, 3, 6, 14, 15</code></p>
+</blockquote>
+<p>By signal semantics, we recommend using:</p>
+<ul>
+<li>2 <strong>SIGINT</strong> — trigger: <code>CTRL+C</code> or <code>kill -2</code></li>
+<li>15 <strong>SIGTERM</strong></li>
+</ul>
+<h2 id="graceful-shutdown">Graceful shutdown</h2>
+<ol>
+<li>Send <code>kill</code> with <code>-15/-TERM/-SIGTERM</code></li>
+<li>After the program catches the signal: <strong>remove the node from discovery</strong>, <strong>release resources</strong>, <em>stop the program</em></li>
+<li>After a configured interval, check whether it stopped; if not, fall back to <code>kill -9/-KILL/-SIGKILL</code> per your policy</li>
+</ol>
+<h2 id="k8s-graceful-shutdown">k8s graceful shutdown</h2>
+<ol>
+<li><strong>Remove the node</strong></li>
+<li><code>preStop hook</code> <em>optional delay, to drain in-flight traffic</em></li>
+<li>Send <code>kill</code> with <code>-15/-TERM/-SIGTERM</code></li>
+<li>The program catches the signal, <strong>releases resources</strong>, <em>stops</em></li>
+<li>Force-killed on timeout via <code>kill -9/-KILL/-SIGKILL</code>
+<ul>
+<li>default 30s</li>
+<li>pod: <code>terminationGracePeriodSeconds</code> to change it</li>
+</ul>
+</li>
+</ol>
+<h2 id="docker-compose-kill-issue">Docker-compose kill issue</h2>
+<ul>
+<li>Current <code>Docker Compose version 2.2.2</code></li>
+</ul>
+<p><code>docker-compose</code> may fail to stop on <code>CTRL+C</code>; force quit with <code>CTRL+\</code></p>]]></description></item><item><title>Open-Source Software Mirror Sites (China)</title><link>https://blog.xwi88.com/en/mirrors-cn/</link><pubDate>Sun, 13 Mar 2022 19:07:30 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/mirrors-cn/</guid><description><![CDATA[<p>A collection of open-source software mirror sites in China. The recommended ones are preferred. You can also browse the <a href="https://lug.org.cn/doku.php?id=china-public-open-source-mirrors" target="_blank" rel="noopener noreffer ">public open-source mirrors</a> or the <a href="https://lug.org.cn/doku.php?id=china-edu-open-source-mirrors" target="_blank" rel="noopener noreffer ">education-network open-source mirrors</a> directly.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="recommended-mirrors">Recommended mirrors</h2>
+<ul>
+<li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
+<li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
+<li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">Alibaba Open Source Mirror</a></li>
+<li><a href="https://mirrors.ustc.edu.cn/" target="_blank" rel="noopener noreffer ">USTC (Univ. of Science and Technology of China) Open Source Mirror</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener noreffer ">TUNA (Tsinghua University) Open Source Mirror</a> <a href="https://github.com/tuna/" target="_blank" rel="noopener noreffer ">github</a></li>
+<li><a href="https://mirrors.bfsu.edu.cn/" target="_blank" rel="noopener noreffer ">BFSU (Beijing Foreign Studies Univ.) Open Source Mirror</a></li>
+<li><a href="https://mirrors.zju.edu.cn/" target="_blank" rel="noopener noreffer ">ZJU (Zhejiang University) Open Source Mirror</a></li>
+<li><a href="https://mirror.lzu.edu.cn/" target="_blank" rel="noopener noreffer ">LZU (Lanzhou University) Open Source Community Mirror</a></li>
+</ul>
+<h2 id="enterprise-mirrors">Enterprise mirrors</h2>
+<ul>
+<li><a href="https://mirrors.huaweicloud.com/home" target="_blank" rel="noopener noreffer ">Huawei Open Source Mirror</a></li>
+<li><a href="https://mirrors.cloud.tencent.com/" target="_blank" rel="noopener noreffer ">Tencent Open Source Mirror</a></li>
+<li><a href="https://developer.aliyun.com/mirror/" target="_blank" rel="noopener noreffer ">Alibaba Open Source Mirror</a></li>
+<li><a href="https://mirrors.163.com/" target="_blank" rel="noopener noreffer ">NetEase Open Source Mirror</a></li>
+</ul>
+<h2 id="education-network-mirrors">Education-network mirrors</h2>
+<p><a href="https://mirrorz.org/" target="_blank" rel="noopener noreffer ">MirrorZ — one-stop navigation for university open-source mirrors</a></p>]]></description></item><item><title>Handling Absolute Paths Correctly in Makefile and Shell</title><link>https://blog.xwi88.com/en/makefile-shell-path-get/</link><pubDate>Sat, 12 Mar 2022 09:15:14 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/makefile-shell-path-get/</guid><description><![CDATA[<p>Handling absolute paths in <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer ">Makefile</a> and shell (mainly <a href="https://www.gnu.org/savannah-checkouts/gnu/bash/manual/html_node/index.html#SEC_Contents" target="_blank" rel="noopener noreffer ">Bash</a>).</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="makefile">Makefile</h2>
+<blockquote>
+<p>make version: <code>3.81</code></p>
+</blockquote>
+<p><code>BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">GNU Make 3.81
+</span></span><span class="line"><span class="cl">Copyright (C) 2006  Free Software Foundation, Inc.
+</span></span><span class="line"><span class="cl">This is free software; see the source for copying conditions.
+</span></span><span class="line"><span class="cl">There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+</span></span><span class="line"><span class="cl">PARTICULAR PURPOSE.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This program built for i386-apple-darwin11.3.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="linux-shell">Linux Shell</h2>
+<blockquote>
+<p>Bash version: <code>5.1</code></p>
+</blockquote>
+<ul>
+<li><code>DIR=$(cd $(dirname $0) &amp;&amp; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname $0); pwd)</code></li>
+<li><code>DIR=$(cd dirname $0; pwd)</code></li>
+<li><code>DIR=$(cd $(dirname &quot;${BASH_SOURCE[0]}&quot;) &amp;&amp; pwd)</code></li>
+<li><code>ROOT_DIR=&quot;${DIR##*/}&quot;</code></li>
+<li><code>FILE_NAME=$(basename &quot;$0&quot;)</code></li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><code>BASH_SOURCE</code> only works where a <strong>bash</strong> shell is available</p>
+<blockquote>
+<p><code>cat /etc/shells</code> lists the shells supported on this machine</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h2 id="example">Example</h2>
+<p>For working examples of the above, see: <a href="https://github.com/v8fg/docker-compose-resources" target="_blank" rel="noopener noreffer ">docker-compose-resources</a></p>
+<ul>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>
+<li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/scripts/docker-build.sh" target="_blank" rel="noopener noreffer ">docker-build.sh</a></li>
+</ul>]]></description></item><item><title>gvm: Go Version Manager</title><link>https://blog.xwi88.com/en/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> is a CLI tool for <strong>Linux</strong>, <strong>MacOS</strong> and <strong>Windows</strong> — similar to <strong>nvm</strong> / <em>anaconda</em> — that lets you conveniently manage and switch between multiple <strong>go</strong> environments. Highly recommended.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="mac-os-x-requirements">Mac OS X Requirements</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mac OS X Requirements</span>
+</span></span><span class="line"><span class="cl">xcode-select --install
+</span></span><span class="line"><span class="cl">brew update
+</span></span><span class="line"><span class="cl">brew install mercurial
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="install-gvm">Install gvm</h3>
+<blockquote>
+<p><a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener noreffer ">gvm</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># zsh</span>
+</span></span><span class="line"><span class="cl">zsh &lt; &lt;<span class="o">(</span>curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># bash use, choose one!</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>On success, a hidden <strong>.gvm</strong> directory is created under your home folder, and the following line is appended to the bottom of your <em>.bashrc</em> or <em>.zshrc</em>:</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[[ -s &#34;$HOME/.gvm/scripts/gvm&#34; ]] &amp;&amp; source &#34;$HOME/.gvm/scripts/gvm&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># shall set GO_SOURCE_URL to speed binary install
+</span></span><span class="line"><span class="cl">export GO_SOURCE_URL=https://github.com/golang/go
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>To support multiple shells at the same time, copy the snippet above into each shell&rsquo;s config file manually.</p>
+</blockquote>
+<h3 id="go-environment-config">Go environment config</h3>
+<p>Switching go versions with <code>gvm use &lt;version&gt;</code> changes several environment variables, such as:</p>
+<ul>
+<li><code>GOMODCACHE=&quot;$HOME/.gvm/pkgsets/go1.17.7/global/pkg/mod&quot;</code></li>
+<li><code>GOPATH=&quot;$HOME/.gvm/pkgsets/go1.17.7/global&quot;</code></li>
+</ul>
+<p>The related gvm commands are: <code>linkthis</code>, <code>pkgset</code>, <code>pkgenv</code>. To reduce the impact of these env changes on development, you can pin <code>GOPATH</code> and friends:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># shall set GO_SOURCE_URL to speed source install</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># default https://go.googlesource.com/go</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GO_SOURCE_URL</span><span class="o">=</span>https://github.com/golang/go
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># if use gvm, shall set some go env after gvm init statements</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># export GO111MODULE=on</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$HOME</span><span class="s2">/go&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOBIN</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GOPATH</span><span class="s2">/bin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GOBIN</span><span class="s2">:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GOPROXY</span><span class="o">=</span>https://goproxy.cn,https://goproxy.io/,https://mirrors.aliyun.com/goproxy/,https://gocenter.io/,https://proxy.golang.org,direct
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gvm-usage"><strong>gvm</strong> usage</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage: gvm <span class="o">[</span>command<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  GVM is the Go Version Manager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:
+</span></span><span class="line"><span class="cl">  version    - print the gvm version number
+</span></span><span class="line"><span class="cl">  get        - gets the latest code <span class="o">(</span><span class="k">for</span> debugging<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  use        - <span class="k">select</span> a go version to use <span class="o">(</span>--default to <span class="nb">set</span> permanently<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  diff       - view changes to Go root
+</span></span><span class="line"><span class="cl">  <span class="nb">help</span>       - display this usage text
+</span></span><span class="line"><span class="cl">  implode    - completely remove gvm
+</span></span><span class="line"><span class="cl">  install    - install go versions
+</span></span><span class="line"><span class="cl">  uninstall  - uninstall go versions
+</span></span><span class="line"><span class="cl">  cross      - install go cross compilers
+</span></span><span class="line"><span class="cl">  linkthis   - link this directory into GOPATH
+</span></span><span class="line"><span class="cl">  list       - list installed go versions
+</span></span><span class="line"><span class="cl">  listall    - list available versions
+</span></span><span class="line"><span class="cl">  <span class="nb">alias</span>      - manage go version aliases
+</span></span><span class="line"><span class="cl">  pkgset     - manage go packages sets
+</span></span><span class="line"><span class="cl">  pkgenv     - edit the environment <span class="k">for</span> a package <span class="nb">set</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gvm-install"><strong>gvm install</strong></h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Usage: gvm install <span class="o">[</span>version<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    -s,  --source<span class="o">=</span>SOURCE      Install Go from specified source.
+</span></span><span class="line"><span class="cl">    -n,  --name<span class="o">=</span>NAME          Override the default name <span class="k">for</span> this version.
+</span></span><span class="line"><span class="cl">    -pb, --with-protobuf      Install Go protocol buffers.
+</span></span><span class="line"><span class="cl">    -b,  --with-build-tools   Install package build tools.
+</span></span><span class="line"><span class="cl">    -B,  --binary             Only install from binary.
+</span></span><span class="line"><span class="cl">         --prefer-binary      Attempt a binary install, falling back to source.
+</span></span><span class="line"><span class="cl">    -h,  --help               Display this message.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="quick-start">Quick start</h3>
+<blockquote>
+<p><code>gvm use</code> <em>- select a go version to use (&ndash;default to set permanently)</em></p>
+</blockquote>
+<ul>
+<li>gvm install go1.16.14 -B # if the machine has no go pre-installed</li>
+<li>gvm install go1.17.7</li>
+<li>gvm use go1.17.7 [&ndash;default]</li>
+<li>gvm uninstall go1.17.7</li>
+<li><em>gvm install go1.17.7 &ndash;source=https://xxx@github.com/xxx/go</em></li>
+<li><em>gvm install go1.17.7 -s=https://godoc.org/golang.org/dl/go1.17.7</em></li>
+<li><em>gvm implode</em> <strong>uninstall gvm</strong></li>
+</ul>
+<h2 id="example">Example</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># gvm list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">gvm gos <span class="o">(</span>installed<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   go1.16.14
+</span></span><span class="line"><span class="cl"><span class="o">=</span>&gt; go1.17.7
+</span></span><span class="line"><span class="cl">   go1.18rc1
+</span></span><span class="line"><span class="cl">   system
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>Hugo Plugin Giscus Support</title><link>https://blog.xwi88.com/en/hugo-plugin-giscus-support/</link><pubDate>Mon, 07 Mar 2022 23:46:10 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-giscus-support/</guid><description><![CDATA[<p>I&rsquo;ve tried several Hugo comment plugins; the best are still <strong>utterances</strong> and <strong>giscus</strong>. The former is a bit too simple, while the newer <strong>giscus</strong>, based on <em>GitHub Discussions</em>, feels great to use. This post is verified on my own site and shared here for anyone who needs it.</p>
+<blockquote>
+<ul>
+<li><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></li>
+<li><a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">giscus demo</a></li>
+</ul>
+</blockquote>
+<h2 id="giscus-integration">giscus integration</h2>
+<blockquote>
+<ul>
+<li><a href="https://giscus.app" target="_blank" rel="noopener noreffer ">giscus</a></li>
+<li><a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus zh-CN</a></li>
+</ul>
+</blockquote>
+<h3 id="introduction">Introduction</h3>
+<p>A comment system powered by <a href="https://docs.github.com/en/discussions" target="_blank" rel="noopener noreffer ">GitHub Discussions</a>. Let visitors leave comments and reactions on your website via GitHub! This project is heavily inspired by <a href="https://github.com/utterance/utterances" target="_blank" rel="noopener noreffer ">utterances</a>.</p>
+<ul>
+<li><a href="https://github.com/giscus/giscus" target="_blank" rel="noopener noreffer ">Open source</a>. 🌏</li>
+<li>No tracking, no ads, always free. 📡 🚫</li>
+<li>No database needed. All data is stored in GitHub Discussions. :octocat:</li>
+<li>Custom themes supported! 🌗</li>
+<li>Multiple languages supported. 🌐</li>
+<li><a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md" target="_blank" rel="noopener noreffer ">Highly configurable</a>. 🔧</li>
+<li>Automatically fetches new comments and edits from GitHub. 🔃</li>
+<li><a href="https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md" target="_blank" rel="noopener noreffer ">Self-hostable</a>! 🤳</li>
+</ul>
+<blockquote>
+<p>Note:</p>
+<ul>
+<li>giscus is still under active development. GitHub is also actively developing <strong>Discussions</strong> and its API. As a result, some giscus features may break or change over time.</li>
+</ul>
+</blockquote>
+<h3 id="configuration">Configuration</h3>
+<blockquote>
+<p>Requirements</p>
+</blockquote>
+<ul>
+<li>The repository is <strong>public</strong>, otherwise visitors cannot view the <em>discussion</em>.</li>
+<li>The <strong>giscus app</strong> is installed, otherwise visitors cannot comment or react.</li>
+<li>The <strong>Discussions</strong> feature is <em>enabled</em> on your repository.</li>
+</ul>
+<blockquote>
+<p>Configuration</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">=</span><span class="s2">&#34;[ENTER REPO HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[ENTER REPO ID HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">=</span><span class="s2">&#34;[ENTER CATEGORY NAME HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[ENTER CATEGORY ID HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">mapping</span><span class="o">=</span><span class="s2">&#34;pathname&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">reactions</span><span class="o">-</span><span class="nx">enabled</span><span class="o">=</span><span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">emit</span><span class="o">-</span><span class="nx">metadata</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">input</span><span class="o">-</span><span class="nx">position</span><span class="o">=</span><span class="s2">&#34;bottom&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">theme</span><span class="o">=</span><span class="s2">&#34;light&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">lang</span><span class="o">=</span><span class="s2">&#34;en&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">async</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>You can customize the container layout in the embedded page using the <strong>.giscus</strong> and <strong>.giscus-frame</strong> selectors.</p>
+</blockquote>
+<h4 id="getting-some-parameters">Getting some parameters</h4>
+<ul>
+<li><strong>repo-id</strong>, <strong>category-id</strong>: via the <a href="https://docs.github.com/en/graphql/overview/explorer" target="_blank" rel="noopener noreffer ">github graphql api</a></li>
+<li><strong>category</strong> is usually <strong>Announcements</strong>, or pick another as needed — make sure it matches the <strong>category-id</strong>!</li>
+<li><em>mapping</em>: fill in per your needs; <strong>pathname</strong> is the usual choice</li>
+</ul>
+<p><figure><figcaption class="image-caption">github graphql discussion query</figcaption>
+    </figure></p>
+<blockquote>
+<p>After the steps above, you can use the plugin easily. Embedding it into your current theme, however, needs some extra handling.</p>
+</blockquote>
+<h3 id="theme-support-for-giscus">Theme support for giscus</h3>
+<p>You can add giscus support in two ways:</p>
+<ul>
+<li><strong>theme.js</strong> <em>JS approach</em> — <strong>requires recompiling theme.js</strong>; see the project&rsquo;s <code>Makefile</code>, <code>make debug</code></li>
+<li><strong>comment.html</strong> <em>template approach</em></li>
+</ul>
+<p>The <strong>js</strong> approach is a bit more flexible. We wrote both; the template-plugin approach is <em>commented out</em>. See the relevant changes:</p>
+<ul>
+<li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>github</strong></li>
+<li><a href="https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>gitee</strong></li>
+</ul>
+<blockquote>
+<p>giscus iframe async theme config: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer ">isetconfigmessage</a></p>
+</blockquote>
+<h3 id="see-it-in-action">See it in action</h3>
+<ul>
+<li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xwi88.com</a></li>
+</ul>
+<p><figure><figcaption class="image-caption">hugo giscus demo</figcaption>
+    </figure></p>]]></description></item><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
 <h2 id="busuanzi"><strong>busuanzi</strong></h2>
 <blockquote>
 <p><a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">busuanzi</a></p>

@@ -1,4 +1,115 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo-plugin - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/hugo-plugin/</link><description>hugo-plugin - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Mar 2022 00:01:01 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/hugo-plugin/" rel="self" type="application/rss+xml"/><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo-plugin - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/hugo-plugin/</link><description>hugo-plugin - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 07 Mar 2022 23:46:10 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/hugo-plugin/" rel="self" type="application/rss+xml"/><item><title>Hugo Plugin Giscus Support</title><link>https://blog.xwi88.com/en/hugo-plugin-giscus-support/</link><pubDate>Mon, 07 Mar 2022 23:46:10 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-giscus-support/</guid><description><![CDATA[<p>I&rsquo;ve tried several Hugo comment plugins; the best are still <strong>utterances</strong> and <strong>giscus</strong>. The former is a bit too simple, while the newer <strong>giscus</strong>, based on <em>GitHub Discussions</em>, feels great to use. This post is verified on my own site and shared here for anyone who needs it.</p>
+<blockquote>
+<ul>
+<li><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></li>
+<li><a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">giscus demo</a></li>
+</ul>
+</blockquote>
+<h2 id="giscus-integration">giscus integration</h2>
+<blockquote>
+<ul>
+<li><a href="https://giscus.app" target="_blank" rel="noopener noreffer ">giscus</a></li>
+<li><a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus zh-CN</a></li>
+</ul>
+</blockquote>
+<h3 id="introduction">Introduction</h3>
+<p>A comment system powered by <a href="https://docs.github.com/en/discussions" target="_blank" rel="noopener noreffer ">GitHub Discussions</a>. Let visitors leave comments and reactions on your website via GitHub! This project is heavily inspired by <a href="https://github.com/utterance/utterances" target="_blank" rel="noopener noreffer ">utterances</a>.</p>
+<ul>
+<li><a href="https://github.com/giscus/giscus" target="_blank" rel="noopener noreffer ">Open source</a>. 🌏</li>
+<li>No tracking, no ads, always free. 📡 🚫</li>
+<li>No database needed. All data is stored in GitHub Discussions. :octocat:</li>
+<li>Custom themes supported! 🌗</li>
+<li>Multiple languages supported. 🌐</li>
+<li><a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md" target="_blank" rel="noopener noreffer ">Highly configurable</a>. 🔧</li>
+<li>Automatically fetches new comments and edits from GitHub. 🔃</li>
+<li><a href="https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md" target="_blank" rel="noopener noreffer ">Self-hostable</a>! 🤳</li>
+</ul>
+<blockquote>
+<p>Note:</p>
+<ul>
+<li>giscus is still under active development. GitHub is also actively developing <strong>Discussions</strong> and its API. As a result, some giscus features may break or change over time.</li>
+</ul>
+</blockquote>
+<h3 id="configuration">Configuration</h3>
+<blockquote>
+<p>Requirements</p>
+</blockquote>
+<ul>
+<li>The repository is <strong>public</strong>, otherwise visitors cannot view the <em>discussion</em>.</li>
+<li>The <strong>giscus app</strong> is installed, otherwise visitors cannot comment or react.</li>
+<li>The <strong>Discussions</strong> feature is <em>enabled</em> on your repository.</li>
+</ul>
+<blockquote>
+<p>Configuration</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">=</span><span class="s2">&#34;[ENTER REPO HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">repo</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[ENTER REPO ID HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">=</span><span class="s2">&#34;[ENTER CATEGORY NAME HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">category</span><span class="o">-</span><span class="nx">id</span><span class="o">=</span><span class="s2">&#34;[ENTER CATEGORY ID HERE]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">mapping</span><span class="o">=</span><span class="s2">&#34;pathname&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">reactions</span><span class="o">-</span><span class="nx">enabled</span><span class="o">=</span><span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">emit</span><span class="o">-</span><span class="nx">metadata</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">input</span><span class="o">-</span><span class="nx">position</span><span class="o">=</span><span class="s2">&#34;bottom&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">theme</span><span class="o">=</span><span class="s2">&#34;light&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">data</span><span class="o">-</span><span class="nx">lang</span><span class="o">=</span><span class="s2">&#34;en&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">async</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>You can customize the container layout in the embedded page using the <strong>.giscus</strong> and <strong>.giscus-frame</strong> selectors.</p>
+</blockquote>
+<h4 id="getting-some-parameters">Getting some parameters</h4>
+<ul>
+<li><strong>repo-id</strong>, <strong>category-id</strong>: via the <a href="https://docs.github.com/en/graphql/overview/explorer" target="_blank" rel="noopener noreffer ">github graphql api</a></li>
+<li><strong>category</strong> is usually <strong>Announcements</strong>, or pick another as needed — make sure it matches the <strong>category-id</strong>!</li>
+<li><em>mapping</em>: fill in per your needs; <strong>pathname</strong> is the usual choice</li>
+</ul>
+<p><figure><figcaption class="image-caption">github graphql discussion query</figcaption>
+    </figure></p>
+<blockquote>
+<p>After the steps above, you can use the plugin easily. Embedding it into your current theme, however, needs some extra handling.</p>
+</blockquote>
+<h3 id="theme-support-for-giscus">Theme support for giscus</h3>
+<p>You can add giscus support in two ways:</p>
+<ul>
+<li><strong>theme.js</strong> <em>JS approach</em> — <strong>requires recompiling theme.js</strong>; see the project&rsquo;s <code>Makefile</code>, <code>make debug</code></li>
+<li><strong>comment.html</strong> <em>template approach</em></li>
+</ul>
+<p>The <strong>js</strong> approach is a bit more flexible. We wrote both; the template-plugin approach is <em>commented out</em>. See the relevant changes:</p>
+<ul>
+<li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>github</strong></li>
+<li><a href="https://gitee.com/xwi88/xwi88/commit/5fa8d4181406cfbfc440df979145ff18c29ca40c" target="_blank" rel="noopener noreffer ">replace utterances by giscus</a> <strong>gitee</strong></li>
+</ul>
+<blockquote>
+<p>giscus iframe async theme config: <a href="https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage" target="_blank" rel="noopener noreffer ">isetconfigmessage</a></p>
+</blockquote>
+<h3 id="see-it-in-action">See it in action</h3>
+<ul>
+<li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xwi88.com</a></li>
+</ul>
+<p><figure><figcaption class="image-caption">hugo giscus demo</figcaption>
+    </figure></p>]]></description></item><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
 <h2 id="busuanzi"><strong>busuanzi</strong></h2>
 <blockquote>
 <p><a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">busuanzi</a></p>
