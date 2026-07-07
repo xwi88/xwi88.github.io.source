@@ -209,7 +209,1379 @@
 </div>
 </div><blockquote>
 <p>More examples are in the source <code>otp/*_test.go</code> files</p>
-</blockquote>]]></description></item><item><title>Common kill Signals and How to Catch Them in Go</title><link>https://blog.xwi88.com/en/go-kill-signal-catch/</link><pubDate>Wed, 16 Mar 2022 01:30:10 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-kill-signal-catch/</guid><description><![CDATA[<p>Common kill signals for Go programs and how to catch them. Verified on <em>MacOS</em>, based on <code>go1.17.7</code>.</p>
+</blockquote>]]></description></item><item><title>Go Object Pool Usage &amp; Optimization — Theory</title><link>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</link><pubDate>Fri, 03 Jun 2022 08:23:52 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/</guid><description><![CDATA[<p>Go object pools reuse <code>temporary objects</code>, which <code>reduces the waste</code> from frequently creating them — i.e. <code>lower GC overhead</code> and memory usage — improving performance and lowering serving cost to some extent. Based on <code>go1.18.2</code>, this post covers use cases, <strong>the processing flow &amp; caveats</strong>, open-source examples, a personal example (incl. pooling under <code>gRPC</code>), and best practices.</p>
+<h2 id="when-to-use">When to use</h2>
+<p><strong>When you frequently create the <code>same kind</code> of object and creation is expensive</strong></p>
+<ul>
+<li>The larger each object&rsquo;s memory footprint, the more obvious the benefit</li>
+<li>The bigger the memory footprint, the more obvious the benefit</li>
+<li>The higher the concurrency, the more obvious the benefit</li>
+</ul>
+<h2 id="processing-flow--caveats"><strong>Processing flow &amp; caveats</strong></h2>
+<blockquote>
+<p>After a temporary object is returned to the pool, it should ideally be: <code>stateless</code>, <code>reference-free</code></p>
+</blockquote>
+<ul>
+<li>Normal flow: <code>Get</code> <em><code>-&gt;Reset</code></em> -&gt;<code>deal</code>-&gt;<code>Put</code>, <strong>no reference to the returned object after <code>Put</code></strong>
+<ul>
+<li>Fits most scenarios that need pooling</li>
+</ul>
+</li>
+<li><strong>Special flow</strong>: <code>Get</code> <em><code>-&gt;Reset</code></em> -&gt;<code>deal</code>-&gt;<code>Put</code>-&gt;<code>deal with ref</code>, <strong>a reference to the returned object is kept after <code>Put</code></strong>
+<ul>
+<li>Special scenarios, e.g. <code>GRPC service call</code></li>
+<li><strong>Avoid unless truly necessary</strong></li>
+<li><em>If you must, add fault-tolerance to minimize side effects</em></li>
+</ul>
+</li>
+</ul>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Follow the normal flow whenever possible</strong></li>
+<li><em>Always ensure <code>Get</code> &amp; <code>Put</code> appear in pairs</em></li>
+<li><strong>Holding a reference to an object after <code>Put</code> (return) can corrupt data if handled improperly</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="object-pool-data-structures">Object-pool data structures</h2>
+<ul>
+<li><code>sync.pool</code>: fits most scenarios; easy to use and efficient
+<ul>
+<li>Objects in the pool may be removed (released or taken for reuse) without any notice. If the pool holds the only reference to an object, that object is very likely to be reclaimed.</li>
+</ul>
+</li>
+<li><code>channel</code>: queue-like; memory footprint stays stable and it does not release proactively</li>
+<li><code>ring buffer</code>: queue-like; memory footprint stays stable and it does not release proactively; lock-free <code>read &amp; write</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Structure</th>
+<th style="text-align:left">Min capacity</th>
+<th style="text-align:left">Max capacity</th>
+<th style="text-align:left">Pros</th>
+<th style="text-align:left">Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://pkg.go.dev/sync#Pool" target="_blank" rel="noopener noreffer "><strong>sync.pool</strong></a></td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">∞</td>
+<td style="text-align:left">Simple, easy to use</td>
+<td style="text-align:left">Reclamation is uncontrollable</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>channel</strong></td>
+<td style="text-align:left">0</td>
+<td style="text-align:left"><strong>cap</strong></td>
+<td style="text-align:left"><strong>Can hold references</strong></td>
+<td style="text-align:left">QPS bounded by cap; memory cost</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ring buffer</strong></td>
+<td style="text-align:left">0</td>
+<td style="text-align:left"><strong>cap</strong></td>
+<td style="text-align:left"><strong>Can hold references</strong>, <em>lock-free</em></td>
+<td style="text-align:left">QPS bounded by cap; memory cost</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>Reference-supporting approach</em>: add some redundant objects — i.e. initialize <code>min capacity &gt;= 1*QPS ~ 2*QPS</code> — to reduce the data-corruption risk that object references can cause.</p>
+<ul>
+<li><strong>Trade a little memory for the high payoff of pooling</strong></li>
+<li><strong>Always estimate your memory footprint</strong></li>
+<li><strong>Watch the max lifetime of each object; be careful with long operations</strong> <code>e.g. &gt; 1s with high QPS</code></li>
+<li><code>Capacity at init: min capacity = max capacity &gt;= 1*QPS</code>; allocate once if possible</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="source-examples">Source examples</h2>
+<h3 id="fmtprintgo">fmt/print.go</h3>
+<blockquote>
+<p><a href="https://github.com/golang/go/blob/master/src/fmt/print.go" target="_blank" rel="noopener noreffer ">src/fmt/print.go</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ppFree</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">any</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">new</span><span class="p">(</span><span class="nx">pp</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// newPrinter allocates a new pp struct or grabs a cached one.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">newPrinter</span><span class="p">()</span> <span class="o">*</span><span class="nx">pp</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span> <span class="o">:=</span> <span class="nx">ppFree</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">pp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">panicking</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">erroring</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">wrapErrs</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">init</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">.</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">p</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// free saves used pp structs in ppFree; avoids an allocation per invocation.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">pp</span><span class="p">)</span> <span class="nf">free</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Proper usage of a sync.Pool requires each entry to have approximately
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// the same memory cost. To obtain this property when the stored type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// contains a variably-sized buffer, we add a hard limit on the maximum buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// to place back in the pool.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// See https://golang.org/issue/23199
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">buf</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">64</span><span class="o">&lt;&lt;</span><span class="mi">10</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">buf</span> <span class="p">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">buf</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">arg</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">value</span> <span class="p">=</span> <span class="nx">reflect</span><span class="p">.</span><span class="nx">Value</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">wrappedErr</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ppFree</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="grpc-transport-pool">grpc transport pool</h3>
+<blockquote>
+<p><a href="https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go" target="_blank" rel="noopener noreffer ">google.golang.org/grpc/internal/transport/transport.go</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">bufferPool</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pool</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">newBufferPool</span><span class="p">()</span> <span class="o">*</span><span class="nx">bufferPool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">bufferPool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">pool</span><span class="p">:</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">bufferPool</span><span class="p">)</span> <span class="nf">get</span><span class="p">()</span> <span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">bufferPool</span><span class="p">)</span> <span class="nf">put</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">p</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gin-context-pool">gin Context pool</h3>
+<blockquote>
+<p><a href="https://github.com/gin-gonic/gin/blob/master/gin.go" target="_blank" rel="noopener noreffer ">github.com/gin-gonic/gin/gin.go</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ServeHTTP conforms to the http.Handler interface.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">engine</span> <span class="o">*</span><span class="nx">Engine</span><span class="p">)</span> <span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">writermem</span><span class="p">.</span><span class="nf">reset</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">Request</span> <span class="p">=</span> <span class="nx">req</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">engine</span><span class="p">.</span><span class="nf">handleHTTPRequest</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">engine</span><span class="p">.</span><span class="nx">pool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sarama-compress-pool">sarama compress pool</h3>
+<blockquote>
+<p><a href="https://github.com/Shopify/sarama/blob/main/compress.go" target="_blank" rel="noopener noreffer ">github.com/Shopify/sarama/compress.go</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">lz4WriterPool</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">lz4</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">gzipWriterPool</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gzipWriterPoolForCompressionLevel1</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">gz</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewWriterLevel</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">gz</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">compress</span><span class="p">(</span><span class="nx">cc</span> <span class="nx">CompressionCodec</span><span class="p">,</span> <span class="nx">level</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">switch</span> <span class="nx">cc</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">CompressionNone</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">CompressionGZIP</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">err</span>    <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">buf</span>    <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span> <span class="o">*</span><span class="nx">gzip</span><span class="p">.</span><span class="nx">Writer</span>
+</span></span><span class="line"><span class="cl">		<span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">switch</span> <span class="nx">level</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">CompressionLevelDefault</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span> <span class="p">=</span> <span class="nx">gzipWriterPool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">gzip</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">defer</span> <span class="nx">gzipWriterPool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span> <span class="p">=</span> <span class="nx">gzipWriterPoolForCompressionLevel1</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">gzip</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">defer</span> <span class="nx">gzipWriterPoolForCompressionLevel1</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">writer</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">gzip</span><span class="p">.</span><span class="nf">NewWriterLevel</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">level</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">writer</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">writer</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">buf</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">CompressionSnappy</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">snappy</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">CompressionLZ4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">writer</span> <span class="o">:=</span> <span class="nx">lz4WriterPool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">lz4</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">lz4WriterPool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">writer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">buf</span> <span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">writer</span><span class="p">.</span><span class="nf">Reset</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">writer</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">writer</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">buf</span><span class="p">.</span><span class="nf">Bytes</span><span class="p">(),</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">CompressionZSTD</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nf">zstdCompress</span><span class="p">(</span><span class="nx">ZstdEncoderParams</span><span class="p">{</span><span class="nx">level</span><span class="p">},</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">PacketEncodingError</span><span class="p">{</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;unsupported compression codec (%d)&#34;</span><span class="p">,</span> <span class="nx">cc</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="zap-json-pool">zap json pool</h3>
+<blockquote>
+<p><a href="https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go" target="_blank" rel="noopener noreffer ">go.uber.org/zap/zapcore/json_encoder.go</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">_jsonPool</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span><span class="nx">New</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">jsonEncoder</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">getJSONEncoder</span><span class="p">()</span> <span class="o">*</span><span class="nx">jsonEncoder</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">_jsonPool</span><span class="p">.</span><span class="nf">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">jsonEncoder</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">putJSONEncoder</span><span class="p">(</span><span class="nx">enc</span> <span class="o">*</span><span class="nx">jsonEncoder</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">enc</span><span class="p">.</span><span class="nx">reflectBuf</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">enc</span><span class="p">.</span><span class="nx">reflectBuf</span><span class="p">.</span><span class="nf">Free</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">EncoderConfig</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">buf</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">spaced</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">openNamespaces</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">reflectBuf</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">enc</span><span class="p">.</span><span class="nx">reflectEnc</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_jsonPool</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">enc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="leakbuf-base-channel">leakbuf base channel</h3>
+<blockquote>
+<p><a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go" target="_blank" rel="noopener noreffer ">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Provides leaky buffer, based on the example in Effective Go.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">package</span> <span class="nx">shadowsocks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">LeakyBuf</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">bufSize</span>  <span class="kt">int</span> <span class="c1">// size of each buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">freeList</span> <span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">leakyBufSize</span> <span class="p">=</span> <span class="mi">4108</span> <span class="c1">// data.len(2) + hmacsha1(10) + data(4096)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="nx">maxNBuf</span> <span class="p">=</span> <span class="mi">2048</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">leakyBuf</span> <span class="p">=</span> <span class="nf">NewLeakyBuf</span><span class="p">(</span><span class="nx">maxNBuf</span><span class="p">,</span> <span class="nx">leakyBufSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// NewLeakyBuf creates a leaky buffer which can hold at most n buffer, each
+</span></span></span><span class="line"><span class="cl"><span class="c1">// with bufSize bytes.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">NewLeakyBuf</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">bufSize</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">LeakyBuf</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">LeakyBuf</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">bufSize</span><span class="p">:</span>  <span class="nx">bufSize</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">freeList</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">n</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get returns a buffer from the leaky buffer or create a new buffer.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">lb</span> <span class="o">*</span><span class="nx">LeakyBuf</span><span class="p">)</span> <span class="nf">Get</span><span class="p">()</span> <span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">b</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">lb</span><span class="p">.</span><span class="nx">freeList</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">b</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">lb</span><span class="p">.</span><span class="nx">bufSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Put add the buffer into the free buffer pool for reuse. Panic if the buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1">// size is not the same with the leaky buffer&#39;s. This is intended to expose
+</span></span></span><span class="line"><span class="cl"><span class="c1">// error usage of leaky buffer.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">lb</span> <span class="o">*</span><span class="nx">LeakyBuf</span><span class="p">)</span> <span class="nf">Put</span><span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">lb</span><span class="p">.</span><span class="nx">bufSize</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;invalid buffer size that&#39;s put into leaky buffer&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">lb</span><span class="p">.</span><span class="nx">freeList</span> <span class="o">&lt;-</span> <span class="nx">b</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>]]></description></item><item><title>Go Kafka Consumer Group Usage</title><link>https://blog.xwi88.com/en/go-kafka-consumer-group-usage/</link><pubDate>Wed, 25 May 2022 08:55:28 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-kafka-consumer-group-usage/</guid><description><![CDATA[<p>Based on <code>Go 1.18</code> and <code>Kafka 2.4.1</code>, this post consumes messages via a <code>Kafka Consumer Group</code>, provides a best-practice example and configuration tips, and reduces <code>timeout</code> issues caused by <code>Rebalance</code>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="consumer-group">Consumer Group</h2>
+<p>A <code>consumer group</code> is Kafka&rsquo;s scalable, fault-tolerant consumer mechanism. A few properties:</p>
+<ul>
+<li>A <code>consumer group</code> is made up of <strong>one or more</strong> <code>consumer</code>s that together consume messages from <strong>one or more</strong> <code>topic</code>s</li>
+<li>A <code>consumer group</code> is uniquely identified by its <code>group ID</code>; consumers in the group share that <code>group ID</code></li>
+<li>Each partition of a <code>topic</code> can be consumed by only one <code>consumer</code> within the same group, but can be consumed by consumers in different groups</li>
+</ul>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>The partition count should exceed the number of consumers; if throughput is insufficient, consider adding consumers</li>
+<li>When simply adding consumers no longer boosts throughput notably, optimize your consumption logic</li>
+<li>The number of consumers must be bounded to avoid excessively long <code>rebalance</code>s</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="rebalance">Rebalance</h2>
+<p>Partition rebalancing (<code>Rebalance</code>) is a key Kafka feature that guarantees high availability and horizontal scaling. The following trigger a Kafka rebalance:</p>
+<ul>
+<li>Consumer-group membership changes:
+<ul>
+<li><strong>A new consumer joins</strong></li>
+<li><em>An existing consumer leaves</em>: voluntary leave → voluntary <code>rebalance</code></li>
+<li><em>An existing consumer fails or crashes</em>: if it stops sending heartbeats beyond a threshold it&rsquo;s considered dead; detection takes one <code>session.timeout</code> cycle → involuntary <code>rebalance</code></li>
+</ul>
+</li>
+<li>The number of subscribed <code>topic</code>s changes (e.g. regex subscription where matching <code>topic</code>s change)</li>
+<li>The partition count of a subscribed <code>topic</code> changes</li>
+</ul>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>Pros: guarantees high availability and scalability</li>
+<li>Cons: during a rebalance the whole consumer group is unavailable; rebalancing forces consumers to refresh state, and old consumer state expires, lowering consumer capacity</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="go-consumer-group">Go Consumer Group</h2>
+<h3 id="consumergroup-interface--notes">ConsumerGroup interface &amp; notes</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ConsumerGroup is responsible for dividing up processing of topics and partitions
+</span></span></span><span class="line"><span class="cl"><span class="c1">// over a collection of processes (the members of the consumer group).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Consume joins a cluster of consumers for a given list of topics and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// starts a blocking ConsumerGroupSession through the ConsumerGroupHandler.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// The life-cycle of a session is represented by the following steps:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 1. The consumers join the group (as explained in https://kafka.apache.org/documentation/#intro_consumers)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    and is assigned their &#34;fair share&#34; of partitions, aka &#39;claims&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 2. Before processing starts, the handler&#39;s Setup() hook is called to notify the user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    of the claims and allow any necessary preparation or alteration of state.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 3. For each of the assigned claims the handler&#39;s ConsumeClaim() function is then called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    in a separate goroutine which requires it to be thread-safe. Any state must be carefully protected
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    from concurrent reads/writes.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 4. The session will persist until one of the ConsumeClaim() functions exits. This can be either when the
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    parent context is canceled or when a server-side rebalance cycle is initiated.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 5. Once all the ConsumeClaim() loops have exited, the handler&#39;s Cleanup() hook is called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    to allow the user to perform any final tasks before a rebalance.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 6. Finally, marked offsets are committed one last time before claims are released.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Please note, that once a rebalance is triggered, sessions must be completed within
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Config.Consumer.Group.Rebalance.Timeout. This means that ConsumeClaim() functions must exit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// as quickly as possible to allow time for Cleanup() and the final offset commit. If the timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// is exceeded, the consumer will be removed from the group by Kafka, which will cause offset
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// commit failures.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// This method should be called inside an infinite loop, when a
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// server-side rebalance happens, the consumer session will need to be
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// recreated to get the new claims.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Consume</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Errors returns a read channel of errors that occurred during the consumer life-cycle.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// By default, errors are logged and not returned over this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// If you want to implement any custom error handling, set your config&#39;s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Consumer.Return.Errors setting to true, and read from this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Errors</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Close stops the ConsumerGroup and detaches any running sessions. It is required to call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// this function before the object passes out of scope, as it will otherwise leak memory.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">kafka</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/Shopify/sarama&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/pkg/errors&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">consumerGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span>           <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">groupId</span>       <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">brokers</span>       <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">done</span>          <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cancel</span>        <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">groupId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">brokers</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="nx">ConsumerGroup</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConfig</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Version</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">V2_4_1_0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Return</span><span class="p">.</span><span class="nx">Errors</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Net</span><span class="p">.</span><span class="nx">ReadTimeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">75</span>                  <span class="c1">// default 30s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">60</span> <span class="c1">// default 60s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Session</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">45</span>   <span class="c1">// default 10s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Heartbeat</span><span class="p">.</span><span class="nx">Interval</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span> <span class="c1">// default 3s, must &lt;= 1/3 * Group.Session.Timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Strategy</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">BalanceStrategySticky</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">MaxWaitTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">250</span> <span class="c1">// default 250ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Retry</span><span class="p">.</span><span class="nx">Backoff</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">2</span>      <span class="c1">// default 2s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">brokers</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nf">Wrap</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;consumerGroup create err&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">err</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cg</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup, group_id:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">consumerGroup</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ctx</span><span class="p">:</span>           <span class="nx">ctx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">consumerGroup</span><span class="p">:</span> <span class="nx">cg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">groupId</span><span class="p">:</span>       <span class="nx">groupId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">brokers</span><span class="p">:</span>       <span class="nx">brokers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">done</span><span class="p">:</span>          <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">cancel</span><span class="p">:</span>        <span class="nx">cancel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">err</span> <span class="o">:=</span> <span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}(</span><span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">Loop</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Consume</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">switch</span> <span class="nx">err</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedClient</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedConsumerGroup</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, shutdown with err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;session exit after close signal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server-side reBalance happens, consumer session exit, will recreated&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span><span class="p">.</span><span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup close error, %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup exit gracefully&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="selected-config-parameters">Selected config parameters</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
+<li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
+<li><code>Group.Session.Timeout</code>: The timeout used to detect consumer failures when using Kafka&rsquo;s group management facility. The consumer sends periodic heartbeats to indicate its liveness to the broker. If no heartbeats are received by the broker before the expiration of this session timeout, then the broker will remove this consumer from the group and initiate a rebalance. Note that the value must be in the allowable range as configured in the broker configuration by <code>group.min.session.timeout.ms</code> and <code>group.max.session.timeout.ms</code> (default 10s)</li>
+<li><code>Group.Heartbeat.Interval</code>: The expected time between heartbeats to the consumer coordinator when using Kafka&rsquo;s group management facilities. Heartbeats are used to ensure that the consumer&rsquo;s session stays active and to facilitate rebalancing when new consumers join or leave the group. The value must be set lower than Consumer.Group.Session.Timeout, but typically should be set no higher than 1/3 of that value.</li>
+<li><code>Group.Rebalance.Strategy</code>: Strategy for allocating topic partitions to members (default BalanceStrategyRange), [&ldquo;range&rdquo;, &ldquo;roundrobin&rdquo;, &ldquo;sticky&rdquo;]</li>
+<li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
+<li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
+</ul>
+<h2 id="configuration-recommendations">Configuration recommendations</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: default <code>30s</code>; if consumers often hit <code>read tcp xxx i/o timeout</code>, consider raising it
+<ul>
+<li><code>&gt; session.timeout</code></li>
+<li><code>&gt; rebalance.timeout</code></li>
+</ul>
+</li>
+<li><code>Group.Rebalance.Timeout</code>: default <code>60s</code>; with many consumers, consider raising it; for low-<code>TPS</code> topics it can be lowered</li>
+<li><code>Group.Session.Timeout</code>: default <code>10s</code>; if a consumer stops sending heartbeats beyond this, it&rsquo;s considered dead and a <code>rebalance</code> is triggered
+<ul>
+<li><code>shall &gt;= 1/3 * Group.Heartbeat.Interval</code></li>
+</ul>
+</li>
+<li><code>Group.Heartbeat.Interval</code>: default <code>3s</code>, the consumer&rsquo;s heartbeat interval</li>
+<li><code>Group.Rebalance.Strategy</code>: the rebalance strategy
+<ul>
+<li><code>range</code>: default; <em>per topic, n = partitions/consumers, m = partitions % consumers; the first m consumers each get n+1 partitions, the remaining (consumers − m) each get n</em></li>
+<li><code>roundrobin</code>: sort all consumers in the group and all partitions of their subscribed <code>topic</code>s lexicographically, then assign partitions to consumers round-robin</li>
+<li><code>sticky</code>: <strong>sticky strategy</strong>; keeps consumption as balanced as possible
+<ul>
+<li>partition allocation should be as even as possible — the partition counts assigned to any two consumers differ by at most one</li>
+<li>the allocation should stay as close to the previous one as possible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>MaxWaitTime</code>: default <code>250ms</code>; data is sent to the consumer after at most this long, or once <code>fetch.min.bytes</code> is reached</li>
+<li><code>Retry.Backoff</code>: default <code>2s</code></li>
+</ul>]]></description></item><item><title>Pyroscope: Continuous Profiling for Go</title><link>https://blog.xwi88.com/en/pyroscope-continuous-profiling/</link><pubDate>Tue, 29 Mar 2022 23:22:32 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/pyroscope-continuous-profiling/</guid><description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer ">Pyroscope</a></strong> is an open-source continuous-profiling platform. It supports many languages (<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code>, …), runs on <strong>multiple platforms</strong> with <strong>multiple deployment options</strong>, ships a handy visual-analysis UI, powerful data querying/analysis/storage, configurable data-eviction policies, and both <code>Push</code> and <code>Pull</code> modes. It can export to several formats (<code>png</code>, <code>json</code>, <code>pprof</code>, <code>html</code>, <code>flamegraph.com</code>) and can be displayed inside <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer "><code>grafana</code></a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="why-use-it">Why use it</h2>
+<ul>
+<li>Understand which parts of your application consume the most resources</li>
+<li>Continuous profiling adds a time dimension, letting you track resource usage (CPU, memory, …) over time and locate, debug and fix performance issues</li>
+</ul>
+<h2 id="use-cases">Use cases</h2>
+<ul>
+<li>Find performance problems in your code</li>
+<li>Resolve high CPU utilization</li>
+<li>Locate and fix memory leaks</li>
+<li>Understand your application&rsquo;s call tree</li>
+<li>Track how metrics change over time</li>
+</ul>
+<h2 id="overhead">Overhead</h2>
+<p>By using sampling-based profiling, <strong>Pyroscope</strong> collects data with minimal overhead (around <code>2-5%</code>). Its purpose-built <em>storage engine</em> <em>compresses and stores data efficiently</em>.</p>
+<ul>
+<li>Low CPU overhead thanks to sampling</li>
+<li>Control the granularity of profiling data (<code>10s</code> up to multiple years)</li>
+<li>Efficient compression, low disk-space needs and cost</li>
+</ul>
+<h2 id="working-mode">Working mode</h2>
+<blockquote>
+<p>Similar to common data-collection tools: an <code>Agent-Server</code> model.</p>
+</blockquote>
+<ul>
+<li><code>Pyroscope Server</code> <em>records and aggregates what the application is doing, then sends that data to the Pyroscope server.</em></li>
+<li><code>Pyroscope Agent</code> processes, aggregates and stores the data from the agent to enable fast queries over arbitrary time ranges. You can then view profiling data over any time window.</li>
+</ul>
+<p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
+    </figure></p>
+<h2 id="server-installation">Server installation</h2>
+<h3 id="install-methods">Install methods</h3>
+<ul>
+<li>Docker</li>
+<li>K8S</li>
+<li>Direct
+<ul>
+<li>MacOS</li>
+<li>Linux</li>
+<li>Windows</li>
+</ul>
+</li>
+</ul>
+<h3 id="macos--linux-install-example">MacOS &amp; Linux install example</h3>
+<ul>
+<li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
+<li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>export pyroscope_version=0.13.0</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># MacOs</span>
+</span></span><span class="line"><span class="cl">brew install pyroscope-io/brew/pyroscope
+</span></span><span class="line"><span class="cl">brew services start pyroscope-server
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">sudo apt-get install ./pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">sudo yum localinstall pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use systemctl to enable boot start and start the service</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pyroscope-server
+</span></span><span class="line"><span class="cl">sudo systemctl start pyroscope-server
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="configuration">Configuration</h3>
+<p>Multiple <a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">configuration</a> sources are supported, with this precedence:</p>
+<ol>
+<li><strong>CLI flags</strong></li>
+<li><em>Environment variables</em></li>
+<li>Config file</li>
+</ol>
+<p>We&rsquo;ll configure the server via a config file. Default locations:</p>
+<ul>
+<li><code>/etc/pyroscope/server.yml</code> <strong>on Linux</strong></li>
+<li><code>/usr/local/etc/pyroscope/server.yml</code> <strong>on Intel macOS</strong></li>
+<li><code>/opt/homebrew/etc/pyroscope/server.yml</code> <em>on M1 macOS</em></li>
+</ul>
+<p>You can point to a config file explicitly:</p>
+<ul>
+<li><code>pyroscope server -config my-custom-config.yml</code> <code>via CLI</code> <strong>recommended</strong></li>
+<li><code>PYROSCOPE_CONFIG=/tmp/pyroscope-server.yml pyroscope server</code> via env var</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>pyroscope-server.yml</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">auth:
+</span></span><span class="line"><span class="cl"> # Specifies which role will be granted to a newly signed up user.
+</span></span><span class="line"><span class="cl">  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+</span></span><span class="line"><span class="cl">  # The parameter affects all authentication providers.
+</span></span><span class="line"><span class="cl">  signup-default-role: ReadOnly
+</span></span><span class="line"><span class="cl">  # Internal authentication provider configuration.
+</span></span><span class="line"><span class="cl">  internal:
+</span></span><span class="line"><span class="cl">    admin:
+</span></span><span class="line"><span class="cl">      create: true
+</span></span><span class="line"><span class="cl">    enabled: true
+</span></span><span class="line"><span class="cl">    signup-enabled: true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Disables analytics.
+</span></span><span class="line"><span class="cl">analytics-opt-out: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">log-level: &#34;info&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">badger-log-level: &#34;error&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Directory where pyroscope stores profiling data.
+</span></span><span class="line"><span class="cl">storage-path: &#34;/var/lib/pyroscope&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Port for the HTTP server used for data ingestion and web UI.
+</span></span><span class="line"><span class="cl">api-bind-addr: &#34;:4040&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Base URL for when the server is behind a reverse proxy with a different path.
+</span></span><span class="line"><span class="cl">base-url: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of memory at which cache evictions start.
+</span></span><span class="line"><span class="cl">cache-evict-threshold: &#34;0.25&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of cache that is evicted per eviction run.
+</span></span><span class="line"><span class="cl">cache-evict-volume: &#34;0.33&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Database configuration. By default, Pyroscope Server uses embedded sqlite3 database.
+</span></span><span class="line"><span class="cl">database:
+</span></span><span class="line"><span class="cl">  # Indicates the database type. Supported DB engines: sqlite3.
+</span></span><span class="line"><span class="cl">  type: &#34;sqlite3&#34;
+</span></span><span class="line"><span class="cl">  # Database connection string. Specific to the engine.
+</span></span><span class="line"><span class="cl">  url: &#34;/var/lib/pyroscope/pyroscope.db&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Indicates whether value log files should be truncated to delete corrupt data, if any.
+</span></span><span class="line"><span class="cl">badger-no-truncate: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Disables /debug/pprof route.
+</span></span><span class="line"><span class="cl">disable-pprof-endpoint: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used when saving profiles to disk.
+</span></span><span class="line"><span class="cl">max-nodes-serialization: &#34;2048&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used to display data on the frontend.
+</span></span><span class="line"><span class="cl">max-nodes-render: &#34;8192&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Please don&#39;t use, this will soon be deprecated.
+</span></span><span class="line"><span class="cl">hide-applications: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention: &#34;0s&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention: &#34;480h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Specifies how long the profiling data is stored per aggregation level. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention-levels: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl"># 0: 720h  # 30 days
+</span></span><span class="line"><span class="cl"># 1: 2160h # 90 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention-levels:
+</span></span><span class="line"><span class="cl"> 0: 480h  # 20 days
+</span></span><span class="line"><span class="cl"> 1: 1440h # 60 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Metrics export rules.
+</span></span><span class="line"><span class="cl">metrics-export-rules: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># A list of scrape configurations.
+</span></span><span class="line"><span class="cl">scrape-configs: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Certificate file (.crt).
+</span></span><span class="line"><span class="cl">tls-certificate-file: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Private key file (.key).
+</span></span><span class="line"><span class="cl">tls-key-file: &#34;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="start">Start</h3>
+<p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
+<h2 id="using-the-go-agent">Using the Go agent</h2>
+<blockquote>
+<p>Uses <code>Push</code> mode — simple and efficient.</p>
+</blockquote>
+<h3 id="import-the-dependency">Import the dependency</h3>
+<p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
+<h3 id="agent-push-example">Agent Push example</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/pyroscope-io/client/pyroscope&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pyroscope</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ApplicationName</span><span class="p">:</span> <span class="s">&#34;simple.golang.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// replace this with the address of pyroscope server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ServerAddress</span><span class="p">:</span>   <span class="s">&#34;http://pyroscope-server:4040&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// you can disable logging by setting this to nil
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Logger</span><span class="p">:</span>          <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">StandardLogger</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// optionally, if authentication is enabled, specify the API key:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// AuthToken: os.Getenv(&#34;PYROSCOPE_AUTH_TOKEN&#34;),
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// by default all profilers are enabled,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// but you can select the ones you want to use:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ProfileTypes</span><span class="p">:</span> <span class="p">[]</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileType</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileCPU</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// your code goes here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="authentication">Authentication</h2>
+<blockquote>
+<p>Default username/password: <code>admin</code>:<code>admin</code></p>
+</blockquote>
+<ul>
+<li><a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">api-key-authentication</a></li>
+<li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">Internal authentication</a></li>
+</ul>
+<p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
+<h2 id="query--export">Query &amp; export</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">config</a></li>
+<li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
+<li><strong>UI operations</strong>
+<ul>
+<li><code>png</code></li>
+<li><code>json</code></li>
+<li><code>pprof</code></li>
+<li><code>html</code></li>
+<li><code>flamegraph.com</code></li>
+</ul>
+</li>
+</ul>
+<p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
+    </figure></p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
+<li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
+</ul>]]></description></item><item><title>Common kill Signals and How to Catch Them in Go</title><link>https://blog.xwi88.com/en/go-kill-signal-catch/</link><pubDate>Wed, 16 Mar 2022 01:30:10 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-kill-signal-catch/</guid><description><![CDATA[<p>Common kill signals for Go programs and how to catch them. Verified on <em>MacOS</em>, based on <code>go1.17.7</code>.</p>
 <blockquote>
 <p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
 </blockquote>
@@ -444,6 +1816,308 @@
 <ul>
 <li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/Makefile" target="_blank" rel="noopener noreffer ">Makefile</a></li>
 <li><a href="https://github.com/v8fg/docker-compose-resources/blob/release/scripts/docker-build.sh" target="_blank" rel="noopener noreffer ">docker-build.sh</a></li>
+</ul>]]></description></item><item><title>Common Git Commands &amp; Config</title><link>https://blog.xwi88.com/en/git-common-config/</link><pubDate>Thu, 10 Mar 2022 21:31:19 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/git-common-config/</guid><description><![CDATA[<p>Sharing the <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer ">git</a> [gɪt] config I&rsquo;ve accumulated over the years. The content below is based on version <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer "><code>2.34.1</code></a>; if anything differs, upgrade your git first!</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="basic-account-config">Basic account config</h2>
+<blockquote>
+<p><code>--global</code> <em>means global config</em>; <strong>non-global config must be set inside the specific git project directory</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global user.name [your_name]</code></li>
+<li><code>git config --global user.email [your_email]</code></li>
+<li><code>git config --global --list</code> <strong>view global git config</strong></li>
+<li><code>git config --list</code> <em>view project git config</em></li>
+</ul>
+<h3 id="signed-commit-setup">Signed-commit setup</h3>
+<blockquote>
+<p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
+</blockquote>
+<ul>
+<li><code>git config --global user.signingkey [KeyID]</code></li>
+<li><code>git config --global commit.gpgsign true</code></li>
+</ul>
+<p>See also: <a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a> for setup.</p>
+<h2 id="credential-storage">Credential storage</h2>
+<blockquote>
+<p>To avoid typing the password every time, let the machine remember it. <em>MacOS</em> uses <strong>Keychain Access</strong> to store your password and other credentials.</p>
+</blockquote>
+<ul>
+<li><code>git config --global credential.helper store</code> <strong>persistently save your password/credentials on this machine</strong></li>
+<li><code>git config --global credential.helper 'cache --timeout=300'</code> <em>cache the password for 300s</em></li>
+</ul>
+<blockquote>
+<p><strong>More</strong>:</p>
+<ul>
+<li><a href="https://git-scm.com/docs/gitcredentials" target="_blank" rel="noopener noreffer ">gitcredentials</a></li>
+<li><a href="https://git-scm.com/docs/git-credential-cache" target="_blank" rel="noopener noreffer ">git-credential-cache</a></li>
+</ul>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>If you have MFA enabled, you must use a <strong>Personal Token</strong> instead of the password.</p>
+<ul>
+<li>github path: <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreffer ">Settings Developer settings</a>-&gt;<strong>Personal access tokens</strong>-&gt;<em>Generate new token</em></li>
+</ul>
+</blockquote>
+<p><strong>Personal access tokens</strong> 📢</p>
+<ul>
+<li><strong>Visible only when generated — save it carefully</strong></li>
+<li><strong>Mind the scopes and expiration</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="credential-cleanup">Credential cleanup</h2>
+<blockquote>
+<p>After a password changes or expires, clear the stored one, or you may get <code>login failed</code> / <code>no permission</code> errors.</p>
+</blockquote>
+<ul>
+<li><code>git config --system --unset credential.helper</code></li>
+<li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>or set a very short expiry to flush the cached password</em></li>
+<li><code>git config --global credential.helper store</code> <strong>re-enable credential storage</strong></li>
+</ul>
+<h2 id="prettier-log-output">Prettier log output</h2>
+<blockquote>
+<p>The plain <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> is too bare to inspect details. We can format it, and <code>git alias</code> makes it easy to define our own <em>git log</em> command — <strong>do not override git&rsquo;s built-in commands</strong>.</p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>My usual <em>git log</em> config:</p>
+<blockquote>
+<p><code>git config --global alias.lg &quot;log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To also show <strong>gpg</strong> signature info:</p>
+<blockquote>
+<p><code>git config --global alias.lsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>For even more detail:</p>
+<blockquote>
+<p><code>git config --global alias.llsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git llsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>C739E6A64E102CD0 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Always pass a log entry count</strong></li>
+<li><strong>Don&rsquo;t make the format too complex — output may slow down</strong></li>
+<li><strong>If you use <code>gpg signing</code>, make sure you don&rsquo;t have too many <code>gpg key</code>s</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="basic-commands">Basic commands</h2>
+<blockquote>
+<p>For more detail on any command, run <code>git &lt;command&gt; --help</code></p>
+</blockquote>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...]</code> <strong>stage files into the <code>Index</code></strong>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...] -n</code> <strong>dry-run: show what would happen, without doing it</strong></li>
+</ul>
+</li>
+<li><code>git status -s</code> show the current branch status — files differ between working tree and index: <code>modified</code>, <code>not staged</code>, <code>staged but not committed</code></li>
+<li><code>git diff</code>
+<ul>
+<li><code>git diff [&lt;path&gt;...]</code> diff working tree vs index</li>
+<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> diff between commits</li>
+<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> diff index vs repository</li>
+</ul>
+</li>
+<li><code>git commit</code> commit staged changes to the local repo
+<ul>
+<li><code>git commit -m &lt;message&gt;</code> commit to local repo</li>
+<li><code>git commit -S -m &lt;message&gt;</code> <strong>sign</strong> and commit; requires your <strong>GPG key</strong></li>
+<li><code>git commit -a -m</code> stage and commit all changes, skipping <code>git add</code>; generally avoid this</li>
+<li><code>git commit --amend</code> redo the latest commit — to <strong>edit its message</strong> or append changes; <strong>don&rsquo;t chain this</strong>, and <strong>avoid it for already-pushed commits</strong></li>
+</ul>
+</li>
+<li><code>git reset</code> undo changes; see <a href="#checkout-vs-reset" rel="">checkout vs reset</a></li>
+<li><code>git rm</code> remove files from the index and working tree</li>
+<li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>file rename</em>; equivalent to <code>mv old new</code>, <code>git add</code> the new file and <code>git rm</code> the old</li>
+</ul>
+<h2 id="branch-operations">Branch operations</h2>
+<h3 id="remote-branch-config">Remote branch config</h3>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code> add a remote</li>
+<li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> rename a remote</li>
+<li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> change a remote URL</li>
+</ul>
+<h3 id="cloning">Cloning</h3>
+<ul>
+<li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> single-branch clone</li>
+<li><code>git clone &lt;url&gt; [dir]</code></li>
+</ul>
+<h3 id="fetch--sync">Fetch &amp; sync</h3>
+<ul>
+<li><code>git fetch --all</code> || <code>git merge</code> only fetch into the <strong>local remote-tracking branch</strong> (e.g. <code>origin/main</code>, <code>upstream/main</code>); merge into the local branch later when needed</li>
+<li><code>git pull</code> fetch and merge the remote branch into the current branch; generally avoid unless you understand the consequences</li>
+<li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> set up tracking between a new local branch and a remote branch — <strong>typically for a new branch&rsquo;s first push</strong></li>
+</ul>
+<h3 id="checkout-vs-reset">checkout vs reset</h3>
+<ul>
+<li><code>git checkout</code></li>
+<li><code>git reset</code></li>
+<li><code>git revert</code> <strong>rarely used on the CLI</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Git Command</th>
+<th style="text-align:left">Scope</th>
+<th style="text-align:left">Common use cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Discard commits in a private branch or throw away uncommited changes</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Unstage a file</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Switch between branches or inspect old snapshots</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Discard changes in the working directory</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Undo commits in a public branch</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">(N/A)</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>--soft</code> The staged snapshot and working directory are not altered in any way.</p>
+<p><code>--mixed</code> The staged snapshot is updated to match the specified commit, but the working directory is not affected. This is the default option.</p>
+<p><code>--hard</code> The staged snapshot and the working directory are both updated to match the specified commit.</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="merging--committing">Merging &amp; committing</h3>
+<blockquote>
+<p>For multi-person or large-team collaboration, master and use <code>git rebase</code>, and keep each branch&rsquo;s commit count vs the <strong>base</strong> branch <strong>minimal</strong> — easier rebases and conflict resolution for everyone.</p>
+<p>If you&rsquo;ve opened a <code>PR</code>/<code>MR</code>, before <strong>reviewers</strong> review, make sure your branch is <code>Fast-Forward</code> vs the <strong>base</strong>; do not <strong>Rebase</strong> from the web UI.</p>
+</blockquote>
+<ul>
+<li><code>git rebase</code> <strong>use with care</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">demo</a></li>
+<li><code>git merge</code> <del><strong>not recommended</strong></del></li>
+</ul>
+<h3 id="branch-push--delete">Branch push &amp; delete</h3>
+<ul>
+<li><code>git push</code> push the current branch; requires tracking a remote branch; for the first push use <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
+<li><code>git push -f</code> force-push the current branch to its remote</li>
+<li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> push an empty branch to the remote — i.e. <strong>delete the remote branch</strong></li>
+<li><code>git branch -d</code> delete a local branch</li>
+</ul>
+<h2 id="unset-config">Unset config</h2>
+<blockquote>
+<p><strong>Remove the line matching the key from config file.</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global --unset [key]</code> remove from global config</li>
+<li><code>git config --unset [key]</code> remove from project config</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>Remove a mistakenly-created entry from global config</em></p>
+<p><code>git config --global --unset alias.llg</code></p>
+</div>
+        </div>
+    </div>
+<h2 id="edit-config-files">Edit config files</h2>
+<ul>
+<li><code>git config --global -e</code> edit the global config file at <code>~/.gitconfig</code></li>
+<li><code>git config -e</code> edit the project config file at <code>.git/config</code></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting" target="_blank" rel="noopener noreffer ">Git-Commands-Basic-Snapshotting</a></li>
+<li><a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a></li>
 </ul>]]></description></item><item><title>gvm: Go Version Manager</title><link>https://blog.xwi88.com/en/go-vcs-gvm/</link><pubDate>Tue, 08 Mar 2022 08:09:41 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-vcs-gvm/</guid><description><![CDATA[<p><strong>gvm</strong> is a CLI tool for <strong>Linux</strong>, <strong>MacOS</strong> and <strong>Windows</strong> — similar to <strong>nvm</strong> / <em>anaconda</em> — that lets you conveniently manage and switch between multiple <strong>go</strong> environments. Highly recommended.</p>
 <h2 id="installation">Installation</h2>
 <h3 id="mac-os-x-requirements">Mac OS X Requirements</h3>
@@ -755,453 +2429,4 @@
 <li><a href="https://blog.xwi88.com/" target="_blank" rel="noopener noreffer ">blog.xwi88.com</a></li>
 </ul>
 <p><figure><figcaption class="image-caption">hugo giscus demo</figcaption>
-    </figure></p>]]></description></item><item><title>Hugo Site Visitor Counter Plugin: busuanzi Integration</title><link>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</link><pubDate>Sat, 05 Mar 2022 00:01:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-busuanzi/</guid><description><![CDATA[<p>Integrating the <strong>busuanzi</strong> visitor-counting plugin into Hugo — for site-wide traffic and per-article read counts. Verified on my own site and shared here for anyone who needs it. See it live on <a href="https://blog.xwi88.com" target="_blank" rel="noopener noreffer ">my blog</a> or visit <a href="https://xwi88.github.io" target="_blank" rel="noopener noreffer ">xwi88.github.io</a>.</p>
-<h2 id="busuanzi"><strong>busuanzi</strong></h2>
-<blockquote>
-<p><a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener noreffer ">busuanzi</a></p>
-</blockquote>
-<p>There are many fast technologies and platforms for building static sites today, but &ldquo;static&rdquo; is both a strength and a weakness. Because the site is static, dynamic features such as comments and counters have to rely on external services. For counting you can use &ldquo;busuanzi&rdquo;, a lightweight page counter developed by Bruce. It is extremely easy to use: <strong>two lines do the job</strong> — <em>one script</em> and <em>one tag</em>.</p>
-<h3 id="metrics">Metrics</h3>
-<ul>
-<li><strong>PV</strong> stands for <strong>Page View</strong>, <em>page views</em>
-The number of times a page is viewed, used to measure how many pages users visit. Each time a user opens a page, 1 PV is recorded; opening the same page repeatedly accumulates views.</li>
-<li><strong>UV</strong> stands for <strong>Unique Visitor</strong>, <em>unique visitors</em>
-The number of people who visit a site within a day, identified by cookie. Multiple visits from the same visitor within a day count as a single visitor.</li>
-</ul>
-<h3 id="how-busuanzi-differs-from-other-analytics-tools">How busuanzi differs from other analytics tools</h3>
-<ul>
-<li><strong>busuanzi</strong> can display the visit count directly on your page (or keep it hidden)</li>
-<li>For a site that has already been online for a while, <strong>busuanzi</strong> lets you seed the initial count <strong>(sign-in required)</strong></li>
-<li><strong>Counting only</strong> — the styling is entirely under your control</li>
-</ul>
-<h3 id="quick-start">Quick start</h3>
-<blockquote>
-<p><strong>Count without displaying</strong>: <em>install only the script, skip the display tags.</em></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_pv&#34;</span><span class="p">&gt;</span>site views: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_site_uv&#34;</span><span class="p">&gt;</span>visitors: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_page_pv&#34;</span><span class="p">&gt;</span>this page: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="hugo-integration">Hugo integration</h3>
-<blockquote>
-<p>If you don&rsquo;t have a strong urge to develop your own theme and want to keep updating the theme you&rsquo;ve chosen, customize it the sensible way (<strong>override templates and config</strong>).</p>
-</blockquote>
-<h4 id="what-to-change">What to change</h4>
-<p>We will count per-page read <code>PV</code>, and track site-wide <code>PV</code> and <code>UV</code>. Combined with the theme in use, the files to modify are:</p>
-<ul>
-<li><code>footer.html</code> — the footer template
-<ul>
-<li><strong>Note</strong>: there is a global <code>footer.html</code> and a per-page <code>footer.html</code></li>
-<li>Counting uses the global <strong>footer.html</strong></li>
-</ul>
-</li>
-<li><code>single.html</code> — the content page template</li>
-<li><code>busuanzi.html</code> — the new <strong>busuanzi</strong> partial</li>
-<li><code>config.toml</code> or <code>config.yaml</code>, whichever config file you use</li>
-</ul>
-<blockquote>
-<p>The files that need changes are shown below:</p>
-</blockquote>
-<p><figure><figcaption class="image-caption">hugo busuanzi support</figcaption>
-    </figure></p>
-<h5 id="custom-config">Custom config</h5>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"> <span class="c"># xwi88 custom config: xwi88Cfg</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">summary</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># show the updated date for summaries</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">page</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">update</span> <span class="p">=</span> <span class="kc">true</span> <span class="c"># show the updated date for pages</span>
-</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">xwi88Cfg</span><span class="p">.</span><span class="nx">busuanzi</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="c"># custom uv for the whole site</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_uv</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_uv_pre</span> <span class="p">=</span> <span class="s1">&#39;&lt;i class=&#34;fa fa-user&#34;&gt;&lt;/i&gt;&#39;</span> <span class="c"># a character or hint text</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_uv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="c"># custom pv for the whole site</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_pv</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_pv_pre</span> <span class="p">=</span> <span class="s1">&#39;&lt;i class=&#34;fa fa-eye&#34;&gt;&lt;/i&gt;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="c"># site_pv_post = &#39;&lt;i class=&#34;far fa-eye fa-fw&#34;&gt;&lt;/i&gt;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">site_pv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="c"># custom pv span for one page only</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">page_pv</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">page_pv_pre</span> <span class="p">=</span> <span class="s1">&#39;&lt;i class=&#34;far fa-eye fa-fw&#34;&gt;&lt;/i&gt;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">page_pv_post</span> <span class="p">=</span> <span class="s1">&#39;&#39;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h5 id="add-the-partial">Add the partial</h5>
-<blockquote>
-<p><strong>busuanzi.html</strong></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{{ if .params.enable }}
-</span></span><span class="line"><span class="cl">    {{ if eq .bsz_type &#34;footer&#34; }}
-</span></span><span class="line"><span class="cl">        {{/* only refresh in the footer to avoid repeated calls and double counting; counting runs whenever enabled, display depends on the settings */}}
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">async</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34; //busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js &#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    {{ if or (eq .params.site_pv true) (eq .params.site_uv true) (eq .params.page_pv true) }}
-</span></span><span class="line"><span class="cl">        {{ if eq .bsz_type &#34;footer&#34; }}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                {{ if eq .params.site_pv true }}
-</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_value_site_pv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                        {{- with .params.page_pv_pre -}}
-</span></span><span class="line"><span class="cl">                            {{ . | safeHTML }}
-</span></span><span class="line"><span class="cl">                        {{ end }}
-</span></span><span class="line"><span class="cl">                        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                {{ end }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                {{ if and (eq .params.site_pv true) (eq .params.site_uv true) }}
-</span></span><span class="line"><span class="cl">                    <span class="ni">&amp;nbsp;</span>|<span class="ni">&amp;nbsp;</span>
-</span></span><span class="line"><span class="cl">                {{ end }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                {{ if eq .params.site_uv true }}
-</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_value_site_uv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                        {{- with .params.site_uv_pre -}}
-</span></span><span class="line"><span class="cl">                            {{ . | safeHTML }}
-</span></span><span class="line"><span class="cl">                        {{ end }}
-</span></span><span class="line"><span class="cl">                        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_site_uv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                {{ end }}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{ end }}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        {{/*  page pv shows on the page only  */}}
-</span></span><span class="line"><span class="cl">        {{ if and (eq .params.page_pv true) (eq .bsz_type &#34;page-reading&#34;) }}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_container_value_page_pv&#34;</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">                {{- with .params.page_pv_pre -}}
-</span></span><span class="line"><span class="cl">                    {{ . | safeHTML }}
-</span></span><span class="line"><span class="cl">                {{ end }}
-</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;busuanzi_value_page_pv&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span>
-</span></span><span class="line"><span class="cl">                {{- T &#34;views&#34; -}}
-</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</span></span><span class="line"><span class="cl">        {{ end }}
-</span></span><span class="line"><span class="cl">    {{ end }}
-</span></span><span class="line"><span class="cl">{{ end }}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>Include the partial we wrote at the right places: <strong>busuanzi</strong></p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"># global footer.html
-</span></span><span class="line"><span class="cl">{{- /* busuanzi plugin */ -}}
-</span></span><span class="line"><span class="cl">{{- partial &#34;plugin/busuanzi.html&#34; (dict &#34;params&#34; .Site.Params.xwi88Cfg.busuanzi &#34;bsz_type&#34; &#34;footer&#34;) -}}
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># single page single.html
-</span></span><span class="line"><span class="cl">{{- /* busuanzi plugin */ -}}
-</span></span><span class="line"><span class="cl">{{- partial &#34;plugin/busuanzi.html&#34; (dict &#34;params&#34; .Site.Params.xwi88Cfg.busuanzi &#34;bsz_type&#34; &#34;page-reading&#34;) -}}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="full-code-changes">Full code changes</h4>
-<ul>
-<li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">github.com/xwi88/xwi88.github.io.source</a></li>
-<li><a href="https://gitee.com/xwi88/xwi88/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">gitee.com/xwi88/xwi88</a></li>
-</ul>]]></description></item><item><title>Hugo Plugin Utterances Usage</title><link>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</link><pubDate>Fri, 04 Mar 2022 07:38:57 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</guid><description><![CDATA[<p>Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。</p>
-<blockquote>
-<p><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></p>
-</blockquote>
-<h2 id="utteranc"><strong>utteranc</strong></h2>
-<blockquote>
-<p><a href="https://utteranc.es/" target="_blank" rel="noopener noreffer ">utteranc</a></p>
-</blockquote>
-<h3 id="introduction">introduction</h3>
-<p>A lightweight comments widget built on <em>GitHub issues</em>. Use <em>GitHub issues</em> for blog comments, wiki pages and more!</p>
-<ul>
-<li>Open source. 🙌</li>
-<li>No tracking, no ads, always free. 📡🚫</li>
-<li>No lock-in. All data stored in GitHub issues. 🔓</li>
-<li>Styled with Primer, the css toolkit that powers GitHub. 💅</li>
-<li>Dark theme. 🌘</li>
-<li>Lightweight. Vanilla TypeScript. No font downloads, JavaScript frameworks or polyfills for evergreen browsers. 🐦🌲</li>
-</ul>
-<h3 id="configuration">configuration</h3>
-<p>Choose the <strong>repository</strong> utterances will connect to.</p>
-<ol>
-<li>Make sure the repo is <strong>public</strong>, otherwise your readers will not be able to view the <strong>issues/comments</strong>.</li>
-<li>Make sure the <a href="https://github.com/apps/utterances" target="_blank" rel="noopener noreffer ">utterances app</a> is installed on the repo, otherwise users will not be able to post comments.</li>
-<li>If your repo is a <strong>fork</strong>, navigate to its settings tab and confirm the issues feature is turned on.</li>
-</ol>
-<h4 id="config-update">config update</h4>
-<blockquote>
-<p>after this config, maybe work well.</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c">## ref https://utteranc.es/</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">utteranc</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">repo</span> <span class="p">=</span> <span class="s2">&#34;owner/repo&#34;</span> <span class="c"># your repo</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">issueTerm</span> <span class="p">=</span> <span class="s2">&#34;pathname&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;github-light&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="blog-post--issue-mapping">blog post ↔ issue mapping</h4>
-<p>Choose the mapping between blog posts and GitHub issues. Pls visit <a href="https://github.com/apps/utterances" target="_blank" rel="noopener noreffer ">utterances app</a> to check and set the config.</p>
-<h4 id="issue-label">issue label</h4>
-<p>Choose the label that will be assigned to issues created by Utterances.</p>
-<blockquote>
-<p>default: <strong>Comment</strong></p>
-</blockquote>
-<p>Label names are case sensitive. The label must exist in your repo- Utterances cannot attach labels that do not exist. Emoji are supported in label names.✨💬✨</p>
-<h4 id="theme">theme</h4>
-<p><em>Choose an Utterances theme that matches your blog.</em></p>
-<h3 id="enable-utterances">enable utterances</h3>
-<p>Add the following script tag to your blog&rsquo;s template. Position it where you want the comments to appear. Customize the layout using the .utterances and .utterances-frame selectors.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&#34;https://utteranc.es/client.js&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">repo</span><span class="o">=</span><span class="s2">&#34;[ENTER REPO HERE]&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">issue</span><span class="o">-</span><span class="nx">term</span><span class="o">=</span><span class="s2">&#34;pathname&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">theme</span><span class="o">=</span><span class="s2">&#34;github-light&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">crossorigin</span><span class="o">=</span><span class="s2">&#34;anonymous&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="kr">async</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="err">/script&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item><item><title>Solving Painfully Slow git clone</title><link>https://blog.xwi88.com/en/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/git-clone-slowly-solve/</guid><description><![CDATA[<p>If you work with GitHub a lot, operations like <code>clone</code>, <code>fetch</code>, <code>pull</code> and <code>push</code> often fail with mysterious timeouts or crawl along painfully slowly — a real drain on productivity. This post walks through several working solutions.</p>
-<p>There are many possible causes; the most likely is that your network is being throttled — for example at <code>github.global.ssl.fastly.net</code>.</p>
-<blockquote>
-<p>Using the <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> project as an example: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
-</blockquote>
-<h2 id="solutions">Solutions</h2>
-<h3 id="github-mirror-repositories">GitHub mirror repositories</h3>
-<ul>
-<li><strong>Search the web for a mirror URL, swap it in, then download</strong>
-<ul>
-<li><code>https://hub.fastgit.org</code> (availability not guaranteed)</li>
-<li><code>https://github.91chi.fun</code> (availability not guaranteed)</li>
-</ul>
-</li>
-<li>Install a browser extension: <strong>GitHub accelerator</strong>, then clone via the accelerated URL it provides</li>
-<li><em>Clone through another Git hosting mirror</em></li>
-<li><em>Download the ZIP directly in the browser</em></li>
-</ul>
-<h3 id="proxy-acceleration">Proxy acceleration</h3>
-<ul>
-<li><strong>proxy</strong> <em>not really recommended</em></li>
-<li><a href="https://github.com/hunshcn/gh-proxy" target="_blank" rel="noopener noreffer ">gh-proxy</a> (<strong>recommended</strong>)</li>
-<li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a> (<strong>recommended ☆☆☆☆☆☆</strong>)</li>
-</ul>
-<h4 id="fastgithub">FastGithub</h4>
-<blockquote>
-<p>A miracle tool for GitHub acceleration: fixes GitHub failing to open, avatars not loading, releases failing to upload/download, and git-clone / git-pull / git-push errors.</p>
-</blockquote>
-<h5 id="features">Features</h5>
-<ul>
-<li>Clean IP resolution for the relevant domains</li>
-<li>IP speed testing, automatically picking the fastest IP</li>
-<li>Custom TLS connection configuration per domain</li>
-<li>Replaces Google CDN resources, fixing the failure to load JS and CSS on many overseas sites</li>
-</ul>
-<h5 id="install--configure">Install &amp; configure</h5>
-<blockquote>
-<ul>
-<li><a href="https://github.com/creazyboyone/FastGithub" target="_blank" rel="noopener noreffer ">FastGithub</a></li>
-<li><a href="https://github.com/creazyboyone/FastGithub/releases" target="_blank" rel="noopener noreffer ">github-release</a></li>
-</ul>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># linux-x64</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## terminal start</span>
-</span></span><span class="line"><span class="cl">sudo ./fastgithub
-</span></span><span class="line"><span class="cl"><span class="c1"># set the system auto-proxy to http://127.0.0.1:38457, or manually proxy http/https to 127.0.0.1:38457</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">## service start</span>
-</span></span><span class="line"><span class="cl">sudo ./fastgithub start // install and start as a systemd service
-</span></span><span class="line"><span class="cl">sudo ./fastgithub stop  // uninstall and remove the systemd service
-</span></span><span class="line"><span class="cl"><span class="c1"># set the system auto-proxy to http://127.0.0.1:38457, or manually proxy http/https to 127.0.0.1:38457</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># macOS-x64</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 1. start fastgithub</span>
-</span></span><span class="line"><span class="cl"><span class="c1">## 2. install cacert/fastgithub.cer and set it as trusted</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># set the system auto-proxy to http://127.0.0.1:38457, or manually proxy http/https to 127.0.0.1:38457</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># certificate verification</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># if git reports &#34;SSL certificate problem&#34;,</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># disable git&#39;s certificate verification: git config --global http.sslverify false</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h5 id="security--legality-note">Security &amp; legality note</h5>
-<blockquote>
-<p>Excerpted from <a href="https://github.com/creazyboyone/FastGithub#readme" target="_blank" rel="noopener noreffer ">FastGithub.README</a></p>
-</blockquote>
-<p><em>FastGithub generates a self-signed CA certificate for each host, stored under the cacert folder. Client devices must install and unconditionally trust this self-signed CA certificate. Do not leak the certificate&rsquo;s private key to anyone, to avoid losses.</em></p>
-<p><em>&ldquo;FastGithub&rsquo;s local proxy only uses the international exit channels provided by the public telecom network. The traffic between overseas GitHub servers and the FastGithub program on a domestic user&rsquo;s machine flows over normal channels, with no extra encryption applied beyond the page&rsquo;s own TLS (unlike the encrypted traffic of a proxy). The entire proxy process after FastGithub retrieves the page data takes place domestically, so the regulations on international internetworking do not apply.&rdquo;</em></p>
-<h3 id="hosts-tweak">Hosts tweak</h3>
-<blockquote>
-<p>The idea is to use <code>nslookup</code> or <code>dig</code> to find a reachable IP for the domain, then add an <code>ip -&gt; domain</code> mapping to your hosts file and flush the DNS cache.</p>
-</blockquote>
-<p>The hosts file is what an OS uses to quickly resolve IP addresses and hostnames. On Linux it is stored in ASCII under <code>/etc</code> and named <code>hosts</code> (on some distros the path differs — for example Debian also has <code>/etc/hostname</code>). It holds IP-to-hostname mappings and host aliases. When no DNS server is available, every network program on the system queries this file to resolve a hostname to an IP; otherwise DNS is used. Mapping frequently visited domains to their IPs in hosts is a handy way to speed up access.</p>
-<blockquote>
-<ul>
-<li><code>nslookup github.global.ssl.fastly.net</code></li>
-<li><code>nslookup github.com</code></li>
-</ul>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># vi /etc/hosts</span>
-</span></span><span class="line"><span class="cl">xxx github.global.ssl.fastly.net
-</span></span><span class="line"><span class="cl">xx github.com
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># refresh DNS cache</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># linux</span>
-</span></span><span class="line"><span class="cl">sudo /etc/init.d/networking restart
-</span></span><span class="line"><span class="cl"><span class="c1"># or nscd -i hosts</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># arch linux</span>
-</span></span><span class="line"><span class="cl">/etc/rc.d/nscd restart
-</span></span><span class="line"><span class="cl"><span class="c1">## macos</span>
-</span></span><span class="line"><span class="cl">lookupd -flushcache
-</span></span><span class="line"><span class="cl"><span class="c1"># dscacheutil -flushcache</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></description></item></channel></rss>
+    </figure></p>]]></description></item></channel></rss>

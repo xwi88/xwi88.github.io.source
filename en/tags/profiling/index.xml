@@ -1,0 +1,409 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>profiling - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/profiling/</link><description>profiling - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 29 Mar 2022 23:22:32 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/profiling/" rel="self" type="application/rss+xml"/><item><title>Pyroscope: Continuous Profiling for Go</title><link>https://blog.xwi88.com/en/pyroscope-continuous-profiling/</link><pubDate>Tue, 29 Mar 2022 23:22:32 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/pyroscope-continuous-profiling/</guid><description><![CDATA[<p><strong><a href="https://pyroscope.io/" target="_blank" rel="noopener noreffer ">Pyroscope</a></strong> is an open-source continuous-profiling platform. It supports many languages (<code>Go</code>, <code>Python</code>, <code>Rust</code>, <code>Java</code>, …), runs on <strong>multiple platforms</strong> with <strong>multiple deployment options</strong>, ships a handy visual-analysis UI, powerful data querying/analysis/storage, configurable data-eviction policies, and both <code>Push</code> and <code>Pull</code> modes. It can export to several formats (<code>png</code>, <code>json</code>, <code>pprof</code>, <code>html</code>, <code>flamegraph.com</code>) and can be displayed inside <a href="https://grafana.com/grafana/plugins/pyroscope-panel/" target="_blank" rel="noopener noreffer "><code>grafana</code></a>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="why-use-it">Why use it</h2>
+<ul>
+<li>Understand which parts of your application consume the most resources</li>
+<li>Continuous profiling adds a time dimension, letting you track resource usage (CPU, memory, …) over time and locate, debug and fix performance issues</li>
+</ul>
+<h2 id="use-cases">Use cases</h2>
+<ul>
+<li>Find performance problems in your code</li>
+<li>Resolve high CPU utilization</li>
+<li>Locate and fix memory leaks</li>
+<li>Understand your application&rsquo;s call tree</li>
+<li>Track how metrics change over time</li>
+</ul>
+<h2 id="overhead">Overhead</h2>
+<p>By using sampling-based profiling, <strong>Pyroscope</strong> collects data with minimal overhead (around <code>2-5%</code>). Its purpose-built <em>storage engine</em> <em>compresses and stores data efficiently</em>.</p>
+<ul>
+<li>Low CPU overhead thanks to sampling</li>
+<li>Control the granularity of profiling data (<code>10s</code> up to multiple years)</li>
+<li>Efficient compression, low disk-space needs and cost</li>
+</ul>
+<h2 id="working-mode">Working mode</h2>
+<blockquote>
+<p>Similar to common data-collection tools: an <code>Agent-Server</code> model.</p>
+</blockquote>
+<ul>
+<li><code>Pyroscope Server</code> <em>records and aggregates what the application is doing, then sends that data to the Pyroscope server.</em></li>
+<li><code>Pyroscope Agent</code> processes, aggregates and stores the data from the agent to enable fast queries over arbitrary time ranges. You can then view profiling data over any time window.</li>
+</ul>
+<p><figure><figcaption class="image-caption">pyroscope agents</figcaption>
+    </figure></p>
+<h2 id="server-installation">Server installation</h2>
+<h3 id="install-methods">Install methods</h3>
+<ul>
+<li>Docker</li>
+<li>K8S</li>
+<li>Direct
+<ul>
+<li>MacOS</li>
+<li>Linux</li>
+<li>Windows</li>
+</ul>
+</li>
+</ul>
+<h3 id="macos--linux-install-example">MacOS &amp; Linux install example</h3>
+<ul>
+<li><a href="https://pyroscope.io/docs/server-install-macos/" target="_blank" rel="noopener noreffer ">install-macos</a></li>
+<li><a href="https://pyroscope.io/docs/server-install-linux/" target="_blank" rel="noopener noreffer ">install-linux</a></li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>export pyroscope_version=0.13.0</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># MacOs</span>
+</span></span><span class="line"><span class="cl">brew install pyroscope-io/brew/pyroscope
+</span></span><span class="line"><span class="cl">brew services start pyroscope-server
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ubuntu/Debian</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">sudo apt-get install ./pyroscope_<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>_amd64.deb
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># CentOS</span>
+</span></span><span class="line"><span class="cl">wget https://dl.pyroscope.io/release/pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">sudo yum localinstall pyroscope-<span class="s2">&#34;</span><span class="si">${</span><span class="nv">pyroscope_version</span><span class="si">}</span><span class="s2">&#34;</span>-1-x86_64.rpm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Use systemctl to enable boot start and start the service</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> pyroscope-server
+</span></span><span class="line"><span class="cl">sudo systemctl start pyroscope-server
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="configuration">Configuration</h3>
+<p>Multiple <a href="https://pyroscope.io/docs/server-configuration/" target="_blank" rel="noopener noreffer ">configuration</a> sources are supported, with this precedence:</p>
+<ol>
+<li><strong>CLI flags</strong></li>
+<li><em>Environment variables</em></li>
+<li>Config file</li>
+</ol>
+<p>We&rsquo;ll configure the server via a config file. Default locations:</p>
+<ul>
+<li><code>/etc/pyroscope/server.yml</code> <strong>on Linux</strong></li>
+<li><code>/usr/local/etc/pyroscope/server.yml</code> <strong>on Intel macOS</strong></li>
+<li><code>/opt/homebrew/etc/pyroscope/server.yml</code> <em>on M1 macOS</em></li>
+</ul>
+<p>You can point to a config file explicitly:</p>
+<ul>
+<li><code>pyroscope server -config my-custom-config.yml</code> <code>via CLI</code> <strong>recommended</strong></li>
+<li><code>PYROSCOPE_CONFIG=/tmp/pyroscope-server.yml pyroscope server</code> via env var</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>pyroscope-server.yml</code></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">auth:
+</span></span><span class="line"><span class="cl"> # Specifies which role will be granted to a newly signed up user.
+</span></span><span class="line"><span class="cl">  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+</span></span><span class="line"><span class="cl">  # The parameter affects all authentication providers.
+</span></span><span class="line"><span class="cl">  signup-default-role: ReadOnly
+</span></span><span class="line"><span class="cl">  # Internal authentication provider configuration.
+</span></span><span class="line"><span class="cl">  internal:
+</span></span><span class="line"><span class="cl">    admin:
+</span></span><span class="line"><span class="cl">      create: true
+</span></span><span class="line"><span class="cl">    enabled: true
+</span></span><span class="line"><span class="cl">    signup-enabled: true
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Disables analytics.
+</span></span><span class="line"><span class="cl">analytics-opt-out: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">log-level: &#34;info&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Log level: debug|info|warn|error.
+</span></span><span class="line"><span class="cl">badger-log-level: &#34;error&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Directory where pyroscope stores profiling data.
+</span></span><span class="line"><span class="cl">storage-path: &#34;/var/lib/pyroscope&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Port for the HTTP server used for data ingestion and web UI.
+</span></span><span class="line"><span class="cl">api-bind-addr: &#34;:4040&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Base URL for when the server is behind a reverse proxy with a different path.
+</span></span><span class="line"><span class="cl">base-url: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of memory at which cache evictions start.
+</span></span><span class="line"><span class="cl">cache-evict-threshold: &#34;0.25&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Percentage of cache that is evicted per eviction run.
+</span></span><span class="line"><span class="cl">cache-evict-volume: &#34;0.33&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Database configuration. By default, Pyroscope Server uses embedded sqlite3 database.
+</span></span><span class="line"><span class="cl">database:
+</span></span><span class="line"><span class="cl">  # Indicates the database type. Supported DB engines: sqlite3.
+</span></span><span class="line"><span class="cl">  type: &#34;sqlite3&#34;
+</span></span><span class="line"><span class="cl">  # Database connection string. Specific to the engine.
+</span></span><span class="line"><span class="cl">  url: &#34;/var/lib/pyroscope/pyroscope.db&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Indicates whether value log files should be truncated to delete corrupt data, if any.
+</span></span><span class="line"><span class="cl">badger-no-truncate: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Disables /debug/pprof route.
+</span></span><span class="line"><span class="cl">disable-pprof-endpoint: &#34;false&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used when saving profiles to disk.
+</span></span><span class="line"><span class="cl">max-nodes-serialization: &#34;2048&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Max number of nodes used to display data on the frontend.
+</span></span><span class="line"><span class="cl">max-nodes-render: &#34;8192&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Please don&#39;t use, this will soon be deprecated.
+</span></span><span class="line"><span class="cl">hide-applications: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention: &#34;0s&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention: &#34;480h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Specifies how long the profiling data is stored per aggregation level. Disabled by default.
+</span></span><span class="line"><span class="cl"># retention-levels: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl"># 0: 720h  # 30 days
+</span></span><span class="line"><span class="cl"># 1: 2160h # 90 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retention-levels:
+</span></span><span class="line"><span class="cl"> 0: 480h  # 20 days
+</span></span><span class="line"><span class="cl"> 1: 1440h # 60 days
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Metrics export rules.
+</span></span><span class="line"><span class="cl">metrics-export-rules: <span class="nb">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># A list of scrape configurations.
+</span></span><span class="line"><span class="cl">scrape-configs: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Certificate file (.crt).
+</span></span><span class="line"><span class="cl">tls-certificate-file: &#34;&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Location of TLS Private key file (.key).
+</span></span><span class="line"><span class="cl">tls-key-file: &#34;&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<h3 id="start">Start</h3>
+<p><code>pyroscope server -config pyroscope-server.yml.yml</code></p>
+<h2 id="using-the-go-agent">Using the Go agent</h2>
+<blockquote>
+<p>Uses <code>Push</code> mode — simple and efficient.</p>
+</blockquote>
+<h3 id="import-the-dependency">Import the dependency</h3>
+<p><code>go get github.com/pyroscope-io/client/pyroscope</code></p>
+<h3 id="agent-push-example">Agent Push example</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;github.com/pyroscope-io/client/pyroscope&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">pyroscope</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">Config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ApplicationName</span><span class="p">:</span> <span class="s">&#34;simple.golang.app&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// replace this with the address of pyroscope server
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ServerAddress</span><span class="p">:</span>   <span class="s">&#34;http://pyroscope-server:4040&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// you can disable logging by setting this to nil
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Logger</span><span class="p">:</span>          <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">StandardLogger</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// optionally, if authentication is enabled, specify the API key:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// AuthToken: os.Getenv(&#34;PYROSCOPE_AUTH_TOKEN&#34;),
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// by default all profilers are enabled,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// but you can select the ones you want to use:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ProfileTypes</span><span class="p">:</span> <span class="p">[]</span><span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileType</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileCPU</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileAllocSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseObjects</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">pyroscope</span><span class="p">.</span><span class="nx">ProfileInuseSpace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// your code goes here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="authentication">Authentication</h2>
+<blockquote>
+<p>Default username/password: <code>admin</code>:<code>admin</code></p>
+</blockquote>
+<ul>
+<li><a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">api-key-authentication</a></li>
+<li><a href="https://pyroscope.io/docs/auth-internal" target="_blank" rel="noopener noreffer ">Internal authentication</a></li>
+</ul>
+<p><code>pyroscope admin user reset-password --username {admin-username} --password {new-password}</code></p>
+<h2 id="query--export">Query &amp; export</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/grafana-plugins/" target="_blank" rel="noopener noreffer ">grafana</a> <a href="https://pyroscope.io/docs/api-key-authentication/" target="_blank" rel="noopener noreffer ">config</a></li>
+<li><a href="https://pyroscope.io/docs/server-api-reference/" target="_blank" rel="noopener noreffer ">API</a></li>
+<li><strong>UI operations</strong>
+<ul>
+<li><code>png</code></li>
+<li><code>json</code></li>
+<li><code>pprof</code></li>
+<li><code>html</code></li>
+<li><code>flamegraph.com</code></li>
+</ul>
+</li>
+</ul>
+<p><figure><figcaption class="image-caption">proscope server table flamegraph</figcaption>
+    </figure></p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://pyroscope.io/docs/" target="_blank" rel="noopener noreffer ">pyroscope docs</a></li>
+<li><a href="https://github.com/pyroscope-io/pyroscope" target="_blank" rel="noopener noreffer ">pyroscope-io</a></li>
+</ul>]]></description></item></channel></rss>

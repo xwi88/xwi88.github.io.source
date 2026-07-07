@@ -1,0 +1,386 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kafka - Tag - Coding Life Share</title><link>https://blog.xwi88.com/en/tags/kafka/</link><description>kafka - Tag - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 May 2022 08:55:28 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/tags/kafka/" rel="self" type="application/rss+xml"/><item><title>Go Kafka Consumer Group Usage</title><link>https://blog.xwi88.com/en/go-kafka-consumer-group-usage/</link><pubDate>Wed, 25 May 2022 08:55:28 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/go-kafka-consumer-group-usage/</guid><description><![CDATA[<p>Based on <code>Go 1.18</code> and <code>Kafka 2.4.1</code>, this post consumes messages via a <code>Kafka Consumer Group</code>, provides a best-practice example and configuration tips, and reduces <code>timeout</code> issues caused by <code>Rebalance</code>.</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="consumer-group">Consumer Group</h2>
+<p>A <code>consumer group</code> is Kafka&rsquo;s scalable, fault-tolerant consumer mechanism. A few properties:</p>
+<ul>
+<li>A <code>consumer group</code> is made up of <strong>one or more</strong> <code>consumer</code>s that together consume messages from <strong>one or more</strong> <code>topic</code>s</li>
+<li>A <code>consumer group</code> is uniquely identified by its <code>group ID</code>; consumers in the group share that <code>group ID</code></li>
+<li>Each partition of a <code>topic</code> can be consumed by only one <code>consumer</code> within the same group, but can be consumed by consumers in different groups</li>
+</ul>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>The partition count should exceed the number of consumers; if throughput is insufficient, consider adding consumers</li>
+<li>When simply adding consumers no longer boosts throughput notably, optimize your consumption logic</li>
+<li>The number of consumers must be bounded to avoid excessively long <code>rebalance</code>s</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="rebalance">Rebalance</h2>
+<p>Partition rebalancing (<code>Rebalance</code>) is a key Kafka feature that guarantees high availability and horizontal scaling. The following trigger a Kafka rebalance:</p>
+<ul>
+<li>Consumer-group membership changes:
+<ul>
+<li><strong>A new consumer joins</strong></li>
+<li><em>An existing consumer leaves</em>: voluntary leave → voluntary <code>rebalance</code></li>
+<li><em>An existing consumer fails or crashes</em>: if it stops sending heartbeats beyond a threshold it&rsquo;s considered dead; detection takes one <code>session.timeout</code> cycle → involuntary <code>rebalance</code></li>
+</ul>
+</li>
+<li>The number of subscribed <code>topic</code>s changes (e.g. regex subscription where matching <code>topic</code>s change)</li>
+<li>The partition count of a subscribed <code>topic</code> changes</li>
+</ul>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>Pros: guarantees high availability and scalability</li>
+<li>Cons: during a rebalance the whole consumer group is unavailable; rebalancing forces consumers to refresh state, and old consumer state expires, lowering consumer capacity</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="go-consumer-group">Go Consumer Group</h2>
+<h3 id="consumergroup-interface--notes">ConsumerGroup interface &amp; notes</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ConsumerGroup is responsible for dividing up processing of topics and partitions
+</span></span></span><span class="line"><span class="cl"><span class="c1">// over a collection of processes (the members of the consumer group).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Consume joins a cluster of consumers for a given list of topics and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// starts a blocking ConsumerGroupSession through the ConsumerGroupHandler.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// The life-cycle of a session is represented by the following steps:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 1. The consumers join the group (as explained in https://kafka.apache.org/documentation/#intro_consumers)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    and is assigned their &#34;fair share&#34; of partitions, aka &#39;claims&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 2. Before processing starts, the handler&#39;s Setup() hook is called to notify the user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    of the claims and allow any necessary preparation or alteration of state.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 3. For each of the assigned claims the handler&#39;s ConsumeClaim() function is then called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    in a separate goroutine which requires it to be thread-safe. Any state must be carefully protected
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    from concurrent reads/writes.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 4. The session will persist until one of the ConsumeClaim() functions exits. This can be either when the
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    parent context is canceled or when a server-side rebalance cycle is initiated.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 5. Once all the ConsumeClaim() loops have exited, the handler&#39;s Cleanup() hook is called
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//    to allow the user to perform any final tasks before a rebalance.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 6. Finally, marked offsets are committed one last time before claims are released.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Please note, that once a rebalance is triggered, sessions must be completed within
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Config.Consumer.Group.Rebalance.Timeout. This means that ConsumeClaim() functions must exit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// as quickly as possible to allow time for Cleanup() and the final offset commit. If the timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// is exceeded, the consumer will be removed from the group by Kafka, which will cause offset
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// commit failures.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// This method should be called inside an infinite loop, when a
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// server-side rebalance happens, the consumer session will need to be
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// recreated to get the new claims.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Consume</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Errors returns a read channel of errors that occurred during the consumer life-cycle.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// By default, errors are logged and not returned over this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// If you want to implement any custom error handling, set your config&#39;s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Consumer.Return.Errors setting to true, and read from this channel.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Errors</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Close stops the ConsumerGroup and detaches any running sessions. It is required to call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// this function before the object passes out of scope, as it will otherwise leak memory.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Close</span><span class="p">()</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="consumergroup-demo">ConsumerGroup Demo</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">kafka</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;log&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/Shopify/sarama&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/pkg/errors&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ConsumerGroup</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">consumerGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span>           <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">groupId</span>       <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">brokers</span>       <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">done</span>          <span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cancel</span>        <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">groupId</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">brokers</span> <span class="p">[]</span><span class="kt">string</span><span class="p">)</span> <span class="nx">ConsumerGroup</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConfig</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Version</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">V2_4_1_0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Return</span><span class="p">.</span><span class="nx">Errors</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Net</span><span class="p">.</span><span class="nx">ReadTimeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">75</span>                  <span class="c1">// default 30s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">60</span> <span class="c1">// default 60s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Session</span><span class="p">.</span><span class="nx">Timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">45</span>   <span class="c1">// default 10s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Heartbeat</span><span class="p">.</span><span class="nx">Interval</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">5</span> <span class="c1">// default 3s, must &lt;= 1/3 * Group.Session.Timeout
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Group</span><span class="p">.</span><span class="nx">Rebalance</span><span class="p">.</span><span class="nx">Strategy</span> <span class="p">=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">BalanceStrategySticky</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">MaxWaitTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="mi">250</span> <span class="c1">// default 250ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">config</span><span class="p">.</span><span class="nx">Consumer</span><span class="p">.</span><span class="nx">Retry</span><span class="p">.</span><span class="nx">Backoff</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">2</span>      <span class="c1">// default 2s
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cg</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">sarama</span><span class="p">.</span><span class="nf">NewConsumerGroup</span><span class="p">(</span><span class="nx">brokers</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nf">Wrap</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="s">&#34;consumerGroup create err&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">err</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cg</span><span class="p">.</span><span class="nf">Errors</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup, group_id:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">groupId</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ctx</span><span class="p">,</span> <span class="nx">cancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">consumerGroup</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ctx</span><span class="p">:</span>           <span class="nx">ctx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">consumerGroup</span><span class="p">:</span> <span class="nx">cg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">groupId</span><span class="p">:</span>       <span class="nx">groupId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">brokers</span><span class="p">:</span>       <span class="nx">brokers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">done</span><span class="p">:</span>          <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{}),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">cancel</span><span class="p">:</span>        <span class="nx">cancel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Consume</span><span class="p">(</span><span class="nx">topics</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroupHandler</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">consumerGroup</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerGroup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">err</span> <span class="o">:=</span> <span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}(</span><span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">Loop</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Consume</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">switch</span> <span class="nx">err</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedClient</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrClosedConsumerGroup</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, shutdown with err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">					<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">				<span class="k">case</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">sarama</span><span class="p">.</span><span class="nx">ErrOutOfBrokers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup.Consume() topic:%v, err:%v&#34;</span><span class="p">,</span> <span class="nx">topics</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">.</span><span class="nx">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;session exit after close signal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span> <span class="nx">Loop</span>
+</span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;server-side reBalance happens, consumer session exit, will recreated&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">consumerGroup</span><span class="p">)</span> <span class="nf">Close</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">c</span><span class="p">.</span><span class="nx">done</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">consumerGroup</span><span class="p">.</span><span class="nf">Close</span><span class="p">();</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup close error, %v&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;consumerGroup exit gracefully&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="selected-config-parameters">Selected config parameters</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: <strong>How long to wait for a response.</strong></li>
+<li><code>Group.Rebalance.Timeout</code>: The maximum allowed time for each worker to join the group once a rebalance has begun.This is basically a limit on the amount of time needed for all tasks to flush any pending data and commit offsets. If the timeout is exceeded, then the worker will be removed from the group, which will cause offset commit failures (default 60s).</li>
+<li><code>Group.Session.Timeout</code>: The timeout used to detect consumer failures when using Kafka&rsquo;s group management facility. The consumer sends periodic heartbeats to indicate its liveness to the broker. If no heartbeats are received by the broker before the expiration of this session timeout, then the broker will remove this consumer from the group and initiate a rebalance. Note that the value must be in the allowable range as configured in the broker configuration by <code>group.min.session.timeout.ms</code> and <code>group.max.session.timeout.ms</code> (default 10s)</li>
+<li><code>Group.Heartbeat.Interval</code>: The expected time between heartbeats to the consumer coordinator when using Kafka&rsquo;s group management facilities. Heartbeats are used to ensure that the consumer&rsquo;s session stays active and to facilitate rebalancing when new consumers join or leave the group. The value must be set lower than Consumer.Group.Session.Timeout, but typically should be set no higher than 1/3 of that value.</li>
+<li><code>Group.Rebalance.Strategy</code>: Strategy for allocating topic partitions to members (default BalanceStrategyRange), [&ldquo;range&rdquo;, &ldquo;roundrobin&rdquo;, &ldquo;sticky&rdquo;]</li>
+<li><code>MaxWaitTime</code>:The maximum amount of time the broker will wait for Consumer.Fetch.Min bytes to become available before it returns fewer than that anyways.</li>
+<li><code>Retry.Backoff</code>: How long to wait after a failing to read from a partition before trying again.</li>
+</ul>
+<h2 id="configuration-recommendations">Configuration recommendations</h2>
+<ul>
+<li><code>Net.ReadTimeout</code>: default <code>30s</code>; if consumers often hit <code>read tcp xxx i/o timeout</code>, consider raising it
+<ul>
+<li><code>&gt; session.timeout</code></li>
+<li><code>&gt; rebalance.timeout</code></li>
+</ul>
+</li>
+<li><code>Group.Rebalance.Timeout</code>: default <code>60s</code>; with many consumers, consider raising it; for low-<code>TPS</code> topics it can be lowered</li>
+<li><code>Group.Session.Timeout</code>: default <code>10s</code>; if a consumer stops sending heartbeats beyond this, it&rsquo;s considered dead and a <code>rebalance</code> is triggered
+<ul>
+<li><code>shall &gt;= 1/3 * Group.Heartbeat.Interval</code></li>
+</ul>
+</li>
+<li><code>Group.Heartbeat.Interval</code>: default <code>3s</code>, the consumer&rsquo;s heartbeat interval</li>
+<li><code>Group.Rebalance.Strategy</code>: the rebalance strategy
+<ul>
+<li><code>range</code>: default; <em>per topic, n = partitions/consumers, m = partitions % consumers; the first m consumers each get n+1 partitions, the remaining (consumers − m) each get n</em></li>
+<li><code>roundrobin</code>: sort all consumers in the group and all partitions of their subscribed <code>topic</code>s lexicographically, then assign partitions to consumers round-robin</li>
+<li><code>sticky</code>: <strong>sticky strategy</strong>; keeps consumption as balanced as possible
+<ul>
+<li>partition allocation should be as even as possible — the partition counts assigned to any two consumers differ by at most one</li>
+<li>the allocation should stay as close to the previous one as possible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>MaxWaitTime</code>: default <code>250ms</code>; data is sent to the consumer after at most this long, or once <code>fetch.min.bytes</code> is reached</li>
+<li><code>Retry.Backoff</code>: default <code>2s</code></li>
+</ul>]]></description></item></channel></rss>

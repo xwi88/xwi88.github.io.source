@@ -1,0 +1,470 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Go Object Pool Usage & Optimization — Theory - Coding Life Share</title><meta name=Description content="Go object pool usage and optimization — theory"><meta property="og:title" content="Go Object Pool Usage & Optimization — Theory"><meta property="og:description" content="Go object pool usage and optimization — theory"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/"><meta property="og:site_name" content="Coding Life Share"><meta property="og:locale" content="en"><meta property="og:image" content="https://blog.xwi88.com/og/en/go-object-pool-usage-tips-theory.png"><meta property="article:author" content="xwi88"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-06-03T08:23:52+08:00"><meta property="article:modified_time" content="2026-07-07T10:25:50+08:00"><meta property="article:tag" content="golang"><meta property="article:tag" content="performance"><meta name=twitter:card content="summary_large_image"><meta name=twitter:title content="Go Object Pool Usage & Optimization — Theory"><meta name=twitter:description content="Go object pool usage and optimization — theory"><meta name=twitter:site content="@xwi88"><meta name=twitter:image content="https://blog.xwi88.com/og/en/go-object-pool-usage-tips-theory.png"><meta name=application-name content="xwi88 tech blog"><meta name=apple-mobile-web-app-title content="xwi88 tech blog"><meta name=theme-color content="#ffffff" media="(prefers-color-scheme: light)"><meta name=theme-color content="#292a2d" media="(prefers-color-scheme: dark)"><meta name=msapplication-TileColor content="#da532c"><script type=application/ld+json>{"@context":"https://schema.org","@type":"Article","headline":"\"Go Object Pool Usage \\u0026 Optimization — Theory\"","datePublished":"\"2022-06-03T08:23:52+08:00\"","dateModified":"\"2026-07-07T10:25:50+08:00\"","author":{"@type":"Person","name":"\"xwi88\""},"mainEntityOfPage":"\"https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/\"","publisher":{"@type":"Organization","name":"\"Coding Life Share\""}}</script><link rel=preconnect href=https://cdn.jsdelivr.net crossorigin><link rel=dns-prefetch href=https://hm.baidu.com><link rel=dns-prefetch href=https://busuanzi.ibruce.info><link rel=dns-prefetch href=https://giscus.app><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/><link rel=alternate hreflang=zh-cn href=https://blog.xwi88.com/go-object-pool-usage-tips-theory/><link rel=alternate hreflang=en href=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/><link rel=prev href=https://blog.xwi88.com/en/go-kafka-consumer-group-usage/><link rel=next href=https://blog.xwi88.com/en/go-otp-totp-hotp/><link rel=stylesheet href=/css/style.min.5466e4d1894d486c16c973f86d9b34999862591293758ae1a9ff04ce2babf2d4.css integrity="sha256-VGbk0YlNSGwWyXP4bZs0mZhiWRKTdYrhqf8Eziur8tQ="><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go Object Pool Usage \u0026 Optimization — Theory","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.xwi88.com\/en\/go-object-pool-usage-tips-theory\/"},"genre":"posts","keywords":"golang, performance","wordcount":1294,"url":"https:\/\/blog.xwi88.com\/en\/go-object-pool-usage-tips-theory\/","datePublished":"2022-06-03T08:23:52+08:00","dateModified":"2026-07-07T10:25:50+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xwi88","logo":{"@type":"ImageObject","url":"https:\/\/blog.xwi88.com\/images\/avatar.jpg","width":725,"height":967}},"author":{"@type":"Person","name":"xwi88"},"description":"Go object pool usage and optimization — theory"}</script><script>(function(){e=document.documentElement,t=e.style;try{if(n=localStorage.getItem("accent-custom"),n){var e,t,n,i,s=n.replace("#",""),a=parseInt(s.slice(0,2),16),r=parseInt(s.slice(2,4),16),c=parseInt(s.slice(4,6),16),o=function(e){return Math.round(e+(255-e)*.32).toString(16).padStart(2,"0")};t.setProperty("--accent-light",n),t.setProperty("--accent-dark","#"+o(a)+o(r)+o(c)),t.setProperty("--accent-rgb",a+", "+r+", "+c)}else e.setAttribute("data-accent",localStorage.getItem("accent")||"indigo");e.setAttribute("data-fontscale",localStorage.getItem("font-scale")||"2"),i=localStorage.getItem("font-family"),i&&e.setAttribute("data-fontfamily",i)}catch{e.setAttribute("data-accent","indigo"),e.setAttribute("data-fontscale","2")}})()</script></head><body data-header-desktop=fixed data-header-mobile=auto><a class=skip-link href=#main-content>Skip to main content</a><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><script type=text/javascript>(function(){try{var e=localStorage.getItem("appearance");({sepia:1,green:1,oled:1,navy:1}[e]&&document.body.setAttribute("data-variant",e))}catch{}})()</script><script type=text/javascript>(function(){try{localStorage.getItem("toc-side")==="right"&&document.body.setAttribute("data-toc-side","right")}catch{}})()</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/en/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/en/posts/>Posts </a><a class=menu-item href=/en/archives/>Archives </a><a class=menu-item href=/en/tags/>Tags </a><a class=menu-item href=/en/categories/>Categories </a><a class=menu-item href=/en/categories/documentation/>Docs </a><a class=menu-item href=/en/favorite/>Favorites </a><a class=menu-item href=/en/about/>About </a><a class=menu-item href=/en/resume/>Resume </a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i> </a><a class=menu-item href=/en/search/ title=Search><i class='fas fa-search fa-fw'></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item accent-switch" id=accent-switch-desktop title=主题配色><i class="fas fa-palette fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item font-switch" id=font-switch-desktop title="字号 / 字体"><i class="fas fa-font fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title="Select Language"><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/go-object-pool-usage-tips-theory/>简体中文</option><option value=/en/go-object-pool-usage-tips-theory/ selected>English</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/en/ title="Coding Life Share"><span class=header-title-pre><i class='far fa-laugh-beam fa-fw'></i></span>xwi88's blog<span class=header-title-post><i class='fa fa-book fa-fw'></i></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/en/posts/ title>Posts</a><a class=menu-item href=/en/archives/ title>Archives</a><a class=menu-item href=/en/tags/ title>Tags</a><a class=menu-item href=/en/categories/ title>Categories</a><a class=menu-item href=/en/categories/documentation/ title>Docs</a><a class=menu-item href=/en/favorite/ title>Favorites</a><a class=menu-item href=/en/about/ title>About</a><a class=menu-item href=/en/resume/ title>Resume</a><a class=menu-item href=https://github.com/xwi88/xwi88.github.io title=GitHub rel="noopener noreffer" target=_blank><i class='fab fa-github fa-fw'></i></a><a class=menu-item href=/en/search/ title=Search><i class='fas fa-search fa-fw'></i></a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item accent-switch" id=accent-switch-mobile title=主题配色><i class="fas fa-palette fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="menu-item font-switch" id=font-switch-mobile title="字号 / 字体"><i class="fas fa-font fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title="Select Language"><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/go-object-pool-usage-tips-theory/>简体中文</option><option value=/en/go-object-pool-usage-tips-theory/ selected>English</option></select></a></div></div></header><main class=main id=main-content tabindex=-1><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go Object Pool Usage & Optimization — Theory</h1><div class=post-meta><div class=post-meta-line><span class="post-author meta-field"><a href=https://github.com/xwi88 title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>xwi88</a></span><span class="post-category meta-field">included in <a href=/en/categories/go/><i class="far fa-folder fa-fw"></i>go</a></span></div><div class=post-meta-line><span class=meta-field><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2022-06-03>2022-06-03</time></span><span class=meta-field><i class="far fa-calendar-check fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2026-07-07>2026-07-07</time></span><span class=meta-field><i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1294 words</span>
+<span class=meta-field><i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;7 minutes</span>
+<span id=busuanzi_container_value_page_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_page_pv></span>&nbsp;views</span></div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#when-to-use>When to use</a></li><li><a href=#processing-flow--caveats><strong>Processing flow & caveats</strong></a></li><li><a href=#object-pool-data-structures>Object-pool data structures</a></li><li><a href=#source-examples>Source examples</a><ul><li><a href=#fmtprintgo>fmt/print.go</a></li><li><a href=#grpc-transport-pool>grpc transport pool</a></li><li><a href=#gin-context-pool>gin Context pool</a></li><li><a href=#sarama-compress-pool>sarama compress pool</a></li><li><a href=#zap-json-pool>zap json pool</a></li><li><a href=#leakbuf-base-channel>leakbuf base channel</a></li></ul></li></ul></nav></div></div><div class=content id=content data-pagefind-body><span data-pagefind-meta=title hidden>Go Object Pool Usage & Optimization — Theory</span><span data-pagefind-filter=分类 hidden>go</span><span data-pagefind-filter=标签 hidden>golang</span><span data-pagefind-filter=标签 hidden>performance</span><p>Go object pools reuse <code>temporary objects</code>, which <code>reduces the waste</code> from frequently creating them — i.e. <code>lower GC overhead</code> and memory usage — improving performance and lowering serving cost to some extent. Based on <code>go1.18.2</code>, this post covers use cases, <strong>the processing flow & caveats</strong>, open-source examples, a personal example (incl. pooling under <code>gRPC</code>), and best practices.</p><h2 id=when-to-use>When to use</h2><p><strong>When you frequently create the <code>same kind</code> of object and creation is expensive</strong></p><ul><li>The larger each object&rsquo;s memory footprint, the more obvious the benefit</li><li>The bigger the memory footprint, the more obvious the benefit</li><li>The higher the concurrency, the more obvious the benefit</li></ul><h2 id=processing-flow--caveats><strong>Processing flow & caveats</strong></h2><blockquote><p>After a temporary object is returned to the pool, it should ideally be: <code>stateless</code>, <code>reference-free</code></p></blockquote><ul><li>Normal flow: <code>Get</code> <em><code>->Reset</code></em> -><code>deal</code>-><code>Put</code>, <strong>no reference to the returned object after <code>Put</code></strong><ul><li>Fits most scenarios that need pooling</li></ul></li><li><strong>Special flow</strong>: <code>Get</code> <em><code>->Reset</code></em> -><code>deal</code>-><code>Put</code>-><code>deal with ref</code>, <strong>a reference to the returned object is kept after <code>Put</code></strong><ul><li>Special scenarios, e.g. <code>GRPC service call</code></li><li><strong>Avoid unless truly necessary</strong></li><li><em>If you must, add fault-tolerance to minimize side effects</em></li></ul></li></ul><div class="details admonition warning open"><div class="details-summary admonition-title"><i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden=true></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ul><li><strong>Follow the normal flow whenever possible</strong></li><li><em>Always ensure <code>Get</code> & <code>Put</code> appear in pairs</em></li><li><strong>Holding a reference to an object after <code>Put</code> (return) can corrupt data if handled improperly</strong></li></ul></div></div></div><h2 id=object-pool-data-structures>Object-pool data structures</h2><ul><li><code>sync.pool</code>: fits most scenarios; easy to use and efficient<ul><li>Objects in the pool may be removed (released or taken for reuse) without any notice. If the pool holds the only reference to an object, that object is very likely to be reclaimed.</li></ul></li><li><code>channel</code>: queue-like; memory footprint stays stable and it does not release proactively</li><li><code>ring buffer</code>: queue-like; memory footprint stays stable and it does not release proactively; lock-free <code>read & write</code></li></ul><table><thead><tr><th style=text-align:left>Structure</th><th style=text-align:left>Min capacity</th><th style=text-align:left>Max capacity</th><th style=text-align:left>Pros</th><th style=text-align:left>Cons</th></tr></thead><tbody><tr><td style=text-align:left><a href=https://pkg.go.dev/sync#Pool target=_blank rel="noopener noreffer"><strong>sync.pool</strong></a></td><td style=text-align:left>0</td><td style=text-align:left>∞</td><td style=text-align:left>Simple, easy to use</td><td style=text-align:left>Reclamation is uncontrollable</td></tr><tr><td style=text-align:left><strong>channel</strong></td><td style=text-align:left>0</td><td style=text-align:left><strong>cap</strong></td><td style=text-align:left><strong>Can hold references</strong></td><td style=text-align:left>QPS bounded by cap; memory cost</td></tr><tr><td style=text-align:left><strong>ring buffer</strong></td><td style=text-align:left>0</td><td style=text-align:left><strong>cap</strong></td><td style=text-align:left><strong>Can hold references</strong>, <em>lock-free</em></td><td style=text-align:left>QPS bounded by cap; memory cost</td></tr></tbody></table><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><p><em>Reference-supporting approach</em>: add some redundant objects — i.e. initialize <code>min capacity >= 1*QPS ~ 2*QPS</code> — to reduce the data-corruption risk that object references can cause.</p><ul><li><strong>Trade a little memory for the high payoff of pooling</strong></li><li><strong>Always estimate your memory footprint</strong></li><li><strong>Watch the max lifetime of each object; be careful with long operations</strong> <code>e.g. > 1s with high QPS</code></li><li><code>Capacity at init: min capacity = max capacity >= 1*QPS</code>; allocate once if possible</li></ul></div></div></div><h2 id=source-examples>Source examples</h2><h3 id=fmtprintgo>fmt/print.go</h3><blockquote><p><a href=https://github.com/golang/go/blob/master/src/fmt/print.go target=_blank rel="noopener noreffer">src/fmt/print.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>ppFree</span> <span class=p>=</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=nx>any</span> <span class=p>{</span> <span class=k>return</span> <span class=nb>new</span><span class=p>(</span><span class=nx>pp</span><span class=p>)</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// newPrinter allocates a new pp struct or grabs a cached one.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>newPrinter</span><span class=p>()</span> <span class=o>*</span><span class=nx>pp</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span> <span class=o>:=</span> <span class=nx>ppFree</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>pp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>panicking</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>erroring</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>wrapErrs</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>init</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>p</span><span class=p>.</span><span class=nx>buf</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>p</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// free saves used pp structs in ppFree; avoids an allocation per invocation.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=o>*</span><span class=nx>pp</span><span class=p>)</span> <span class=nf>free</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// Proper usage of a sync.Pool requires each entry to have approximately
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=c1>// the same memory cost. To obtain this property when the stored type
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=c1>// contains a variably-sized buffer, we add a hard limit on the maximum buffer
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=c1>// to place back in the pool.
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=c1>//
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=c1>// See https://golang.org/issue/23199
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>if</span> <span class=nb>cap</span><span class=p>(</span><span class=nx>p</span><span class=p>.</span><span class=nx>buf</span><span class=p>)</span> <span class=p>&gt;</span> <span class=mi>64</span><span class=o>&lt;&lt;</span><span class=mi>10</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>buf</span> <span class=p>=</span> <span class=nx>p</span><span class=p>.</span><span class=nx>buf</span><span class=p>[:</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>arg</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>value</span> <span class=p>=</span> <span class=nx>reflect</span><span class=p>.</span><span class=nx>Value</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>wrappedErr</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>ppFree</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=grpc-transport-pool>grpc transport pool</h3><blockquote><p><a href=https://github.com/grpc/grpc-go/blob/master/internal/transport/transport.go target=_blank rel="noopener noreffer">google.golang.org/grpc/internal/transport/transport.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>bufferPool</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>pool</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>newBufferPool</span><span class=p>()</span> <span class=o>*</span><span class=nx>bufferPool</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=o>&amp;</span><span class=nx>bufferPool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>pool</span><span class=p>:</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=kd>interface</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span> <span class=nb>new</span><span class=p>(</span><span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=p>},</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=o>*</span><span class=nx>bufferPool</span><span class=p>)</span> <span class=nf>get</span><span class=p>()</span> <span class=o>*</span><span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>p</span><span class=p>.</span><span class=nx>pool</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>p</span> <span class=o>*</span><span class=nx>bufferPool</span><span class=p>)</span> <span class=nf>put</span><span class=p>(</span><span class=nx>b</span> <span class=o>*</span><span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>p</span><span class=p>.</span><span class=nx>pool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>b</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=gin-context-pool>gin Context pool</h3><blockquote><p><a href=https://github.com/gin-gonic/gin/blob/master/gin.go target=_blank rel="noopener noreffer">github.com/gin-gonic/gin/gin.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// ServeHTTP conforms to the http.Handler interface.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>engine</span> <span class=o>*</span><span class=nx>Engine</span><span class=p>)</span> <span class=nf>ServeHTTP</span><span class=p>(</span><span class=nx>w</span> <span class=nx>http</span><span class=p>.</span><span class=nx>ResponseWriter</span><span class=p>,</span> <span class=nx>req</span> <span class=o>*</span><span class=nx>http</span><span class=p>.</span><span class=nx>Request</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>c</span> <span class=o>:=</span> <span class=nx>engine</span><span class=p>.</span><span class=nx>pool</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>Context</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>c</span><span class=p>.</span><span class=nx>writermem</span><span class=p>.</span><span class=nf>reset</span><span class=p>(</span><span class=nx>w</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>c</span><span class=p>.</span><span class=nx>Request</span> <span class=p>=</span> <span class=nx>req</span>
+</span></span><span class=line><span class=cl>	<span class=nx>c</span><span class=p>.</span><span class=nf>reset</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>engine</span><span class=p>.</span><span class=nf>handleHTTPRequest</span><span class=p>(</span><span class=nx>c</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>engine</span><span class=p>.</span><span class=nx>pool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>c</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=sarama-compress-pool>sarama compress pool</h3><blockquote><p><a href=https://github.com/Shopify/sarama/blob/main/compress.go target=_blank rel="noopener noreffer">github.com/Shopify/sarama/compress.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=nx>lz4WriterPool</span> <span class=p>=</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=kd>interface</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>lz4</span><span class=p>.</span><span class=nf>NewWriter</span><span class=p>(</span><span class=kc>nil</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>gzipWriterPool</span> <span class=p>=</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=kd>interface</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>gzip</span><span class=p>.</span><span class=nf>NewWriter</span><span class=p>(</span><span class=kc>nil</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>gzipWriterPoolForCompressionLevel1</span> <span class=p>=</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=kd>interface</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>gz</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>gzip</span><span class=p>.</span><span class=nf>NewWriterLevel</span><span class=p>(</span><span class=kc>nil</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=nx>gz</span>
+</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>compress</span><span class=p>(</span><span class=nx>cc</span> <span class=nx>CompressionCodec</span><span class=p>,</span> <span class=nx>level</span> <span class=kt>int</span><span class=p>,</span> <span class=nx>data</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>)</span> <span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>switch</span> <span class=nx>cc</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>CompressionNone</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>data</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>CompressionGZIP</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>			<span class=nx>err</span>    <span class=kt>error</span>
+</span></span><span class=line><span class=cl>			<span class=nx>buf</span>    <span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span> <span class=o>*</span><span class=nx>gzip</span><span class=p>.</span><span class=nx>Writer</span>
+</span></span><span class=line><span class=cl>		<span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=k>switch</span> <span class=nx>level</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>case</span> <span class=nx>CompressionLevelDefault</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span> <span class=p>=</span> <span class=nx>gzipWriterPool</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>gzip</span><span class=p>.</span><span class=nx>Writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>defer</span> <span class=nx>gzipWriterPool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span><span class=p>.</span><span class=nf>Reset</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>buf</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>case</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span> <span class=p>=</span> <span class=nx>gzipWriterPoolForCompressionLevel1</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>gzip</span><span class=p>.</span><span class=nx>Writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>defer</span> <span class=nx>gzipWriterPoolForCompressionLevel1</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span><span class=p>.</span><span class=nf>Reset</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>buf</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// ...
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>			<span class=nx>writer</span><span class=p>,</span> <span class=nx>err</span> <span class=p>=</span> <span class=nx>gzip</span><span class=p>.</span><span class=nf>NewWriterLevel</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>buf</span><span class=p>,</span> <span class=nx>level</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>writer</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>writer</span><span class=p>.</span><span class=nf>Close</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>buf</span><span class=p>.</span><span class=nf>Bytes</span><span class=p>(),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>CompressionSnappy</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>snappy</span><span class=p>.</span><span class=nf>Encode</span><span class=p>(</span><span class=nx>data</span><span class=p>),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>CompressionLZ4</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=nx>writer</span> <span class=o>:=</span> <span class=nx>lz4WriterPool</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>lz4</span><span class=p>.</span><span class=nx>Writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>defer</span> <span class=nx>lz4WriterPool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>writer</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=kd>var</span> <span class=nx>buf</span> <span class=nx>bytes</span><span class=p>.</span><span class=nx>Buffer</span>
+</span></span><span class=line><span class=cl>		<span class=nx>writer</span><span class=p>.</span><span class=nf>Reset</span><span class=p>(</span><span class=o>&amp;</span><span class=nx>buf</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>writer</span><span class=p>.</span><span class=nf>Write</span><span class=p>(</span><span class=nx>data</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>writer</span><span class=p>.</span><span class=nf>Close</span><span class=p>();</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nx>buf</span><span class=p>.</span><span class=nf>Bytes</span><span class=p>(),</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>CompressionZSTD</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=nf>zstdCompress</span><span class=p>(</span><span class=nx>ZstdEncoderParams</span><span class=p>{</span><span class=nx>level</span><span class=p>},</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>data</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>PacketEncodingError</span><span class=p>{</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;unsupported compression codec (%d)&#34;</span><span class=p>,</span> <span class=nx>cc</span><span class=p>)}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=zap-json-pool>zap json pool</h3><blockquote><p><a href=https://github.com/uber-go/zap/blob/master/zapcore/json_encoder.go target=_blank rel="noopener noreffer">go.uber.org/zap/zapcore/json_encoder.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>var</span> <span class=nx>_jsonPool</span> <span class=p>=</span> <span class=nx>sync</span><span class=p>.</span><span class=nx>Pool</span><span class=p>{</span><span class=nx>New</span><span class=p>:</span> <span class=kd>func</span><span class=p>()</span> <span class=kd>interface</span><span class=p>{}</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=o>&amp;</span><span class=nx>jsonEncoder</span><span class=p>{}</span>
+</span></span><span class=line><span class=cl><span class=p>}}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>getJSONEncoder</span><span class=p>()</span> <span class=o>*</span><span class=nx>jsonEncoder</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>_jsonPool</span><span class=p>.</span><span class=nf>Get</span><span class=p>().(</span><span class=o>*</span><span class=nx>jsonEncoder</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>putJSONEncoder</span><span class=p>(</span><span class=nx>enc</span> <span class=o>*</span><span class=nx>jsonEncoder</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>enc</span><span class=p>.</span><span class=nx>reflectBuf</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>enc</span><span class=p>.</span><span class=nx>reflectBuf</span><span class=p>.</span><span class=nf>Free</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>EncoderConfig</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>buf</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>spaced</span> <span class=p>=</span> <span class=kc>false</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>openNamespaces</span> <span class=p>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>reflectBuf</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>enc</span><span class=p>.</span><span class=nx>reflectEnc</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_jsonPool</span><span class=p>.</span><span class=nf>Put</span><span class=p>(</span><span class=nx>enc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=leakbuf-base-channel>leakbuf base channel</h3><blockquote><p><a href=https://github.com/shadowsocks/shadowsocks-go/blob/master/shadowsocks/leakybuf.go target=_blank rel="noopener noreffer">shadowsocks/shadowsocks-go/shadowsocks/leakybuf</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Provides leaky buffer, based on the example in Effective Go.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kn>package</span> <span class=nx>shadowsocks</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>type</span> <span class=nx>LeakyBuf</span> <span class=kd>struct</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>bufSize</span>  <span class=kt>int</span> <span class=c1>// size of each buffer
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>freeList</span> <span class=kd>chan</span> <span class=p>[]</span><span class=kt>byte</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>const</span> <span class=nx>leakyBufSize</span> <span class=p>=</span> <span class=mi>4108</span> <span class=c1>// data.len(2) + hmacsha1(10) + data(4096)
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>const</span> <span class=nx>maxNBuf</span> <span class=p>=</span> <span class=mi>2048</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>leakyBuf</span> <span class=p>=</span> <span class=nf>NewLeakyBuf</span><span class=p>(</span><span class=nx>maxNBuf</span><span class=p>,</span> <span class=nx>leakyBufSize</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// NewLeakyBuf creates a leaky buffer which can hold at most n buffer, each
+</span></span></span><span class=line><span class=cl><span class=c1>// with bufSize bytes.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>NewLeakyBuf</span><span class=p>(</span><span class=nx>n</span><span class=p>,</span> <span class=nx>bufSize</span> <span class=kt>int</span><span class=p>)</span> <span class=o>*</span><span class=nx>LeakyBuf</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=o>&amp;</span><span class=nx>LeakyBuf</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>bufSize</span><span class=p>:</span>  <span class=nx>bufSize</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>freeList</span><span class=p>:</span> <span class=nb>make</span><span class=p>(</span><span class=kd>chan</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>n</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Get returns a buffer from the leaky buffer or create a new buffer.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>lb</span> <span class=o>*</span><span class=nx>LeakyBuf</span><span class=p>)</span> <span class=nf>Get</span><span class=p>()</span> <span class=p>(</span><span class=nx>b</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>select</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>b</span> <span class=p>=</span> <span class=o>&lt;-</span><span class=nx>lb</span><span class=p>.</span><span class=nx>freeList</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>		<span class=nx>b</span> <span class=p>=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>byte</span><span class=p>,</span> <span class=nx>lb</span><span class=p>.</span><span class=nx>bufSize</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Put add the buffer into the free buffer pool for reuse. Panic if the buffer
+</span></span></span><span class=line><span class=cl><span class=c1>// size is not the same with the leaky buffer&#39;s. This is intended to expose
+</span></span></span><span class=line><span class=cl><span class=c1>// error usage of leaky buffer.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>lb</span> <span class=o>*</span><span class=nx>LeakyBuf</span><span class=p>)</span> <span class=nf>Put</span><span class=p>(</span><span class=nx>b</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>b</span><span class=p>)</span> <span class=o>!=</span> <span class=nx>lb</span><span class=p>.</span><span class=nx>bufSize</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nb>panic</span><span class=p>(</span><span class=s>&#34;invalid buffer size that&#39;s put into leaky buffer&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>select</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>lb</span><span class=p>.</span><span class=nx>freeList</span> <span class=o>&lt;-</span> <span class=nx>b</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>Copyright notice</strong>: This is an original article by <strong><a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">xwi88</a></strong>, licensed under <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel="noopener noreffer">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href=https://github.com/xwi88 target=_blank rel="noopener noreffer">https://github.com/xwi88</a></p></blockquote></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2026-07-07&nbsp;<a class=git-hash href=https://github.com/xwi88/xwi88.github.io.source/commit/8f8546868dd057c2662fc81176a11e1ca4728a35 target=_blank title="commit by xwi88(278810732@qq.com) 8f8546868dd057c2662fc81176a11e1ca4728a35: content(i18n): add English versions for 4 medium posts">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>8f85468</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/en/go-object-pool-usage-tips-theory/index.md target=_blank>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/ data-title="Go Object Pool Usage & Optimization — Theory" data-via=xwi88 data-hashtags=golang,performance><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/ data-hashtag=golang><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Linkedin" data-sharer=linkedin data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/ data-title="Go Object Pool Usage & Optimization — Theory"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Reddit" data-sharer=reddit data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/><i class="fab fa-reddit fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://blog.xwi88.com/en/go-object-pool-usage-tips-theory/ data-title="Go Object Pool Usage & Optimization — Theory"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/en/tags/golang/>golang</a>,&nbsp;<a href=/en/tags/performance/>performance</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/en/>Home</a></span></section></div><div class=post-nav><a href=/en/go-kafka-consumer-group-usage/ class=prev rel=prev title="Go Kafka Consumer Group Usage"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Go Kafka Consumer Group Usage</a>
+<a href=/en/go-otp-totp-hotp/ class=next rel=next title="Go OTP TOTP HOTP">Go OTP TOTP HOTP<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><section class=related-posts><h3>Related Posts</h3><ul><li><a href=/en/go-otp-totp-hotp/>Go OTP TOTP HOTP</a>
+<time class=related-date>2022-10-22</time></li><li><a href=/en/go-kafka-consumer-group-usage/>Go Kafka Consumer Group Usage</a>
+<time class=related-date>2022-05-25</time></li><li><a href=/en/pyroscope-continuous-profiling/>Pyroscope: Continuous Profiling for Go</a>
+<time class=related-date>2022-03-29</time></li><li><a href=/en/go-kill-signal-catch/>Common kill Signals and How to Catch Them in Go</a>
+<time class=related-date>2022-03-16</time></li><li><a href=/en/go-vcs-gvm/>gvm: Go Version Manager</a>
+<time class=related-date>2022-03-08</time></li></ul></section><div id=comments><div id=giscus class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>Giscus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-container><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section><span id=busuanzi_container_value_site_pv><i class="far fa-eye fa-fw"></i>
+<span id=busuanzi_value_site_pv></span></span>
+&nbsp;|&nbsp;
+<span id=busuanzi_container_value_site_uv><i class="fa fa-user"></i>
+<span id=busuanzi_value_site_uv></span></span></section></div><div class=footer-line><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2026</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/xwi88 target=_blank>xwi88</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/>京ICP备2022005973号-1</a></span>
+<span class=icp-splitter>&nbsp;|&nbsp;</span>
+<span class=icp><img src=/images/beian.png width=16 height=19 align=center></span>
+<span class=icp-splitter></span><br class=icp-br><span class=icp><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010602200802" rel=noreferrer target=_blank>京公网安备11010602200802</a></span></div></div><script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?fbf6a686ad1adb0cda578bb59648c820",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script><script type=text/javascript src=/js/L2Dwidget.min.js></script>
+<script type=text/javascript src=/js/L2Dwidget.0.min.js></script>
+<script type=text/javascript>L2Dwidget.init({model:{scale:1,hHeadPos:.5,vHeadPos:.618,jsonPath:"https://cdn.jsdelivr.net/npm/live2d-widget-model-z16/assets/z16.model.json"},display:{superSample:1,width:120,height:300,position:"left",hOffset:0,vOffset:0},mobile:{show:!1,scale:1,motion:!0},react:{opacityDefault:1,opacityOnHover:1}})</script><script type=text/javascript>(function(){var e="l2d-pos";function t(e){var t=0;(function n(){var s=document.getElementById("live2d-widget");s?e(s):t++<100&&setTimeout(n,100)})()}t(function(t){t.style.touchAction="none";function u(e,n){var s=t.offsetWidth||120,o=t.offsetHeight||300;return[Math.max(4,Math.min(e,innerWidth-s-4)),Math.max(4,Math.min(n,innerHeight-o-4))]}function i(e,n){var s=u(e,n);t.style.left=s[0]+"px",t.style.top=s[1]+"px",t.style.right="auto",t.style.bottom="auto",t.style.margin="0"}try{n=JSON.parse(localStorage.getItem(e)),n&&typeof n.x=="number"&&i(n.x,n.y)}catch{}var n,s=!1,a=0,r=0,c=0,l=0,o=!1;t.addEventListener("pointerdown",function(e){s=!0,o=!1,a=e.clientX,r=e.clientY;var n=t.getBoundingClientRect();c=n.left,l=n.top,t.classList.add("dragging"),t.style.zIndex=1e3;try{t.setPointerCapture(e.pointerId)}catch{}}),t.addEventListener("pointermove",function(e){if(!s)return;var t=e.clientX-a,n=e.clientY-r;Math.abs(t)+Math.abs(n)>4&&(o=!0),i(c+t,l+n)});function d(){if(!s)return;s=!1,t.classList.remove("dragging");var n=t.getBoundingClientRect();try{localStorage.setItem(e,JSON.stringify({x:Math.round(n.left),y:Math.round(n.top)}))}catch{}}t.addEventListener("pointerup",d),t.addEventListener("pointercancel",d),t.addEventListener("click",function(e){o&&(e.preventDefault(),e.stopPropagation(),o=!1)},!0),t.addEventListener("dblclick",function(){try{localStorage.removeItem(e)}catch{}t.style.left="",t.style.top="",t.style.right="",t.style.bottom="",t.style.margin=""}),window.addEventListener("resize",function(){var e=t.getBoundingClientRect();(e.left<0||e.top<0||e.right>innerWidth||e.bottom>innerHeight)&&i(e.left,e.top)})})})()</script></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><div id=accent-popover class="hdr-popover accent-popover" hidden role=dialog aria-label=主题与配色><span class=hdr-popover-title>外观模式</span><div class=theme-modes id=theme-modes><button type=button class=theme-mode data-mode=light title=浅色><i class="fas fa-sun fa-fw" aria-hidden=true></i>浅色</button>
+<button type=button class=theme-mode data-mode=sepia title=米黄(护眼)><i class="fas fa-book-open fa-fw" aria-hidden=true></i>米黄</button>
+<button type=button class=theme-mode data-mode=green title=护眼绿(豆沙绿)><i class="fas fa-leaf fa-fw" aria-hidden=true></i>护眼</button>
+<button type=button class=theme-mode data-mode=dark title=深色><i class="fas fa-moon fa-fw" aria-hidden=true></i>深色</button>
+<button type=button class=theme-mode data-mode=oled title=纯黑(OLED)><i class="fas fa-circle fa-fw" aria-hidden=true></i>纯黑</button>
+<button type=button class=theme-mode data-mode=navy title=午夜蓝(护眼深色)><i class="fas fa-water fa-fw" aria-hidden=true></i>夜蓝</button>
+<button type=button class=theme-mode data-mode=auto title=跟随系统><i class="fas fa-desktop fa-fw" aria-hidden=true></i>跟随</button></div><span class=hdr-popover-title>主题配色</span><div class=accent-swatches id=accent-swatches><button type=button class=accent-swatch data-accent=indigo title="靛蓝 Indigo" style=--sw:linear-gradient(135deg,#4f46e5,#818cf8)></button>
+<button type=button class=accent-swatch data-accent=teal title="青色 Teal" style=--sw:linear-gradient(135deg,#0d9488,#2dd4bf)></button>
+<button type=button class=accent-swatch data-accent=blue title="蓝色 Blue" style=--sw:linear-gradient(135deg,#2563eb,#60a5fa)></button>
+<button type=button class=accent-swatch data-accent=green title="绿色 Green" style=--sw:linear-gradient(135deg,#059669,#34d399)></button>
+<button type=button class=accent-swatch data-accent=purple title="紫色 Purple" style=--sw:linear-gradient(135deg,#7c3aed,#a78bfa)></button>
+<button type=button class=accent-swatch data-accent=rose title="玫红 Rose" style=--sw:linear-gradient(135deg,#e11d48,#fb7185)></button>
+<button type=button class=accent-swatch data-accent=amber title="琥珀 Amber" style=--sw:linear-gradient(135deg,#d97706,#fbbf24)></button>
+<button type=button class=accent-swatch data-accent=slate title="石板 Slate" style=--sw:linear-gradient(135deg,#475569,#94a3b8)></button></div><label class=accent-custom title=自定义任意颜色><input type=color id=accent-custom-input value=#4f46e5 aria-label=自定义颜色>
+<span class=accent-custom-label>自定义</span></label></div><div id=font-popover class="hdr-popover font-popover" hidden role=dialog aria-label=字号与字体><span class=hdr-popover-title>字号</span><div class=font-sizes id=font-sizes><button type=button class=font-size data-fs=0>XS</button>
+<button type=button class=font-size data-fs=1>S</button>
+<button type=button class=font-size data-fs=2>M</button>
+<button type=button class=font-size data-fs=3>L</button>
+<button type=button class=font-size data-fs=4>XL</button></div><span class=hdr-popover-title>字体</span><div class=font-families id=font-families><button type=button class=font-family data-ff=sans>无衬线</button>
+<button type=button class=font-family data-ff=serif>衬线</button></div><span class=hdr-popover-title>目录位置</span><div class=toc-sides id=toc-sides><button type=button class=toc-side data-side=left title=目录在左><i class="fas fa-align-left fa-fw" aria-hidden=true></i>左侧</button>
+<button type=button class=toc-side data-side=right title=目录在右>右侧<i class="fas fa-align-right fa-fw" aria-hidden=true></i></button></div></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:15},comment:{giscus:{category:"Announcements",categoryId:"DIC_kwDOG7xEcs4CN-KB",darkTheme:"dark",emitMetadata:"0",inputPosition:"bottom",lang:"en",lazyLoading:!0,lightTheme:"light",mapping:"pathname",reactionsEnabled:"1",repo:"xwi88/hugo-comment",repoId:"R_kgDOG7xEcg"}}}</script><script type=text/javascript src=/js/theme.min.b0df51c2c57145081cc73960e9aa780e6f5f56d06cf4ef0f96da8ce1619d1e12.js integrity="sha256-sN9RwsVxRQgcxzlg6ap4Dm9fVtBs9O8PltqM4WGdHhI="></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-78W9SMKZVE",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-78W9SMKZVE" async></script><div id=pf-modal hidden><div id=pf-modal-box role=dialog aria-modal=true aria-label="搜索 / Search"><div id=pf-modal-search></div></div></div><script>(function(){var t,e=document.getElementById("pf-modal");if(!e)return;t=!1;function n(){e.hidden=!0}function s(){e.hidden=!1,t?o():i()}function i(){var e,n=document.createElement("link");n.rel="stylesheet",n.href="/pagefind/pagefind-ui.css",document.head.appendChild(n),e=document.createElement("script"),e.src="/pagefind/pagefind-ui.js",e.onload=function(){try{window.PagefindUI&&(new PagefindUI({element:"#pf-modal-search",showSubResults:!0,pageSize:8,excerptLength:12,translations:{placeholder:"搜索文章 / Search posts…"}}),t=!0,o())}catch(e){console.warn("Pagefind modal init failed:",e)}},document.body.appendChild(e)}function o(){var t=e.querySelector("input");t&&t.focus()}document.addEventListener("keydown",function(t){(t.ctrlKey||t.metaKey)&&(t.key==="k"||t.key==="K")?(t.preventDefault(),e.hidden?s():n()):t.key==="Escape"&&!e.hidden&&n()}),e.addEventListener("click",function(t){t.target===e&&n()}),document.querySelectorAll('a[href="/search/"]').forEach(function(e){e.addEventListener("click",function(e){if(location.pathname.replace(/\/$/,"")==="/search")return;e.preventDefault(),s()})})})()</script><div id=reading-progress aria-hidden=true></div><script>(function(){var e,t,n=document.getElementById("reading-progress");n&&(t=!1,window.addEventListener("scroll",function(){if(t)return;t=!0,window.requestAnimationFrame(function(){var e=document.documentElement,s=e.scrollHeight-e.clientHeight;n.style.width=(s>0?e.scrollTop/s*100:0)+"%",t=!1})},{passive:!0})),e=document.createElement("div"),e.id="img-zoom",e.hidden=!0,e.title="关闭 / Close",e.innerHTML='<img alt="">',e.addEventListener("click",function(){e.hidden=!0}),document.body.appendChild(e),document.addEventListener("click",function(t){var n=t.target.closest&&t.target.closest(".single .content img");n&&(t.preventDefault(),e.querySelector("img").src=n.currentSrc||n.src,e.hidden=!1)}),document.addEventListener("keydown",function(t){t.key==="Escape"&&(e.hidden=!0)}),document.querySelectorAll(".single .content .highlight").forEach(function(e){var t,s,n=e.querySelector("code[data-lang]")||e.querySelector('code[class*="language-"]'),o=n&&(n.getAttribute("data-lang")||(n.className.match(/language-([a-z0-9]+)/)||[])[1]);o&&(s=document.createElement("span"),s.className="code-lang-label",s.textContent=o,e.appendChild(s)),t=document.createElement("button"),t.className="copy-btn",t.type="button",t.setAttribute("aria-label","复制代码"),t.innerHTML='<i class="fas fa-copy"></i>',t.addEventListener("click",function(){var s=n?n.innerText:"";function e(){t.innerHTML='<i class="fas fa-check"></i>',setTimeout(function(){t.innerHTML='<i class="fas fa-copy"></i>'},1500)}navigator.clipboard?navigator.clipboard.writeText(s).then(e,e):e()}),e.appendChild(t)}),"serviceWorker"in navigator&&window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})})(),function(){var e,t,n=document.querySelector(".post-info-share span");if(!n)return;t=document.createElement("a"),t.href="javascript:void(0);",t.title="分享到微信(扫码)",t.innerHTML='<i class="fas fa-comment-dots fa-fw" aria-hidden="true"></i>',t.addEventListener("click",function(e){e.preventDefault();var t=document.getElementById("img-zoom");t&&(t.querySelector("img").src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data="+encodeURIComponent(location.href),t.hidden=!1)}),n.appendChild(t),e=document.createElement("a"),e.href="javascript:void(0);",e.title="分享到百度",e.setAttribute("data-sharer","baidu"),e.setAttribute("data-url",location.href),e.setAttribute("data-title",document.title),e.innerHTML='<i class="fas fa-search fa-fw" aria-hidden="true"></i>',n.appendChild(e)}(),function(){function d(e){if(n=document.querySelectorAll(e.btnSel),t=document.getElementById(e.popId),!n.length||!t)return;var t,n,s=null,r=3e3;function o(){clearTimeout(s),t.hidden=!0}function i(){clearTimeout(s),s=setTimeout(function(){t.hidden=!0},r)}function a(){document.querySelectorAll(".hdr-popover").forEach(function(e){e.hidden=!0}),clearTimeout(s),t.hidden=!1,e.onOpen&&e.onOpen()}n.forEach(function(e){e.addEventListener("click",function(e){e.preventDefault(),t.hidden?a():o()})});function c(){clearTimeout(s)}function l(){t.hidden||i()}return[t].concat([].slice.call(n)).forEach(function(e){e.addEventListener("mouseenter",c),e.addEventListener("mouseleave",l)}),t.addEventListener("click",function(){t.hidden||i()}),document.addEventListener("click",function(e){if(t.hidden)return;var s=e.target;if(t.contains(s))return;if([].some.call(n,function(e){return e===s||e.contains(s)}))return;i()}),document.addEventListener("keydown",function(e){e.key==="Escape"&&o()}),{open:a,close:o}}var t,n,o,i,c,f=function(e){return e=e.replace("#",""),[parseInt(e.slice(0,2),16),parseInt(e.slice(2,4),16),parseInt(e.slice(4,6),16)]},a=function(e){return Math.round(e+(255-e)*.32).toString(16).padStart(2,"0")},p=d({btnSel:".accent-switch",popId:"accent-popover",onOpen:function(){e(),l()}});function u(t){var n=f(t),s=document.documentElement.style;s.setProperty("--accent-light",t),s.setProperty("--accent-dark","#"+a(n[0])+a(n[1])+a(n[2])),s.setProperty("--accent-rgb",n.join(", ")),document.documentElement.removeAttribute("data-accent");try{localStorage.setItem("accent-custom",t),localStorage.removeItem("accent")}catch{}e()}function e(){var e,t,n,o,s=document.getElementById("accent-popover");if(!s)return;o=s.querySelectorAll(".accent-swatch"),t=document.documentElement.getAttribute("data-accent")||"",e=null;try{e=localStorage.getItem("accent-custom")}catch{}o.forEach(function(e){e.classList.toggle("active",t&&e.getAttribute("data-accent")===t)}),n=document.getElementById("accent-custom-input"),n&&(e&&(n.value=e),n.parentElement.classList.toggle("active",!!e&&!t))}c=document.getElementById("accent-popover"),c&&(c.querySelectorAll(".accent-swatch").forEach(function(t){t.addEventListener("click",function(){var n,s=t.getAttribute("data-accent");document.documentElement.setAttribute("data-accent",s);try{localStorage.setItem("accent",s),localStorage.removeItem("accent-custom")}catch{}n=document.documentElement.style,n.removeProperty("--accent-light"),n.removeProperty("--accent-dark"),n.removeProperty("--accent-rgb"),e()})}),t=document.getElementById("accent-custom-input"),t&&t.addEventListener("input",function(){u(t.value)})),e();function m(){var e;try{e=localStorage.getItem("appearance")||localStorage.getItem("theme")}catch{}return e||"auto"}function l(){var t,e=document.getElementById("accent-popover");if(!e)return;t=m(),e.querySelectorAll(".theme-mode").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-mode")===t)})}function h(e){var n,s={oled:"oled",navy:"navy"},i={sepia:"sepia",green:"green"},o=s[e]||i[e]||"",t=e==="dark"||e in s?"dark":e==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":"light",a=document.body.getAttribute("theme")==="dark";try{localStorage.setItem("appearance",e),localStorage.setItem("theme",e==="auto"?"auto":t)}catch{}if(t==="dark"!==a){n=document.querySelector(".theme-switch"),n&&n.click();try{e==="auto"&&localStorage.setItem("theme","auto")}catch{}}else t==="dark"?document.body.setAttribute("theme","dark"):document.body.removeAttribute("theme");o?document.body.setAttribute("data-variant",o):document.body.removeAttribute("data-variant"),l()}o=document.getElementById("theme-modes"),o&&o.querySelectorAll(".theme-mode").forEach(function(e){e.addEventListener("click",function(){h(e.getAttribute("data-mode"))})}),l(),d({btnSel:".font-switch",popId:"font-popover",onOpen:function(){s(),r()}});function s(){var t,n,e=document.getElementById("font-popover");if(!e)return;t=document.documentElement.getAttribute("data-fontscale")||"1",n=document.documentElement.getAttribute("data-fontfamily")||"sans",e.querySelectorAll(".font-size").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-fs")===t)}),e.querySelectorAll(".font-family").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-ff")===n)})}n=document.getElementById("font-popover"),n&&(n.querySelectorAll(".font-size").forEach(function(e){e.addEventListener("click",function(){document.documentElement.setAttribute("data-fontscale",e.getAttribute("data-fs"));try{localStorage.setItem("font-scale",e.getAttribute("data-fs"))}catch{}s()})}),n.querySelectorAll(".font-family").forEach(function(e){e.addEventListener("click",function(){document.documentElement.setAttribute("data-fontfamily",e.getAttribute("data-ff"));try{localStorage.setItem("font-family",e.getAttribute("data-ff"))}catch{}s()})})),s();function r(){var t,e=document.getElementById("font-popover");if(!e)return;t=document.body.getAttribute("data-toc-side")==="right"?"right":"left",e.querySelectorAll(".toc-side").forEach(function(e){e.classList.toggle("active",e.getAttribute("data-side")===t)})}i=document.getElementById("toc-sides"),i&&i.querySelectorAll(".toc-side").forEach(function(e){e.addEventListener("click",function(){var t=e.getAttribute("data-side");t==="right"?document.body.setAttribute("data-toc-side","right"):document.body.removeAttribute("data-toc-side");try{localStorage.setItem("toc-side",t)}catch{}r()})}),r()}()</script><script>(function(){var e=location.pathname.replace(/\/index\.html$/,"").replace(/\/+$/,"");document.querySelectorAll("#header-desktop .menu .menu-item > a").forEach(function(t){var s=t.getAttribute("href")||"",n=s.replace(/^https?:\/\/[^/]+/,"").replace(/\/index\.html$/,"").replace(/\/+$/,"");n&&(n===e||e.indexOf(n+"/")===0)&&t.parentElement.classList.add("active")})})()</script></body></html>

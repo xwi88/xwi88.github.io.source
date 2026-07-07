@@ -1,4 +1,306 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>git - Category - Coding Life Share</title><link>https://blog.xwi88.com/en/categories/git/</link><description>git - Category - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 26 Feb 2022 23:51:01 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/categories/git/" rel="self" type="application/rss+xml"/><item><title>Solving Painfully Slow git clone</title><link>https://blog.xwi88.com/en/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/git-clone-slowly-solve/</guid><description><![CDATA[<p>If you work with GitHub a lot, operations like <code>clone</code>, <code>fetch</code>, <code>pull</code> and <code>push</code> often fail with mysterious timeouts or crawl along painfully slowly — a real drain on productivity. This post walks through several working solutions.</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>git - Category - Coding Life Share</title><link>https://blog.xwi88.com/en/categories/git/</link><description>git - Category - Coding Life Share</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>278810732@qq.com (xwi88)</managingEditor><webMaster>278810732@qq.com (xwi88)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 10 Mar 2022 21:31:19 +0800</lastBuildDate><atom:link href="https://blog.xwi88.com/en/categories/git/" rel="self" type="application/rss+xml"/><item><title>Common Git Commands &amp; Config</title><link>https://blog.xwi88.com/en/git-common-config/</link><pubDate>Thu, 10 Mar 2022 21:31:19 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/git-common-config/</guid><description><![CDATA[<p>Sharing the <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer ">git</a> [gɪt] config I&rsquo;ve accumulated over the years. The content below is based on version <a href="https://git-scm.com/docs/git/2.34.0" target="_blank" rel="noopener noreffer "><code>2.34.1</code></a>; if anything differs, upgrade your git first!</p>
+<blockquote>
+<p><strong>Copyright notice</strong>: This is an original article by <strong><a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">xwi88</a></strong>, licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreffer ">CC BY-NC 4.0</a>. Commercial use is prohibited; please cite the source when reposting. Follow at <a href="https://github.com/xwi88" target="_blank" rel="noopener noreffer ">https://github.com/xwi88</a></p>
+</blockquote>
+<h2 id="basic-account-config">Basic account config</h2>
+<blockquote>
+<p><code>--global</code> <em>means global config</em>; <strong>non-global config must be set inside the specific git project directory</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global user.name [your_name]</code></li>
+<li><code>git config --global user.email [your_email]</code></li>
+<li><code>git config --global --list</code> <strong>view global git config</strong></li>
+<li><code>git config --list</code> <em>view project git config</em></li>
+</ul>
+<h3 id="signed-commit-setup">Signed-commit setup</h3>
+<blockquote>
+<p>configure your Git client to sign commits by default for a local repository, in Git versions 2.0.0 and above</p>
+</blockquote>
+<ul>
+<li><code>git config --global user.signingkey [KeyID]</code></li>
+<li><code>git config --global commit.gpgsign true</code></li>
+</ul>
+<p>See also: <a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a> for setup.</p>
+<h2 id="credential-storage">Credential storage</h2>
+<blockquote>
+<p>To avoid typing the password every time, let the machine remember it. <em>MacOS</em> uses <strong>Keychain Access</strong> to store your password and other credentials.</p>
+</blockquote>
+<ul>
+<li><code>git config --global credential.helper store</code> <strong>persistently save your password/credentials on this machine</strong></li>
+<li><code>git config --global credential.helper 'cache --timeout=300'</code> <em>cache the password for 300s</em></li>
+</ul>
+<blockquote>
+<p><strong>More</strong>:</p>
+<ul>
+<li><a href="https://git-scm.com/docs/gitcredentials" target="_blank" rel="noopener noreffer ">gitcredentials</a></li>
+<li><a href="https://git-scm.com/docs/git-credential-cache" target="_blank" rel="noopener noreffer ">git-credential-cache</a></li>
+</ul>
+</blockquote>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p>If you have MFA enabled, you must use a <strong>Personal Token</strong> instead of the password.</p>
+<ul>
+<li>github path: <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreffer ">Settings Developer settings</a>-&gt;<strong>Personal access tokens</strong>-&gt;<em>Generate new token</em></li>
+</ul>
+</blockquote>
+<p><strong>Personal access tokens</strong> 📢</p>
+<ul>
+<li><strong>Visible only when generated — save it carefully</strong></li>
+<li><strong>Mind the scopes and expiration</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="credential-cleanup">Credential cleanup</h2>
+<blockquote>
+<p>After a password changes or expires, clear the stored one, or you may get <code>login failed</code> / <code>no permission</code> errors.</p>
+</blockquote>
+<ul>
+<li><code>git config --system --unset credential.helper</code></li>
+<li><code>git config --global credential.helper 'cache --timeout=5'</code> <em>or set a very short expiry to flush the cached password</em></li>
+<li><code>git config --global credential.helper store</code> <strong>re-enable credential storage</strong></li>
+</ul>
+<h2 id="prettier-log-output">Prettier log output</h2>
+<blockquote>
+<p>The plain <a href="https://git-scm.com/docs/git-log" target="_blank" rel="noopener noreffer "><code>git log</code></a> is too bare to inspect details. We can format it, and <code>git alias</code> makes it easy to define our own <em>git log</em> command — <strong>do not override git&rsquo;s built-in commands</strong>.</p>
+</blockquote>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>My usual <em>git log</em> config:</p>
+<blockquote>
+<p><code>git config --global alias.lg &quot;log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To also show <strong>gpg</strong> signature info:</p>
+<blockquote>
+<p><code>git config --global alias.lsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git lsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>For even more detail:</p>
+<blockquote>
+<p><code>git config --global alias.llsg &quot;log --color --graph --pretty=format:'%C(cyan)%G?%Creset %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset | %C(red)%cs%Creset [%GK trust:%GT] %C(yellow)%GS%Creset' --abbrev-commit&quot;</code></p>
+</blockquote>
+<p><code>git llsg -4</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">* G 16074ef - <span class="o">(</span>HEAD -&gt; main, origin/main<span class="o">)</span> update posts git-sign-tag-commit-with-gpg <span class="o">(</span><span class="m">2</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>C739E6A64E102CD0 trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G e39e092 - support l2d widget <span class="o">(</span><span class="m">23</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-10 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 11605af - close cookie tip and update posts <span class="o">(</span><span class="m">24</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span><span class="line"><span class="cl">* G 9b548b6 - update posts git sign with gpg <span class="o">(</span><span class="m">25</span> hours ago<span class="o">)</span> &lt;xwi88&gt; <span class="p">|</span> 2022-03-09 <span class="o">[</span>90684042688CB9BE trust:ultimate<span class="o">]</span> xwi88 &lt;278810732@qq.com&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Always pass a log entry count</strong></li>
+<li><strong>Don&rsquo;t make the format too complex — output may slow down</strong></li>
+<li><strong>If you use <code>gpg signing</code>, make sure you don&rsquo;t have too many <code>gpg key</code>s</strong></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h2 id="basic-commands">Basic commands</h2>
+<blockquote>
+<p>For more detail on any command, run <code>git &lt;command&gt; --help</code></p>
+</blockquote>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...]</code> <strong>stage files into the <code>Index</code></strong>
+<ul>
+<li><code>git add [&lt;path_spec&gt;...] -n</code> <strong>dry-run: show what would happen, without doing it</strong></li>
+</ul>
+</li>
+<li><code>git status -s</code> show the current branch status — files differ between working tree and index: <code>modified</code>, <code>not staged</code>, <code>staged but not committed</code></li>
+<li><code>git diff</code>
+<ul>
+<li><code>git diff [&lt;path&gt;...]</code> diff working tree vs index</li>
+<li><code>git diff &lt;commit&gt;...&lt;commit&gt; [&lt;path&gt;...]</code> diff between commits</li>
+<li><code>git diff --cached [&lt;commit&gt;] [&lt;path&gt;...]</code> diff index vs repository</li>
+</ul>
+</li>
+<li><code>git commit</code> commit staged changes to the local repo
+<ul>
+<li><code>git commit -m &lt;message&gt;</code> commit to local repo</li>
+<li><code>git commit -S -m &lt;message&gt;</code> <strong>sign</strong> and commit; requires your <strong>GPG key</strong></li>
+<li><code>git commit -a -m</code> stage and commit all changes, skipping <code>git add</code>; generally avoid this</li>
+<li><code>git commit --amend</code> redo the latest commit — to <strong>edit its message</strong> or append changes; <strong>don&rsquo;t chain this</strong>, and <strong>avoid it for already-pushed commits</strong></li>
+</ul>
+</li>
+<li><code>git reset</code> undo changes; see <a href="#checkout-vs-reset" rel="">checkout vs reset</a></li>
+<li><code>git rm</code> remove files from the index and working tree</li>
+<li><code>git mv &lt;old&gt; &lt;new&gt;</code> <em>file rename</em>; equivalent to <code>mv old new</code>, <code>git add</code> the new file and <code>git rm</code> the old</li>
+</ul>
+<h2 id="branch-operations">Branch operations</h2>
+<h3 id="remote-branch-config">Remote branch config</h3>
+<ul>
+<li><code>git remote -v</code></li>
+<li><code>git remote add &lt;name&gt; &lt;url&gt;</code> add a remote</li>
+<li><code>git remote rename &lt;old&gt; &lt;new&gt;</code> rename a remote</li>
+<li><code>git remote set-url &lt;name&gt; &lt;new_url&gt;</code> change a remote URL</li>
+</ul>
+<h3 id="cloning">Cloning</h3>
+<ul>
+<li><code>git clone -b branch_name --single-branch &lt;url&gt;</code> single-branch clone</li>
+<li><code>git clone &lt;url&gt; [dir]</code></li>
+</ul>
+<h3 id="fetch--sync">Fetch &amp; sync</h3>
+<ul>
+<li><code>git fetch --all</code> || <code>git merge</code> only fetch into the <strong>local remote-tracking branch</strong> (e.g. <code>origin/main</code>, <code>upstream/main</code>); merge into the local branch later when needed</li>
+<li><code>git pull</code> fetch and merge the remote branch into the current branch; generally avoid unless you understand the consequences</li>
+<li><code>git push -u &lt;repo_name&gt; &lt;branch_name&gt;</code> set up tracking between a new local branch and a remote branch — <strong>typically for a new branch&rsquo;s first push</strong></li>
+</ul>
+<h3 id="checkout-vs-reset">checkout vs reset</h3>
+<ul>
+<li><code>git checkout</code></li>
+<li><code>git reset</code></li>
+<li><code>git revert</code> <strong>rarely used on the CLI</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Git Command</th>
+<th style="text-align:left">Scope</th>
+<th style="text-align:left">Common use cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Discard commits in a private branch or throw away uncommited changes</td>
+</tr>
+<tr>
+<td style="text-align:left">reset</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Unstage a file</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Switch between branches or inspect old snapshots</td>
+</tr>
+<tr>
+<td style="text-align:left">checkout</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">Discard changes in the working directory</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">Commit</td>
+<td style="text-align:left">Undo commits in a public branch</td>
+</tr>
+<tr>
+<td style="text-align:left">revert</td>
+<td style="text-align:left">File</td>
+<td style="text-align:left">(N/A)</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><blockquote>
+<p><code>--soft</code> The staged snapshot and working directory are not altered in any way.</p>
+<p><code>--mixed</code> The staged snapshot is updated to match the specified commit, but the working directory is not affected. This is the default option.</p>
+<p><code>--hard</code> The staged snapshot and the working directory are both updated to match the specified commit.</p>
+</blockquote>
+</div>
+        </div>
+    </div>
+<h3 id="merging--committing">Merging &amp; committing</h3>
+<blockquote>
+<p>For multi-person or large-team collaboration, master and use <code>git rebase</code>, and keep each branch&rsquo;s commit count vs the <strong>base</strong> branch <strong>minimal</strong> — easier rebases and conflict resolution for everyone.</p>
+<p>If you&rsquo;ve opened a <code>PR</code>/<code>MR</code>, before <strong>reviewers</strong> review, make sure your branch is <code>Fast-Forward</code> vs the <strong>base</strong>; do not <strong>Rebase</strong> from the web UI.</p>
+</blockquote>
+<ul>
+<li><code>git rebase</code> <strong>use with care</strong> <a href="https://mp.weixin.qq.com/s?__biz=MzIzODY3NjQ0OA==&amp;mid=2247483733&amp;idx=1&amp;sn=5adc1d9d1a241ffc3565c47d7f924125&amp;chksm=e934f1dade4378cc630dca0d1655db42418e983e08e9e6779d2f0895189ec85ae45f4751bae0&amp;token=281138563&amp;lang=zh_CN#rd" target="_blank" rel="noopener noreffer ">demo</a></li>
+<li><code>git merge</code> <del><strong>not recommended</strong></del></li>
+</ul>
+<h3 id="branch-push--delete">Branch push &amp; delete</h3>
+<ul>
+<li><code>git push</code> push the current branch; requires tracking a remote branch; for the first push use <code>git push -u &lt;name&gt; &lt;branch&gt;</code></li>
+<li><code>git push -f</code> force-push the current branch to its remote</li>
+<li><code>git push -f &lt;name&gt; :&lt;remote_branch&gt;</code> push an empty branch to the remote — i.e. <strong>delete the remote branch</strong></li>
+<li><code>git branch -d</code> delete a local branch</li>
+</ul>
+<h2 id="unset-config">Unset config</h2>
+<blockquote>
+<p><strong>Remove the line matching the key from config file.</strong></p>
+</blockquote>
+<ul>
+<li><code>git config --global --unset [key]</code> remove from global config</li>
+<li><code>git config --unset [key]</code> remove from project config</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Example<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p><em>Remove a mistakenly-created entry from global config</em></p>
+<p><code>git config --global --unset alias.llg</code></p>
+</div>
+        </div>
+    </div>
+<h2 id="edit-config-files">Edit config files</h2>
+<ul>
+<li><code>git config --global -e</code> edit the global config file at <code>~/.gitconfig</code></li>
+<li><code>git config -e</code> edit the project config file at <code>.git/config</code></li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://git-scm.com/docs" target="_blank" rel="noopener noreffer ">git docs</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases" target="_blank" rel="noopener noreffer ">Git-Basics-Git-Aliases</a></li>
+<li><a href="https://git-scm.com/book/en/v2/Appendix-C:-Git-Commands-Basic-Snapshotting" target="_blank" rel="noopener noreffer ">Git-Commands-Basic-Snapshotting</a></li>
+<li><a href="/git-sign-tags-commits-with-gpg/" rel="">Signing Git commits/tags with GPG</a></li>
+</ul>]]></description></item><item><title>Solving Painfully Slow git clone</title><link>https://blog.xwi88.com/en/git-clone-slowly-solve/</link><pubDate>Sat, 26 Feb 2022 23:51:01 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/git-clone-slowly-solve/</guid><description><![CDATA[<p>If you work with GitHub a lot, operations like <code>clone</code>, <code>fetch</code>, <code>pull</code> and <code>push</code> often fail with mysterious timeouts or crawl along painfully slowly — a real drain on productivity. This post walks through several working solutions.</p>
 <p>There are many possible causes; the most likely is that your network is being throttled — for example at <code>github.global.ssl.fastly.net</code>.</p>
 <blockquote>
 <p>Using the <a href="https://github.com/v8fg/docker-compose-resources.git" target="_blank" rel="noopener noreffer ">docker-compose-resources</a> project as an example: <code>git clone https://github.com/v8fg/docker-compose-resources.git</code></p>
