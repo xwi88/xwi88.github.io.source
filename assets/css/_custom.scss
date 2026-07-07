@@ -214,6 +214,18 @@ body[theme="dark"] .single .content td {
 .summary a {
     transition: color 0.2s ease, opacity 0.2s ease;
 }
+// external-link indicator: subtle ↗ after links that open in a new tab
+// (scoped to article body so the favorite logo grid isn't affected)
+.single .content a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    color: var(--accent-light);
+    opacity: 0.55;
+    text-decoration: none;
+}
+body[theme="dark"] .single .content a[target="_blank"]::after {
+    color: var(--accent-dark);
+}
 
 // ===== spacing polish: meta field gaps + content rhythm =====
 // Meta fields were crammed with inconsistent runs of &nbsp;. Each field is now a
