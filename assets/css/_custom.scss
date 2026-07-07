@@ -867,6 +867,12 @@ body[theme="dark"] .footer a:hover {
 .copy-btn { background: rgba(248,248,242,0.10); color: rgba(248,248,242,0.75); }
 .copy-btn:hover { color: #bd93f9; }
 
+// ===== viewport-fit=cover: keep fixed chrome clear of the notch / home indicator =====
+// env(safe-area-inset-*) is 0 on non-notched devices, so this is a no-op there.
+#header-desktop, #header-mobile { padding-top: env(safe-area-inset-top); }
+#fixed-buttons { padding-bottom: env(safe-area-inset-bottom); }
+.footer { padding-bottom: env(safe-area-inset-bottom); }
+
 // ===== fixed buttons (back-to-top / comment / accent): hover accent + lift =====
 .fixed-button {
     border: 1px solid rgba(128, 128, 128, 0.22);
