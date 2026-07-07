@@ -108,3 +108,20 @@
 .item-name {
 	padding: 2px 5px;
 }
+
+/* Phones and small tablets: the fixed 140px float grid drops to 1 column with
+   dead space on narrow viewports. Switch .row to a fluid 2-column flex grid so
+   cards fill the width. Desktop (float, 4-col) is untouched. */
+@media screen and (max-width: 768px) {
+	.section .row {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.section .item {
+		float: none;
+		flex: 0 0 50%;
+		width: auto;
+		margin-right: 0;
+		box-sizing: border-box;
+	}
+}
