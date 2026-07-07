@@ -444,6 +444,33 @@ body[theme="dark"] #content-404 .error-code { color: var(--accent-dark); }
 .error-links a {
     margin: 0 0.2em;
 }
+// recent-posts list on the 404 page
+.error-recent {
+    margin: 2rem auto 0;
+    max-width: 26rem;
+    text-align: left;
+}
+.error-recent h2 {
+    font-size: 0.9rem;
+    color: rgba(128, 128, 128, 0.9);
+    letter-spacing: 0.04em;
+    margin: 0 0 0.5rem;
+}
+.error-recent ul { list-style: none; padding: 0; margin: 0; }
+.error-recent li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8em;
+    padding: 0.35em 0;
+    border-bottom: 1px dashed rgba(128, 128, 128, 0.22);
+}
+.error-recent li:last-child { border-bottom: none; }
+.error-recent-date {
+    flex: none;
+    font-size: 0.78rem;
+    color: rgba(128, 128, 128, 0.8);
+}
 
 // thin themed scrollbar (modern, works in webkit + firefox)
 html {

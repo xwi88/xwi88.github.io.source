@@ -23,6 +23,17 @@
             &nbsp;|&nbsp;
             <a href="/search/"><i class="fas fa-search fa-fw"></i> {{ if $zh }}搜索{{ else }}Search{{ end }}</a>
         </p>
+        <div class="error-recent">
+            <h2>{{ if $zh }}最近文章{{ else }}Recent Posts{{ end }}</h2>
+            <ul>
+                {{- range first 5 (where .Site.RegularPages "Section" "posts") -}}
+                <li>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    <time class="error-recent-date">{{ .PublishDate.Format "2006-01-02" }}</time>
+                </li>
+                {{- end -}}
+            </ul>
+        </div>
     </div>
     <script type="text/javascript">
         (function() {
