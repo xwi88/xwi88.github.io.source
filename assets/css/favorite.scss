@@ -10,16 +10,6 @@
 	display: flow-root;
 }
 
-.favirote-box .section {
-	display: block;
-	font-size: 1.2em;
-	margin-block-start: 0.83em;
-	margin-block-end: 0.83em;
-	margin-inline-start: 0px;
-	margin-inline-end: 0px;
-	font-weight: bold;
-}
-
 .favirote-box a {
 	text-decoration: none;
 	transition: .2s;
@@ -32,7 +22,9 @@
 .section {
 	background: var(--global-background, #fff);
 	border: 1px solid rgba(128, 128, 128, 0.18);
-	margin-bottom: 15px;
+	/* 16px vertical rhythm; the .favirote-box BFC (flow-root) keeps the first
+	   section's top margin from collapsing into the page title. */
+	margin: 16px 0;
 	border-radius: 10px;
 }
 
