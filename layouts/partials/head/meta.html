@@ -46,9 +46,15 @@
 {{- end -}}
 {{- with .Site.Params.app.tileColor -}}<meta name="msapplication-TileColor" content="{{ . }}">{{- end -}}
 
-{{- /* JSON-LD structured data: Article schema on post pages (Google rich results) */ -}}
+{{- /* JSON-LD structured data: Article schema on post pages (Google rich results).
+     Enriched with description, image (per-post OG card or site default), keywords
+     (tags) and articleSection (first category) for richer rich-result eligibility. */ -}}
 {{- if .IsPage -}}
+{{- $schemaImage := "" -}}
+{{- if $ogCard -}}{{- $schemaImage = $ogCard | absURL -}}{{- else -}}{{- with $images -}}{{- $schemaImage = (index . 0) | absURL -}}{{- end -}}{{- end -}}
+{{- $keywords := delimit (.Params.tags | default slice) ", " -}}
+{{- $section := "" -}}{{- with .Params.categories -}}{{- $section = index . 0 -}}{{- end -}}
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":{{ .Title | jsonify }},"datePublished":{{ (.PublishDate.Format "2006-01-02T15:04:05-07:00") | jsonify }},"dateModified":{{ (.Lastmod.Format "2006-01-02T15:04:05-07:00") | jsonify }},"author":{"@type":"Person","name":{{ .Site.Author.name | jsonify }}},"mainEntityOfPage":{{ .Permalink | jsonify }},"publisher":{"@type":"Organization","name":{{ .Site.Title | jsonify }}}}
+{"@context":"https://schema.org","@type":"Article","headline":{{ .Title | jsonify }},"description":{{ $desc | jsonify }},"datePublished":{{ (.PublishDate.Format "2006-01-02T15:04:05-07:00") | jsonify }},"dateModified":{{ (.Lastmod.Format "2006-01-02T15:04:05-07:00") | jsonify }},"author":{"@type":"Person","name":{{ .Site.Author.name | jsonify }}},"mainEntityOfPage":{{ .Permalink | jsonify }},"publisher":{"@type":"Organization","name":{{ .Site.Title | jsonify }}}{{ with $schemaImage }},"image":{{ . | jsonify }}{{ end }}{{ with $section }},"articleSection":{{ . | jsonify }}{{ end }},"keywords":{{ $keywords | jsonify }}}
 </script>
 {{- end -}}
