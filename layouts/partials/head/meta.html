@@ -22,7 +22,7 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
-<meta property="og:locale" content="{{ replace .Site.Language.Lang "-" "_" }}">
+<meta property="og:locale" content="{{ cond (eq .Site.Language.Lang "en") "en_US" "zh_CN" }}">
 {{- /* declare the other locale so social platforms know the page has a translation */ -}}
 <meta property="og:locale:alternate" content="{{ cond (eq .Site.Language.Lang "en") "zh_CN" "en_US" }}">
 {{- if $ogCard -}}
