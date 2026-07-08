@@ -17,6 +17,8 @@ BASEDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 HUGO ?= hugo
 # Pagefind builds the static search index (over public/). Override the binary:
 #   make publish HUGO=~/bin/hugo119 PAGEFIND=~/bin/pagefind
+# Use the *extended* binary (pagefind_extended) for CJK word-segmentation —
+# the standard binary does not segment Chinese, so zh-cn search won't match.
 PAGEFIND ?= pagefind
 
 gitBranch = $(shell git symbolic-ref --short -q HEAD)

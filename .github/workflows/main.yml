@@ -66,12 +66,14 @@ jobs:
         run: node gen-cards.mjs
 
       # build the static search index (Pagefind) into public/pagefind/.
-      # Replaces the deleted Algolia step (apps were NXDOMAIN). Chinese-aware.
+      # Replaces the deleted Algolia step (apps were NXDOMAIN). Uses the
+      # *extended* binary so CJK (zh-cn) text is word-segmented; the standard
+      # binary skips segmentation and Chinese full-text search won't match.
       - name: Build search index (Pagefind)
         run: |
-          curl -fsSL -o /tmp/pf.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v1.5.2/pagefind-v1.5.2-x86_64-unknown-linux-musl.tar.gz
+          curl -fsSL -o /tmp/pf.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v1.5.2/pagefind_extended-v1.5.2-x86_64-unknown-linux-musl.tar.gz
           tar xzf /tmp/pf.tar.gz -C /tmp
-          /tmp/pagefind --site public
+          /tmp/pagefind_extended --site public
       
       # push the generated content into the `main` branch.
       - name: Deploy
