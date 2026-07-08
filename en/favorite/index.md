@@ -9,19 +9,19 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://github.com/xwi88" target="_blank" rel="noopener noreferrer" title="github.com/xwi88">
-						<img src="/img/logo/github-logo.png" alt="github">
+						<img src="/img/logo/github-logo.png" alt="github" loading="lazy">
 						<div class="item-name">Github</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://hub.docker.com" target="_blank" rel="noopener noreferrer" title="hub.docker.com">
-						<img src="/img/logo/docker-logo.png" alt="docker hub">
+						<img src="/img/logo/docker-logo.png" alt="docker hub" loading="lazy">
 						<div class="item-name">DockerHub</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" title="code editor">
-						<img src="/img/logo/vscode-logo.png" alt="visualstudio">
+						<img src="/img/logo/vscode-logo.png" alt="visualstudio" loading="lazy">
 						<div class="item-name">VS Code</div>
 					</a>
 				</div>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="item">
 					<a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="hugo go blog tool">
-						<img src="/img/logo/hugo-logo.jpeg" alt="hugo">
+						<img src="/img/logo/hugo-logo.jpeg" alt="hugo" loading="lazy">
 						<div class="item-name">Hugo</div>
 					</a>
 				</div>
@@ -50,37 +50,37 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://golang.google.cn/" target="_blank" rel="noopener noreferrer" title="golang.google.cn">
-						<img src="/img/logo/go-logo-white.svg" alt="Go" style="background-color: green;">
+						<img src="/img/logo/go-logo-white.svg" alt="Go" loading="lazy" style="background-color: green;">
 						<div class="item-name">Go</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.rust-lang.org/zh-CN/" target="_blank" rel="noopener noreferrer" title="rust-lang">
-						<img src="/img/logo/rust-logo-blk.svg" alt="rust-lang">
+						<img src="/img/logo/rust-logo-blk.svg" alt="rust-lang" loading="lazy">
 						<div class="item-name">Rust</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://v3.cn.vuejs.org/" target="_blank" rel="noopener noreferrer" title="v3.cn.vuejs.org">
-						<img src="/img/logo/vue-logo.png" alt="vuejs">
+						<img src="/img/logo/vue-logo.png" alt="vuejs" loading="lazy">
 						<div class="item-name">Vue</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://cn.julialang.org/" target="_blank" rel="noopener noreferrer" title="cn.julialang.org">
-						<img src="/img/logo/julia-logo.svg" alt="julia">
+						<img src="/img/logo/julia-logo.svg" alt="julia" loading="lazy">
 						<div class="item-name">Julia</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://vlang.io/" target="_blank" rel="noopener noreferrer" title="vlang.io">
-						<img src="/img/logo/v-logo.png" alt="vlang">
+						<img src="/img/logo/v-logo.png" alt="vlang" loading="lazy">
 						<div class="item-name">V</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" title="www.python.org">
-						<img src="/img/logo/py3-logo.svg" alt="python">
+						<img src="/img/logo/py3-logo.svg" alt="python" loading="lazy">
 						<div class="item-name">Python</div>
 					</a>
 				</div>
@@ -93,37 +93,37 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://iterm2.com/" target="_blank" rel="noopener noreferrer" title="iterm2">
-						<img src="/img/logo/iterm2-logo.png" alt="iterm2">
+						<img src="/img/logo/iterm2-logo.png" alt="iterm2" loading="lazy">
 						<div class="item-name">iterm2</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://grafana.com/" target="_blank" rel="noopener noreferrer" title="grafana">
-						<img src="/img/logo/grafana-logo.png" alt="grafana">
+						<img src="/img/logo/grafana-logo.png" alt="grafana" loading="lazy">
 						<div class="item-name">Grafana</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.elastic.co/cn/" target="_blank" rel="noopener noreferrer" title="elastic ELK">
-						<img src="/img/logo/elastic-logo.svg" alt="elk">
+						<img src="/img/logo/elastic-logo.svg" alt="elk" loading="lazy">
 						<div class="item-name">ELK</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://pyroscope.io/" target="_blank" rel="noopener noreferrer" title="open-source continuous profiling platform">
-						<img src="/img/logo/pyroscope-logo.png" alt="pyroscope">
+						<img src="/img/logo/pyroscope-logo.png" alt="pyroscope" loading="lazy">
 						<div class="item-name">Pyroscope</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.kafkatool.com/" target="_blank" rel="noopener noreferrer" title="kafka data viewer">
-						<img src="/img/logo/kafka-tool-logo.jpeg" alt="kafkatool">
+						<img src="/img/logo/kafka-tool-logo.jpeg" alt="kafkatool" loading="lazy">
 						<div class="item-name">kafkatool</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://dbeaver.io/" target="_blank" rel="noopener noreferrer" title="database tool, supports most databases">
-						<img src="/img/logo/dbeaver-logo.png" alt="dbeaver">
+						<img src="/img/logo/dbeaver-logo.png" alt="dbeaver" loading="lazy">
 						<div class="item-name">dbeaver</div>
 					</a>
 				</div>
@@ -136,31 +136,31 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://leetcode-cn.com/" target="_blank" rel="noopener noreferrer" title="leetcode-cn.com">
-						<img src="/img/logo/leetcode-logo.jpeg" alt="LeetCode">
+						<img src="/img/logo/leetcode-logo.jpeg" alt="LeetCode" loading="lazy">
 						<div class="item-name">LeetCode</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.reddit.com/" target="_blank" rel="noopener noreferrer" title="www.reddit.com">
-						<img src="/img/logo/reddit-logo.png" alt="reddit">
+						<img src="/img/logo/reddit-logo.png" alt="reddit" loading="lazy">
 						<div class="item-name">Reddit</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://medium.com/" target="_blank" rel="noopener noreferrer" title="medium.com">
-						<img src="/img/logo/medium-logo.png" alt="medium">
+						<img src="/img/logo/medium-logo.png" alt="medium" loading="lazy">
 						<div class="item-name">Medium</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer" title="Bilibili">
-						<img src="/img/logo/bilibili-logo.png" alt="bilibili">
+						<img src="/img/logo/bilibili-logo.png" alt="bilibili" loading="lazy">
 						<div class="item-name">Bilibili</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://time.geekbang.org/" target="_blank" rel="noopener noreferrer" title="GeekTime">
-						<img src="/img/logo/geekbang-logo.jpeg" alt="geekbang">
+						<img src="/img/logo/geekbang-logo.jpeg" alt="geekbang" loading="lazy">
 						<div class="item-name">GeekTime</div>
 					</a>
 				</div>
@@ -173,13 +173,13 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://www.gitbook.com/" target="_blank" rel="noopener noreferrer" title="www.gitbook.com">
-						<img src="/img/logo/gitbook-logo.jpeg" alt="gitbook">
+						<img src="/img/logo/gitbook-logo.jpeg" alt="gitbook" loading="lazy">
 						<div class="item-name">gitbook</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.bookstack.cn/" target="_blank" rel="noopener noreferrer" title="www.bookstack.cn">
-						<img src="/img/logo/bookstack-logo.png" alt="bookstack">
+						<img src="/img/logo/bookstack-logo.png" alt="bookstack" loading="lazy">
 						<div class="item-name">BookStack</div>
 					</a>
 				</div>
@@ -192,31 +192,31 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://anaconda.org.cn/" target="_blank" rel="noopener noreferrer" title="anaconda cn">
-						<img src="/img/logo/anaconda-logo.png" alt="conda">
+						<img src="/img/logo/anaconda-logo.png" alt="conda" loading="lazy">
 						<div class="item-name">conda</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer" title="pandas official docs">
-						<img src="/img/logo/pandas-logo.svg" alt="pandas">
+						<img src="/img/logo/pandas-logo.svg" alt="pandas" loading="lazy">
 						<div class="item-name">pandas</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://tensorflow.google.cn/" target="_blank" rel="noopener noreferrer" title="tensorflow cn">
-						<img src="/img/logo/tensorflow-logo.jpeg" alt="tensorflow">
+						<img src="/img/logo/tensorflow-logo.jpeg" alt="tensorflow" loading="lazy">
 						<div class="item-name">tensorflow</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" title="pytorch">
-						<img src="/img/logo/pytorch-logo.png" alt="pytorch">
+						<img src="/img/logo/pytorch-logo.png" alt="pytorch" loading="lazy">
 						<div class="item-name">pytorch</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://github.com/NVIDIA-Merlin/HugeCTR" target="_blank" rel="noopener noreferrer" title="Merlin: HugeCTR">
-						<img src="/img/logo/merlin-logo.png" alt="pytorch">
+						<img src="/img/logo/merlin-logo.png" alt="pytorch" loading="lazy">
 						<div class="item-name">HugeCTR</div>
 					</a>
 				</div>
@@ -229,19 +229,19 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://www.processon.com/" target="_blank" rel="noopener noreferrer" title="online diagramming">
-						<img src="/img/logo/processon-logo.svg" alt="processon">
+						<img src="/img/logo/processon-logo.svg" alt="processon" loading="lazy">
 						<div class="item-name">ProcessOn</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.diagrams.net/" target="_blank" rel="noopener noreferrer" title="diagrams or draw.io">
-						<img src="/img/logo/diagrams-logo.jpeg" alt="diagrams">
+						<img src="/img/logo/diagrams-logo.jpeg" alt="diagrams" loading="lazy">
 						<div class="item-name">diagrams</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://www.edrawsoft.cn/" target="_blank" rel="noopener noreferrer" title="powerful diagramming, multi-scenario">
-						<img src="/img/logo/edraw-logo.jpeg" alt="edrawsoft">
+						<img src="/img/logo/edraw-logo.jpeg" alt="edrawsoft" loading="lazy">
 						<div class="item-name">Edraw</div>
 					</a>
 				</div>
@@ -254,13 +254,13 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://docsmall.com/image-compress" target="_blank" rel="noopener noreferrer" title="image compression">
-						<img src="/img/logo/docsmall-logo.png" alt="docsmall">
+						<img src="/img/logo/docsmall-logo.png" alt="docsmall" loading="lazy">
 						<div class="item-name">docsmall</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer" title="image compression">
-					<img src="/img/logo/tinypng-logo.png" alt="tinypng" style="background-color:white;">
+					<img src="/img/logo/tinypng-logo.png" alt="tinypng" loading="lazy" style="background-color:white;">
 						<div class="item-name">tinypng</div>
 					</a>
 				</div>
@@ -278,25 +278,25 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://www.pexels.com/" target="_blank" rel="noopener noreferrer" title="free stock photos - pexels">
-						<img src="/img/logo/pexels-logo.png" alt="pexels">
+						<img src="/img/logo/pexels-logo.png" alt="pexels" loading="lazy">
 						<div class="item-name">pexels</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://pngimg.com/" target="_blank" rel="noopener noreferrer" title="PNG images and cliparts for web design">
-						<img src="/img/logo/pnging-logo.png" alt="pngimg" style="background-color:white;">
+						<img src="/img/logo/pnging-logo.png" alt="pngimg" loading="lazy" style="background-color:white;">
 						<div class="item-name">pngimg</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://unsplash.com/" target="_blank" rel="noopener noreferrer" title="free usable images">
-						<img src="/img/logo/unsplash-logo.png" alt="unsplash" style="background-color:white;">
+						<img src="/img/logo/unsplash-logo.png" alt="unsplash" loading="lazy" style="background-color:white;">
 						<div class="item-name">unsplash</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://pixabay.com/" target="_blank" rel="noopener noreferrer" title="free images">
-						<img src="/img/logo/pixabay-logo.png" alt="pixabay">
+						<img src="/img/logo/pixabay-logo.png" alt="pixabay" loading="lazy">
 						<div class="item-name">pixabay</div>
 					</a>
 				</div>
@@ -309,13 +309,13 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://studygolang.com/" target="_blank" rel="noopener noreferrer" title="Go directory">
-						<img src="/img/logo/hao-studygolang-logo.png" alt="hao.studygolang">
+						<img src="/img/logo/hao-studygolang-logo.png" alt="hao.studygolang" loading="lazy">
 						<div class="item-name">Go Directory</div>
 					</a>
 				</div>
 				<div class="item">
 					<a href="https://github.com/sindresorhus/awesome" target="_blank" rel="noopener noreferrer" title="awesome source">
-						<img src="/img/logo/awesome-logo.svg" alt="awesome">
+						<img src="/img/logo/awesome-logo.svg" alt="awesome" loading="lazy">
 						<div class="item-name">awesome</div>
 					</a>
 				</div>
@@ -328,7 +328,7 @@
 			<div class="row">
 				<div class="item">
 					<a href="https://www.wps.cn/" target="_blank" rel="noopener noreferrer" title="wps">
-						<img src="/img/logo/wps-logo.png" alt="wps">
+						<img src="/img/logo/wps-logo.png" alt="wps" loading="lazy">
 						<div class="item-name">wps</div>
 					</a>
 				</div>
