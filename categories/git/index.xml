@@ -1113,7 +1113,7 @@ the command &ldquo;&ndash;edit-key&rdquo; to generate a subkey for this purpose.
 <ul>
 <li>Mac users, <strong><a href="https://gpgtools.org/" target="_blank" rel="noopener noreffer ">GPG Suite</a></strong> 可以将你的 <em>GPG key passphrase</em> 存储在 <strong>Mac OS Keychain</strong></li>
 <li>Windows users, <strong><a href="https://www.gpg4win.org/" target="_blank" rel="noopener noreffer ">Gpg4win</a></strong></li>
-<li>Manually 配置 <strong><a href="http://linux.die.net/man/1/gpg-agent" target="_blank" rel="noopener noreffer ">gpg-agent</a></strong> 来存储</li>
+<li>Manually 配置 <strong><a href="https://linux.die.net/man/1/gpg-agent" target="_blank" rel="noopener noreffer ">gpg-agent</a></strong> 来存储</li>
 </ul>
 </div>
         </div>

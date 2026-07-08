@@ -475,7 +475,7 @@ You can store the **GPG key passphrase** to avoid entering it on every sign:
 
 - Mac users, **[GPG Suite](https://gpgtools.org/)** can store your *GPG key passphrase* in **Mac OS Keychain**
 - Windows users, **[Gpg4win](https://www.gpg4win.org/)**
-- Manually configure **[gpg-agent](http://linux.die.net/man/1/gpg-agent)** to store it
+- Manually configure **[gpg-agent](https://linux.die.net/man/1/gpg-agent)** to store it
 
 {{< /admonition >}}
 

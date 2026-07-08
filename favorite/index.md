@@ -283,7 +283,7 @@
 					</a>
 				</div>
 				<div class="item">
-					<a href="http://pngimg.com/" target="_blank" rel="noopener noreferrer" title="PNG images and cliparts for web design">
+					<a href="https://pngimg.com/" target="_blank" rel="noopener noreferrer" title="PNG images and cliparts for web design">
 						<img src="/img/logo/pnging-logo.png" alt="pngimg" style="background-color:white;">
 						<div class="item-name">pngimg</div>
 					</a>

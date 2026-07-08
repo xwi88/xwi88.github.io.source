@@ -475,7 +475,7 @@ git config --global commit.gpgsign true
 
 - Mac users, **[GPG Suite](https://gpgtools.org/)** 可以将你的 *GPG key passphrase* 存储在 **Mac OS Keychain**
 - Windows users, **[Gpg4win](https://www.gpg4win.org/)**
-- Manually 配置 **[gpg-agent](http://linux.die.net/man/1/gpg-agent)** 来存储
+- Manually 配置 **[gpg-agent](https://linux.die.net/man/1/gpg-agent)** 来存储
 
 {{< /admonition >}}
 
