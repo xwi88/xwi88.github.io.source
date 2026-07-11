@@ -1,7 +1,7 @@
 # Hugo Plugin Utterances Usage
 
 
-Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。
+Configuration and usage of the Hugo comments plugin utterances, based on personal experimentation — shared to help anyone who needs it.
 
 <!--more-->
 

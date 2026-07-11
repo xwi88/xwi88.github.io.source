@@ -361,7 +361,7 @@ The number of people who visit a site within a day, identified by cookie. Multip
 <ul>
 <li><a href="https://github.com/xwi88/xwi88.github.io.source/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">github.com/xwi88/xwi88.github.io.source</a></li>
 <li><a href="https://gitee.com/xwi88/xwi88/commit/52ae125ad1b24910c0f3aa61e93a5ab6ef8b2575" target="_blank" rel="noopener noreffer ">gitee.com/xwi88/xwi88</a></li>
-</ul>]]></description></item><item><title>Hugo Plugin Utterances Usage</title><link>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</link><pubDate>Fri, 04 Mar 2022 07:38:57 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</guid><description><![CDATA[<p>Hugo 评论插件 utterances 配置使用, 基于个人实验验证，旨在为需要的人提供方便。</p>
+</ul>]]></description></item><item><title>Hugo Plugin Utterances Usage</title><link>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</link><pubDate>Fri, 04 Mar 2022 07:38:57 +0800</pubDate><author>xwi88</author><guid>https://blog.xwi88.com/en/hugo-plugin-utterances-usage/</guid><description><![CDATA[<p>Configuration and usage of the Hugo comments plugin utterances, based on personal experimentation — shared to help anyone who needs it.</p>
 <blockquote>
 <p><em>blog theme</em>: <a href="https://github.com/xwi88/LoveIt.git" target="_blank" rel="noopener noreffer ">LoveIt</a></p>
 </blockquote>
